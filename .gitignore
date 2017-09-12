@@ -1,3 +1,6 @@
+# Apple junk
+.DS_Store
+
 # Built application files
 *.apk
 *.ap_
@@ -47,7 +50,7 @@ captures/
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+#google-services.json
 
 # Freeline
 freeline.py
