@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.support.annotation.Nullable;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -19,6 +20,10 @@ import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
@@ -59,14 +64,18 @@ public class Simple
     public static final int MP = ViewGroup.LayoutParams.MATCH_PARENT;
     public static final int WC = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-    public static int getScreenWidth()
+    public static boolean isTablet()
     {
-        return Resources.getSystem().getDisplayMetrics().widthPixels;
-    }
+        Log.d(LOGTAG, "isTablet: " + (Resources.getSystem().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK));
 
-    public static int getScreenHeight()
-    {
-        return Resources.getSystem().getDisplayMetrics().heightPixels;
+        Log.d(LOGTAG, "isTablet: " + ((Resources.getSystem().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE));
+
+        return ((Resources.getSystem().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
     public static int dipToPx(int dp)
@@ -581,15 +590,15 @@ public class Simple
         return null;
     }
 
-    public static Drawable getDrawableFromResources(Context context, int id)
+    public static BitmapDrawable getDrawableFromResources(Context context, int id)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            return context.getResources().getDrawable(id, null);
+            return (BitmapDrawable) context.getResources().getDrawable(id, null);
         }
 
         //noinspection deprecation
-        return context.getResources().getDrawable(id);
+        return (BitmapDrawable) context.getResources().getDrawable(id);
     }
 
     public static Bitmap makeCircleBitmap(Bitmap bitmap)
@@ -648,5 +657,76 @@ public class Simple
     public static Bitmap getBitmap(Context context, int resid)
     {
         return BitmapFactory.decodeResource(context.getResources(), resid);
+    }
+
+    public static FrameLayout.LayoutParams getLayoutFromRect(Rect rect)
+    {
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(rect.width(), rect.height());
+
+        lp.leftMargin = rect.left;
+        lp.topMargin = rect.top;
+
+        return lp;
+    }
+
+    public static FrameLayout.LayoutParams getScaledLayout(Context context, Rect rect, int imageresid)
+    {
+        //
+        // Get current screen dimensions in full screen mode.
+        //
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getRealMetrics(metrics);
+
+        int screenWidth = metrics.widthPixels;
+        int screenHeight = metrics.heightPixels;
+
+        //
+        // Get unfucked real drawable dimensions.
+        //
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageresid, options);
+
+        int imageWidth = bitmap.getWidth();
+        int imageHeight = bitmap.getHeight();
+
+        Log.d(LOGTAG, "getScaledLayout: screenWidth=" + screenWidth + " screenHeight=" + screenHeight);
+        Log.d(LOGTAG, "getScaledLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+
+        //
+        // Get aspect ration and margins from fit image into screen.
+        //
+
+        float xAspectRatio = screenWidth / (float) imageWidth;
+        float yAspectRatio = screenHeight / (float) imageHeight;
+
+        Log.d(LOGTAG, "getScaledLayout: xAspect=" + xAspectRatio + " yAspect=" + yAspectRatio);
+
+        float aspectRatio = Math.min(xAspectRatio, yAspectRatio);
+
+        int leftMargin = (screenWidth - Math.round(imageWidth * aspectRatio)) / 2;
+        int topMargin = (screenHeight - Math.round(imageHeight * aspectRatio)) / 2;
+
+        Log.d(LOGTAG, "getScaledLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
+
+        //
+        // Scale rectangle to final position.
+        //
+
+        Log.d(LOGTAG, "getScaledLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+
+        rect.left = leftMargin + Math.round(rect.left * aspectRatio);
+        rect.top = topMargin + Math.round(rect.top * aspectRatio);
+        rect.right = leftMargin + Math.round(rect.right * aspectRatio);
+        rect.bottom = topMargin + Math.round(rect.bottom * aspectRatio);
+
+        Log.d(LOGTAG, "getScaledLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+
+        return getLayoutFromRect(rect);
     }
 }
