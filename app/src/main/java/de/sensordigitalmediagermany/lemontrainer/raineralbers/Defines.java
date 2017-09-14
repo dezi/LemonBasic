@@ -24,7 +24,7 @@ public class Defines
     // Colors.
     //
 
-    public static final int COLOR_SENSOR_XXX = 0xff00c100;
+    public static final int COLOR_SENSOR_CONTENT = 0xffb6c4d2;
 
     public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
 

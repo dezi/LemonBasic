@@ -103,16 +103,16 @@ public class Screens
     public static Rect getContentScreenNaviButtonLeftRect()
     {
         return Simple.isTablet()
-                ? new Rect(10, 10, 300, 40)
-                : new Rect(10, 10, 300, 40)
+                ? new Rect(5, 5, 315, 55)
+                : new Rect(5, 5, 315, 55)
                 ;
     }
 
     public static Rect getContentScreenNaviButtonRightRect()
     {
         return Simple.isTablet()
-                ? new Rect(330, 10, 630, 40)
-                : new Rect(330, 10, 630, 40)
+                ? new Rect(325, 5, 635, 55)
+                : new Rect(325, 5, 635, 55)
                 ;
     }
 }

@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.graphics.Color;
@@ -8,7 +9,9 @@ import android.os.Bundle;
 public class ContentActivity extends FullScreenActivity
 {
     protected LinearLayout contentFrame;
+    protected FrameLayout headerFrame;
     protected ImageView headerImage;
+    protected FrameLayout naviFrame;
     protected ImageView naviImage;
 
     @Override
@@ -18,9 +21,15 @@ public class ContentActivity extends FullScreenActivity
 
         contentFrame = new LinearLayout(this);
         contentFrame.setOrientation(LinearLayout.VERTICAL);
+        contentFrame.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
         Simple.setSizeDip(contentFrame, Simple.MP, Simple.MP);
 
         topFrame.addView(contentFrame);
+
+        headerFrame = new FrameLayout(this);
+        Simple.setSizeDip(headerFrame, Simple.MP, Simple.WC);
+
+        contentFrame.addView(headerFrame);
 
         int hdresid = Screens.getContentScreenHeaderMPfeilRes();
 
@@ -29,7 +38,7 @@ public class ContentActivity extends FullScreenActivity
         headerImage.setImageResource(hdresid);
         headerImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-        contentFrame.addView(headerImage);
+        headerFrame.addView(headerImage);
 
         ScaledButton backButton = new ScaledButton(this);
         backButton.setContent(headerImage, Screens.getContentScreenButtonBackRect(), hdresid);
@@ -43,7 +52,7 @@ public class ContentActivity extends FullScreenActivity
             }
         });
 
-        topFrame.addView(backButton);
+        headerFrame.addView(backButton);
 
         ScaledButton profileButton = new ScaledButton(this);
         profileButton.setContent(headerImage, Screens.getContentScreenButtonProfileRect(), hdresid);
@@ -56,7 +65,12 @@ public class ContentActivity extends FullScreenActivity
             }
         });
 
-        topFrame.addView(profileButton);
+        headerFrame.addView(profileButton);
+
+        naviFrame = new FrameLayout(this);
+        Simple.setSizeDip(naviFrame, Simple.MP, Simple.WC);
+
+        contentFrame.addView(naviFrame);
 
         int nvresid = Screens.getContentScreenNaviAllContentRes();
 
@@ -66,11 +80,10 @@ public class ContentActivity extends FullScreenActivity
         naviImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         naviImage.setBackgroundColor(Color.WHITE);
 
-        contentFrame.addView(naviImage);
+        naviFrame.addView(naviImage);
 
         ScaledButton naviLeftButton = new ScaledButton(this);
         naviLeftButton.setContent(naviImage, Screens.getContentScreenNaviButtonLeftRect(), nvresid);
-        naviLeftButton.setBackgroundColor(0x88880000);
 
         naviLeftButton.setOnButtonClicked(new Runnable()
         {
@@ -80,11 +93,10 @@ public class ContentActivity extends FullScreenActivity
             }
         });
 
-        topFrame.addView(naviLeftButton);
+        naviFrame.addView(naviLeftButton);
 
         ScaledButton naviRightButton = new ScaledButton(this);
         naviRightButton.setContent(naviImage, Screens.getContentScreenNaviButtonRightRect(), nvresid);
-        naviRightButton.setBackgroundColor(0x88880000);
 
         naviRightButton.setOnButtonClicked(new Runnable()
         {
@@ -94,6 +106,6 @@ public class ContentActivity extends FullScreenActivity
             }
         });
 
-        topFrame.addView(naviRightButton);
+        naviFrame.addView(naviRightButton);
     }
 }
