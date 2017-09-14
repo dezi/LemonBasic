@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.content.pm.PackageInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,18 +16,16 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.os.Looper;
-
-import android.content.res.Resources;
-import android.graphics.drawable.GradientDrawable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.StrictMode;
+import android.os.Build;
+import android.os.Looper;
 import android.util.TypedValue;
 import android.util.Log;
 
@@ -52,6 +51,7 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public class Simple
 {
     private static final String LOGTAG = Simple.class.getSimpleName();
@@ -279,47 +279,6 @@ public class Simple
     public static boolean isUIThread()
     {
         return (Looper.getMainLooper().getThread() == Thread.currentThread());
-    }
-
-    public static void errorAlert(final ViewGroup rootView, int titleres, int msgres)
-    {
-        errorAlert(rootView, titleres, msgres, null);
-    }
-
-    public static void errorAlert(final ViewGroup rootView, int titleres, int msgres, View.OnClickListener onokclick)
-    {
-        errorAlert(rootView, titleres, rootView.getContext().getResources().getString(msgres), onokclick);
-    }
-
-    public static void errorAlert(final ViewGroup rootView, int titleres, String msgstr)
-    {
-        errorAlert(rootView, titleres, msgstr, null);
-    }
-
-    public static void errorAlert(final ViewGroup rootView, int titleres, String msgstr, View.OnClickListener onokclick)
-    {
-        final DialogView dialogView = new DialogView(rootView.getContext());
-
-        dialogView.setTitleText(titleres);
-        dialogView.setInfoText(msgstr);
-
-        dialogView.setPositiveButton(R.string.button_ok, onokclick);
-
-        if (isUIThread())
-        {
-            rootView.addView(dialogView);
-        }
-        else
-        {
-            ApplicationBase.handler.post(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    rootView.addView(dialogView);
-                }
-            });
-        }
     }
 
     public static String getAppVersion(Context context)

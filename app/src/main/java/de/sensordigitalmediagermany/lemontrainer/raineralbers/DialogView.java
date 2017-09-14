@@ -17,6 +17,47 @@ public class DialogView extends RelativeLayout
 {
     private static final String LOGTAG = DialogView.class.getSimpleName();
 
+    public static void errorAlert(final ViewGroup rootView, int titleres, int msgres)
+    {
+        errorAlert(rootView, titleres, msgres, null);
+    }
+
+    public static void errorAlert(final ViewGroup rootView, int titleres, int msgres, View.OnClickListener onokclick)
+    {
+        errorAlert(rootView, titleres, rootView.getContext().getResources().getString(msgres), onokclick);
+    }
+
+    public static void errorAlert(final ViewGroup rootView, int titleres, String msgstr)
+    {
+        errorAlert(rootView, titleres, msgstr, null);
+    }
+
+    public static void errorAlert(final ViewGroup rootView, int titleres, String msgstr, View.OnClickListener onokclick)
+    {
+        final DialogView dialogView = new DialogView(rootView.getContext());
+
+        dialogView.setTitleText(titleres);
+        dialogView.setInfoText(msgstr);
+
+        dialogView.setPositiveButton(R.string.button_ok, onokclick);
+
+        if (Simple.isUIThread())
+        {
+            rootView.addView(dialogView);
+        }
+        else
+        {
+            ApplicationBase.handler.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    rootView.addView(dialogView);
+                }
+            });
+        }
+    }
+
     private ImageView closeButton;
     private LinearLayout padView;
     private TextView titleView;
@@ -112,7 +153,7 @@ public class DialogView extends RelativeLayout
 
         titleView = new TextView(context);
         titleView.setVisibility(GONE);
-        titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.NARROW_BOLD));
+        titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
         titleView.setTextColor(Color.BLACK);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
@@ -123,7 +164,7 @@ public class DialogView extends RelativeLayout
         infoView = new TextView(context);
         infoView.setVisibility(GONE);
         infoView.setMinLines(2);
-        infoView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.NARROW_LIGHT));
+        infoView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         infoView.setTextColor(Defines.COLOR_SENSOR_BLUE);
         infoView.setLineSpacing(0.0f, 1.5f);
@@ -147,7 +188,7 @@ public class DialogView extends RelativeLayout
         negativeButton.setSingleLine(true);
         negativeButton.setAllCaps(true);
         negativeButton.setVisibility(GONE);
-        negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.NARROW_LIGHT));
+        negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
         negativeButton.setTextColor(Color.BLACK);
         Simple.setTextSizeDip(negativeButton, 16);
@@ -179,7 +220,7 @@ public class DialogView extends RelativeLayout
         positiveButton.setSingleLine(true);
         positiveButton.setAllCaps(true);
         positiveButton.setVisibility(GONE);
-        positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.NARROW_LIGHT));
+        positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         positiveButton.setGravity(Gravity.CENTER_HORIZONTAL);
         positiveButton.setTextColor(Color.BLACK);
         Simple.setTextSizeDip(positiveButton, 16);

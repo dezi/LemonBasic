@@ -40,10 +40,8 @@ public class Defines
     // Typefaces.
     //
 
-    public static final String SANS_BOLD = "fonts/OpenSans-Bold.ttf";
-    public static final String NARROW_LIGHT = "fonts/GothamNarrow-Light.otf";
-    public static final String NARROW_BOOK = "fonts/GothamNarrow-Book.otf";
-    public static final String NARROW_BOLD = "fonts/GothamNarrow-Bold.otf";
+    public static final String GOTHAM_BOLD = "fonts/Gotham-Bold.otf";
+    public static final String GOTHAM_LIGHT = "fonts/Gotham-Light.otf";
 
     //
     // Fontsizes.
