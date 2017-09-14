@@ -35,4 +35,53 @@ public class Screens
                 : new Rect(  70,  850,  570,  920)
                 ;
     }
+
+    public static int getContentScreenHeaderOPfeilRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipho_header_opfeil
+                : R.drawable.lem_t_ipho_header_opfeil
+                ;
+    }
+
+    public static int getContentScreenHeaderOPfeilActiveRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipho_header_aktiv_opfeil
+                : R.drawable.lem_t_ipho_header_aktiv_opfeil
+                ;
+    }
+
+    public static int getContentScreenHeaderMPfeilRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipho_header_mpfeil
+                : R.drawable.lem_t_ipho_header_mpfeil
+                ;
+    }
+
+    public static int getContentScreenHeaderMPfeilActiveRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipho_header_aktiv_mpfeil
+                : R.drawable.lem_t_ipho_header_aktiv_mpfeil
+                ;
+    }
+
+    public static int getContentScreenNaviAllContentRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipho_header_navizeile1
+                : R.drawable.lem_t_ipho_header_navizeile1
+                ;
+    }
+
+    public static int getContentScreenNaviMyContentRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipho_header_navizeile2
+                : R.drawable.lem_t_ipho_header_navizeile2
+                ;
+    }
+
 }

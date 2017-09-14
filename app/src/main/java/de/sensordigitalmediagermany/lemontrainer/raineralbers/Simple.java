@@ -669,6 +669,58 @@ public class Simple
         return lp;
     }
 
+    public static FrameLayout.LayoutParams getFittedLayout(Context context, int imageresid)
+    {
+        //
+        // Get current screen dimensions in full screen mode.
+        //
+
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getRealMetrics(metrics);
+
+        int screenWidth = metrics.widthPixels;
+        int screenHeight = metrics.heightPixels;
+
+        //
+        // Get unfucked real drawable dimensions.
+        //
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageresid, options);
+
+        int imageWidth = bitmap.getWidth();
+        int imageHeight = bitmap.getHeight();
+
+        Log.d(LOGTAG, "getFittedLayout: screenWidth=" + screenWidth + " screenHeight=" + screenHeight);
+        Log.d(LOGTAG, "getFittedLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+
+        //
+        // Get aspect ratio and margins from fit image into screen.
+        //
+
+        float aspectRatio = screenWidth / (float) imageWidth;
+        Log.d(LOGTAG, "getFittedLayout: aspectRatio=" + aspectRatio);
+
+        //
+        // Create bounding rectangle.
+        //
+
+        Rect rect = new Rect();
+
+        rect.left = 0;
+        rect.top = 0;
+        rect.right = Math.round(imageWidth * aspectRatio);
+        rect.bottom = Math.round(imageHeight * aspectRatio);
+
+        Log.d(LOGTAG, "getFittedLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+
+        return getLayoutFromRect(rect);
+    }
+
     public static FrameLayout.LayoutParams getScaledLayout(Context context, Rect rect, int imageresid)
     {
         //
@@ -699,7 +751,7 @@ public class Simple
         Log.d(LOGTAG, "getScaledLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         //
-        // Get aspect ration and margins from fit image into screen.
+        // Get aspect ratio and margins from fit image into screen.
         //
 
         float xAspectRatio = screenWidth / (float) imageWidth;

@@ -30,6 +30,8 @@ public class Defines
     public static final int COLOR_SENSOR_DKBLUE = 0xff1E4682;
     public static final int COLOR_SENSOR_DKRED = 0xffc80032;
 
+    public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
+
     //
     // Corner radius for ALL buttons.
     //

@@ -1,10 +1,10 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.os.Bundle;
+import android.util.Log;
 
 public class MainActivity extends FullScreenActivity
 {
@@ -51,6 +51,15 @@ public class MainActivity extends FullScreenActivity
 
             ScaledButton contenButton = new ScaledButton(contentView.getContext());
             contenButton.setContent(Screens.getMainScreenButtonContentRect(), msresid);
+
+            contenButton.setOnButtonClicked(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Simple.startActivity(MainActivity.this, ContentActivity.class);
+                }
+            });
 
             topFrame.addView(contenButton);
         }
