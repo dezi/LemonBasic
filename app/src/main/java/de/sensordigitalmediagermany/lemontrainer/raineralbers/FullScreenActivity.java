@@ -2,9 +2,13 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
 
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
+import android.content.pm.ActivityInfo;
+import android.content.Context;
+import android.widget.FrameLayout;
 import android.util.DisplayMetrics;
+import android.view.WindowManager;
+import android.view.Display;
 import android.view.View;
 import android.os.Bundle;
 
@@ -19,7 +23,7 @@ public class FullScreenActivity extends AppCompatActivity
             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
-    protected View contentView;
+    protected FrameLayout topFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,6 +34,26 @@ public class FullScreenActivity extends AppCompatActivity
                 ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
                 : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         );
+
+        //
+        // Remove stupid menu bar.
+        //
+
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
+
+        //
+        // Get current screen dimensions in full screen mode.
+        //
+
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getRealMetrics(metrics);
+
+        topFrame = new FrameLayout(this);
+        topFrame.setLayoutParams(new FrameLayout.LayoutParams(metrics.widthPixels, metrics.heightPixels));
+
+        setContentView(topFrame);
 
         setUiFlags();
     }
@@ -48,18 +72,6 @@ public class FullScreenActivity extends AppCompatActivity
         super.onWindowFocusChanged(hasFocus);
 
         setUiFlags();
-    }
-
-    @Override
-    public void setContentView(View contentView)
-    {
-        super.setContentView(contentView);
-        this.contentView = contentView;
-    }
-
-    public View getContentView()
-    {
-        return contentView;
     }
 
     private void setUiFlags()

@@ -1,6 +1,5 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.media.Ringtone;
 import android.widget.RelativeLayout;
 import android.content.Context;
 import android.graphics.Rect;
@@ -19,9 +18,9 @@ public class ScaledButton extends RelativeLayout
         super(context);
     }
 
-    public void setContent(Rect rect, int imageresid)
+    public void setContent(View parent, Rect rect, int imageresid)
     {
-        setLayoutParams(Simple.getScaledLayout(getContext(), rect, imageresid));
+        setLayoutParams(Simple.getScaledLayout(parent, rect, imageresid));
 
         setOnTouchListener(onButtonTouch);
         setOnClickListener(onButtonClick);

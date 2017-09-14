@@ -166,7 +166,6 @@ public class DialogView extends RelativeLayout
         infoView.setMinLines(2);
         infoView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        infoView.setTextColor(Defines.COLOR_SENSOR_BLUE);
         infoView.setLineSpacing(0.0f, 1.5f);
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(infoView, 28);

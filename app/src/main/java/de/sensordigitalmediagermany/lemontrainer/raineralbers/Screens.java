@@ -68,6 +68,22 @@ public class Screens
                 ;
     }
 
+    public static Rect getContentScreenButtonBackRect()
+    {
+        return Simple.isTablet()
+                ? new Rect(30, 22,  90, 82)
+                : new Rect(30, 22,  90, 82)
+                ;
+    }
+
+    public static Rect getContentScreenButtonProfileRect()
+    {
+        return Simple.isTablet()
+                ? new Rect(100, 22,  160, 82)
+                : new Rect(100, 22,  160, 82)
+                ;
+    }
+
     public static int getContentScreenNaviAllContentRes()
     {
         return Simple.isTablet()
@@ -84,4 +100,19 @@ public class Screens
                 ;
     }
 
+    public static Rect getContentScreenNaviButtonLeftRect()
+    {
+        return Simple.isTablet()
+                ? new Rect(10, 10, 300, 40)
+                : new Rect(10, 10, 300, 40)
+                ;
+    }
+
+    public static Rect getContentScreenNaviButtonRightRect()
+    {
+        return Simple.isTablet()
+                ? new Rect(330, 10, 630, 40)
+                : new Rect(330, 10, 630, 40)
+                ;
+    }
 }

@@ -520,14 +520,12 @@ public class Simple
     {
         if (context instanceof Activity) ((Activity) context).finishAffinity();
 
-        Intent intent = new Intent(context, cls);
-        context.startActivity(intent);
+        context.startActivity(new Intent(context, cls));
     }
 
     public static void startActivityFinish(Context context, Class<?> cls)
     {
-        Intent intent = new Intent(context, cls);
-        context.startActivity(intent);
+        context.startActivity(new Intent(context, cls));
 
         if (context instanceof Activity) ((Activity) context).finish();
     }
@@ -669,19 +667,16 @@ public class Simple
         return lp;
     }
 
-    public static FrameLayout.LayoutParams getFittedLayout(Context context, int imageresid)
+    public static FrameLayout.LayoutParams getFittedHorzLayout(View parent, int imageresid)
     {
-        //
-        // Get current screen dimensions in full screen mode.
-        //
+        int parentWidth = parent.getWidth();
+        int parentHeight = parent.getHeight();
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getRealMetrics(metrics);
-
-        int screenWidth = metrics.widthPixels;
-        int screenHeight = metrics.heightPixels;
+        if ((parentWidth == 0) || (parentHeight == 0))
+        {
+            parentWidth = parent.getLayoutParams().width;
+            parentHeight = parent.getLayoutParams().height;
+        }
 
         //
         // Get unfucked real drawable dimensions.
@@ -690,19 +685,19 @@ public class Simple
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageresid, options);
+        Bitmap bitmap = BitmapFactory.decodeResource(parent.getContext().getResources(), imageresid, options);
 
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
 
-        Log.d(LOGTAG, "getFittedLayout: screenWidth=" + screenWidth + " screenHeight=" + screenHeight);
+        Log.d(LOGTAG, "getFittedLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
         Log.d(LOGTAG, "getFittedLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         //
         // Get aspect ratio and margins from fit image into screen.
         //
 
-        float aspectRatio = screenWidth / (float) imageWidth;
+        float aspectRatio = parentWidth / (float) imageWidth;
         Log.d(LOGTAG, "getFittedLayout: aspectRatio=" + aspectRatio);
 
         //
@@ -721,19 +716,16 @@ public class Simple
         return getLayoutFromRect(rect);
     }
 
-    public static FrameLayout.LayoutParams getScaledLayout(Context context, Rect rect, int imageresid)
+    public static FrameLayout.LayoutParams getScaledLayout(View parent, Rect rect, int imageresid)
     {
-        //
-        // Get current screen dimensions in full screen mode.
-        //
+        int parentWidth = parent.getWidth();
+        int parentHeight = parent.getHeight();
 
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics metrics = new DisplayMetrics();
-        display.getRealMetrics(metrics);
-
-        int screenWidth = metrics.widthPixels;
-        int screenHeight = metrics.heightPixels;
+        if ((parentWidth == 0) || (parentHeight == 0))
+        {
+            parentWidth = parent.getLayoutParams().width;
+            parentHeight = parent.getLayoutParams().height;
+        }
 
         //
         // Get unfucked real drawable dimensions.
@@ -742,27 +734,27 @@ public class Simple
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
 
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imageresid, options);
+        Bitmap bitmap = BitmapFactory.decodeResource(parent.getContext().getResources(), imageresid, options);
 
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
 
-        Log.d(LOGTAG, "getScaledLayout: screenWidth=" + screenWidth + " screenHeight=" + screenHeight);
+        Log.d(LOGTAG, "getScaledLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
         Log.d(LOGTAG, "getScaledLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         //
         // Get aspect ratio and margins from fit image into screen.
         //
 
-        float xAspectRatio = screenWidth / (float) imageWidth;
-        float yAspectRatio = screenHeight / (float) imageHeight;
+        float xAspectRatio = parentWidth / (float) imageWidth;
+        float yAspectRatio = parentHeight / (float) imageHeight;
 
         Log.d(LOGTAG, "getScaledLayout: xAspect=" + xAspectRatio + " yAspect=" + yAspectRatio);
 
         float aspectRatio = Math.min(xAspectRatio, yAspectRatio);
 
-        int leftMargin = (screenWidth - Math.round(imageWidth * aspectRatio)) / 2;
-        int topMargin = (screenHeight - Math.round(imageHeight * aspectRatio)) / 2;
+        int leftMargin = (parentWidth - Math.round(imageWidth * aspectRatio)) / 2;
+        int topMargin = (parentHeight - Math.round(imageHeight * aspectRatio)) / 2;
 
         Log.d(LOGTAG, "getScaledLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
 
