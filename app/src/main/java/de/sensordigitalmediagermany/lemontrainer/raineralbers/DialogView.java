@@ -58,24 +58,24 @@ public class DialogView extends RelativeLayout
         }
     }
 
-    private ImageView closeButton;
-    private LinearLayout padView;
-    private TextView titleView;
-    private TextView infoView;
-    private RelativeLayout customView;
-    private TextView positiveButton;
-    private TextView negativeButton;
+    protected ImageView closeButton;
+    protected LinearLayout padView;
+    protected TextView titleView;
+    protected TextView infoView;
+    protected RelativeLayout customView;
+    protected TextView positiveButton;
+    protected TextView negativeButton;
 
-    private OnClickListener positiveButtonOnClick;
-    private OnClickListener negativeButtonOnClick;
-    private OnClickListener closeButtonOnClick;
+    protected OnClickListener positiveButtonOnClick;
+    protected OnClickListener negativeButtonOnClick;
+    protected OnClickListener closeButtonOnClick;
 
     public DialogView(Context context)
     {
         super(context);
 
         setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        setBackgroundColor(0x22222222);
+        setBackgroundColor(Defines.COLOR_BACKGROUND_DIM);
         Simple.setSizeDip(this, Simple.MP, Simple.MP);
 
         setOnClickListener(new OnClickListener()
@@ -98,27 +98,26 @@ public class DialogView extends RelativeLayout
 
         RelativeLayout marginView = new RelativeLayout(context);
         Simple.setSizeDip(marginView, Simple.WC, Simple.WC);
-        Simple.setPaddingDip(marginView, Defines.PADDING_MEDIUM);
+        Simple.setPaddingDip(marginView, Defines.PADDING_TINY);
+        Simple.setRoundedCorners(marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_DKBLUE, true);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            marginView.setElevation(Simple.dipToPx(20));
+        }
 
         addView(marginView);
 
         LinearLayout boxView = new LinearLayout(context);
         boxView.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(boxView, Simple.WC, Simple.WC);
-        Simple.setRoundedCorners(boxView, Defines.BUTTON_CORNER_RADIUS, Defines.COLOR_SENSOR_DKBLUE, true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            boxView.setElevation(Simple.dipToPx(20));
-        }
 
         marginView.addView(boxView);
 
         closeButton = new ImageView(context);
         closeButton.setVisibility(GONE);
-        closeButton.setImageResource(R.drawable.symbol_abbrechen_56x56_2x);
+        closeButton.setImageResource(Screens.getCloseButtonRes());
         closeButton.setScaleType(ImageView.ScaleType.FIT_END);
-        closeButton.getDrawable().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
         Simple.setSizeDip(closeButton, Simple.MP, Defines.CLOSE_ICON_SIZE + (Defines.PADDING_MEDIUM * 2));
         Simple.setPaddingDip(closeButton, Defines.PADDING_MEDIUM);
 
@@ -145,9 +144,8 @@ public class DialogView extends RelativeLayout
 
         padView = new LinearLayout(context);
         padView.setOrientation(LinearLayout.VERTICAL);
-        padView.setBackgroundColor(Color.WHITE);
         Simple.setSizeDip(padView, Simple.WC, Simple.WC);
-        Simple.setPaddingDip(padView, Defines.PADDING_LARGE, Defines.PADDING_LARGE, Defines.PADDING_LARGE, 0);
+        Simple.setPaddingDip(padView, Defines.PADDING_XLARGE);
 
         boxView.addView(padView);
 
@@ -302,14 +300,24 @@ public class DialogView extends RelativeLayout
     {
         if (enable)
         {
-            Simple.setPaddingDip(padView, Defines.PADDING_LARGE, 0, Defines.PADDING_LARGE, 0);
+            Simple.setPaddingDip(padView, Defines.PADDING_XLARGE, 0, Defines.PADDING_XLARGE, Defines.PADDING_XLARGE);
         }
         else
         {
-            Simple.setPaddingDip(padView, Defines.PADDING_LARGE, Defines.PADDING_LARGE, Defines.PADDING_LARGE, 0);
+            Simple.setPaddingDip(padView, Defines.PADDING_XLARGE);
         }
 
         closeButton.setVisibility(enable ? VISIBLE : GONE);
         closeButtonOnClick = onClickListener;
+    }
+
+    public void dismissDialog()
+    {
+        ViewGroup parent = (ViewGroup) getParent();
+
+        if (parent != null)
+        {
+            parent.removeView(DialogView.this);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.graphics.Typeface;
+
 public class Defines
 {
     //
@@ -24,18 +26,20 @@ public class Defines
     // Colors.
     //
 
-    public static final int COLOR_SENSOR_CONTENT = 0xffb6c4d2;
-    public static final int COLOR_SENSOR_GREEN = 0xff54b23b;
     public static final int COLOR_SENSOR_DKBLUE = 0xff3b4455;
+    public static final int COLOR_SENSOR_GREEN = 0xff54b23b;
     public static final int COLOR_SENSOR_LTBLUE = 0xff657995;
+    public static final int COLOR_SENSOR_CONTENT = 0xffb6c4d2;
 
     public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
+    public static final int COLOR_BACKGROUND_DIM = 0x88000000;
 
     //
     // Corner radius for ALL buttons.
     //
 
-    public static final int BUTTON_CORNER_RADIUS = 3; // Important!
+    public static final int CORNER_RADIUS_BUTTON =  3; // Important!
+    public static final int CORNER_RADIUS_DIALOG = 16; // Important!
 
     //
     // Typefaces.
@@ -47,6 +51,11 @@ public class Defines
     //
     // Fontsizes.
     //
+
+    public static final int FS_DIALOG_TITLE = 20;
+    public static final int FS_DIALOG_EDIT = 20;
+    public static final int FS_DIALOG_BUTTON = 20;
+    public static final int FS_DIALOG_INFO = 16;
 
     //
     // Misc.

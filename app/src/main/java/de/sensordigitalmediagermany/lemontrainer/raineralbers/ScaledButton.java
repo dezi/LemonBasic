@@ -38,7 +38,7 @@ public class ScaledButton extends RelativeLayout
         {
             if (event.getAction() == MotionEvent.ACTION_DOWN)
             {
-                Simple.setRoundedCorners(view, Defines.BUTTON_CORNER_RADIUS, Defines.COLOR_BUTTON_TOUCHED, true);
+                Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_TOUCHED, true);
             }
 
             if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_CANCEL))

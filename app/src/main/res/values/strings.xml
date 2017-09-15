@@ -3,6 +3,22 @@
     <string name="app_name">LT Rainer Albers</string>
     <string name="button_ok">OK</string>
 
-    <string name="register_title">Melden Sie sich an:</string>
+    <string name="login_title">Melden Sie sich an:</string>
+    <string name="login_hint_email">E-Mail Adresse</string>
+    <string name="login_hint_password">Passwort</string>
+    <string name="login_login">Anmelden</string>
+    <string name="login_already_registered">Sie haben bereits ein Konto?</string>
+    <string name="login_password_forgotten">Passwort vergessen?</string>
+    <string name="login_register">Noch kein Konto? Jetzt Registrieren</string>
+
+    <string name="register_title">Registrieren Sie sich:</string>
+    <string name="register_hint_email">E-Mail Adresse</string>
+    <string name="register_hint_name">Vor- und Nachname</string>
+    <string name="register_hint_company">Unternehmen</string>
+    <string name="register_hint_password1">Passwort wählen</string>
+    <string name="register_hint_password2">Passwort wiederholen</string>
+    <string name="register_read_agb">Ja, ich habe die AGB gelesen und bin mit ihnen einverstanden.</string>
+    <string name="register_register">Konto erstellen</string>
+    <string name="register_login_here">Hier anmelden.</string>
 
 </resources>
