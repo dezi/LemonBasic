@@ -128,21 +128,22 @@ public class RegisterDialog extends DialogView
         dialogItems.addView(registerButton);
 
         RelativeLayout loginCenter = new RelativeLayout(getContext());
-        loginCenter.setGravity(CENTER_HORIZONTAL);
+        loginCenter.setGravity(Gravity.CENTER_HORIZONTAL);
+        Simple.setSizeDip(loginCenter, Simple.MP, Simple.WC);
 
         dialogItems.addView(loginCenter);
 
         LinearLayout loginStuff = new LinearLayout(getContext());
-        loginStuff.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(loginStuff, Simple.WC, Simple.WC);
-
+        loginStuff.setOrientation(Simple.isTablet() ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
+        Simple.setSizeDip(loginStuff, Simple.isTablet() ? Simple.WC : Simple.MP, Simple.WC);
         loginCenter.addView(loginStuff);
 
         TextView loginText = new TextView(getContext());
         loginText.setText(R.string.login_already_registered);
         loginText.setTextColor(Color.WHITE);
+        loginText.setGravity(Gravity.CENTER_HORIZONTAL);
         loginText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
-        Simple.setSizeDip(loginText, Simple.WC, Simple.WC);
+        Simple.setSizeDip(loginText, Simple.isTablet() ? Simple.WC : Simple.MP, Simple.WC);
         Simple.setTextSizeDip(loginText, Defines.FS_DIALOG_INFO);
         Simple.setPaddingDip(loginText, 0, 0, Defines.PADDING_TINY, 0);
 
@@ -151,9 +152,10 @@ public class RegisterDialog extends DialogView
         TextView loginButton = new TextView(getContext());
         loginButton.setText(R.string.register_login_here);
         loginButton.setTextColor(Color.WHITE);
+        loginButton.setGravity(Gravity.CENTER_HORIZONTAL);
         loginButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
         loginButton.setPaintFlags(loginButton.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        Simple.setSizeDip(loginButton, Simple.WC, Simple.WC);
+        Simple.setSizeDip(loginButton, Simple.isTablet() ? Simple.WC : Simple.MP, Simple.WC);
         Simple.setTextSizeDip(loginButton, Defines.FS_DIALOG_INFO);
 
         loginButton.setOnClickListener(new OnClickListener()

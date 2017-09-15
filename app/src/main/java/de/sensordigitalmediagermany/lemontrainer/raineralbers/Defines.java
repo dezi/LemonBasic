@@ -64,10 +64,10 @@ public class Defines
 
     // @formatter:off
     public static final int PADDING_TINY    = Simple.isTablet() ?  4 :  4;
-    public static final int PADDING_SMALL   = Simple.isTablet() ? 10 : 10;
-    public static final int PADDING_MEDIUM  = Simple.isTablet() ? 14 : 14;
-    public static final int PADDING_NORMAL  = Simple.isTablet() ? 16 : 16;
-    public static final int PADDING_LARGE   = Simple.isTablet() ? 20 : 20;
+    public static final int PADDING_SMALL   = Simple.isTablet() ? 10 :  8;
+    public static final int PADDING_MEDIUM  = Simple.isTablet() ? 14 : 12;
+    public static final int PADDING_NORMAL  = Simple.isTablet() ? 16 : 14;
+    public static final int PADDING_LARGE   = Simple.isTablet() ? 20 : 16;
     public static final int PADDING_XLARGE  = Simple.isTablet() ? 40 : 30;
     // @formatter:on
 
