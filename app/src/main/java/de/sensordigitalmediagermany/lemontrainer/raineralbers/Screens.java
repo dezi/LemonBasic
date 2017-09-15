@@ -36,35 +36,11 @@ public class Screens
                 ;
     }
 
-    public static int getContentScreenHeaderOPfeilRes()
-    {
-        return Simple.isTablet()
-                ? R.drawable.lem_t_ipho_header_opfeil
-                : R.drawable.lem_t_ipho_header_opfeil
-                ;
-    }
-
-    public static int getContentScreenHeaderOPfeilActiveRes()
-    {
-        return Simple.isTablet()
-                ? R.drawable.lem_t_ipho_header_aktiv_opfeil
-                : R.drawable.lem_t_ipho_header_aktiv_opfeil
-                ;
-    }
-
-    public static int getContentScreenHeaderMPfeilRes()
+    public static int getContentScreenHeader()
     {
         return Simple.isTablet()
                 ? R.drawable.lem_t_ipho_header_mpfeil
                 : R.drawable.lem_t_ipho_header_mpfeil
-                ;
-    }
-
-    public static int getContentScreenHeaderMPfeilActiveRes()
-    {
-        return Simple.isTablet()
-                ? R.drawable.lem_t_ipho_header_aktiv_mpfeil
-                : R.drawable.lem_t_ipho_header_aktiv_mpfeil
                 ;
     }
 

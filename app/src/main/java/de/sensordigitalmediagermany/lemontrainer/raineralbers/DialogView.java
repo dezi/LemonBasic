@@ -104,8 +104,8 @@ public class DialogView extends RelativeLayout
 
         LinearLayout boxView = new LinearLayout(context);
         boxView.setOrientation(LinearLayout.VERTICAL);
-        boxView.setBackgroundColor(Color.WHITE);
         Simple.setSizeDip(boxView, Simple.WC, Simple.WC);
+        Simple.setRoundedCorners(boxView, Defines.BUTTON_CORNER_RADIUS, Defines.COLOR_SENSOR_DKBLUE, true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {

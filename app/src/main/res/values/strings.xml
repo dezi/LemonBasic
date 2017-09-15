@@ -3,4 +3,6 @@
     <string name="app_name">LT Rainer Albers</string>
     <string name="button_ok">OK</string>
 
+    <string name="register_title">Melden Sie sich an:</string>
+
 </resources>

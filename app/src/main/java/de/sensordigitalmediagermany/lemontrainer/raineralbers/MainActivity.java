@@ -1,9 +1,12 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
+import android.view.Gravity;
 import android.widget.ImageView;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class MainActivity extends FullScreenActivity
 {
@@ -51,6 +54,15 @@ public class MainActivity extends FullScreenActivity
             ScaledButton loginButton = new ScaledButton(topFrame.getContext());
             loginButton.setContent(topFrame, Screens.getMainScreenButtonLoginRect(), msresid);
 
+            loginButton.setOnButtonClicked(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    showRegisterDialog();
+                }
+            });
+
             topFrame.addView(loginButton);
 
             ScaledButton contentButton = new ScaledButton(topFrame.getContext());
@@ -68,4 +80,28 @@ public class MainActivity extends FullScreenActivity
             topFrame.addView(contentButton);
         }
     };
+
+    protected void showRegisterDialog()
+    {
+        DialogView loginDialog = new DialogView(this);
+
+        loginDialog.setCloseButton(true, null);
+
+        LinearLayout dialogItems = new LinearLayout(this);
+        dialogItems.setOrientation(LinearLayout.VERTICAL);
+        dialogItems.setMinimumWidth(500);
+        Simple.setSizeDip(dialogItems, Simple.WC, Simple.WC);
+
+        TextView titleView = new TextView(this);
+        titleView.setGravity(Gravity.CENTER_HORIZONTAL);
+        titleView.setText(R.string.register_title);
+        titleView.setTextColor(Color.WHITE);
+        Simple.setSizeDip(titleView, Simple.MP, Simple.MP);
+
+        dialogItems.addView(titleView);
+
+        loginDialog.setCustomView(dialogItems);
+
+        topFrame.addView(loginDialog);
+    }
 }

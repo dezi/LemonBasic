@@ -1,8 +1,8 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.graphics.Color;
 import android.os.Bundle;
 
