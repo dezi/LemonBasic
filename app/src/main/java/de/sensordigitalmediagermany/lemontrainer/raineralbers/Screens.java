@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Rect;
 
+@SuppressWarnings({"WeakerAccess"})
 public class Screens
 {
     public static int getCloseButtonRes()

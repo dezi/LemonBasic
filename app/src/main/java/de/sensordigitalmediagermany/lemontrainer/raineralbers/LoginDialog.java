@@ -126,8 +126,8 @@ public class LoginDialog extends DialogView
         registerButton.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(registerButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(registerButton, Defines.FS_DIALOG_BUTTON);
+        Simple.setMarginTopDip(registerButton, Defines.PADDING_NORMAL);
         Simple.setPaddingDip(registerButton, Defines.PADDING_SMALL);
-        Simple.setMarginTopDip(registerButton, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(registerButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
 
         registerButton.setOnClickListener(new View.OnClickListener()

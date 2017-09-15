@@ -1,7 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.graphics.Typeface;
-
+@SuppressWarnings({"WeakerAccess"})
 public class Defines
 {
     //
@@ -52,21 +51,25 @@ public class Defines
     // Fontsizes.
     //
 
-    public static final int FS_DIALOG_TITLE = 20;
-    public static final int FS_DIALOG_EDIT = 20;
-    public static final int FS_DIALOG_BUTTON = 20;
-    public static final int FS_DIALOG_INFO = 16;
+    // @formatter:off
+    public static final int FS_DIALOG_TITLE  = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_EDIT   = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_BUTTON = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_INFO   = Simple.isTablet() ? 16 : 14;
+    // @formatter:on
 
     //
     // Misc.
     //
 
-    public static final int PADDING_TINY = 4;
-    public static final int PADDING_SMALL = 10;
-    public static final int PADDING_MEDIUM = 14;
-    public static final int PADDING_NORMAL = 16;
-    public static final int PADDING_LARGE = 20;
-    public static final int PADDING_XLARGE = 40;
+    // @formatter:off
+    public static final int PADDING_TINY    = Simple.isTablet() ?  4 :  4;
+    public static final int PADDING_SMALL   = Simple.isTablet() ? 10 : 10;
+    public static final int PADDING_MEDIUM  = Simple.isTablet() ? 14 : 14;
+    public static final int PADDING_NORMAL  = Simple.isTablet() ? 16 : 16;
+    public static final int PADDING_LARGE   = Simple.isTablet() ? 20 : 20;
+    public static final int PADDING_XLARGE  = Simple.isTablet() ? 40 : 30;
+    // @formatter:on
 
-    public static final int CLOSE_ICON_SIZE = 24; // Important!
+    public static final int CLOSE_ICON_SIZE = Simple.isTablet() ? 24 : 20; // Important!
 }
