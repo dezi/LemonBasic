@@ -139,7 +139,7 @@ public class ContentActivity extends FullScreenActivity
 
     private void showThemesMenu()
     {
-        PopupMenu themesPopup = new PopupMenu(this);
+        CategoryMenu themesPopup = new CategoryMenu(this);
         themesPopup.setTitle(R.string.themes_popup_title);
         themesPopup.setTopMargin(Simple.pxToDip(headerImage.getHeight() + naviFrame.getHeight()));
 

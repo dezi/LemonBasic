@@ -1,20 +1,20 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.view.ViewGroup;
+import android.view.Gravity;
+import android.view.View;
 
-public class PopupMenu extends RelativeLayout
+public class CategoryMenu extends RelativeLayout
 {
-    private static final String LOGTAG = PopupMenu.class.getSimpleName();
+    private static final String LOGTAG = CategoryMenu.class.getSimpleName();
 
     protected LinearLayout popupMargin;
     protected LinearLayout popupShape;
@@ -22,7 +22,7 @@ public class PopupMenu extends RelativeLayout
     protected TextView titleView;
 
     @SuppressLint("RtlHardcoded")
-    public PopupMenu(Context context)
+    public CategoryMenu(Context context)
     {
         super(context);
 
@@ -35,11 +35,11 @@ public class PopupMenu extends RelativeLayout
             @Override
             public void onClick(View view)
             {
-                    ViewGroup parent = (ViewGroup) PopupMenu.this.getParent();
+                    ViewGroup parent = (ViewGroup) CategoryMenu.this.getParent();
 
                     if (parent != null)
                     {
-                        parent.removeView(PopupMenu.this);
+                        parent.removeView(CategoryMenu.this);
                     }
             }
         });
