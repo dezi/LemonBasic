@@ -4,14 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.text.InputType;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.text.InputType;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class RegisterDialog extends DialogView
 {
@@ -53,6 +53,7 @@ public class RegisterDialog extends DialogView
         userName = new EditText(getContext());
         userName.setHint(R.string.register_hint_name);
         userName.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        userName.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(userName, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(userName, Defines.PADDING_NORMAL);
         Simple.setPaddingDip(userName,Defines.PADDING_SMALL);
@@ -64,6 +65,7 @@ public class RegisterDialog extends DialogView
         userCompany = new EditText(getContext());
         userCompany.setHint(R.string.register_hint_company);
         userCompany.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        userCompany.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(userCompany, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(userCompany, Defines.PADDING_NORMAL);
         Simple.setPaddingDip(userCompany,Defines.PADDING_SMALL);
@@ -75,6 +77,7 @@ public class RegisterDialog extends DialogView
         userEmail = new EditText(getContext());
         userEmail.setHint(R.string.register_hint_email);
         userEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        userEmail.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(userEmail, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(userEmail, Defines.PADDING_NORMAL);
         Simple.setPaddingDip(userEmail,Defines.PADDING_SMALL);
@@ -86,6 +89,7 @@ public class RegisterDialog extends DialogView
         passWord1 = new EditText(getContext());
         passWord1.setHint(R.string.register_hint_password1);
         passWord1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        passWord1.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(passWord1, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(passWord1, Defines.PADDING_NORMAL);
         Simple.setPaddingDip(passWord1,Defines.PADDING_SMALL);
@@ -97,6 +101,7 @@ public class RegisterDialog extends DialogView
         passWord2 = new EditText(getContext());
         passWord2.setHint(R.string.register_hint_password2);
         passWord2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        passWord2.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(passWord2, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(passWord2, Defines.PADDING_NORMAL);
         Simple.setPaddingDip(passWord2,Defines.PADDING_SMALL);
@@ -107,9 +112,9 @@ public class RegisterDialog extends DialogView
 
         TextView registerButton = new TextView(getContext());
         registerButton.setText(R.string.register_register);
+        registerButton.setGravity(Gravity.CENTER_HORIZONTAL);
         registerButton.setTextColor(Color.WHITE);
         registerButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
-        registerButton.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(registerButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(registerButton, Defines.FS_DIALOG_BUTTON);
         Simple.setPaddingDip(registerButton, Defines.PADDING_SMALL);

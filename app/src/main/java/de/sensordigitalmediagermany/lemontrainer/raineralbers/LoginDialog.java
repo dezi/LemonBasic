@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class LoginDialog extends DialogView
 {
@@ -49,6 +49,7 @@ public class LoginDialog extends DialogView
         userEmail = new EditText(getContext());
         userEmail.setHint(R.string.login_hint_email);
         userEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        userEmail.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(userEmail, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(userEmail, Defines.PADDING_LARGE);
         Simple.setPaddingDip(userEmail,Defines.PADDING_SMALL);
@@ -60,6 +61,7 @@ public class LoginDialog extends DialogView
         passWord = new EditText(getContext());
         passWord.setHint(R.string.login_hint_password);
         passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        passWord.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(passWord, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(passWord, Defines.PADDING_SMALL);
         Simple.setPaddingDip(passWord,Defines.PADDING_SMALL);
@@ -114,6 +116,11 @@ public class LoginDialog extends DialogView
             @Override
             public void onClick(View view)
             {
+                ViewGroup topFrame = (ViewGroup) LoginDialog.this.getParent();
+
+                dismissDialog();
+
+                topFrame.addView(new PasswordForgotDialog(LoginDialog.this.getContext()));
             }
         });
 

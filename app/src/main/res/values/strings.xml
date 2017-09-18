@@ -21,4 +21,8 @@
     <string name="register_register">Konto erstellen</string>
     <string name="register_login_here">Hier anmelden.</string>
 
+    <string name="password_forgot_title">Passwort vergessen:</string>
+    <string name="password_forgot_hint_email">E-Mail Adresse</string>
+    <string name="password_forgot_request">Absenden</string>
+
 </resources>

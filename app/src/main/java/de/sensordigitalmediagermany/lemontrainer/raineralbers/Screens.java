@@ -13,11 +13,19 @@ public class Screens
                 ;
     }
 
+    public static int getSplashScreenRes()
+    {
+        return Simple.isTablet()
+                ? -1
+                : R.drawable.lem_t_ipho_ralbers_splashscreen
+                ;
+    }
+
     public static int getMainScreenRes()
     {
         return Simple.isTablet()
-                ? R.drawable.lem_t_ipad_ralbers_splashscreen
-                : R.drawable.lem_t_ipho_ralbers_splashscreen
+                ? R.drawable.lem_t_ipad_ralbers_startscreen
+                : R.drawable.lem_t_ipho_ralbers_startscreen
                 ;
     }
 

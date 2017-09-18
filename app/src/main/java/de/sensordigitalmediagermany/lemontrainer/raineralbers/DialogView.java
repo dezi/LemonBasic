@@ -2,7 +2,6 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -99,7 +98,7 @@ public class DialogView extends RelativeLayout
         RelativeLayout marginView = new RelativeLayout(context);
         Simple.setSizeDip(marginView, Simple.WC, Simple.WC);
         Simple.setPaddingDip(marginView, Defines.PADDING_TINY);
-        Simple.setRoundedCorners(marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_DKBLUE, true);
+        Simple.setRoundedCorners(marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_DIALOGS, true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -151,7 +150,7 @@ public class DialogView extends RelativeLayout
 
         titleView = new TextView(context);
         titleView.setVisibility(GONE);
-        titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
+        titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
         titleView.setTextColor(Color.BLACK);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
@@ -185,7 +184,7 @@ public class DialogView extends RelativeLayout
         negativeButton.setSingleLine(true);
         negativeButton.setAllCaps(true);
         negativeButton.setVisibility(GONE);
-        negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
+        negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
         negativeButton.setTextColor(Color.BLACK);
         Simple.setTextSizeDip(negativeButton, 16);
@@ -217,7 +216,7 @@ public class DialogView extends RelativeLayout
         positiveButton.setSingleLine(true);
         positiveButton.setAllCaps(true);
         positiveButton.setVisibility(GONE);
-        positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
+        positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         positiveButton.setGravity(Gravity.CENTER_HORIZONTAL);
         positiveButton.setTextColor(Color.BLACK);
         Simple.setTextSizeDip(positiveButton, 16);

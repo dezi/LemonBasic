@@ -23,36 +23,53 @@ public class MainActivity extends FullScreenActivity
 
         topFrame.addView(splashScreen);
 
-        int msresid = Screens.getMainScreenRes();
-
-        splashScreen.setImageResource(msresid);
-
-        ScaledButton loginButton = new ScaledButton(topFrame.getContext());
-        loginButton.setContent(topFrame, Screens.getMainScreenButtonRegisterRect(), msresid);
-
-        loginButton.setOnButtonClicked(new Runnable()
+        if (Screens.getSplashScreenRes() < 0)
         {
-            @Override
-            public void run()
-            {
-                topFrame.addView(new LoginDialog(MainActivity.this));
-            }
-        });
-
-        topFrame.addView(loginButton);
-
-        ScaledButton contentButton = new ScaledButton(topFrame.getContext());
-        contentButton.setContent(topFrame, Screens.getMainScreenButtonContentRect(), msresid);
-
-        contentButton.setOnButtonClicked(new Runnable()
+            showMainScreen.run();
+        }
+        else
         {
-            @Override
-            public void run()
-            {
-                Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
-            }
-        });
+            splashScreen.setImageResource(Screens.getSplashScreenRes());
 
-        topFrame.addView(contentButton);
+            ApplicationBase.handler.postDelayed(showMainScreen, 2000);
+        }
     }
+
+    protected final Runnable showMainScreen = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            int msresid = Screens.getMainScreenRes();
+
+            splashScreen.setImageResource(msresid);
+
+            ScaledButton loginButton = new ScaledButton(topFrame.getContext());
+            loginButton.setContent(topFrame, Screens.getMainScreenButtonRegisterRect(), msresid);
+
+            loginButton.setOnButtonClicked(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    topFrame.addView(new LoginDialog(MainActivity.this));
+                }
+            });
+
+            topFrame.addView(loginButton);
+
+            ScaledButton contentButton = new ScaledButton(topFrame.getContext());
+            contentButton.setContent(topFrame, Screens.getMainScreenButtonContentRect(), msresid);
+
+            contentButton.setOnButtonClicked(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                }
+            });
+
+            topFrame.addView(contentButton);        }
+    };
 }
