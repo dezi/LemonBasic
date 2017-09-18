@@ -4,11 +4,14 @@ import android.graphics.Color;
 import android.widget.ImageView;
 import android.os.Bundle;
 
+import org.json.JSONObject;
+
 public class MainActivity extends FullScreenActivity
 {
     private static final String LOGTAG = MainActivity.class.getSimpleName();
 
     protected ImageView splashScreen;
+    protected boolean contentButtonClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,7 +36,28 @@ public class MainActivity extends FullScreenActivity
 
             ApplicationBase.handler.postDelayed(showMainScreen, 2000);
         }
+
+        ApplicationBase.handler.post(getData);
     }
+
+    protected final Runnable getData = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            ContentHandler.getAllContent(topFrame, new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    if (contentButtonClicked)
+                    {
+                        Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                    }
+                }
+            });
+        }
+    };
 
     protected final Runnable showMainScreen = new Runnable()
     {
@@ -66,10 +90,18 @@ public class MainActivity extends FullScreenActivity
                 @Override
                 public void run()
                 {
-                    Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                    if (Globals.contentsLoaded)
+                    {
+                        Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                    }
+                    else
+                    {
+                        contentButtonClicked = true;
+                    }
                 }
             });
 
-            topFrame.addView(contentButton);        }
+            topFrame.addView(contentButton);
+        }
     };
 }

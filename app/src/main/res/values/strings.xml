@@ -25,4 +25,13 @@
     <string name="password_forgot_hint_email">E-Mail Adresse</string>
     <string name="password_forgot_request">Absenden</string>
 
+    <string name="content_navibar_left_show_all">Alle Inhalte</string>
+    <string name="content_navibar_left_show_my">Meine Inhalte anzeigen</string>
+    <string name="content_navibar_right_themes">Themenauswahl</string>
+
+    <string name="themes_popup_title">Alle Themen anzeigen</string>
+
+    <string name="alert_content_title">Content-Liste</string>
+    <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>
+
 </resources>
