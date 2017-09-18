@@ -26,6 +26,14 @@ public class ScaledButton extends RelativeLayout
         setOnClickListener(onButtonClick);
     }
 
+    public void setContentHorz(View parent, Rect rect, int imageresid)
+    {
+        setLayoutParams(Simple.getScaledHorzLayout(parent, rect, imageresid));
+
+        setOnTouchListener(onButtonTouch);
+        setOnClickListener(onButtonClick);
+    }
+
     public void setOnButtonClicked(Runnable onButtonClicked)
     {
         this.onButtonClicked = onButtonClicked;

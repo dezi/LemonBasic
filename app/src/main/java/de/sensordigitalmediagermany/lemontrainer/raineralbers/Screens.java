@@ -8,8 +8,8 @@ public class Screens
     public static int getCloseButtonRes()
     {
         return Simple.isTablet()
-                ? R.drawable.lem_t_ipad_ralbers_kreuz
-                : R.drawable.lem_t_ipad_ralbers_kreuz
+                ? R.drawable.lem_t_iany_ralbers_kreuz
+                : R.drawable.lem_t_iany_ralbers_kreuz
                 ;
     }
 
@@ -49,7 +49,23 @@ public class Screens
     {
         return Simple.isTablet()
                 ? R.drawable.lem_t_ipad_ralbers_menueoben
-                : R.drawable.lem_t_ipad_ralbers_menueoben
+                : R.drawable.lem_t_ipho_ralbers_menueoben
+                ;
+    }
+
+    public static int getContentScreenButtonBackOnRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_back_on
+                : R.drawable.lem_t_iany_ralbers_back_on
+                ;
+    }
+
+    public static int getContentScreenButtonBackOffRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_back_off
+                : R.drawable.lem_t_iany_ralbers_back_off
                 ;
     }
 
@@ -61,10 +77,19 @@ public class Screens
                 ;
     }
 
+    public static int getContentScreenButtonProfileRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_ipad_ralbers_profile
+                : R.drawable.lem_t_ipho_ralbers_profile
+                ;
+    }
+
+
     public static Rect getContentScreenButtonProfileRect()
     {
         return Simple.isTablet()
-                ? new Rect(100, 22,  160, 82)
+                ? new Rect(100, 22,  500, 82)
                 : new Rect(100, 22,  160, 82)
                 ;
     }

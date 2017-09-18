@@ -714,6 +714,61 @@ public class Simple
         return getLayoutFromRect(rect);
     }
 
+    public static FrameLayout.LayoutParams getScaledHorzLayout(View parent, Rect rect, int imageresid)
+    {
+        int parentWidth = parent.getWidth();
+        int parentHeight = parent.getHeight();
+
+        if ((parentWidth == 0) || (parentHeight == 0))
+        {
+            parentWidth = parent.getLayoutParams().width;
+            parentHeight = parent.getLayoutParams().height;
+        }
+
+        //
+        // Get unfucked real drawable dimensions.
+        //
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inTargetDensity = DisplayMetrics.DENSITY_DEFAULT;
+
+        Bitmap bitmap = BitmapFactory.decodeResource(parent.getContext().getResources(), imageresid, options);
+
+        int imageWidth = bitmap.getWidth();
+        int imageHeight = bitmap.getHeight();
+
+        Log.d(LOGTAG, "getScaledHorzLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
+        Log.d(LOGTAG, "getScaledHorzLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+
+        //
+        // Get aspect ratio and margins from fit image into screen.
+        //
+
+        float aspectRatio = parentWidth / (float) imageWidth;
+
+        Log.d(LOGTAG, "getScaledHorzLayout: aspect=" + aspectRatio);
+
+        int leftMargin = (parentWidth - Math.round(imageWidth * aspectRatio)) / 2;
+        int topMargin = (parentHeight - Math.round(imageHeight * aspectRatio)) / 2;
+
+        Log.d(LOGTAG, "getScaledHorzLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
+
+        //
+        // Scale rectangle to final position.
+        //
+
+        Log.d(LOGTAG, "getScaledHorzLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+
+        rect.left = leftMargin + Math.round(rect.left * aspectRatio);
+        rect.top = topMargin + Math.round(rect.top * aspectRatio);
+        rect.right = leftMargin + Math.round(rect.right * aspectRatio);
+        rect.bottom = topMargin + Math.round(rect.bottom * aspectRatio);
+
+        Log.d(LOGTAG, "getScaledHorzLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+
+        return getLayoutFromRect(rect);
+    }
+
     public static FrameLayout.LayoutParams getScaledLayout(View parent, Rect rect, int imageresid)
     {
         int parentWidth = parent.getWidth();
