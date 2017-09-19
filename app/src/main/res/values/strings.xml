@@ -29,7 +29,15 @@
     <string name="content_navibar_left_show_my">Meine Inhalte anzeigen</string>
     <string name="content_navibar_right_themes">Themenauswahl</string>
 
-    <string name="themes_popup_title">Alle Themen anzeigen</string>
+    <string name="category_popup_title">Alle Themen anzeigen</string>
+
+    <string name="profile_popup_credits">Ihr Kontostand:</string>
+    <string name="profile_popup_coins">Coins</string>
+    <string name="profile_popup_buy">Coins kaufen</string>
+    <string name="profile_popup_voucher">Gutschein einlösen</string>
+    <string name="profile_popup_settings">Einstellungen</string>
+    <string name="profile_popup_faq">FAQ</string>
+    <string name="profile_popup_impressum">Impressum</string>
 
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>

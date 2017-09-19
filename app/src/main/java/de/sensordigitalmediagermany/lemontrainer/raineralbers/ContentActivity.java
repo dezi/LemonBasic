@@ -91,6 +91,7 @@ public class ContentActivity extends FullScreenActivity
             @Override
             public void run()
             {
+                showProfileMenu();
             }
         });
 
@@ -130,18 +131,17 @@ public class ContentActivity extends FullScreenActivity
             @Override
             public void onClick(View view)
             {
-                showThemesMenu();
+                showCategoryMenu();
             }
         });
 
         naviFrame.addView(naviRightButton);
     }
 
-    private void showThemesMenu()
+    private void showCategoryMenu()
     {
-        CategoryMenu themesPopup = new CategoryMenu(this);
-        themesPopup.setTitle(R.string.themes_popup_title);
-        themesPopup.setTopMargin(Simple.pxToDip(headerImage.getHeight() + naviFrame.getHeight()));
+        CategoryMenu categoryPopup = new CategoryMenu(this);
+        categoryPopup.setTopMargin(Simple.pxToDip(headerImage.getHeight() + naviFrame.getHeight()));
 
         Iterator<String> keysIterator = Globals.displayCategories.keys();
 
@@ -149,11 +149,19 @@ public class ContentActivity extends FullScreenActivity
         {
             String category = keysIterator.next();
 
-            Log.d(LOGTAG, "showThemesMenu: category=" + category);
+            Log.d(LOGTAG, "showCategoryMenu: category=" + category);
 
-            themesPopup.addOption(category);
+            categoryPopup.addOption(category);
         }
 
-        topFrame.addView(themesPopup);
+        topFrame.addView(categoryPopup);
+    }
+
+    private void showProfileMenu()
+    {
+        ProfileMenu profilePopup = new ProfileMenu(this);
+        profilePopup.setTopMargin(Simple.pxToDip(headerImage.getHeight() * 2 / 3));
+
+        topFrame.addView(profilePopup);
     }
 }

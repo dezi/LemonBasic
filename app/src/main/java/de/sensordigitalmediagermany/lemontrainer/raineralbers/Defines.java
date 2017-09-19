@@ -21,6 +21,9 @@ public class Defines
     // Fixed values.
     //
 
+    public static final int MINWIDTH_CATEGORY_POPUP = Simple.isTablet() ? 350 : 300;
+    public static final int MINWIDTH_PROFILE_POPUP = Simple.isTablet() ? 350 : 300;
+
     //
     // Colors.
     //
@@ -61,8 +64,7 @@ public class Defines
     public static final int FS_DIALOG_INFO   = Simple.isTablet() ? 16 : 14;
 
     public static final int FS_NAVI_MENU     = Simple.isTablet() ? 22 : 20;
-
-    public static final int FS_POPUP_MENU    = Simple.isTablet() ? 20 : 18;
+    public static final int FS_POPUP_MENU    = Simple.isTablet() ? 18 : 16;
     // @formatter:on
 
     //

@@ -2,12 +2,12 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.ViewGroup;
 import android.view.Gravity;
 import android.view.View;
@@ -61,13 +61,14 @@ public class CategoryMenu extends RelativeLayout
 
         popupFrame = new LinearLayout(getContext());
         popupFrame.setOrientation(LinearLayout.VERTICAL);
-        popupFrame.setMinimumWidth(Simple.dipToPx(350));
+        popupFrame.setMinimumWidth(Simple.dipToPx(Defines.MINWIDTH_CATEGORY_POPUP));
         Simple.setSizeDip(popupFrame, Simple.WC, Simple.WC);
         Simple.setPaddingDip(popupFrame, Defines.PADDING_LARGE);
 
         popupShape.addView(popupFrame);
 
         titleView = new TextView(getContext());
+        titleView.setText(R.string.category_popup_title);
         titleView.setAllCaps(true);
         titleView.setTextColor(Color.BLACK);
         titleView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
@@ -79,11 +80,6 @@ public class CategoryMenu extends RelativeLayout
     public void setTopMargin(int topmargin)
     {
         Simple.setPaddingDip(popupMargin, 0, topmargin, 0, 0);
-    }
-
-    public void setTitle(int titleresid)
-    {
-        titleView.setText(titleresid);
     }
 
     public void addOption(String option)
