@@ -152,13 +152,15 @@ public class ContentActivity extends FullScreenActivity
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
         assetGrid.setVerticalSpacing(Defines.PADDING_TINY);
         assetGrid.setHorizontalSpacing(Defines.PADDING_TINY);
-        assetGrid.setBackgroundColor(Defines.COLOR_SENSOR_LTBLUE);
+        assetGrid.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
 
         Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
 
         contentFrame.addView(assetGrid);
 
         assetsAdapter = new AssetsAdapter();
+        assetsAdapter.setAssets(Globals.displayAllContents);
+
         assetGrid.setAdapter(assetsAdapter);
     }
 
