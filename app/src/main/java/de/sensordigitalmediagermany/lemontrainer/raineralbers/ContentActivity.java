@@ -6,8 +6,6 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.Gravity;
 import android.view.View;
@@ -28,7 +26,6 @@ public class ContentActivity extends FullScreenActivity
     protected LinearLayout naviFrame;
     protected TextView naviLeftButton;
     protected TextView naviRightButton;
-    protected ScrollView assetFrame;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
 
@@ -150,10 +147,10 @@ public class ContentActivity extends FullScreenActivity
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
         assetGrid.setColumnWidth(GridView.AUTO_FIT);
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-        assetGrid.setVerticalSpacing(Defines.PADDING_TINY);
-        assetGrid.setHorizontalSpacing(Defines.PADDING_TINY);
+        assetGrid.setVerticalSpacing(0);
+        assetGrid.setHorizontalSpacing(0);
         assetGrid.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
-
+        Simple.setPaddingDip(assetGrid, Defines.PADDING_SMALL);
         Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
 
         contentFrame.addView(assetGrid);

@@ -44,6 +44,7 @@ public class Defines
 
     public static final int CORNER_RADIUS_BUTTON =  3; // Important!
     public static final int CORNER_RADIUS_DIALOG = 16; // Important!
+    public static final int CORNER_RADIUS_ASSETS = 16; // Important!
 
     //
     // Typefaces.
@@ -70,11 +71,23 @@ public class Defines
     public static final int FS_NAVI_MENU     = Simple.isTablet() ? 22 : 20;
     public static final int FS_POPUP_MENU    = Simple.isTablet() ? 18 : 16;
 
-    public static final int FS_ASSET_TITLE   = Simple.isTablet() ? 18 : 16;
-    public static final int FS_ASSET_INFO    = Simple.isTablet() ? 16 : 14;
+    public static final int FS_ASSET_TITLE   = Simple.isTablet() ? 13 : 12;
+    public static final int FS_ASSET_INFO    = Simple.isTablet() ? 13 : 12;
     // @formatter:on
 
-    public static final float FS_ASSET_INFO_LHMULT = 1.3f;
+    //
+    // Multiplication factor fontsize to line-height
+    // for assets info/subtitle display.
+    //
+
+    public static final float FS_ASSET_INFO_LSMULT = 1.3f;
+
+    //
+    // Estimation of the overall aspect ratio of asset
+    // thumbnails to precompute an equal cell height.
+    //
+
+    public static final float FS_ASSET_THUMBNAIL_ASPECT = 1.9f;
 
     //
     // Misc.

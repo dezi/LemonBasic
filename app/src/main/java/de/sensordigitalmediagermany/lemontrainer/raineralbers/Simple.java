@@ -229,7 +229,7 @@ public class Simple
 
         for (int inx = 0; inx < radiuspxse.length; inx++)
         {
-            radiuspxse[inx] = dipToPx(radiusdipse[inx >> 1]);
+            radiuspxse[ inx ] = dipToPx(radiusdipse[ inx >> 1 ]);
         }
 
         GradientDrawable shape = new GradientDrawable();
@@ -586,6 +586,37 @@ public class Simple
         return null;
     }
 
+    @Nullable
+    public static Bitmap getBitmapFromHTTP(Context context, String urlstr)
+    {
+        try
+        {
+            URL url = new URL(urlstr);
+
+            Log.d(LOGTAG, "getBitmapFromHTTP: url=" + url);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            InputStream inputStream = conn.getInputStream();
+            byte[] rawimage = getAllInputBytes(inputStream);
+            inputStream.close();
+
+            if (rawimage != null)
+            {
+                return BitmapFactory.decodeByteArray(rawimage, 0, rawimage.length);
+            }
+        }
+        catch (FileNotFoundException ignore)
+        {
+        }
+        catch (Exception ex)
+        {
+            Log.d(LOGTAG, ex.toString());
+        }
+
+        return null;
+    }
+
     public static BitmapDrawable getDrawableFromResources(Context context, int id)
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -622,6 +653,31 @@ public class Simple
         bitmap.recycle();
 
         return cbm;
+    }
+
+    public static Bitmap makeRoundedTopCornersBitmap(Bitmap bitmap, int cornerradius)
+    {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        int color = 0xff424242;
+        Paint paint = new Paint();
+        Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+
+        canvas.drawRoundRect(rectF, cornerradius, cornerradius, paint);
+
+        rectF.top += cornerradius;
+        canvas.drawRect(rectF, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
     }
 
     private static final String LEMONSQLDATE = "yyyy-MM-dd' 'HH:mm:ss";
