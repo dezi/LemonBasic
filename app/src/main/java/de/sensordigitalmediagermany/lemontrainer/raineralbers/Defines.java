@@ -52,6 +52,9 @@ public class Defines
 
     public static final String GOTHAM_BOLD = "fonts/Gotham-Bold.otf";
     public static final String GOTHAM_LIGHT = "fonts/Gotham-Light.otf";
+    public static final String ROONEY_LIGHT = "fonts/Rooney-Light.otf";
+    public static final String ROONEY_MEDIUM = "fonts/Rooney-Medium.otf";
+    public static final String ROONEY_REGULAR = "fonts/Rooney-Regular.otf";
 
     //
     // Fontsizes.
@@ -63,6 +66,7 @@ public class Defines
     public static final int FS_DIALOG_BUTTON = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_INFO   = Simple.isTablet() ? 16 : 14;
 
+    public static final int FS_BUTTON_IMAGE  = Simple.isTablet() ? 18 : 16;
     public static final int FS_NAVI_MENU     = Simple.isTablet() ? 22 : 20;
     public static final int FS_POPUP_MENU    = Simple.isTablet() ? 18 : 16;
     // @formatter:on

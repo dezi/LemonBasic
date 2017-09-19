@@ -21,6 +21,7 @@ public class ContentActivity extends FullScreenActivity
     protected ImageView headerImage;
     protected ImageView backButtonImage;
     protected ImageView profileButtonImage;
+    protected ScaledButton profileButton;
     protected LinearLayout naviFrame;
     protected TextView naviLeftButton;
     protected TextView naviRightButton;
@@ -83,8 +84,9 @@ public class ContentActivity extends FullScreenActivity
 
         headerFrame.addView(profileButtonImage);
 
-        ScaledButton profileButton = new ScaledButton(this);
+        profileButton = new ScaledButton(this);
         profileButton.setContentHorz(headerImage, Screens.getContentScreenButtonProfileRect(), hdresid);
+        profileButton.setButtonText(Defines.PADDING_XLARGE, "Max Mustermann");
 
         profileButton.setOnButtonClicked(new Runnable()
         {
