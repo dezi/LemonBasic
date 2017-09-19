@@ -2,9 +2,12 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Typeface;
 import android.util.Log;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +28,9 @@ public class ContentActivity extends FullScreenActivity
     protected LinearLayout naviFrame;
     protected TextView naviLeftButton;
     protected TextView naviRightButton;
+    protected ScrollView assetFrame;
+    protected GridView assetGrid;
+    protected AssetsAdapter assetsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -138,6 +144,22 @@ public class ContentActivity extends FullScreenActivity
         });
 
         naviFrame.addView(naviRightButton);
+
+        assetGrid = new GridView(this);
+
+        assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
+        assetGrid.setColumnWidth(GridView.AUTO_FIT);
+        assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        assetGrid.setVerticalSpacing(Defines.PADDING_TINY);
+        assetGrid.setHorizontalSpacing(Defines.PADDING_TINY);
+        assetGrid.setBackgroundColor(Defines.COLOR_SENSOR_LTBLUE);
+
+        Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
+
+        contentFrame.addView(assetGrid);
+
+        assetsAdapter = new AssetsAdapter();
+        assetGrid.setAdapter(assetsAdapter);
     }
 
     private void showCategoryMenu()

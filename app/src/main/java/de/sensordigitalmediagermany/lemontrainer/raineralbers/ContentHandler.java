@@ -30,7 +30,8 @@ public class ContentHandler
 
                         if (Globals.contents != null)
                         {
-                            Globals.displayContents = new JSONArray();
+                            Globals.displayMyContents = new JSONArray();
+                            Globals.displayAllContents = new JSONArray();
                             Globals.displayCategories = new JSONObject();
 
                             JSONObject isCourseContent = new JSONObject();
@@ -47,7 +48,7 @@ public class ContentHandler
                                     String category = Json.getString(course, "category");
                                     Json.put(Globals.displayCategories, category, true);
 
-                                    Globals.displayContents.put(course);
+                                    Globals.displayAllContents.put(course);
                                 }
                             }
 
@@ -61,7 +62,7 @@ public class ContentHandler
                                 String category = Json.getString(content, "category");
                                 Json.put(Globals.displayCategories, category, true);
 
-                                Globals.displayContents.put(content);
+                                Globals.displayAllContents.put(content);
                             }
 
                             Globals.contentsLoaded = true;

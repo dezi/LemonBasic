@@ -21,8 +21,7 @@ public class Defines
     // Fixed values.
     //
 
-    public static final int MINWIDTH_CATEGORY_POPUP = Simple.isTablet() ? 350 : 300;
-    public static final int MINWIDTH_PROFILE_POPUP = Simple.isTablet() ? 350 : 300;
+    public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
 
     //
     // Colors.
@@ -74,6 +73,11 @@ public class Defines
     //
     // Misc.
     //
+
+    // @formatter:off
+    public static final int MINWIDTH_CATEGORY_POPUP = Simple.isTablet() ? 350 : 300;
+    public static final int MINWIDTH_PROFILE_POPUP  = Simple.isTablet() ? 350 : 300;
+    // @formatter:on
 
     // @formatter:off
     public static final int PADDING_TINY    = Simple.isTablet() ?  4 :  4;

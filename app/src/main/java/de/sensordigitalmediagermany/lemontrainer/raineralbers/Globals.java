@@ -37,6 +37,8 @@ public class Globals
     public static JSONArray courseContents;
     public static JSONArray contents;
 
-    public static JSONArray displayContents;
     public static JSONObject displayCategories;
+
+    public static JSONArray displayMyContents;
+    public static JSONArray displayAllContents;
 }
