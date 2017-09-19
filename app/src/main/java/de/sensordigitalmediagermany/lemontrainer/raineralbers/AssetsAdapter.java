@@ -71,6 +71,7 @@ public class AssetsAdapter extends BaseAdapter
 
         String title = Json.getString(asset, "title");
         String subtitle = Json.getString(asset, "sub_title");
+        String thumburl = Json.getString(asset, "thumbnail_url");
 
         LinearLayout imageBox = new LinearLayout(parent.getContext());
         imageBox.setOrientation(LinearLayout.VERTICAL);
@@ -84,10 +85,17 @@ public class AssetsAdapter extends BaseAdapter
 
         imageBox.addView(imageView);
 
-        Bitmap bitmap = Simple.getBitmapFromHTTP(parent.getContext(),
-                "https://lemon-mobile-learning.com/lemon-trainer/content/RAINERALBERS/1-Thumbnail-22786-27981-170912-iPhoneX-5-l.jpg");
+        Bitmap bitmap = Simple.getBitmapFromHTTP(parent.getContext(), thumburl);
 
-        bitmap = Simple.makeRoundedTopCornersBitmap(bitmap, 32);
+        if (bitmap != null)
+        {
+            float aspectX = bitmap.getWidth() / (float) imageWidth;
+            float aspectY = bitmap.getHeight() / (float) imageHeight;
+
+            int cornerRadius = Math.round(Defines.CORNER_RADIUS_ASSETS * ((aspectX + aspectY) / 2));
+
+            bitmap = Simple.makeRoundedTopCornersBitmap(bitmap, cornerRadius);
+        }
 
         imageView.setImageDrawable(new BitmapDrawable(parent.getContext().getResources(), bitmap));
 
