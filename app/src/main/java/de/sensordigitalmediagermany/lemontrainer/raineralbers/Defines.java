@@ -39,7 +39,7 @@ public class Defines
     public static final int COLOR_BACKGROUND_DIM = 0x77000000;
 
     //
-    // Corner radius for ALL buttons.
+    // Corner radius.
     //
 
     public static final int CORNER_RADIUS_BUTTON =  3; // Important!
@@ -68,7 +68,7 @@ public class Defines
     public static final int FS_DIALOG_INFO   = Simple.isTablet() ? 16 : 14;
 
     public static final int FS_BUTTON_IMAGE  = Simple.isTablet() ? 18 : 16;
-    public static final int FS_NAVI_MENU     = Simple.isTablet() ? 22 : 20;
+    public static final int FS_NAVI_MENU     = Simple.isTablet() ? 22 : 14;
     public static final int FS_POPUP_MENU    = Simple.isTablet() ? 18 : 16;
 
     public static final int FS_ASSET_TITLE   = Simple.isTablet() ? 13 : 12;
@@ -105,7 +105,9 @@ public class Defines
     public static final int PADDING_NORMAL  = Simple.isTablet() ? 16 : 14;
     public static final int PADDING_LARGE   = Simple.isTablet() ? 20 : 16;
     public static final int PADDING_XLARGE  = Simple.isTablet() ? 40 : 30;
+    public static final int MARGIN_POPUP    = Simple.isTablet() ? 16 :  0;
     // @formatter:on
+
 
     public static final int CLOSE_ICON_SIZE = Simple.isTablet() ? 24 : 20; // Important!
     public static final int NAVIGATION_HEIGHT = Simple.isTablet() ? 40 : 40;

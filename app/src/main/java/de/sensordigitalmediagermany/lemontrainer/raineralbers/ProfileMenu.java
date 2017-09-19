@@ -54,7 +54,7 @@ public class ProfileMenu extends RelativeLayout
         popupShape.setOrientation(LinearLayout.VERTICAL);
         popupShape.setBackgroundResource(R.drawable.lem_t_iany_ralbers_menuelinks);
         Simple.setSizeDip(popupShape, Simple.WC, Simple.WC);
-        Simple.setMarginLeftDip(popupShape, Defines.PADDING_NORMAL);
+        Simple.setMarginLeftDip(popupShape, Defines.MARGIN_POPUP);
 
         popupMargin.addView(popupShape);
 
@@ -75,6 +75,7 @@ public class ProfileMenu extends RelativeLayout
 
         TextView creditsView = new TextView(getContext());
         creditsView.setText(R.string.profile_popup_credits);
+        creditsView.setSingleLine();
         creditsView.setTextColor(Color.WHITE);
         creditsView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(creditsView, Defines.FS_POPUP_MENU);
@@ -83,17 +84,20 @@ public class ProfileMenu extends RelativeLayout
 
         TextView countView = new TextView(getContext());
         countView.setText("12.345");
+        countView.setSingleLine();
         countView.setGravity(Gravity.RIGHT);
         countView.setTextColor(Color.WHITE);
         countView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(countView, Defines.FS_POPUP_MENU);
         Simple.setSizeDip(countView, Simple.MP, Simple.WC, 1.0f);
         Simple.setMarginRightDip(countView, Defines.PADDING_TINY);
+        Simple.setMarginLeftDip(countView, Defines.PADDING_TINY);
 
         titleFrame.addView(countView);
 
         TextView coinsView = new TextView(getContext());
         coinsView.setText(R.string.profile_popup_coins);
+        coinsView.setSingleLine();
         coinsView.setGravity(Gravity.RIGHT);
         coinsView.setTextColor(Color.WHITE);
         coinsView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
