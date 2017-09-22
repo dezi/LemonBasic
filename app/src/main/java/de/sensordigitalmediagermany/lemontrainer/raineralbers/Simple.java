@@ -655,19 +655,34 @@ public class Simple
         return cbm;
     }
 
-    public static Bitmap makeRoundedTopCornersBitmap(Bitmap bitmap, int cornerradius)
+    public static Bitmap makeRoundedTopCornersBitmap(Bitmap bitmap, int cornerradius, float aspect)
     {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        int bmwidth = bitmap.getWidth();
+        int bmheight = bitmap.getHeight();
+
+        int width = bmwidth;
+        int height = bmheight;
+
+        if ((width / aspect) < height)
+        {
+            height = Math.round(width / aspect);
+        }
+        else
+        {
+            width = Math.round(height * aspect);
+        }
+
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
-
-        int color = 0xff424242;
-        Paint paint = new Paint();
-        Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        RectF rectF = new RectF(rect);
-
-        paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
+
+        Rect srcrect = new Rect((bmwidth - width) / 2, (bmheight - height) / 2, width, height);
+        Rect dstrect = new Rect(0, 0, width, height);
+        RectF rectF = new RectF(dstrect);
+
+        Paint paint = new Paint();
+        paint.setColor(0xff424242);
+        paint.setAntiAlias(true);
 
         canvas.drawRoundRect(rectF, cornerradius, cornerradius, paint);
 
@@ -675,7 +690,7 @@ public class Simple
         canvas.drawRect(rectF, paint);
 
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
+        canvas.drawBitmap(bitmap, srcrect, dstrect, paint);
 
         return output;
     }
