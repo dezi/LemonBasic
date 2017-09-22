@@ -39,6 +39,11 @@
     <string name="profile_popup_faq">FAQ</string>
     <string name="profile_popup_impressum">Impressum</string>
 
+    <string name="buy_coins_title">Wählen Sie Ihr Coin-Paket</string>
+    <string name="buy_coins_coins">Coins</string>
+    <string name="buy_coins_price">%1$s €</string>
+    <string name="buy_coins_buy">Paket kaufen</string>
+
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>
 

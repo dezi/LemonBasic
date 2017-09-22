@@ -42,9 +42,10 @@ public class Defines
     // Corner radius.
     //
 
-    public static final int CORNER_RADIUS_BUTTON = 3; // Important!
-    public static final int CORNER_RADIUS_DIALOG = 16; // Important!
-    public static final int CORNER_RADIUS_ASSETS = 16; // Important!
+    public static final int CORNER_RADIUS_BUTTON = 3;
+    public static final int CORNER_RADIUS_BIGBUT = 8;
+    public static final int CORNER_RADIUS_DIALOG = 16;
+    public static final int CORNER_RADIUS_ASSETS = 16;
 
     //
     // Typefaces.
@@ -73,6 +74,11 @@ public class Defines
 
     public static final int FS_ASSET_TITLE   = Simple.isTablet() ? 13 : 12;
     public static final int FS_ASSET_INFO    = Simple.isTablet() ? 13 : 12;
+
+    public static final int FS_COINS_COINS   = Simple.isTablet() ? 56 : 48;
+    public static final int FS_COINS_PRICE   = Simple.isTablet() ? 26 : 22;
+    public static final int FS_COINS_BUTTONS = Simple.isTablet() ? 22 : 20;
+
     // @formatter:on
 
     //
@@ -110,4 +116,5 @@ public class Defines
 
     public static final int CLOSE_ICON_SIZE = Simple.isTablet() ? 24 : 20; // Important!
     public static final int NAVIGATION_HEIGHT = Simple.isTablet() ? 40 : 40;
+    public static final int COINS_BUTTON_WIDTH = Simple.isTablet() ? 145 : 130;
 }

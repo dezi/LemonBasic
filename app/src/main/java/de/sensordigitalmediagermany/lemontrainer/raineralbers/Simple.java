@@ -283,6 +283,47 @@ public class Simple
         return res;
     }
 
+    public static String formatMoney(int cents)
+    {
+        String res = "";
+
+        if ((cents % 100) < 10)
+        {
+            res = "0" + (cents % 100);
+        }
+        else
+        {
+            res = "" + (cents % 100);
+        }
+
+        res = "," + res;
+
+        cents /= 100;
+
+        String str = "" + cents;
+
+        while (str.length() > 3)
+        {
+            if (res.length() > 0) res = "." + res;
+            res = str.substring(str.length() - 3, str.length()) + res;
+            str = str.substring(0, str.length() - 3);
+        }
+
+        if (str.length() > 0)
+        {
+            if (res.length() > 3)
+            {
+                res = str + "." + res;
+            }
+            else
+            {
+                res = str + res;
+            }
+        }
+
+        return res;
+    }
+
     public static boolean isUIThread()
     {
         return (Looper.getMainLooper().getThread() == Thread.currentThread());

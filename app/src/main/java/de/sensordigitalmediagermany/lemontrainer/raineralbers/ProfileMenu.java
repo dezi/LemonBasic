@@ -60,7 +60,7 @@ public class ProfileMenu extends RelativeLayout
 
         popupFrame = new LinearLayout(getContext());
         popupFrame.setOrientation(LinearLayout.VERTICAL);
-        popupFrame.setMinimumWidth(Simple.dipToPx(Defines.MINWIDTH_CATEGORY_POPUP));
+        popupFrame.setMinimumWidth(Simple.dipToPx(Defines.MINWIDTH_PROFILE_POPUP));
         Simple.setSizeDip(popupFrame, Simple.WC, Simple.WC);
         Simple.setPaddingDip(popupFrame, Defines.PADDING_LARGE);
 
@@ -117,7 +117,7 @@ public class ProfileMenu extends RelativeLayout
         Simple.setPaddingDip(popupMargin, 0, topmargin, 0, 0);
     }
 
-    public void addOption(int optionresid)
+    public void addOption(final int optionresid)
     {
         RelativeLayout separator = new RelativeLayout(getContext());
         Simple.setSizeDip(separator, Simple.MP, Defines.PADDING_SMALL);
@@ -125,7 +125,6 @@ public class ProfileMenu extends RelativeLayout
         popupFrame.addView(separator);
 
         TextView optionView = new TextView(getContext());
-        optionView.setTag(R.string.profile_popup_credits, optionresid);
         optionView.setText(optionresid);
         optionView.setGravity(Gravity.CENTER_HORIZONTAL);
         optionView.setTextColor(Color.WHITE);
@@ -134,6 +133,30 @@ public class ProfileMenu extends RelativeLayout
         Simple.setPaddingDip(optionView, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(optionView, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
 
+        optionView.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onButtonClicked(optionresid);
+            }
+        });
+
         popupFrame.addView(optionView);
+    }
+
+    private void onButtonClicked(int optionresid)
+    {
+        if (optionresid == R.string.profile_popup_buy)
+        {
+            ViewGroup parent = (ViewGroup) ProfileMenu.this.getParent();
+
+            if (parent != null)
+            {
+                parent.removeView(ProfileMenu.this);
+
+                parent.addView(new BuyCoinsDialog(parent.getContext()));
+            }
+        }
     }
 }
