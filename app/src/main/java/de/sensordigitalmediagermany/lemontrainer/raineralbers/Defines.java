@@ -42,7 +42,7 @@ public class Defines
     // Corner radius.
     //
 
-    public static final int CORNER_RADIUS_BUTTON =  3; // Important!
+    public static final int CORNER_RADIUS_BUTTON = 3; // Important!
     public static final int CORNER_RADIUS_DIALOG = 16; // Important!
     public static final int CORNER_RADIUS_ASSETS = 16; // Important!
 
@@ -107,7 +107,6 @@ public class Defines
     public static final int PADDING_XLARGE  = Simple.isTablet() ? 40 : 30;
     public static final int MARGIN_POPUP    = Simple.isTablet() ? 16 :  0;
     // @formatter:on
-
 
     public static final int CLOSE_ICON_SIZE = Simple.isTablet() ? 24 : 20; // Important!
     public static final int NAVIGATION_HEIGHT = Simple.isTablet() ? 40 : 40;
