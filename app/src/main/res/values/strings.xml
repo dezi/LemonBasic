@@ -1,7 +1,10 @@
 <resources>
 
     <string name="app_name">LT Rainer Albers</string>
+
     <string name="button_ok">OK</string>
+    <string name="button_cancel">Abbrechen</string>
+    <string name="button_close">Schließen</string>
 
     <string name="login_title">Melden Sie sich an:</string>
     <string name="login_hint_email">E-Mail Adresse</string>
@@ -34,7 +37,7 @@
     <string name="profile_popup_credits">Ihr Kontostand:</string>
     <string name="profile_popup_coins">Coins</string>
     <string name="profile_popup_buy">Coins kaufen</string>
-    <string name="profile_popup_voucher">Gutschein einlösen</string>
+    <string name="profile_popup_redeem">Gutschein einlösen</string>
     <string name="profile_popup_settings">Einstellungen</string>
     <string name="profile_popup_faq">FAQ</string>
     <string name="profile_popup_impressum">Impressum</string>
@@ -43,6 +46,12 @@
     <string name="buy_coins_coins">Coins</string>
     <string name="buy_coins_price">%1$s €</string>
     <string name="buy_coins_buy">Paket kaufen</string>
+
+    <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
+    <string name="redeem_coupon_redeem">Einlösen</string>
+
+    <string name="redeemed_title">Eingabe erfolgreich!</string>
+    <string name="redeemed_info">Ihrem Konto wurde folgende\nAnzahl Coins gutgeschrieben:</string>
 
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>

@@ -106,7 +106,7 @@ public class ProfileMenu extends RelativeLayout
         titleFrame.addView(coinsView);
 
         addOption(R.string.profile_popup_buy);
-        addOption(R.string.profile_popup_voucher);
+        addOption(R.string.profile_popup_redeem);
         addOption(R.string.profile_popup_settings);
         addOption(R.string.profile_popup_faq);
         addOption(R.string.profile_popup_impressum);
@@ -156,6 +156,18 @@ public class ProfileMenu extends RelativeLayout
                 parent.removeView(ProfileMenu.this);
 
                 parent.addView(new BuyCoinsDialog(parent.getContext()));
+            }
+        }
+
+        if (optionresid == R.string.profile_popup_redeem)
+        {
+            ViewGroup parent = (ViewGroup) ProfileMenu.this.getParent();
+
+            if (parent != null)
+            {
+                parent.removeView(ProfileMenu.this);
+
+                parent.addView(new RedeemCouponDialog(parent.getContext()));
             }
         }
     }
