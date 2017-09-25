@@ -57,6 +57,7 @@ public class Defines
 
     public static final String GOTHAM_BOLD = "fonts/Gotham-Bold.otf";
     public static final String GOTHAM_LIGHT = "fonts/Gotham-Light.otf";
+    public static final String GOTHAM_MEDIUM = "fonts/Gotham-Medium.otf";
     public static final String ROONEY_LIGHT = "fonts/Rooney-Light.otf";
     public static final String ROONEY_MEDIUM = "fonts/Rooney-Medium.otf";
     public static final String ROONEY_REGULAR = "fonts/Rooney-Regular.otf";
@@ -83,6 +84,11 @@ public class Defines
     public static final int FS_COINS_COINS   = Simple.isTablet() ? 56 : 48;
     public static final int FS_COINS_PRICE   = Simple.isTablet() ? 26 : 22;
     public static final int FS_COINS_BUTTONS = Simple.isTablet() ? 22 : 20;
+
+    public static final int FS_COURSE_TITLE  = Simple.isTablet() ? 16 : 14;
+    public static final int FS_COURSE_HEADER = Simple.isTablet() ? 24 : 22;
+    public static final int FS_COURSE_DESC   = Simple.isTablet() ? 15 : 12;
+
     // @formatter:on
 
     //

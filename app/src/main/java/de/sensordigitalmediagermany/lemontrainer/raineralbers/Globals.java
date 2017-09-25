@@ -41,4 +41,6 @@ public class Globals
 
     public static JSONArray displayMyContents;
     public static JSONArray displayAllContents;
+
+    public static JSONObject displayCourse;
 }

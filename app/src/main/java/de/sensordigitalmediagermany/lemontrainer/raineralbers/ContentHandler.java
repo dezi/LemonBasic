@@ -1,12 +1,20 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.util.Log;
+import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ContentHandler
 {
+    private static final String LOGTAG = ContentHandler.class.getSimpleName();
+
     public static void getAllContent(final ViewGroup rootframe, final Runnable callback)
     {
         JSONObject params = new JSONObject();
@@ -24,9 +32,26 @@ public class ContentHandler
 
                     if (data != null)
                     {
+                        SparseArray<JSONObject> courseMap = new SparseArray<>();
+                        SparseIntArray cont2courseMap = new SparseIntArray();
+
                         Globals.courses = Json.getArray(data, "Courses");
                         Globals.courseContents = Json.getArray(data, "CourseContents");
                         Globals.contents = Json.getArray(data, "Contents");
+
+                        if (Globals.courseContents != null)
+                        {
+                            for (int inx = 0; inx < Globals.courseContents.length(); inx++)
+                            {
+                                JSONObject cc = Json.getObject(Globals.courseContents, inx);
+                                if (cc == null) continue;
+
+                                int course_id = Json.getInt(cc, "course_id");
+                                int content_id = Json.getInt(cc, "content_id");
+
+                                cont2courseMap.put(content_id, course_id);
+                            }
+                        }
 
                         if (Globals.contents != null)
                         {
@@ -41,12 +66,19 @@ public class ContentHandler
                                     JSONObject course = Json.getObject(Globals.courses, inx);
                                     if (course == null) continue;
 
+                                    int id = Json.getInt(course, "id");
+
                                     Json.put(course, "_isCourse", true);
+                                    Json.put(course, "_cc", new JSONArray());
+
+                                    Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
 
                                     String category = Json.getString(course, "category");
                                     Json.put(Globals.displayCategories, category, true);
 
                                     Globals.displayAllContents.put(course);
+
+                                    courseMap.put(id, course);
                                 }
                             }
 
@@ -55,7 +87,31 @@ public class ContentHandler
                                 JSONObject content = Json.getObject(Globals.contents, inx);
                                 if (content == null) continue;
 
+                                Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
+
+                                int id = Json.getInt(content, "id");
                                 Json.put(content, "_isCourse", false);
+
+                                if (cont2courseMap.get(id, 0) != 0)
+                                {
+                                    //
+                                    // Content belongs to course.
+                                    //
+
+                                    int courseId = cont2courseMap.get(id);
+
+                                    JSONObject course = courseMap.get(courseId);
+                                    if (course == null) continue;
+
+                                    JSONArray cc = Json.getArray(course, "_cc");
+                                    if (cc == null) continue;
+
+                                    Log.d(LOGTAG, "getAllContent: cc=" + Json.getString(content, "title"));
+
+                                    cc.put(content);
+
+                                    continue;
+                                }
 
                                 String category = Json.getString(content, "category");
                                 Json.put(Globals.displayCategories, category, true);

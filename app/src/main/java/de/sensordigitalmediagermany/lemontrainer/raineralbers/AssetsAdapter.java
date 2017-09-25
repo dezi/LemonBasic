@@ -50,7 +50,7 @@ public class AssetsAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        GridView gridView = (GridView) parent;
+        final GridView gridView = (GridView) parent;
 
         int imageWidth = gridView.getColumnWidth();
         int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_THUMBNAIL_ASPECT);
@@ -184,7 +184,7 @@ public class AssetsAdapter extends BaseAdapter
             textBox.addView(summaryView);
         }
 
-        JSONObject asset = (JSONObject) getItem(position % assets.length());
+        final JSONObject asset = (JSONObject) getItem(position % assets.length());
 
         String title = Json.getString(asset, "title");
         String subtitle = Json.getString(asset, "sub_title");
@@ -202,13 +202,37 @@ public class AssetsAdapter extends BaseAdapter
         titleView.setText(title);
         summaryView.setText(subtitle);
 
-        courseView.setVisibility(isCourse ? View.VISIBLE : View.GONE);
+        if (isCourse)
+        {
+            courseView.setVisibility(View.VISIBLE);
+
+            assetFrame.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    openCourse(gridView, asset);
+                }
+            });
+        }
+        else
+        {
+            courseView.setVisibility(View.GONE);
+
+            assetFrame.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    openContent(gridView, asset);
+                }
+            });
+        }
 
         //
         // Display fake...
         //
 
-        courseView.setVisibility(View.GONE);
         ownedView.setVisibility(View.GONE);
         readView.setVisibility(View.GONE);
 
@@ -225,5 +249,16 @@ public class AssetsAdapter extends BaseAdapter
         }
 
         return assetFrame;
+    }
+
+    protected void openCourse(ViewGroup parent, JSONObject course)
+    {
+        Globals.displayCourse = course;
+
+        Simple.startActivity(parent.getContext(), CourseActivity.class);
+    }
+
+    protected void openContent(ViewGroup parent, JSONObject content)
+    {
     }
 }
