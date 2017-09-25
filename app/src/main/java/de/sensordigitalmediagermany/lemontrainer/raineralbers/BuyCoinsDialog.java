@@ -9,9 +9,13 @@ import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class BuyCoinsDialog extends DialogView
 {
     private static final String LOGTAG = BuyCoinsDialog.class.getSimpleName();
+
+    protected final ArrayList<CoinsButton> coinButtons = new ArrayList<>();
 
     public BuyCoinsDialog(Context context)
     {
@@ -46,9 +50,13 @@ public class BuyCoinsDialog extends DialogView
 
         dialogItems.addView(coinsFrame);
 
-        coinsFrame.addView(new CoinsButton(getContext(), packets[ 0 ], null));
-        coinsFrame.addView(new CoinsButton(getContext(), packets[ 1 ], null));
-        coinsFrame.addView(new CoinsButton(getContext(), packets[ 2 ], null));
+        for (AppStorePacket packet : packets)
+        {
+            CoinsButton button = new CoinsButton(getContext(), packet, coinButtons);
+
+            coinsFrame.addView(button);
+            coinButtons.add(button);
+        }
 
         RelativeLayout requestCenter = new RelativeLayout(getContext());
         requestCenter.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -72,11 +80,22 @@ public class BuyCoinsDialog extends DialogView
             @Override
             public void onClick(View view)
             {
+                for (CoinsButton button : coinButtons)
+                {
+                    if (button.isSelected())
+                    {
+                        buyPacket(button.getPacket());
+                    }
+                }
             }
         });
 
         requestCenter.addView(requestButton);
 
         setCustomView(dialogItems);
+    }
+
+    protected void buyPacket(AppStorePacket paket)
+    {
     }
 }
