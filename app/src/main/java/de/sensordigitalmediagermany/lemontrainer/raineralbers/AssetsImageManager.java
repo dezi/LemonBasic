@@ -27,7 +27,8 @@ public class AssetsImageManager
 
     private static Thread worker;
 
-    public static Drawable getDrawableOrFetch(Context context, ImageView iv, String url, int ivwidth, int ivheight)
+    public static Drawable getDrawableOrFetch(Context context, ImageView iv, String url,
+                                              int ivwidth, int ivheight, boolean rounded)
     {
         synchronized (cache)
         {
@@ -36,16 +37,17 @@ public class AssetsImageManager
             if (image != null) return image;
         }
 
-        fetchProfileImage(context, iv, url, ivwidth, ivheight);
+        fetchProfileImage(context, iv, url, ivwidth, ivheight, rounded);
 
         return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
     }
 
-    private static void fetchProfileImage(Context context, ImageView iv, String url, int ivwidth, int ivheight)
+    private static void fetchProfileImage(Context context, ImageView iv, String url,
+                                          int ivwidth, int ivheight, boolean rounded)
     {
         synchronized (queue)
         {
-            queue.add(new QueueData(context, iv, url, ivwidth, ivheight));
+            queue.add(new QueueData(context, iv, url, ivwidth, ivheight, rounded));
         }
 
         if (worker == null)
@@ -71,7 +73,7 @@ public class AssetsImageManager
                     qd = queue.remove(0);
                 }
 
-                final Drawable drawable = getDrawable(qd.cx, qd.url, qd.ivwidth, qd.ivheight);
+                final Drawable drawable = getDrawable(qd.cx, qd.url, qd.ivwidth, qd.ivheight, qd.rounded);
 
                 if (drawable != null)
                 {
@@ -93,7 +95,8 @@ public class AssetsImageManager
     };
 
     @Nullable
-    private static Drawable getDrawable(Context context, String urlstring, int ivwidth, int ivheight)
+    private static Drawable getDrawable(Context context, String urlstring,
+                                        int ivwidth, int ivheight, boolean rounded)
     {
         try
         {
@@ -112,9 +115,11 @@ public class AssetsImageManager
                 float aspectX = myBitmap.getWidth() / (float) ivwidth;
                 float aspectY = myBitmap.getHeight() / (float) ivheight;
 
-                int cornerRadius = Math.round(Defines.CORNER_RADIUS_ASSETS * ((aspectX + aspectY) / 2));
+                int cornerRadius = rounded ? Math.round(Defines.CORNER_RADIUS_ASSETS * ((aspectX + aspectY) / 2)) : 0;
 
-                Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, Defines.FS_ASSET_THUMBNAIL_ASPECT);
+                float displayAspect = ivwidth / (float) ivheight;
+
+                Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, displayAspect);
 
                 myBitmap.recycle();
 
@@ -146,14 +151,16 @@ public class AssetsImageManager
         public String url;
         public int ivwidth;
         public int ivheight;
+        public boolean rounded;
 
-        public QueueData(Context cx, ImageView iv, String url, int ivwidth, int ivheight)
+        public QueueData(Context cx, ImageView iv, String url, int ivwidth, int ivheight, boolean rounded)
         {
             this.cx = cx;
             this.iv = iv;
             this.url = url;
             this.ivwidth = ivwidth;
             this.ivheight = ivheight;
+            this.rounded = rounded;
         }
     }
 }

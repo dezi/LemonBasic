@@ -23,6 +23,8 @@ public class ContentBaseActivity extends FullScreenActivity
     protected ImageView backButtonImage;
     protected ImageView profileButtonImage;
     protected ScaledButton profileButton;
+    protected LinearLayout imageFrame;
+    protected ImageView contentImage;
     protected LinearLayout naviFrame;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
@@ -99,6 +101,16 @@ public class ContentBaseActivity extends FullScreenActivity
         });
 
         headerFrame.addView(profileButton);
+
+        imageFrame = new LinearLayout(this);
+        imageFrame.setOrientation(LinearLayout.HORIZONTAL);
+
+        contentFrame.addView(imageFrame);
+
+        contentImage = new ImageView(this);
+        contentImage.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        imageFrame.addView(contentImage);
 
         naviFrame = new LinearLayout(this);
         naviFrame.setOrientation(LinearLayout.HORIZONTAL);

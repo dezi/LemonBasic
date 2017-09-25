@@ -196,8 +196,7 @@ public class AssetsAdapter extends BaseAdapter
                 AssetsImageManager.getDrawableOrFetch(
                         parent.getContext(),
                         imageView, thumburl,
-                        imageWidth, imageHeight)
-        );
+                        imageWidth, imageHeight, true));
 
         titleView.setText(title);
         summaryView.setText(subtitle);
@@ -253,12 +252,19 @@ public class AssetsAdapter extends BaseAdapter
 
     protected void openCourse(ViewGroup parent, JSONObject course)
     {
-        Globals.displayCourse = course;
+        Log.d(LOGTAG,"openCourse....");
+
+        Globals.displayContent = course;
 
         Simple.startActivity(parent.getContext(), CourseActivity.class);
     }
 
     protected void openContent(ViewGroup parent, JSONObject content)
     {
+        Log.d(LOGTAG,"openContent....");
+
+        Globals.displayContent = content;
+
+        Simple.startActivity(parent.getContext(), AssetActivity.class);
     }
 }

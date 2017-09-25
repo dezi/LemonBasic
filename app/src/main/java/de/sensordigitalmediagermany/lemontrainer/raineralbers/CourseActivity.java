@@ -2,11 +2,10 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.os.Bundle;
+import android.util.Log;
 
 import org.json.JSONArray;
 
@@ -19,6 +18,8 @@ public class CourseActivity extends ContentBaseActivity
     {
         super.onCreate(savedInstanceState);
 
+        Log.d(LOGTAG, "onCreate: course=" + Json.toPretty(Globals.displayContent));
+
         naviFrame.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.WC);
 
@@ -26,12 +27,12 @@ public class CourseActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
                 Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
 
-        if (Globals.displayCourse == null) return;
+        if (Globals.displayContent == null) return;
 
-        String courseTitle = Json.getString(Globals.displayCourse, "title");
-        String courseHeader = Json.getString(Globals.displayCourse, "description_header");
-        String courseDescription = Json.getString(Globals.displayCourse, "description");
-        String priceString = "" + Json.getInt(Globals.displayCourse, "price");
+        String courseTitle = Json.getString(Globals.displayContent, "title");
+        String courseHeader = Json.getString(Globals.displayContent, "description_header");
+        String courseDescription = Json.getString(Globals.displayContent, "description");
+        String priceString = "" + Json.getInt(Globals.displayContent, "price");
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
@@ -87,9 +88,7 @@ public class CourseActivity extends ContentBaseActivity
 
         infoArea.addView(buyButton);
 
-        JSONArray cc = Json.getArray(Globals.displayCourse, "_cc");
-
-        Log.d(LOGTAG, "onCreate: course=" + Json.toPretty(Globals.displayCourse));
+        JSONArray cc = Json.getArray(Globals.displayContent, "_cc");
 
         assetsAdapter.setAssets(cc);
     }

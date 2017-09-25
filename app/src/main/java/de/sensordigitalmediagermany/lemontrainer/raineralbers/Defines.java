@@ -7,7 +7,7 @@ public class Defines
     // Debug stuff.
     //
 
-    public static final boolean isDezi = false;
+    public static final boolean isDezi = true;
 
     public static final String TRAINER_NAME = "RAINERALBERS";
 
@@ -104,6 +104,7 @@ public class Defines
     //
 
     public static final float FS_ASSET_THUMBNAIL_ASPECT = 1.9f;
+    public static final float FS_ASSET_DETAIL_ASPECT = 3.0f;
 
     //
     // Misc.
@@ -125,10 +126,11 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static final int READ_ICON_SIZE     = Simple.isTablet() ? 24 : 20;
-    public static final int CLOSE_ICON_SIZE    = Simple.isTablet() ? 24 : 20; // Important!
-    public static final int COURSE_ICON_SIZE   = Simple.isTablet() ? 64 : 56;
-    public static final int NAVIGATION_HEIGHT  = Simple.isTablet() ? 40 : 40;
+    public static final int READ_ICON_SIZE     = Simple.isTablet() ?  24 :  20;
+    public static final int CLOSE_ICON_SIZE    = Simple.isTablet() ?  24 :  20; // Important!
+    public static final int CLOUD_ICON_SIZE    = Simple.isTablet() ?  50 :  40;
+    public static final int COURSE_ICON_SIZE   = Simple.isTablet() ?  64 :  56;
+    public static final int NAVIGATION_HEIGHT  = Simple.isTablet() ?  40 :  40;
     public static final int COINS_BUTTON_WIDTH = Simple.isTablet() ? 145 : 130;
     // @formatter:on
 }

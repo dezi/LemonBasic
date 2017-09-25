@@ -49,6 +49,9 @@
 
     <string name="course_buy_price">%1$s Coins</string>
 
+    <string name="content_buy_price">%1$s Coins</string>
+    <string name="content_buy_gratis">Gratis</string>
+
     <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
     <string name="redeem_coupon_redeem">Einlösen</string>
 
