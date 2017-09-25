@@ -1,9 +1,12 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.view.Gravity;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -58,6 +61,9 @@ public class AssetsAdapter extends BaseAdapter
         ImageView imageView;
         TextView titleView;
         TextView summaryView;
+        ImageView courseView;
+        TextView ownedView;
+        ImageView readView;
 
         if (convertView != null)
         {
@@ -66,6 +72,9 @@ public class AssetsAdapter extends BaseAdapter
             imageView = (ImageView) convertView.findViewById(android.R.id.content);
             titleView = (TextView) convertView.findViewById(android.R.id.title);
             summaryView = (TextView) convertView.findViewById(android.R.id.summary);
+            courseView = (ImageView) convertView.findViewById(android.R.id.icon);
+            ownedView = (TextView) convertView.findViewById(android.R.id.icon1);
+            readView = (ImageView) convertView.findViewById(android.R.id.icon2);
         }
         else
         {
@@ -74,8 +83,7 @@ public class AssetsAdapter extends BaseAdapter
             Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
             Simple.setPaddingDip(assetFrame, Defines.PADDING_SMALL);
 
-            LinearLayout imageBox = new LinearLayout(parent.getContext());
-            imageBox.setOrientation(LinearLayout.VERTICAL);
+            FrameLayout imageBox = new FrameLayout(parent.getContext());
             Simple.setSizeDip(imageBox, Simple.MP, Simple.pxToDip(imageHeight));
 
             assetFrame.addView(imageBox);
@@ -86,6 +94,51 @@ public class AssetsAdapter extends BaseAdapter
             Simple.setSizeDip(imageView, Simple.MP, Simple.pxToDip(imageHeight));
 
             imageBox.addView(imageView);
+
+            RelativeLayout courseBar = new RelativeLayout(parent.getContext());
+            courseBar.setGravity(Gravity.CENTER_VERTICAL + Gravity.CENTER_HORIZONTAL);
+            Simple.setSizeDip(courseBar, Simple.MP, Simple.MP);
+            imageBox.addView(courseBar);
+
+            courseView = new ImageView(parent.getContext());
+            courseView.setId(android.R.id.icon);
+            courseView.setImageResource(Screens.getCourseMarkerRes());
+            courseView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Simple.setSizeDip(courseView, Simple.WC, Defines.COURSE_ICON_SIZE);
+
+            courseBar.addView(courseView);
+
+            RelativeLayout overlayBar = new RelativeLayout(parent.getContext());
+            overlayBar.setGravity(Gravity.END);
+            Simple.setSizeDip(overlayBar, Simple.MP, Simple.WC);
+            Simple.setPaddingDip(overlayBar, Defines.PADDING_SMALL);
+
+            imageBox.addView(overlayBar);
+
+            ownedView = new TextView(parent.getContext());
+            ownedView.setId(android.R.id.icon1);
+            ownedView.setText(R.string.asset_owned);
+            ownedView.setAllCaps(true);
+            ownedView.setTextColor(Color.BLACK);
+            ownedView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAM_BOLD));
+            Simple.setSizeDip(ownedView, Simple.WC, Simple.WC);
+            Simple.setTextSizeDip(ownedView, Defines.FS_ASSET_OWNED);
+            Simple.setRoundedCorners(ownedView, Defines.CORNER_RADIUS_OVERLAY, Color.WHITE, true);
+
+            Simple.setPaddingDip(ownedView,
+                    Defines.PADDING_NORMAL, Defines.PADDING_TINY,
+                    Defines.PADDING_NORMAL, Defines.PADDING_TINY);
+
+            overlayBar.addView(ownedView);
+
+            readView = new ImageView(parent.getContext());
+            readView.setId(android.R.id.icon2);
+            readView.setImageResource(Screens.getReadMarkerRes());
+            readView.setScaleType(ImageView.ScaleType.FIT_END);
+            Simple.setSizeDip(readView, Simple.MP, Defines.READ_ICON_SIZE + (Defines.PADDING_SMALL * 2));
+            Simple.setPaddingDip(readView, Defines.PADDING_SMALL);
+
+            imageBox.addView(readView);
 
             LinearLayout textBox = new LinearLayout(parent.getContext());
             textBox.setOrientation(LinearLayout.VERTICAL);
@@ -146,6 +199,31 @@ public class AssetsAdapter extends BaseAdapter
 
         titleView.setText(title);
         summaryView.setText(subtitle);
+
+        //
+        // Display fake...
+        //
+
+        courseView.setVisibility(View.GONE);
+        ownedView.setVisibility(View.GONE);
+        readView.setVisibility(View.GONE);
+
+        if (Math.random() < 0.3)
+        {
+            courseView.setVisibility(View.VISIBLE);
+        }
+
+        if (Math.random() < 0.5)
+        {
+            if (Math.random() < 0.5)
+            {
+                ownedView.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                readView.setVisibility(View.VISIBLE);
+            }
+        }
 
         return assetFrame;
     }

@@ -53,6 +53,8 @@
     <string name="redeemed_title">Eingabe erfolgreich!</string>
     <string name="redeemed_info">Ihrem Konto wurde folgende\nAnzahl Coins gutgeschrieben:</string>
 
+    <string name="asset_owned">Gekauft</string>
+
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>
 

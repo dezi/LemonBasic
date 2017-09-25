@@ -38,7 +38,7 @@ public class AssetsImageManager
 
         fetchProfileImage(context, iv, url, ivwidth, ivheight);
 
-        return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_loading_placeholder);
+        return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
     }
 
     private static void fetchProfileImage(Context context, ImageView iv, String url, int ivwidth, int ivheight)

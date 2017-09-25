@@ -13,6 +13,22 @@ public class Screens
                 ;
     }
 
+    public static int getReadMarkerRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_haken
+                : R.drawable.lem_t_iany_ralbers_haken
+                ;
+    }
+
+    public static int getCourseMarkerRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_course_symbol
+                : R.drawable.lem_t_iany_ralbers_course_symbol
+                ;
+    }
+
     public static int getSplashScreenRes()
     {
         return Simple.isTablet()
