@@ -34,8 +34,6 @@ public class ContentHandler
                             Globals.displayAllContents = new JSONArray();
                             Globals.displayCategories = new JSONObject();
 
-                            JSONObject isCourseContent = new JSONObject();
-
                             if (Globals.courses != null)
                             {
                                 for (int inx = 0; inx < Globals.courses.length(); inx++)

@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -85,8 +86,21 @@ public class BuyCoinsDialog extends DialogView
                     if (button.isSelected())
                     {
                         buyPacket(button.getPacket());
+
+                        return;
                     }
                 }
+
+                ApplicationBase.handler.post(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        DialogView.errorAlert((ViewGroup) BuyCoinsDialog.this.getParent(),
+                                R.string.alert_buy_coins_title,
+                                R.string.alert_buy_coins_noselect);
+                    }
+                });
             }
         });
 

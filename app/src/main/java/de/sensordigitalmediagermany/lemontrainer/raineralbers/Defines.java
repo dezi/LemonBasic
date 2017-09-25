@@ -32,6 +32,7 @@ public class Defines
     public static final int COLOR_SENSOR_GREEN = 0xff54b23b;
 
     public static final int COLOR_SENSOR_DIALOGS = 0xcc3b4455;
+    public static final int COLOR_SENSOR_ALERTS  = 0xff3b4455;
     public static final int COLOR_SENSOR_NAVIBAR = 0xffedf0f4;
     public static final int COLOR_SENSOR_CONTENT = 0xffb6c4d2;
 

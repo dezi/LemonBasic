@@ -190,6 +190,8 @@ public class AssetsAdapter extends BaseAdapter
         String subtitle = Json.getString(asset, "sub_title");
         String thumburl = Json.getString(asset, "thumbnail_url");
 
+        boolean isCourse = Json.getBoolean(asset, "_isCourse");
+
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
                         parent.getContext(),
@@ -200,6 +202,8 @@ public class AssetsAdapter extends BaseAdapter
         titleView.setText(title);
         summaryView.setText(subtitle);
 
+        courseView.setVisibility(isCourse ? View.VISIBLE : View.GONE);
+
         //
         // Display fake...
         //
@@ -207,11 +211,6 @@ public class AssetsAdapter extends BaseAdapter
         courseView.setVisibility(View.GONE);
         ownedView.setVisibility(View.GONE);
         readView.setVisibility(View.GONE);
-
-        if (Math.random() < 0.3)
-        {
-            courseView.setVisibility(View.VISIBLE);
-        }
 
         if (Math.random() < 0.5)
         {

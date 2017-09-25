@@ -55,6 +55,9 @@
 
     <string name="asset_owned">Gekauft</string>
 
+    <string name="alert_buy_coins_title">Coins kaufen</string>
+    <string name="alert_buy_coins_noselect">Bitte wählen Sie ein Paket.</string>
+
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>
 

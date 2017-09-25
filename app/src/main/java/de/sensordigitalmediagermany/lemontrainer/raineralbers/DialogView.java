@@ -35,6 +35,8 @@ public class DialogView extends RelativeLayout
     {
         final DialogView dialogView = new DialogView(rootView.getContext());
 
+        Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_ALERTS, true);
+
         dialogView.setTitleText(titleres);
         dialogView.setInfoText(msgstr);
 
@@ -57,6 +59,7 @@ public class DialogView extends RelativeLayout
         }
     }
 
+    protected RelativeLayout marginView;
     protected ImageView closeButton;
     protected LinearLayout padView;
     protected TextView titleView;
@@ -95,7 +98,7 @@ public class DialogView extends RelativeLayout
             }
         });
 
-        RelativeLayout marginView = new RelativeLayout(context);
+        marginView = new RelativeLayout(context);
         Simple.setSizeDip(marginView, Simple.WC, Simple.WC);
         Simple.setPaddingDip(marginView, Defines.PADDING_TINY);
         Simple.setRoundedCorners(marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_DIALOGS, true);
@@ -152,7 +155,7 @@ public class DialogView extends RelativeLayout
         titleView.setVisibility(GONE);
         titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
-        titleView.setTextColor(Color.BLACK);
+        titleView.setTextColor(Color.WHITE);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(titleView, 36);
 
@@ -161,6 +164,7 @@ public class DialogView extends RelativeLayout
         infoView = new TextView(context);
         infoView.setVisibility(GONE);
         infoView.setMinLines(2);
+        infoView.setTextColor(Color.WHITE);
         infoView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         infoView.setLineSpacing(0.0f, 1.5f);
@@ -186,10 +190,11 @@ public class DialogView extends RelativeLayout
         negativeButton.setVisibility(GONE);
         negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        negativeButton.setTextColor(Color.BLACK);
-        Simple.setTextSizeDip(negativeButton, 16);
+        negativeButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(negativeButton, Simple.WC, Simple.WC, 0.5f);
-        Simple.setPaddingDip(negativeButton, Defines.PADDING_LARGE);
+        Simple.setTextSizeDip(negativeButton, Defines.FS_DIALOG_BUTTON);
+        Simple.setPaddingDip(negativeButton, Defines.PADDING_SMALL);
+        Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
 
         negativeButton.setOnClickListener(new OnClickListener()
         {
@@ -218,10 +223,11 @@ public class DialogView extends RelativeLayout
         positiveButton.setVisibility(GONE);
         positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         positiveButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        positiveButton.setTextColor(Color.BLACK);
-        Simple.setTextSizeDip(positiveButton, 16);
+        positiveButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(positiveButton, Simple.WC, Simple.WC, 0.5f);
-        Simple.setPaddingDip(positiveButton, Defines.PADDING_LARGE);
+        Simple.setTextSizeDip(positiveButton, Defines.FS_DIALOG_BUTTON);
+        Simple.setPaddingDip(positiveButton, Defines.PADDING_SMALL);
+        Simple.setRoundedCorners(positiveButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
 
         positiveButton.setOnClickListener(new OnClickListener()
         {
