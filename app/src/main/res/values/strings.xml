@@ -49,8 +49,21 @@
 
     <string name="course_buy_price">%1$s Coins</string>
 
-    <string name="content_buy_price">%1$s Coins</string>
-    <string name="content_buy_gratis">Gratis</string>
+    <string name="detail_buy_price">%1$s Coins</string>
+    <string name="detail_buy_gratis">Gratis</string>
+
+    <string name="detail_specs_file">Datei</string>
+
+    <string name="detail_specs_quantity">Umfang</string>
+    <string name="detail_specs_quantity_duration">%1$s Min.</string>
+
+    <string name="detail_specs_size">Größe</string>
+    <string name="detail_specs_size_mb">%1$s MB Daten</string>
+
+    <string name="detail_specs_type_unknown">Unbekannt</string>
+    <string name="detail_specs_type_video">Video</string>
+    <string name="detail_specs_type_audio">Audio</string>
+    <string name="detail_specs_type_pdf">PDF</string>
 
     <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
     <string name="redeem_coupon_redeem">Einlösen</string>

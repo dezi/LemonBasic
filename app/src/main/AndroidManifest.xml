@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".CourseActivity">
         </activity>
-        <activity android:name=".AssetActivity">
+        <activity android:name=".DetailActivity">
         </activity>
     </application>
 

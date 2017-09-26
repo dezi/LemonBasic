@@ -4,21 +4,25 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.text.TextUtils;
 import android.os.Bundle;
 import android.util.Log;
 
-public class AssetActivity extends ContentBaseActivity
+public class DetailActivity extends ContentBaseActivity
 {
-    private static final String LOGTAG = AssetActivity.class.getSimpleName();
+    private static final String LOGTAG = DetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        Log.d(LOGTAG, "onCreate: content=" + Json.toPretty(Globals.displayContent));
+        //
+        // Extend navigation frame to fill screen.
+        //
 
         naviFrame.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.MP);
@@ -29,6 +33,10 @@ public class AssetActivity extends ContentBaseActivity
 
         if (Globals.displayContent == null) return;
 
+        //
+        // Derive data from JSON.
+        //
+
         String courseTitle = Json.getString(Globals.displayContent, "title");
         String courseInfo = Json.getString(Globals.displayContent, "sub_title");
         String courseHeader = Json.getString(Globals.displayContent, "description_header");
@@ -36,6 +44,8 @@ public class AssetActivity extends ContentBaseActivity
         String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
 
         int price = Json.getInt(Globals.displayContent, "price");
+
+        //region Image and type area.
 
         int imageWidth = topFrame.getLayoutParams().width;
         int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_DETAIL_ASPECT);
@@ -50,6 +60,13 @@ public class AssetActivity extends ContentBaseActivity
                         this,
                         contentImage, detailUrl,
                         imageWidth, imageHeight, false));
+
+        Simple.setSizeDip(typeIcon, Defines.TYPE_ICON_SIZE, Defines.TYPE_ICON_SIZE);
+        typeIcon.setImageResource(R.drawable.lem_t_iany_ralbers_type_video);
+
+        //endregion Image and type area.
+
+        //region Header and title area.
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
@@ -72,6 +89,10 @@ public class AssetActivity extends ContentBaseActivity
 
         naviFrame.addView(ciView);
 
+        //endregion Header and title area.
+
+        //region Information area.
+
         LinearLayout infoArea = new LinearLayout(this);
         infoArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(infoArea, Simple.MP, Simple.MP);
@@ -81,6 +102,8 @@ public class AssetActivity extends ContentBaseActivity
         Simple.setMarginBottomDip(infoArea,Defines.PADDING_LARGE);
 
         naviFrame.addView(infoArea);
+
+        //region Detail description area.
 
         ScrollView descScroll = new ScrollView(this);
         Simple.setSizeDip(descScroll, Simple.WC, Simple.MP, 1f);
@@ -116,6 +139,10 @@ public class AssetActivity extends ContentBaseActivity
 
         descFrame.addView(cdView);
 
+        //endregion Detail description area.
+
+        //region Misc area with specs and buy.
+
         LinearLayout miscArea = new LinearLayout(this);
         miscArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(miscArea, Simple.WC, Simple.MP);
@@ -123,12 +150,101 @@ public class AssetActivity extends ContentBaseActivity
 
         infoArea.addView(miscArea);
 
+        //region Technical specs area.
+
+        int content_type = Json.getInt(Globals.displayContent, "content_type");
+        int file_size = Json.getInt(Globals.displayContent, "file_size");
+        int file_duration = Json.getInt(Globals.displayContent, "file_duration");
+
+        String suitable_for = Json.getString(Globals.displayContent, "suitable_for");
+
+        if (Defines.isDezi && (suitable_for == null))
+        {
+            suitable_for = Simple.getLoreIpsum();
+        }
+
         LinearLayout specsArea = new LinearLayout(this);
         specsArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(specsArea, Simple.MP, Simple.WC, 1f);
+        Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
         Simple.setRoundedCorners(specsArea, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
 
         miscArea.addView(specsArea);
+
+        RelativeLayout separ;
+
+        TableLikeLayout fileView = new TableLikeLayout(this);
+        fileView.setLeftText(R.string.detail_specs_file);
+
+        fileView.setRightText(content_type == 2
+                ? R.string.detail_specs_type_video
+                : R.string.detail_specs_type_unknown);
+
+        specsArea.addView(fileView);
+
+        separ = new RelativeLayout(this);
+        separ.setBackgroundColor(Color.LTGRAY);
+        Simple.setSizeDip(separ, Simple.MP, 2);
+        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+
+        specsArea.addView(separ);
+
+        TableLikeLayout quantView = new TableLikeLayout(this);
+        quantView.setLeftText(R.string.detail_specs_quantity);
+
+        if (content_type == 2)
+        {
+            int minutes = 1 + (file_duration / 60);
+
+            quantView.setRightText(Simple.getTrans(this,
+                    R.string.detail_specs_quantity_duration,
+                    String.valueOf(minutes)));
+        }
+        else
+        {
+            quantView.setRightText("-");
+        }
+
+        specsArea.addView(quantView);
+
+        separ = new RelativeLayout(this);
+        separ.setBackgroundColor(Color.LTGRAY);
+        Simple.setSizeDip(separ, Simple.MP, 2);
+        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+
+        specsArea.addView(separ);
+
+        TableLikeLayout sizeView = new TableLikeLayout(this);
+        sizeView.setLeftText(R.string.detail_specs_size);
+
+        int mbytes = file_size / (1000 * 1024);
+
+        sizeView.setRightText(Simple.getTrans(this,
+                R.string.detail_specs_size_mb,
+                String.valueOf(mbytes)));
+
+        specsArea.addView(sizeView);
+
+        separ = new RelativeLayout(this);
+        separ.setBackgroundColor(Color.LTGRAY);
+        Simple.setSizeDip(separ, Simple.MP, 2);
+        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+
+        specsArea.addView(separ);
+
+        TextView suitableView = new TextView(this);
+        suitableView.setText(suitable_for);
+        suitableView.setMinLines(2);
+        suitableView.setEllipsize(TextUtils.TruncateAt.END);
+        suitableView.setTextColor(Color.BLACK);
+        suitableView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        Simple.setTextSizeDip(suitableView, Defines.FS_DETAIL_SPECS);
+
+        specsArea.addView(suitableView);
+
+        //endregion Technical specs area.
+
+        //region Download and buy area.
 
         LinearLayout buyloadArea = new LinearLayout(this);
         buyloadArea.setOrientation(LinearLayout.HORIZONTAL);
@@ -147,8 +263,8 @@ public class AssetActivity extends ContentBaseActivity
         buyloadArea.addView(downloadImage);
 
         String buyText = (price > 0)
-                ? Simple.getTrans(this, R.string.content_buy_price, String.valueOf(price))
-                : Simple.getTrans(this, R.string.content_buy_gratis);
+                ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))
+                : Simple.getTrans(this, R.string.detail_buy_gratis);
 
         TextView buyButton = new TextView(this);
         buyButton.setText(buyText);
@@ -164,5 +280,11 @@ public class AssetActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
 
         buyloadArea.addView(buyButton);
+
+        //endregion Download and buy area.
+
+        //endregion Misc area with specs and buy.
+
+        //endregion Information area.
     }
 }

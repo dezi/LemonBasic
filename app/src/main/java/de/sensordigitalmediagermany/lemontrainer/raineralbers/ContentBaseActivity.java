@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Iterator;
@@ -23,8 +24,9 @@ public class ContentBaseActivity extends FullScreenActivity
     protected ImageView backButtonImage;
     protected ImageView profileButtonImage;
     protected ScaledButton profileButton;
-    protected LinearLayout imageFrame;
+    protected FrameLayout imageFrame;
     protected ImageView contentImage;
+    protected ImageView typeIcon;
     protected LinearLayout naviFrame;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
@@ -40,6 +42,10 @@ public class ContentBaseActivity extends FullScreenActivity
         Simple.setSizeDip(contentFrame, Simple.MP, Simple.MP);
 
         topFrame.addView(contentFrame);
+
+        //
+        // Header and profile frame.
+        //
 
         headerFrame = new FrameLayout(this);
         Simple.setSizeDip(headerFrame, Simple.MP, Simple.WC);
@@ -102,8 +108,11 @@ public class ContentBaseActivity extends FullScreenActivity
 
         headerFrame.addView(profileButton);
 
-        imageFrame = new LinearLayout(this);
-        imageFrame.setOrientation(LinearLayout.HORIZONTAL);
+        //
+        // Frame for image and image type icon.
+        //
+        
+        imageFrame = new FrameLayout(this);
 
         contentFrame.addView(imageFrame);
 
@@ -112,11 +121,30 @@ public class ContentBaseActivity extends FullScreenActivity
 
         imageFrame.addView(contentImage);
 
+        RelativeLayout iconCenter = new RelativeLayout(this);
+        iconCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+        Simple.setSizeDip(iconCenter, Simple.MP, Simple.MP);
+
+        imageFrame.addView(iconCenter);
+
+        typeIcon = new ImageView(this);
+        typeIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        iconCenter.addView(typeIcon);
+
+        //
+        // Navigation and multi purpose frame.
+        //
+
         naviFrame = new LinearLayout(this);
         naviFrame.setOrientation(LinearLayout.HORIZONTAL);
         naviFrame.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
 
         contentFrame.addView(naviFrame);
+
+        //
+        // Asset grid.
+        //
 
         assetGrid = new GridView(this);
 

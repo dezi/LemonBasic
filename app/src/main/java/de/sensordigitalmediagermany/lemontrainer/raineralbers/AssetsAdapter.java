@@ -265,6 +265,6 @@ public class AssetsAdapter extends BaseAdapter
 
         Globals.displayContent = content;
 
-        Simple.startActivity(parent.getContext(), AssetActivity.class);
+        Simple.startActivity(parent.getContext(), DetailActivity.class);
     }
 }
