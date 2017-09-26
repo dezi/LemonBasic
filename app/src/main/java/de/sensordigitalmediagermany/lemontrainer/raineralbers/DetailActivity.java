@@ -2,6 +2,8 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -278,6 +280,15 @@ public class DetailActivity extends ContentBaseActivity
         Simple.setPaddingDip(buyButton,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+
+        buyButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                topFrame.addView(new BuyContentDialog(DetailActivity.this));
+            }
+        });
 
         buyloadArea.addView(buyButton);
 

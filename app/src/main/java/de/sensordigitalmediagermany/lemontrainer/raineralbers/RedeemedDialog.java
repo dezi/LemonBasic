@@ -14,9 +14,17 @@ public class RedeemedDialog extends DialogView
 {
     private static final String LOGTAG = RedeemedDialog.class.getSimpleName();
 
-    protected EditText couponCode;
-
     public RedeemedDialog(Context context)
+    {
+        this(context, false);
+    }
+
+    public RedeemedDialog(Context context, boolean purchase)
+    {
+        this(context, purchase, null);
+    }
+
+    public RedeemedDialog(Context context, boolean purchase, final Runnable onFinished)
     {
         super(context);
 
@@ -28,7 +36,7 @@ public class RedeemedDialog extends DialogView
         Simple.setMarginBottomDip(dialogItems, Defines.PADDING_LARGE);
 
         TextView titleView = new TextView(getContext());
-        titleView.setText(R.string.redeemed_title);
+        titleView.setText(purchase ? R.string.redeemed_purchase : R.string.redeemed_title);
         titleView.setAllCaps(true);
         titleView.setTextColor(Color.WHITE);
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -100,6 +108,11 @@ public class RedeemedDialog extends DialogView
             public void onClick(View view)
             {
                 dismissDialog();
+
+                if (onFinished != null)
+                {
+                    ApplicationBase.handler.post(onFinished);
+                }
             }
         });
 

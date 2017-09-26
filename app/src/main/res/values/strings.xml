@@ -43,6 +43,7 @@
     <string name="profile_popup_impressum">Impressum</string>
 
     <string name="buy_coins_title">Wählen Sie Ihr Coin-Paket</string>
+    <string name="buy_coins_more">Sie benötigen mehr Coins!</string>
     <string name="buy_coins_coins">Coins</string>
     <string name="buy_coins_price">%1$s €</string>
     <string name="buy_coins_buy">Paket kaufen</string>
@@ -68,7 +69,19 @@
     <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
     <string name="redeem_coupon_redeem">Einlösen</string>
 
+    <string name="buy_content_title">Folgenden Inhalt jetzt kaufen?</string>
+    <string name="buy_content_price">Preis: %1$s Coins</string>
+    <string name="buy_content_buy">Inhalt kaufen</string>
+
+    <string name="buy_confirm_title">Diesen Kauf bestätigen:</string>
+    <string name="buy_confirm_password">Passwort eingeben</string>
+    <string name="buy_confirm_buy">Kaufen</string>
+
+    <string name="buy_confirmed_text1">Herzlichen Glückwunsch!</string>
+    <string name="buy_confirmed_text2">Sie haben diesen Inhalt gekauft.</string>
+
     <string name="redeemed_title">Eingabe erfolgreich!</string>
+    <string name="redeemed_purchase">Kauf erfolgreich!</string>
     <string name="redeemed_info">Ihrem Konto wurde folgende\nAnzahl Coins gutgeschrieben:</string>
 
     <string name="asset_owned">Gekauft</string>

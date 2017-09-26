@@ -13,6 +13,14 @@ public class Screens
                 ;
     }
 
+    public static int getConfirmedIconRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_buy_confirmed
+                : R.drawable.lem_t_iany_ralbers_buy_confirmed
+                ;
+    }
+
     public static int getReadMarkerRes()
     {
         return Simple.isTablet()

@@ -144,6 +144,17 @@ public class CoinsButton extends LinearLayout
                 return false;
             }
         });
+
+        setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //
+                // Dummy to prevent exit of dialog...
+                //
+            }
+        });
     }
 
     public boolean isSelected()

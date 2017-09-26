@@ -89,6 +89,10 @@ public class Defines
     public static final int FS_COURSE_HEADER = Simple.isTablet() ? 24 : 22;
     public static final int FS_COURSE_DESC   = Simple.isTablet() ? 15 : 12;
 
+    public static final int FS_BUY_TITLE     = Simple.isTablet() ? 16 : 14;
+    public static final int FS_BUY_HEADER    = Simple.isTablet() ? 24 : 22;
+    public static final int FS_BUY_PRICE     = Simple.isTablet() ? 48 : 40;
+
     public static final int FS_DETAIL_SPECS  = Simple.isTablet() ? 15 : 12;
 
     // @formatter:on
@@ -99,6 +103,7 @@ public class Defines
     //
 
     public static final float FS_ASSET_INFO_LSMULT = 1.3f;
+    public static final float FS_CONFIRMED_LSMULT = 1.5f;
 
     //
     // Estimation of the overall aspect ratio of asset
@@ -128,12 +133,13 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static final int READ_ICON_SIZE     = Simple.isTablet() ?  24 :  20;
-    public static final int CLOSE_ICON_SIZE    = Simple.isTablet() ?  24 :  20; // Important!
-    public static final int CLOUD_ICON_SIZE    = Simple.isTablet() ?  50 :  40;
-    public static final int COURSE_ICON_SIZE   = Simple.isTablet() ?  64 :  56;
-    public static final int NAVIGATION_HEIGHT  = Simple.isTablet() ?  40 :  40;
-    public static final int TYPE_ICON_SIZE     = Simple.isTablet() ? 128 : 100;
-    public static final int COINS_BUTTON_WIDTH = Simple.isTablet() ? 145 : 130;
+    public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
+    public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  24 :  20; // Important!
+    public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
+    public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
+    public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
+    public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 : 100;
+    public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
+    public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
     // @formatter:on
 }

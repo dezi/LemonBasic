@@ -17,10 +17,18 @@ public class BuyCoinsDialog extends DialogView
     private static final String LOGTAG = BuyCoinsDialog.class.getSimpleName();
 
     protected final ArrayList<CoinsButton> coinButtons = new ArrayList<>();
+    protected boolean wasMore;
 
     public BuyCoinsDialog(Context context)
     {
+        this(context, false);
+    }
+
+    public BuyCoinsDialog(Context context, boolean more)
+    {
         super(context);
+
+        wasMore = more;
 
         setCloseButton(true, null);
 
@@ -32,7 +40,7 @@ public class BuyCoinsDialog extends DialogView
         Simple.setMarginBottomDip(dialogItems, Defines.PADDING_LARGE);
 
         TextView titleView = new TextView(getContext());
-        titleView.setText(R.string.buy_coins_title);
+        titleView.setText(more ? R.string.buy_coins_more : R.string.buy_coins_title);
         titleView.setAllCaps(true);
         titleView.setTextColor(Color.WHITE);
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -109,7 +117,30 @@ public class BuyCoinsDialog extends DialogView
         setCustomView(dialogItems);
     }
 
-    protected void buyPacket(AppStorePacket paket)
+    protected void buyPacket(final AppStorePacket paket)
     {
+        final ViewGroup parent = (ViewGroup) BuyCoinsDialog.this.getParent();
+
+        if (parent != null)
+        {
+            parent.removeView(BuyCoinsDialog.this);
+
+            parent.addView(new RedeemedDialog(parent.getContext(), true, new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    boughtPacket(parent);
+                }
+            }));
+        }
+    }
+
+    protected void boughtPacket(ViewGroup parent)
+    {
+        if (wasMore)
+        {
+            parent.addView(new BuyConfirmDialog(parent.getContext()));
+        }
     }
 }
