@@ -87,6 +87,22 @@ public class LoginDialog extends DialogView
             @Override
             public void onClick(View view)
             {
+                if (Simple.isEmpty(userEmail.getText().toString()) ||
+                        Simple.isEmpty(passWord.getText().toString()) ||
+                        ! Simple.isEmailValid(userEmail.getText().toString()))
+                {
+                    DialogView.errorAlert((ViewGroup) LoginDialog.this.getParent(),
+                            R.string.alert_login_bad_title,
+                            R.string.alert_login_bad_info);
+
+                    return;
+                }
+
+                Globals.emailAddress = userEmail.getText().toString();
+                Globals.passWord = passWord.getText().toString();
+                Globals.UDID = Simple.getUUID();
+
+                SettingsHandler.realLoginAction((ViewGroup) LoginDialog.this.getParent(), loginSuccess, loginFailure);
             }
         });
 
@@ -154,4 +170,33 @@ public class LoginDialog extends DialogView
 
         setCustomView(dialogItems);
     }
+
+    private final Runnable loginSuccess = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            DialogView.errorAlert((ViewGroup) LoginDialog.this.getParent(),
+                    R.string.login,
+                    R.string.login_success,
+                    new View.OnClickListener()
+            {
+                public void onClick(View view)
+                {
+                    Simple.startActivityTop(LoginDialog.this.getContext(), ContentActivity.class);
+                }
+            });
+        }
+    };
+
+    private final Runnable loginFailure = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            DialogView.errorAlert((ViewGroup) LoginDialog.this.getParent(),
+                    R.string.alert_login_bad_title,
+                    R.string.alert_login_bad_info);
+        }
+    };
 }

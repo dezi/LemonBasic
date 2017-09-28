@@ -16,7 +16,8 @@
 
     <string name="register_title">Registrieren Sie sich:</string>
     <string name="register_hint_email">E-Mail Adresse</string>
-    <string name="register_hint_name">Vor- und Nachname</string>
+    <string name="register_hint_firstname">Vorname</string>
+    <string name="register_hint_lastname">Nachname</string>
     <string name="register_hint_company">Unternehmen</string>
     <string name="register_hint_password1">Passwort wählen</string>
     <string name="register_hint_password2">Passwort wiederholen</string>
@@ -91,5 +92,25 @@
 
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>
+
+    <string name="alert_register_username_missing_title">Name fehlt</string>
+    <string name="alert_register_username_missing_info">Bitte geben Sie Ihren Namen ein.</string>
+    <string name="alert_register_email_bad_title">Ungültige/Fehlende E-Mailadresse</string>
+    <string name="alert_register_email_bad_info">Bitte geben Sie Ihre E-Mailadresse ein.</string>
+    <string name="alert_register_password_bad_title">Passwort nicht ausreichend</string>
+    <string name="alert_register_password_bad_info">Bitte geben Sie ein Passwort mit mindestens 6 Zeichen ein.</string>
+    <string name="alert_register_password_diff_title">Passwort nicht identisch</string>
+    <string name="alert_register_password_diff_info">Das Passwort ist nicht identisch mit der Wiederholung.</string>
+
+    <string name="alert_register_title">Registrierung</string>
+    <string name="alert_register_ok">Registrierung erfolgreich.</string>
+    <string name="alert_register_fail">Registrierung fehlgeschlagen.</string>
+
+    <string name="alert_login_bad_title">Login fehlgeschlagen</string>
+    <string name="alert_login_bad_info">Kein gültigen Anmeldedaten.</string>
+
+    <string name="login">Login</string>
+    <string name="login_success">Login erfolgreich.</string>
+    <string name="login_failed">Login nicht erfolgreich.</string>
 
 </resources>

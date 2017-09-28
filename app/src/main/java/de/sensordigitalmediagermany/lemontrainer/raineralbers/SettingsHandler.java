@@ -72,34 +72,19 @@ public class SettingsHandler
         ApplicationBase.prefs.edit().remove(key).apply();
     }
 
-    public static void loadAllStuff()
-    {
-        if (Globals.accountId > 0)
-        {
-            SettingsHandler.fetchSettings();
-        }
-    }
-
     public static void loadSettings()
     {
         Globals.UDID = getSharedPrefString("session.UDID");
 
         Globals.emailAddress = getSharedPrefString("user.emailAddress");
         Globals.passWord = getSharedPrefString("user.passWord");
-        Globals.userName = getSharedPrefString("user.userName");
-        Globals.birthDay = getSharedPrefString("user.birthDay");
         Globals.firstName = getSharedPrefString("user.firstName");
         Globals.lastName = getSharedPrefString("user.lastName");
-        Globals.gender = getSharedPrefString("user.gender");
-
-        Globals.country = getSharedPrefString("user.country");
-        Globals.city = getSharedPrefString("user.city");
-        Globals.zip = getSharedPrefString("user.zip");
-        Globals.street = getSharedPrefString("user.street");
+        Globals.company = getSharedPrefString("user.company");
 
         Globals.accountId = getSharedPrefInt("user.accountId");
 
-        Log.d(LOGTAG, "loadSettings: userName=" + Globals.userName);
+        Log.d(LOGTAG, "loadSettings: firstName=" + Globals.firstName +  " lastName=" + Globals.lastName);
     }
 
     public static void saveSettings()
@@ -108,17 +93,9 @@ public class SettingsHandler
 
         setSharedPrefString("user.emailAddress", Globals.emailAddress);
         setSharedPrefString("user.passWord", Globals.passWord);
-
-        setSharedPrefString("user.userName", Globals.userName);
-        setSharedPrefString("user.birthDay", Globals.birthDay);
         setSharedPrefString("user.firstName", Globals.firstName);
         setSharedPrefString("user.lastName", Globals.lastName);
-        setSharedPrefString("user.gender", Globals.gender);
-
-        setSharedPrefString("user.country", Globals.country);
-        setSharedPrefString("user.city", Globals.city);
-        setSharedPrefString("user.zip", Globals.zip);
-        setSharedPrefString("user.street", Globals.street);
+        setSharedPrefString("user.company", Globals.company);
 
         setSharedPrefInt("user.accountId", Globals.accountId);
     }
@@ -130,68 +107,13 @@ public class SettingsHandler
         removeSharedPref("user.emailAddress");
         removeSharedPref("user.passWord");
 
-        removeSharedPref("user.userName");
-        removeSharedPref("user.birthDay");
         removeSharedPref("user.firstName");
         removeSharedPref("user.lastName");
-        removeSharedPref("user.gender");
-
-        removeSharedPref("user.country");
-        removeSharedPref("user.city");
-        removeSharedPref("user.zip");
-        removeSharedPref("user.street");
+        removeSharedPref("user.company");
 
         removeSharedPref("user.accountId");
 
         loadSettings();
-    }
-
-    public static void fetchSettings()
-    {
-        fetchSettings(Globals.accountId, null);
-    }
-
-    public static void fetchSettings(final Runnable callback)
-    {
-        fetchSettings(Globals.accountId, callback);
-    }
-
-    public static void fetchSettings(int accountId, final Runnable callback)
-    {
-        JSONObject params = new JSONObject();
-        Json.put(params, "accountId", accountId);
-
-        RestApi.getPostThreaded("getMyData", params, new RestApi.RestApiResultListener()
-        {
-            @Override
-            public void OnRestApiResult(String what, JSONObject params, JSONObject result)
-            {
-                if ((result != null) && Json.equals(result, "Status", "OK"))
-                {
-                    int accountId = Json.getInt(params, "accountId");
-                    JSONObject data = Json.getObject(result, "Data");
-
-                    if ((accountId > 0) && (data != null))
-                    {
-                        Globals.accountId = accountId;
-
-                        Globals.userName = Json.getString(data, "username");
-                        Globals.birthDay = Json.getString(data, "birthday");
-                        Globals.city = Json.getString(data, "city");
-                        Globals.country = Json.getString(data, "country");
-                        Globals.firstName = Json.getString(data, "firstname");
-                        Globals.lastName = Json.getString(data, "lastname");
-                        Globals.street = Json.getString(data, "street");
-                        Globals.zip = Json.getString(data, "zip");
-                        Globals.gender = Json.getString(data, "gender");
-
-                        saveSettings();
-
-                        if (callback != null) ApplicationBase.handler.post(callback);
-                    }
-                }
-            }
-        });
     }
 
     public static void realLoginAction(final ViewGroup rootView, final Runnable loginSuccess, final Runnable loginFailure)
@@ -204,9 +126,10 @@ public class SettingsHandler
         Json.put(params, "trainerName", Defines.TRAINER_NAME);
 
         Json.put(params, "deviceKind", 2);
+        Json.put(params, "deviceType", Build.MANUFACTURER + " " + Build.MODEL);
+        Json.put(params, "platform", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));
         Json.put(params, "version", Simple.getAppVersion(rootView.getContext()));
-        Json.put(params, "platform", Build.MANUFACTURER + " " + Build.MODEL);
-        Json.put(params, "language", Locale.getDefault().getDisplayLanguage());
+        Json.put(params, "language", Globals.language);
 
         RestApi.getPostThreaded("checkForLogin", params, new RestApi.RestApiResultListener()
         {
@@ -222,15 +145,12 @@ public class SettingsHandler
                     {
                         Globals.accountId = accountId;
 
-                        Globals.userName = Json.getString(data, "username");
-                        Globals.birthDay = Json.getString(data, "birthday");
-                        Globals.city = Json.getString(data, "city");
-                        Globals.country = Json.getString(data, "country");
                         Globals.firstName = Json.getString(data, "firstname");
                         Globals.lastName = Json.getString(data, "lastname");
-                        Globals.street = Json.getString(data, "street");
-                        Globals.zip = Json.getString(data, "zip");
-                        Globals.gender = Json.getString(data, "gender");
+
+                        Globals.coins = Json.getInt(data, "coin_credit");
+                        Globals.admin = Json.getInt(data, "is_admin");
+                        Globals.state = Json.getInt(data, "state");
 
                         SettingsHandler.saveSettings();
 

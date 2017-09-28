@@ -95,16 +95,21 @@ public class ContentBaseActivity extends FullScreenActivity
 
         profileButton = new ScaledButton(this);
         profileButton.setContentHorz(headerImage, Screens.getContentScreenButtonProfileRect(), hdresid);
-        profileButton.setButtonText(Defines.PADDING_XLARGE, "Max Mustermann");
 
-        profileButton.setOnButtonClicked(new Runnable()
+        if (Globals.accountId > 0)
         {
-            @Override
-            public void run()
+            String username = Globals.firstName + " " + Globals.lastName;
+            profileButton.setButtonText(Defines.PADDING_XLARGE, username);
+
+            profileButton.setOnButtonClicked(new Runnable()
             {
-                showProfileMenu();
-            }
-        });
+                @Override
+                public void run()
+                {
+                    showProfileMenu();
+                }
+            });
+        }
 
         headerFrame.addView(profileButton);
 

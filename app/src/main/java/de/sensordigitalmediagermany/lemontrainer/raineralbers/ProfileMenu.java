@@ -83,7 +83,7 @@ public class ProfileMenu extends RelativeLayout
         titleFrame.addView(creditsView);
 
         TextView countView = new TextView(getContext());
-        countView.setText("12.345");
+        countView.setText(Simple.formatDecimal(Globals.coins));
         countView.setSingleLine();
         countView.setGravity(Gravity.RIGHT);
         countView.setTextColor(Color.WHITE);

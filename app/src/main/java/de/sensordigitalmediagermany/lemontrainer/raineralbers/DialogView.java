@@ -152,24 +152,26 @@ public class DialogView extends RelativeLayout
         boxView.addView(padView);
 
         titleView = new TextView(context);
+        titleView.setAllCaps(true);
         titleView.setVisibility(GONE);
         titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
         titleView.setTextColor(Color.WHITE);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
-        Simple.setTextSizeDip(titleView, 36);
+        Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
 
         padView.addView(titleView);
 
         infoView = new TextView(context);
         infoView.setVisibility(GONE);
         infoView.setMinLines(2);
+        infoView.setMaxEms(8);
         infoView.setTextColor(Color.WHITE);
         infoView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
         infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        infoView.setLineSpacing(0.0f, 1.5f);
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
-        Simple.setTextSizeDip(infoView, 28);
+        Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
+        Simple.setMarginBottomDip(infoView, Defines.PADDING_SMALL);
 
         padView.addView(infoView);
 

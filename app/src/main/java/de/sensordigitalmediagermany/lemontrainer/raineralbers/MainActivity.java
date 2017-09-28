@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
+import android.view.View;
 import android.widget.ImageView;
 import android.os.Bundle;
 
@@ -39,6 +40,8 @@ public class MainActivity extends FullScreenActivity
             ApplicationBase.handler.postDelayed(showMainScreen, 2000);
         }
 
+        SettingsHandler.loadSettings();
+
         ApplicationBase.handler.post(getData);
     }
 
@@ -52,6 +55,11 @@ public class MainActivity extends FullScreenActivity
                 @Override
                 public void run()
                 {
+                    if (Globals.accountId > 0)
+                    {
+                        SettingsHandler.realLoginAction(topFrame, loginSuccess, loginFailure);
+                    }
+
                     if (contentButtonClicked)
                     {
                         Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
@@ -104,6 +112,41 @@ public class MainActivity extends FullScreenActivity
             });
 
             topFrame.addView(contentButton);
+        }
+    };
+
+    private final Runnable loginSuccess = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            ApplicationBase.handler.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                }
+            }, 750);
+        }
+    };
+
+    private final Runnable loginFailure = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            DialogView.errorAlert(topFrame,
+                    R.string.alert_login_bad_title,
+                    R.string.alert_login_bad_info,
+                    new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View view)
+                        {
+                            topFrame.addView(new LoginDialog(MainActivity.this));
+                        }
+                    });
         }
     };
 }

@@ -64,7 +64,7 @@ public class DetailActivity extends ContentBaseActivity
                         imageWidth, imageHeight, false));
 
         Simple.setSizeDip(typeIcon, Defines.TYPE_ICON_SIZE, Defines.TYPE_ICON_SIZE);
-        typeIcon.setImageResource(R.drawable.lem_t_iany_ralbers_type_video);
+        typeIcon.setImageResource(R.drawable.lem_t_iany_genric_type_film_gross);
 
         //endregion Image and type area.
 

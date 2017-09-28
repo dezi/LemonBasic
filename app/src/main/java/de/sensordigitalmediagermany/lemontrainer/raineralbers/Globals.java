@@ -13,19 +13,15 @@ public class Globals
     public static String UDID;
 
     public static String emailAddress;
-    public static String passWord;
-    public static String userName;
-    public static String birthDay;
     public static String firstName;
     public static String lastName;
-    public static String gender;
-
-    public static String country;
-    public static String city;
-    public static String zip;
-    public static String street;
+    public static String company;
+    public static String passWord;
 
     public static int accountId;
+    public static int admin;
+    public static int coins;
+    public static int state;
 
     //
     // JSON data.
