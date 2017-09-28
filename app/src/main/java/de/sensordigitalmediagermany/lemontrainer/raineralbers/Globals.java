@@ -39,4 +39,11 @@ public class Globals
     public static JSONArray displayAllContents;
 
     public static JSONObject displayContent;
+
+    public static JSONArray customerContents;
+    //
+    // Coins handling.
+    //
+
+    public static int coinsAdded;
 }

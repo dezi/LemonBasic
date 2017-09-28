@@ -71,7 +71,7 @@ public class RedeemedDialog extends DialogView
         dialogItems.addView(coinsFrame);
 
         TextView numberCoins = new TextView(getContext());
-        numberCoins.setText("500");
+        numberCoins.setText(Simple.formatDecimal(Globals.coinsAdded));
         numberCoins.setTextColor(Color.WHITE);
         numberCoins.setGravity(Gravity.CENTER_HORIZONTAL);
         numberCoins.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));

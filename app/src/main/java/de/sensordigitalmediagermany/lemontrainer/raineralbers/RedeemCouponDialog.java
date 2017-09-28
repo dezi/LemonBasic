@@ -3,13 +3,17 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 public class RedeemCouponDialog extends DialogView
 {
@@ -101,14 +105,41 @@ public class RedeemCouponDialog extends DialogView
             @Override
             public void onClick(View view)
             {
-                ViewGroup parent = (ViewGroup) RedeemCouponDialog.this.getParent();
+                final ViewGroup parent = (ViewGroup) RedeemCouponDialog.this.getParent();
 
-                if (parent != null)
+                JSONObject params = new JSONObject();
+
+                Json.put(params, "accountId", Globals.accountId);
+                Json.put(params, "couponCode", couponCode.getText().toString());
+                Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+                RestApi.getPostThreaded("redeemCoupon", params, new RestApi.RestApiResultListener()
                 {
-                    parent.removeView(RedeemCouponDialog.this);
+                    @Override
+                    public void OnRestApiResult(String what, JSONObject params, JSONObject result)
+                    {
+                        if ((result != null) && Json.equals(result, "Status", "OK"))
+                        {
+                            Globals.coins = Json.getInt(result, "coinCredit");
+                            Globals.coinsAdded = Json.getInt(result, "coinsRedeemed");
 
-                    parent.addView(new RedeemedDialog(parent.getContext()));
-                }
+                            if (parent != null)
+                            {
+                                parent.removeView(RedeemCouponDialog.this);
+
+                                parent.addView(new RedeemedDialog(parent.getContext()));
+                            }
+
+                            return;
+                        }
+
+                        Log.d(LOGTAG, "redeemCoupon: " + result);
+
+                        DialogView.errorAlert((ViewGroup) RedeemCouponDialog.this.getParent(),
+                                R.string.alert_redeem_coupon_title,
+                                R.string.alert_redeem_coupon_fail);
+                    }
+                });
             }
         });
 

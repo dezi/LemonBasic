@@ -44,6 +44,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -759,6 +760,13 @@ public class Simple
         }
 
         return 0;
+    }
+
+    public static String getNowDateSQL()
+    {
+        DateFormat df = new SimpleDateFormat(LEMONSQLDATE, Locale.getDefault());
+        df.setTimeZone(TimeZone.getDefault());
+        return df.format(Calendar.getInstance().getTime());
     }
 
     public static String getLocalDate(long timeStamp)

@@ -126,8 +126,8 @@ public class SettingsHandler
         Json.put(params, "trainerName", Defines.TRAINER_NAME);
 
         Json.put(params, "deviceKind", 2);
-        Json.put(params, "deviceType", Build.MANUFACTURER + " " + Build.MODEL);
-        Json.put(params, "platform", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));
+        Json.put(params, "deviceType", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));
+        Json.put(params, "platform", Build.MANUFACTURER + " " + Build.MODEL);
         Json.put(params, "version", Simple.getAppVersion(rootView.getContext()));
         Json.put(params, "language", Globals.language);
 
@@ -151,6 +151,8 @@ public class SettingsHandler
                         Globals.coins = Json.getInt(data, "coin_credit");
                         Globals.admin = Json.getInt(data, "is_admin");
                         Globals.state = Json.getInt(data, "state");
+
+                        Globals.customerContents = Json.getArray(data, "CustomerContents");
 
                         SettingsHandler.saveSettings();
 

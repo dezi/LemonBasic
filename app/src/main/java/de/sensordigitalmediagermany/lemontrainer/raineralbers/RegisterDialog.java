@@ -259,8 +259,8 @@ public class RegisterDialog extends DialogView
         Json.put(params, "trainerName", Defines.TRAINER_NAME);
 
         Json.put(params, "deviceKind", 2);
-        Json.put(params, "deviceType", Build.MANUFACTURER + " " + Build.MODEL);
-        Json.put(params, "platform", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));
+        Json.put(params, "deviceType", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));
+        Json.put(params, "platform", Build.MANUFACTURER + " " + Build.MODEL);
         Json.put(params, "version", Simple.getAppVersion(RegisterDialog.this.getContext()));
         Json.put(params, "language", Globals.language);
 

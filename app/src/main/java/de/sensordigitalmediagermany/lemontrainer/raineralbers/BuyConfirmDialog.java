@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 public class BuyConfirmDialog extends DialogView
 {
@@ -102,19 +105,64 @@ public class BuyConfirmDialog extends DialogView
             @Override
             public void onClick(View view)
             {
-                ViewGroup parent = (ViewGroup) BuyConfirmDialog.this.getParent();
-
-                if (parent != null)
+                if (Simple.equals(passWord.getText().toString(), Globals.passWord))
                 {
-                    parent.removeView(BuyConfirmDialog.this);
+                    buyContent();
 
-                    parent.addView(new BuyConfirmedDialog(parent.getContext()));
+                    return;
                 }
+
+                DialogView.errorAlert((ViewGroup) BuyConfirmDialog.this.getParent(),
+                        R.string.alert_buy_confirm_password_title,
+                        R.string.alert_buy_confirm_password_fail);
             }
         });
 
         buttonArea.addView(buyButton);
 
         setCustomView(dialogItems);
+    }
+
+    private void buyContent()
+    {
+        final ViewGroup parent = (ViewGroup) BuyConfirmDialog.this.getParent();
+
+        JSONObject params = new JSONObject();
+
+        Json.put(params, "UDID", Globals.UDID);
+        Json.put(params, "accountId", Globals.accountId);
+        Json.put(params, "productId", Json.getInt(Globals.displayContent, "id"));
+        Json.put(params, "isCourse", Json.getBoolean(Globals.displayContent, "_isCourse") ? 1 : 0);
+        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        RestApi.getPostThreaded("buyContent", params, new RestApi.RestApiResultListener()
+        {
+            @Override
+            public void OnRestApiResult(String what, JSONObject params, JSONObject result)
+            {
+                if ((result != null) && Json.equals(result, "Status", "OK"))
+                {
+                    int errorcode = Json.getInt(result, "errorcode");
+
+                    if (errorcode == 0)
+                    {
+                        if (parent != null)
+                        {
+                            parent.removeView(BuyConfirmDialog.this);
+
+                            parent.addView(new BuyConfirmedDialog(parent.getContext()));
+                        }
+
+                        return;
+                    }
+                }
+
+                Log.d(LOGTAG, "buyContent: " + result);
+
+                DialogView.errorAlert((ViewGroup) BuyConfirmDialog.this.getParent(),
+                        R.string.alert_buy_content_title,
+                        R.string.alert_buy_content_fail);
+            }
+        });
     }
 }

@@ -89,6 +89,7 @@
 
     <string name="alert_buy_coins_title">Coins kaufen</string>
     <string name="alert_buy_coins_noselect">Bitte wählen Sie ein Paket.</string>
+    <string name="alert_buy_coins_fail">Transaktion ist fehlgeschlagen.</string>
 
     <string name="alert_content_title">Content-Liste</string>
     <string name="alert_content_fail">Die Content-Liste konnte nicht geladen werden.</string>
@@ -108,6 +109,15 @@
 
     <string name="alert_login_bad_title">Login fehlgeschlagen</string>
     <string name="alert_login_bad_info">Kein gültigen Anmeldedaten.</string>
+
+    <string name="alert_redeem_coupon_title">Gutschein Einlösen</string>
+    <string name="alert_redeem_coupon_fail">Der Gutschein konnte nicht eingelöst werden.</string>
+
+    <string name="alert_buy_confirm_password_title">Kaufbestätigung</string>
+    <string name="alert_buy_confirm_password_fail">Passwort ist nicht korrekt.</string>
+
+    <string name="alert_buy_content_title">Inhalt kaufen</string>
+    <string name="alert_buy_content_fail">Transaktion ist fehlgeschlagen.</string>
 
     <string name="login">Login</string>
     <string name="login_success">Login erfolgreich.</string>

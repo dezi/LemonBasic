@@ -54,13 +54,13 @@ public class BuyContentDialog extends DialogView
 
         dialogItems.addView(roundedFrame);
 
-        String courseTitle = Json.getString(Globals.displayContent, "title");
-        String courseInfo = Json.getString(Globals.displayContent, "sub_title");
+        String contentTitle = Json.getString(Globals.displayContent, "title");
+        String contentInfo = Json.getString(Globals.displayContent, "sub_title");
 
-        int price = Json.getInt(Globals.displayContent, "price");
+        final int price = Json.getInt(Globals.displayContent, "price");
 
         TextView ctView = new TextView(getContext());
-        ctView.setText(courseTitle);
+        ctView.setText(contentTitle);
         ctView.setAllCaps(true);
         ctView.setTextColor(Defines.COLOR_SENSOR_LTBLUE);
         ctView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_MEDIUM));
@@ -73,7 +73,7 @@ public class BuyContentDialog extends DialogView
         roundedFrame.addView(ctView);
 
         TextView ciView = new TextView(getContext());
-        ciView.setText(courseInfo);
+        ciView.setText(contentInfo);
         ciView.setTextColor(Color.BLACK);
         ciView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.ROONEY_REGULAR));
         ciView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -152,9 +152,14 @@ public class BuyContentDialog extends DialogView
                 {
                     parent.removeView(BuyContentDialog.this);
 
-                    parent.addView(new BuyCoinsDialog(parent.getContext(), true));
-
-                    //parent.addView(new BuyConfirmDialog(parent.getContext()));
+                    if (price > Globals.coins)
+                    {
+                        parent.addView(new BuyCoinsDialog(parent.getContext(), true));
+                    }
+                    else
+                    {
+                        parent.addView(new BuyConfirmDialog(parent.getContext()));
+                    }
                 }
             }
         });

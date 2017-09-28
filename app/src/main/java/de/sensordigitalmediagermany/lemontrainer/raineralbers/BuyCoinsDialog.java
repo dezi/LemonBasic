@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -9,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -121,19 +124,55 @@ public class BuyCoinsDialog extends DialogView
     {
         final ViewGroup parent = (ViewGroup) BuyCoinsDialog.this.getParent();
 
-        if (parent != null)
-        {
-            parent.removeView(BuyCoinsDialog.this);
+        JSONObject params = new JSONObject();
 
-            parent.addView(new RedeemedDialog(parent.getContext(), true, new Runnable()
+        Json.put(params, "UDID", Globals.UDID);
+        Json.put(params, "accountId", Globals.accountId);
+        Json.put(params, "coins", paket.coins);
+        Json.put(params, "transactionId", Simple.getUUID());
+        Json.put(params, "transactionDate", Simple.getNowDateSQL());
+        Json.put(params, "originalTransactionId", "-");
+        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        RestApi.getPostThreaded("saveAppStoreTransaction", params, new RestApi.RestApiResultListener()
+        {
+            @Override
+            public void OnRestApiResult(String what, JSONObject params, JSONObject result)
             {
-                @Override
-                public void run()
+                if ((result != null) && Json.equals(result, "Status", "OK"))
                 {
-                    boughtPacket(parent);
+                    int errorcode = Json.getInt(result, "errorcode");
+
+                    if (errorcode == 0)
+                    {
+                        Globals.coins += paket.coins;
+                        Globals.coinsAdded = paket.coins;
+
+                        if (parent != null)
+                        {
+                            parent.removeView(BuyCoinsDialog.this);
+
+                            parent.addView(new RedeemedDialog(parent.getContext(), true, new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+                                    boughtPacket(parent);
+                                }
+                            }));
+                        }
+
+                        return;
+                    }
                 }
-            }));
-        }
+
+                Log.d(LOGTAG, "saveAppStoreTransaction: " + result);
+
+                DialogView.errorAlert((ViewGroup) BuyCoinsDialog.this.getParent(),
+                        R.string.alert_buy_coins_title,
+                        R.string.alert_buy_coins_fail);
+            }
+        });
     }
 
     protected void boughtPacket(ViewGroup parent)
