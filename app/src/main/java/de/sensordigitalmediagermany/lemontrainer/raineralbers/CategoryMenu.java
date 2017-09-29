@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.Gravity;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class CategoryMenu extends RelativeLayout
 {
     private static final String LOGTAG = CategoryMenu.class.getSimpleName();
@@ -21,10 +23,21 @@ public class CategoryMenu extends RelativeLayout
     protected LinearLayout popupFrame;
     protected TextView titleView;
 
-    @SuppressLint("RtlHardcoded")
+    protected ArrayList<TextView> optionViews = new ArrayList<>();
+
+    protected Runnable onMenuClickClient;
+
     public CategoryMenu(Context context)
     {
+        this(context, null);
+    }
+
+    @SuppressLint("RtlHardcoded")
+    public CategoryMenu(Context context, Runnable onMenuClickClient)
+    {
         super(context);
+
+        this.onMenuClickClient = onMenuClickClient;
 
         setGravity(Gravity.RIGHT);
         setBackgroundColor(Color.TRANSPARENT);
@@ -70,9 +83,11 @@ public class CategoryMenu extends RelativeLayout
         titleView = new TextView(getContext());
         titleView.setText(R.string.category_popup_title);
         titleView.setAllCaps(true);
-        titleView.setTextColor(Color.BLACK);
+        titleView.setTextColor((Globals.showCategory == null) ? Color.BLACK : Color.WHITE);
         titleView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(titleView, Defines.FS_POPUP_MENU);
+
+        titleView.setOnClickListener(onMenuClick);
 
         popupFrame.addView(titleView);
     }
@@ -95,10 +110,43 @@ public class CategoryMenu extends RelativeLayout
         TextView optionView = new TextView(getContext());
         optionView.setText(option);
         optionView.setAllCaps(true);
-        optionView.setTextColor(Color.WHITE);
+        optionView.setTextColor(Simple.equals(option, Globals.showCategory) ? Color.BLACK : Color.WHITE);
         optionView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(optionView, Defines.FS_POPUP_MENU);
 
+        optionView.setOnClickListener(onMenuClick);
+
         popupFrame.addView(optionView);
+
+        optionViews.add(optionView);
     }
+
+    public final OnClickListener onMenuClick = new OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            String category = null;
+
+            if (view != titleView)
+            {
+                TextView optionView = (TextView) view;
+                category = optionView.getText().toString();
+            }
+
+            Globals.showCategory = category;
+
+            titleView.setTextColor((titleView == view) ? Color.BLACK : Color.WHITE);
+
+            for (TextView optionView : optionViews)
+            {
+                optionView.setTextColor((optionView == view) ? Color.BLACK : Color.WHITE);
+            }
+
+            if (onMenuClickClient != null) onMenuClickClient.run();
+
+            ViewGroup parent = (ViewGroup) CategoryMenu.this.getParent();
+            if (parent != null)  parent.removeView(CategoryMenu.this);
+        }
+    };
 }

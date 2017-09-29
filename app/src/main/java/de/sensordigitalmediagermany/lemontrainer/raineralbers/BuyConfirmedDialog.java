@@ -25,26 +25,10 @@ public class BuyConfirmedDialog extends DialogView
         super(context);
 
         //
-        // Locallay register content as bought.
+        // Register content locally as bought.
         //
 
-        if (Globals.displayContent != null)
-        {
-            int id = Json.getInt(Globals.displayContent, "id");
-            boolean isCourse = Json.getBoolean(Globals.displayContent, "_isCourse");
-
-            if (id > 0)
-            {
-                if (isCourse)
-                {
-                    Globals.coursesBought.put(id, true);
-                }
-                else
-                {
-                    Globals.contentsBought.put(id, true);
-                }
-            }
-        }
+        ContentHandler.registerNewPurchase();
 
         setCloseButton(true, null);
 

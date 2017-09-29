@@ -171,6 +171,30 @@ public class SettingsHandler
                                     Globals.contentsBought.put(Json.getInt(item, "content_id"), true);
                                 }
                             }
+
+                            for (int inx = 0; inx < Globals.displayAllContents.length(); inx++)
+                            {
+                                JSONObject item = Json.getObject(Globals.displayAllContents, inx);
+                                if (item == null) continue;
+
+                                int id = Json.getInt(item, "id");
+                                boolean isCourse = Json.getBoolean(item, "_isCourse");
+
+                                if (isCourse)
+                                {
+                                    if (Globals.coursesBought.get(id, false))
+                                    {
+                                        Json.put(Globals.displayMyContents, item);
+                                    }
+                                }
+                                else
+                                {
+                                    if (Globals.contentsBought.get(id, false))
+                                    {
+                                        Json.put(Globals.displayMyContents, item);
+                                    }
+                                }
+                            }
                         }
 
                         SettingsHandler.saveSettings();

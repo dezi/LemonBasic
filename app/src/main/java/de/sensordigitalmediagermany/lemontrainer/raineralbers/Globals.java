@@ -47,9 +47,8 @@ public class Globals
     public static SparseBooleanArray coursesBought = new SparseBooleanArray();
     public static SparseBooleanArray contentsBought = new SparseBooleanArray();
 
-    //
-    // Coins handling.
-    //
-
     public static int coinsAdded;
+
+    public static boolean showMyContent;
+    public static String showCategory;
 }

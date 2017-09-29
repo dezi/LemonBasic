@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
+import android.view.KeyboardShortcutGroup;
 import android.view.ViewGroup;
 
 import org.json.JSONArray;
@@ -141,4 +142,46 @@ public class ContentHandler
             }
         });
     }
+
+    public static void registerNewPurchase()
+    {
+        if (Globals.displayContent == null) return;
+
+        int id = Json.getInt(Globals.displayContent, "id");
+        boolean isCourse = Json.getBoolean(Globals.displayContent, "_isCourse");
+
+        if (id <= 0) return;
+
+        if (isCourse)
+        {
+            Globals.coursesBought.put(id, true);
+        }
+        else
+        {
+            Globals.contentsBought.put(id, true);
+        }
+
+        Json.put(Globals.displayMyContents, Globals.displayContent);
+    }
+
+    public static JSONArray getFilteredContent()
+    {
+        JSONArray result = new JSONArray();
+        JSONArray source = Globals.showMyContent ? Globals.displayMyContents : Globals.displayAllContents;
+
+        for (int inx = 0; inx < source.length(); inx++)
+        {
+            JSONObject item = Json.getObject(source, inx);
+            if (item == null) continue;
+
+            if ((Globals.showCategory == null) || Simple.equals(Json.getString(item, "category"), Globals.showCategory))
+            {
+                Json.put(result, item);
+            }
+        }
+
+        return result;
+    }
+
+
 }
