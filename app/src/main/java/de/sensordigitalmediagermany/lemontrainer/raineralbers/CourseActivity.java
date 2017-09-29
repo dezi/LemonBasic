@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.Bundle;
@@ -32,7 +33,8 @@ public class CourseActivity extends ContentBaseActivity
         String courseTitle = Json.getString(Globals.displayContent, "title");
         String courseHeader = Json.getString(Globals.displayContent, "description_header");
         String courseDescription = Json.getString(Globals.displayContent, "description");
-        String priceString = "" + Json.getInt(Globals.displayContent, "price");
+
+        int price = Json.getInt(Globals.displayContent, "price");
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
@@ -72,7 +74,9 @@ public class CourseActivity extends ContentBaseActivity
 
         infoArea.addView(cdView);
 
-        String buyText = Simple.getTrans(this, R.string.course_buy_price, priceString);
+        String buyText = (price > 0)
+                ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
+                : Simple.getTrans(this, R.string.course_buy_gratis);
 
         TextView buyButton = new TextView(this);
         buyButton.setText(buyText);
@@ -85,6 +89,15 @@ public class CourseActivity extends ContentBaseActivity
         Simple.setPaddingDip(buyButton,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+
+        buyButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                topFrame.addView(new BuyContentDialog(CourseActivity.this));
+            }
+        });
 
         infoArea.addView(buyButton);
 

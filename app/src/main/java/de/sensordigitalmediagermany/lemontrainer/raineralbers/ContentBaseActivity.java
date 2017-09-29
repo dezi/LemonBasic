@@ -168,6 +168,16 @@ public class ContentBaseActivity extends FullScreenActivity
         assetGrid.setAdapter(assetsAdapter);
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        Log.d(LOGTAG, "onResume: notifyDataSetChanged...");
+
+        assetsAdapter.notifyDataSetChanged();
+    }
+
     private void showProfileMenu()
     {
         ProfileMenu profilePopup = new ProfileMenu(this);

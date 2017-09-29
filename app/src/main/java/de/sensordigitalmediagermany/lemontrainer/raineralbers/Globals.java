@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.util.SparseBooleanArray;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -41,6 +43,10 @@ public class Globals
     public static JSONObject displayContent;
 
     public static JSONArray customerContents;
+
+    public static SparseBooleanArray coursesBought = new SparseBooleanArray();
+    public static SparseBooleanArray contentsBought = new SparseBooleanArray();
+
     //
     // Coins handling.
     //

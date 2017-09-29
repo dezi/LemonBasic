@@ -50,6 +50,7 @@
     <string name="buy_coins_buy">Paket kaufen</string>
 
     <string name="course_buy_price">%1$s Coins</string>
+    <string name="course_buy_gratis">Gratis</string>
 
     <string name="detail_buy_price">%1$s Coins</string>
     <string name="detail_buy_gratis">Gratis</string>

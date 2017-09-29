@@ -105,6 +105,8 @@ public class BuyConfirmDialog extends DialogView
             @Override
             public void onClick(View view)
             {
+                ApplicationBase.hideActionBar(getContext());
+
                 if (Simple.equals(passWord.getText().toString(), Globals.passWord))
                 {
                     buyContent();

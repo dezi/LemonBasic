@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
 import android.content.Context;
@@ -64,6 +65,24 @@ public class FullScreenActivity extends AppCompatActivity
         super.onResume();
 
         setUiFlags();
+
+        ApplicationBase.setCurrentActivity(this);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        ApplicationBase.clearCurrentActivity(this);
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        ApplicationBase.clearCurrentActivity(this);
     }
 
     @Override
@@ -74,7 +93,7 @@ public class FullScreenActivity extends AppCompatActivity
         setUiFlags();
     }
 
-    private void setUiFlags()
+    public void setUiFlags()
     {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(uiOptions);

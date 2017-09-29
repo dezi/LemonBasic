@@ -1,9 +1,12 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class ApplicationBase extends Application
@@ -13,6 +16,8 @@ public class ApplicationBase extends Application
     public static final Handler handler = new Handler();
     public static SharedPreferences prefs;
 
+    private AppCompatActivity currentActivity;
+
     @Override
     public void onCreate()
     {
@@ -21,5 +26,35 @@ public class ApplicationBase extends Application
         super.onCreate();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+    }
+
+    public static void setCurrentActivity(AppCompatActivity currentActivity)
+    {
+        ((ApplicationBase) currentActivity.getApplicationContext()).currentActivity = currentActivity;
+    }
+
+    public static void clearCurrentActivity(AppCompatActivity currentActivity)
+    {
+        ApplicationBase self = (ApplicationBase) currentActivity.getApplicationContext();
+
+        if (self.currentActivity == currentActivity)
+        {
+            self.currentActivity = null;
+        }
+    }
+
+    public static AppCompatActivity getCurrentActivity(Context context)
+    {
+        return ((ApplicationBase) context.getApplicationContext()).currentActivity;
+    }
+
+    public static void hideActionBar(Context context)
+    {
+        final AppCompatActivity self = ApplicationBase.getCurrentActivity(context);
+
+        if (self instanceof FullScreenActivity)
+        {
+            ((FullScreenActivity) self).setUiFlags();
+        }
     }
 }

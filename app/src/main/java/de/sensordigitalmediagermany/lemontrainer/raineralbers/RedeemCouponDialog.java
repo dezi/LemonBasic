@@ -105,6 +105,8 @@ public class RedeemCouponDialog extends DialogView
             @Override
             public void onClick(View view)
             {
+                ApplicationBase.hideActionBar(getContext());
+
                 final ViewGroup parent = (ViewGroup) RedeemCouponDialog.this.getParent();
 
                 JSONObject params = new JSONObject();

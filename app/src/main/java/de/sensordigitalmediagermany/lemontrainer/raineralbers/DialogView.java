@@ -76,6 +76,8 @@ public class DialogView extends RelativeLayout
     {
         super(context);
 
+        ApplicationBase.hideActionBar(context);
+
         setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         setBackgroundColor(Defines.COLOR_BACKGROUND_DIM);
         Simple.setSizeDip(this, Simple.MP, Simple.MP);
@@ -318,7 +320,7 @@ public class DialogView extends RelativeLayout
         closeButtonOnClick = onClickListener;
     }
 
-    public void dismissDialog()
+    public ViewGroup dismissDialog()
     {
         ViewGroup parent = (ViewGroup) getParent();
 
@@ -326,5 +328,7 @@ public class DialogView extends RelativeLayout
         {
             parent.removeView(DialogView.this);
         }
+
+        return parent;
     }
 }

@@ -186,6 +186,7 @@ public class AssetsAdapter extends BaseAdapter
 
         final JSONObject asset = (JSONObject) getItem(position % assets.length());
 
+        int id = Json.getInt(asset, "id");
         String title = Json.getString(asset, "title");
         String subtitle = Json.getString(asset, "sub_title");
         String thumburl = Json.getString(asset, "thumbnail_url");
@@ -201,6 +202,9 @@ public class AssetsAdapter extends BaseAdapter
         titleView.setText(title);
         summaryView.setText(subtitle);
 
+        ownedView.setVisibility(View.GONE);
+        readView.setVisibility(View.GONE);
+
         if (isCourse)
         {
             courseView.setVisibility(View.VISIBLE);
@@ -213,6 +217,11 @@ public class AssetsAdapter extends BaseAdapter
                     openCourse(gridView, asset);
                 }
             });
+
+            if (Globals.coursesBought.get(id, false))
+            {
+                ownedView.setVisibility(View.VISIBLE);
+            }
         }
         else
         {
@@ -226,24 +235,10 @@ public class AssetsAdapter extends BaseAdapter
                     openContent(gridView, asset);
                 }
             });
-        }
 
-        //
-        // Display fake...
-        //
-
-        ownedView.setVisibility(View.GONE);
-        readView.setVisibility(View.GONE);
-
-        if (Math.random() < 0.5)
-        {
-            if (Math.random() < 0.5)
+            if (Globals.contentsBought.get(id, false))
             {
                 ownedView.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                readView.setVisibility(View.VISIBLE);
             }
         }
 
