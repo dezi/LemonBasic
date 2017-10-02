@@ -68,32 +68,39 @@ public class Defines
     //
 
     // @formatter:off
-    public static final int FS_DIALOG_TITLE  = Simple.isTablet() ? 20 : 16;
-    public static final int FS_DIALOG_EDIT   = Simple.isTablet() ? 20 : 16;
-    public static final int FS_DIALOG_BUTTON = Simple.isTablet() ? 20 : 16;
-    public static final int FS_DIALOG_INFO   = Simple.isTablet() ? 16 : 14;
+    public static final int FS_DIALOG_TITLE    = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_EDIT     = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_BUTTON   = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_INFO     = Simple.isTablet() ? 16 : 14;
 
-    public static final int FS_BUTTON_IMAGE  = Simple.isTablet() ? 18 : 16;
-    public static final int FS_NAVI_MENU     = Simple.isTablet() ? 22 : 14;
-    public static final int FS_POPUP_MENU    = Simple.isTablet() ? 18 : 16;
+    public static final int FS_BUTTON_IMAGE    = Simple.isTablet() ? 18 : 16;
+    public static final int FS_NAVI_MENU       = Simple.isTablet() ? 20 : 14;
+    public static final int FS_POPUP_MENU      = Simple.isTablet() ? 18 : 16;
 
-    public static final int FS_ASSET_TITLE   = Simple.isTablet() ? 13 : 12;
-    public static final int FS_ASSET_INFO    = Simple.isTablet() ? 13 : 12;
-    public static final int FS_ASSET_OWNED   = Simple.isTablet() ? 12 : 11;
+    public static final int FS_ASSET_TITLE     = Simple.isTablet() ? 13 : 12;
+    public static final int FS_ASSET_INFO      = Simple.isTablet() ? 13 : 12;
+    public static final int FS_ASSET_OWNED     = Simple.isTablet() ? 12 : 11;
 
-    public static final int FS_COINS_COINS   = Simple.isTablet() ? 56 : 48;
-    public static final int FS_COINS_PRICE   = Simple.isTablet() ? 26 : 22;
-    public static final int FS_COINS_BUTTONS = Simple.isTablet() ? 22 : 20;
+    public static final int FS_COINS_COINS     = Simple.isTablet() ? 56 : 48;
+    public static final int FS_COINS_PRICE     = Simple.isTablet() ? 26 : 22;
+    public static final int FS_COINS_BUTTONS   = Simple.isTablet() ? 22 : 20;
 
-    public static final int FS_COURSE_TITLE  = Simple.isTablet() ? 16 : 14;
-    public static final int FS_COURSE_HEADER = Simple.isTablet() ? 24 : 22;
-    public static final int FS_COURSE_DESC   = Simple.isTablet() ? 15 : 12;
+    public static final int FS_COURSE_TITLE    = Simple.isTablet() ? 16 : 14;
+    public static final int FS_COURSE_HEADER   = Simple.isTablet() ? 24 : 22;
+    public static final int FS_COURSE_DESC     = Simple.isTablet() ? 15 : 12;
 
-    public static final int FS_BUY_TITLE     = Simple.isTablet() ? 16 : 14;
-    public static final int FS_BUY_HEADER    = Simple.isTablet() ? 24 : 22;
-    public static final int FS_BUY_PRICE     = Simple.isTablet() ? 48 : 40;
+    public static final int FS_BUY_TITLE       = Simple.isTablet() ? 16 : 14;
+    public static final int FS_BUY_HEADER      = Simple.isTablet() ? 24 : 22;
+    public static final int FS_BUY_PRICE       = Simple.isTablet() ? 48 : 40;
 
-    public static final int FS_DETAIL_SPECS  = Simple.isTablet() ? 15 : 12;
+    public static final int FS_DETAIL_SPECS    = Simple.isTablet() ? 15 : 12;
+
+    public static final int FS_SETTINGS_TITLE  = Simple.isTablet() ? 17 : 16;
+    public static final int FS_SETTINGS_INFO   = Simple.isTablet() ? 15 : 14;
+    public static final int FS_SETTINGS_EDIT   = Simple.isTablet() ? 20 : 18;
+    public static final int FS_SETTINGS_BUTTON = Simple.isTablet() ? 14 : 12;
+    public static final int FS_SETTINGS_UPLOAD = Simple.isTablet() ? 12 : 11;
+    public static final int FS_SETTINGS_LIST   = Simple.isTablet() ? 22 : 20;
 
     // @formatter:on
 
@@ -102,8 +109,9 @@ public class Defines
     // for assets info/subtitle display.
     //
 
-    public static final float FS_ASSET_INFO_LSMULT = 1.3f;
     public static final float FS_CONFIRMED_LSMULT = 1.5f;
+    public static final float FS_ASSET_INFO_LSMULT = 1.3f;
+    public static final float FS_NAVIGATION_LSPACE = 0.08f;
 
     //
     // Estimation of the overall aspect ratio of asset
@@ -129,6 +137,8 @@ public class Defines
     public static final int PADDING_NORMAL  = Simple.isTablet() ? 16 : 14;
     public static final int PADDING_LARGE   = Simple.isTablet() ? 20 : 16;
     public static final int PADDING_XLARGE  = Simple.isTablet() ? 40 : 30;
+
+    public static final int MARGIN_BUTTON   = Simple.isTablet() ?  6 :  4;
     public static final int MARGIN_POPUP    = Simple.isTablet() ? 16 :  0;
     // @formatter:on
 
@@ -138,6 +148,8 @@ public class Defines
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
+    public static final int PROFILE_IMAGE_SIZE  = Simple.isTablet() ? 100 :  90;
+    public static final int ASSET_IMAGE_SIZE    = Simple.isTablet() ? 100 :  90;
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 : 100;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;

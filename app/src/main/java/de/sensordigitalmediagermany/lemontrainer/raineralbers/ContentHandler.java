@@ -166,15 +166,20 @@ public class ContentHandler
 
     public static JSONArray getFilteredContent()
     {
+        return getFilteredContent(Globals.showMyContent, Globals.showCategory);
+    }
+
+    public static JSONArray getFilteredContent(boolean showMy, String showCategory)
+    {
         JSONArray result = new JSONArray();
-        JSONArray source = Globals.showMyContent ? Globals.displayMyContents : Globals.displayAllContents;
+        JSONArray source = showMy ? Globals.displayMyContents : Globals.displayAllContents;
 
         for (int inx = 0; inx < source.length(); inx++)
         {
             JSONObject item = Json.getObject(source, inx);
             if (item == null) continue;
 
-            if ((Globals.showCategory == null) || Simple.equals(Json.getString(item, "category"), Globals.showCategory))
+            if ((showCategory == null) || Simple.equals(showCategory, Json.getString(item, "category")))
             {
                 Json.put(result, item);
             }

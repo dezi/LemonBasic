@@ -22,7 +22,13 @@ public class AssetsAdapter extends BaseAdapter
 {
     private static final String LOGTAG = AssetsAdapter.class.getSimpleName();
 
+    private boolean horizontal;
     private JSONArray assets;
+
+    public void setHorizontal(boolean horizontal)
+    {
+        this.horizontal = horizontal;
+    }
 
     public void setAssets(JSONArray assets)
     {
@@ -49,6 +55,135 @@ public class AssetsAdapter extends BaseAdapter
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
+    {
+        return horizontal
+                ? getViewHorizontal(position, convertView, parent)
+                : getViewNormal(position, convertView, parent)
+                ;
+    }
+
+    public View getViewHorizontal(int position, View convertView, ViewGroup parent)
+    {
+        final GridView gridView = (GridView) parent;
+
+        int imageWidth = Simple.dipToPx(Defines.ASSET_IMAGE_SIZE);
+        int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_THUMBNAIL_ASPECT);
+
+        Log.d(LOGTAG, "getView: imageWidth=" + imageWidth + " imageHeight=" + +imageHeight);
+
+        LinearLayout assetFrame;
+        ImageView imageView;
+        TextView titleView;
+        TextView summaryView;
+        ImageView courseView;
+
+        if (convertView != null)
+        {
+            assetFrame = (LinearLayout) convertView;
+
+            imageView = (ImageView) convertView.findViewById(android.R.id.content);
+            titleView = (TextView) convertView.findViewById(android.R.id.title);
+            summaryView = (TextView) convertView.findViewById(android.R.id.summary);
+            courseView = (ImageView) convertView.findViewById(android.R.id.icon);
+        }
+        else
+        {
+            assetFrame = new LinearLayout(parent.getContext());
+            assetFrame.setOrientation(LinearLayout.HORIZONTAL);
+            assetFrame.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+            Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
+
+            FrameLayout imageBox = new FrameLayout(parent.getContext());
+            Simple.setSizeDip(imageBox, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
+
+            assetFrame.addView(imageBox);
+
+            imageView = new ImageView(parent.getContext());
+            imageView.setId(android.R.id.content);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            Simple.setSizeDip(imageView, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
+
+            imageBox.addView(imageView);
+
+            RelativeLayout courseBar = new RelativeLayout(parent.getContext());
+            courseBar.setGravity(Gravity.CENTER_VERTICAL + Gravity.CENTER_HORIZONTAL);
+            Simple.setSizeDip(courseBar, Simple.MP, Simple.MP);
+            imageBox.addView(courseBar);
+
+            courseView = new ImageView(parent.getContext());
+            courseView.setId(android.R.id.icon);
+            courseView.setImageResource(Screens.getCourseMarkerRes());
+            courseView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Simple.setSizeDip(courseView, Simple.WC, Simple.pxToDip(imageHeight) * 2 / 3);
+
+            courseBar.addView(courseView);
+
+            LinearLayout textBox = new LinearLayout(parent.getContext());
+            textBox.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(textBox, Simple.MP, Simple.MP);
+
+            assetFrame.addView(textBox);
+
+            titleView = new TextView(parent.getContext());
+            titleView.setId(android.R.id.title);
+            titleView.setSingleLine();
+            titleView.setEllipsize(TextUtils.TruncateAt.END);
+            titleView.setGravity(Gravity.CENTER_VERTICAL);
+            titleView.setTextColor(Color.BLACK);
+            titleView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            Simple.setTextSizeDip(titleView, Defines.FS_SETTINGS_LIST);
+            Simple.setSizeDip(titleView, Simple.MP, Simple.MP, 1.0f);
+            Simple.setMarginLeftDip(titleView, Defines.PADDING_SMALL);
+
+            textBox.addView(titleView);
+
+            summaryView = new TextView(parent.getContext());
+            summaryView.setId(android.R.id.summary);
+            summaryView.setSingleLine();
+            summaryView.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+            summaryView.setTextColor(Color.BLACK);
+            summaryView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            Simple.setTextSizeDip(summaryView, Defines.FS_SETTINGS_LIST);
+            Simple.setSizeDip(summaryView, Simple.WC, Simple.MP);
+            Simple.setMarginLeftDip(summaryView, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(summaryView, Defines.PADDING_SMALL);
+
+            textBox.addView(summaryView);
+        }
+
+        final JSONObject asset = (JSONObject) getItem(position % assets.length());
+
+        String title = Json.getString(asset, "title");
+        String subtitle = Json.getString(asset, "sub_title");
+        String thumburl = Json.getString(asset, "thumbnail_url");
+        String displayTitle = title + " | " + subtitle;
+
+        boolean isCourse = Json.getBoolean(asset, "_isCourse");
+
+        imageView.setImageDrawable(
+                AssetsImageManager.getDrawableOrFetch(
+                        parent.getContext(),
+                        imageView, thumburl,
+                        imageWidth, imageHeight, false));
+
+
+        titleView.setText(displayTitle);
+        summaryView.setText("843 MB");
+
+        courseView.setVisibility(isCourse ? View.VISIBLE : View.GONE);
+
+        assetFrame.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+            }
+        });
+
+        return assetFrame;
+    }
+
+    public View getViewNormal(int position, View convertView, ViewGroup parent)
     {
         final GridView gridView = (GridView) parent;
 
@@ -142,7 +277,6 @@ public class AssetsAdapter extends BaseAdapter
 
             LinearLayout textBox = new LinearLayout(parent.getContext());
             textBox.setOrientation(LinearLayout.VERTICAL);
-            Simple.setSizeDip(imageView, Simple.MP, Simple.WC);
 
             int radiusdipse[] = new int[4];
 

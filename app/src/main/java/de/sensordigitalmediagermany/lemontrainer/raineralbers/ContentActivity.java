@@ -33,6 +33,7 @@ public class ContentActivity extends ContentBaseActivity
         Simple.setTextSizeDip(naviLeftButton, Defines.FS_NAVI_MENU);
         Simple.setSizeDip(naviLeftButton, Simple.MP, Simple.MP, 0.5f);
         Simple.setPaddingDip(naviLeftButton, Defines.PADDING_LARGE, 0, 0, 0);
+        Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSPACE);
 
         naviLeftButton.setOnClickListener(new View.OnClickListener()
         {
@@ -67,6 +68,7 @@ public class ContentActivity extends ContentBaseActivity
         Simple.setTextSizeDip(naviRightButton, Defines.FS_NAVI_MENU);
         Simple.setSizeDip(naviRightButton, Simple.MP, Simple.MP, 0.5f);
         Simple.setPaddingDip(naviRightButton, 0, 0, Defines.PADDING_LARGE, 0);
+        Simple.setLetterSpacing(naviRightButton, Defines.FS_NAVIGATION_LSPACE);
 
         naviRightButton.setOnClickListener(new View.OnClickListener()
         {

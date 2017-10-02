@@ -147,28 +147,27 @@ public class ProfileMenu extends RelativeLayout
 
     private void onButtonClicked(int optionresid)
     {
+        ViewGroup parent = (ViewGroup) ProfileMenu.this.getParent();
+        if (parent == null) return;
+
         if (optionresid == R.string.profile_popup_buy)
         {
-            ViewGroup parent = (ViewGroup) ProfileMenu.this.getParent();
 
-            if (parent != null)
-            {
-                parent.removeView(ProfileMenu.this);
+            parent.removeView(ProfileMenu.this);
 
-                parent.addView(new BuyCoinsDialog(parent.getContext()));
-            }
+            parent.addView(new BuyCoinsDialog(parent.getContext()));
         }
 
         if (optionresid == R.string.profile_popup_redeem)
         {
-            ViewGroup parent = (ViewGroup) ProfileMenu.this.getParent();
+            parent.removeView(ProfileMenu.this);
 
-            if (parent != null)
-            {
-                parent.removeView(ProfileMenu.this);
+            parent.addView(new RedeemCouponDialog(parent.getContext()));
+        }
 
-                parent.addView(new RedeemCouponDialog(parent.getContext()));
-            }
+        if (optionresid == R.string.profile_popup_settings)
+        {
+            Simple.startActivity(parent.getContext(), SettingsActivity.class);
         }
     }
 }

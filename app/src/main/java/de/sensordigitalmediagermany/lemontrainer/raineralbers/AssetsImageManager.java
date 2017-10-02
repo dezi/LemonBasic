@@ -32,7 +32,9 @@ public class AssetsImageManager
     {
         synchronized (cache)
         {
-            Drawable image = cache.get(url);
+            String cacheTag = url + "|" + ivwidth + "|" + ivheight + "|" + rounded;
+
+            Drawable image = cache.get(cacheTag);
 
             if (image != null) return image;
         }
@@ -127,7 +129,9 @@ public class AssetsImageManager
 
                 synchronized (cache)
                 {
-                    cache.put(urlstring, drawable);
+                    String cacheTag = urlstring + "|" + ivwidth + "|" + ivheight + "|" + rounded;
+
+                    cache.put(cacheTag, drawable);
                 }
 
                 return drawable;

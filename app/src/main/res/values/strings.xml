@@ -29,6 +29,23 @@
     <string name="password_forgot_hint_email">E-Mail Adresse</string>
     <string name="password_forgot_request">Absenden</string>
 
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_data">Persönliche Daten</string>
+    <string name="settings_edit_image">Bearbeiten</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_company">Unternehmen</string>
+    <string name="settings_email">Mailadresse</string>
+    <string name="settings_password">Passwort</string>
+    <string name="settings_change_password">Passwort ändern</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_sound_button">An/aus</string>
+    <string name="settings_sound_volume">Lautstärke</string>
+    <string name="settings_logoff">Abmelden</string>
+    <string name="settings_contents">Inhalte verwalten</string>
+    <string name="settings_your_contents">Ihre geladenen Lerninhalte</string>
+    <string name="settings_used_storage">Benutzter Speicher:</string>
+    <string name="settings_used_storage_mb">%1$s MB</string>
+
     <string name="content_navibar_left_show_all">Alle Inhalte</string>
     <string name="content_navibar_left_show_my">Meine Inhalte anzeigen</string>
     <string name="content_navibar_right_themes">Themenauswahl</string>

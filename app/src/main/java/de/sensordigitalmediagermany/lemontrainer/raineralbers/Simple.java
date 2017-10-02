@@ -102,6 +102,14 @@ public class Simple
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
     }
 
+    public static void setLetterSpacing(TextView view, float factor)
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+        {
+            view.setLetterSpacing(factor);
+        }
+    }
+
     public static void setSizeDip(View view, int width, int height)
     {
         if (view.getLayoutParams() == null)
@@ -286,7 +294,7 @@ public class Simple
 
     public static String formatMoney(int cents)
     {
-        String res = "";
+        String res;
 
         if ((cents % 100) < 10)
         {
