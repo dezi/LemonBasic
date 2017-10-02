@@ -140,15 +140,27 @@ public class AssetsAdapter extends BaseAdapter
             summaryView = new TextView(parent.getContext());
             summaryView.setId(android.R.id.summary);
             summaryView.setSingleLine();
-            summaryView.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+            summaryView.setGravity(Gravity.CENTER_VERTICAL);
             summaryView.setTextColor(Color.BLACK);
             summaryView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
             Simple.setTextSizeDip(summaryView, Defines.FS_SETTINGS_LIST);
             Simple.setSizeDip(summaryView, Simple.WC, Simple.MP);
             Simple.setMarginLeftDip(summaryView, Defines.PADDING_SMALL);
-            Simple.setMarginRightDip(summaryView, Defines.PADDING_SMALL);
 
             textBox.addView(summaryView);
+
+            TextView moreView = new TextView(parent.getContext());
+            moreView.setText(">");
+            moreView.setSingleLine();
+            moreView.setGravity(Gravity.CENTER_VERTICAL);
+            moreView.setTextColor(Color.BLACK);
+            moreView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            Simple.setTextSizeDip(moreView, Defines.FS_SETTINGS_MORE);
+            Simple.setSizeDip(moreView, Simple.WC, Simple.MP);
+            Simple.setMarginLeftDip(moreView, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(moreView, Defines.PADDING_SMALL);
+
+            textBox.addView(moreView);
         }
 
         final JSONObject asset = (JSONObject) getItem(position % assets.length());

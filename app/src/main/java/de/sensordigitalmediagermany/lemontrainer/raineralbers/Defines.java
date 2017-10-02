@@ -101,6 +101,7 @@ public class Defines
     public static final int FS_SETTINGS_BUTTON = Simple.isTablet() ? 14 : 12;
     public static final int FS_SETTINGS_UPLOAD = Simple.isTablet() ? 12 : 11;
     public static final int FS_SETTINGS_LIST   = Simple.isTablet() ? 22 : 20;
+    public static final int FS_SETTINGS_MORE   = Simple.isTablet() ? 30 : 28;
 
     // @formatter:on
 

@@ -413,10 +413,18 @@ public class SettingsActivity extends ContentBaseActivity
         contentSection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
         Simple.setSizeDip(contentSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(contentSection, Defines.PADDING_SMALL);
+        Simple.setMarginBottomDip(contentSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(contentSection, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(contentSection, Defines.FS_NAVIGATION_LSPACE);
 
         rightArea.addView(contentSection);
+
+        assetGrid.setNumColumns(1);
+        assetGrid.setColumnWidth(GridView.AUTO_FIT);
+        assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_TINY * 2));
+        assetGrid.setHorizontalSpacing(0);
+        Simple.setPaddingDip(assetGrid, 0);
 
         rightArea.addView(assetGrid);
 
@@ -425,12 +433,6 @@ public class SettingsActivity extends ContentBaseActivity
         //endregion Right area.
 
         //endregion Body frames
-
-        assetGrid.setNumColumns(1);
-        assetGrid.setColumnWidth(GridView.AUTO_FIT);
-        assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-        assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_TINY));
-        assetGrid.setHorizontalSpacing(0);
 
         assetsAdapter.setHorizontal(true);
         assetsAdapter.setAssets(ContentHandler.getFilteredContent(true, null));
