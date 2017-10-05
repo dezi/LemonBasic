@@ -1,9 +1,11 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.support.v4.app.NotificationCompat;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -311,7 +313,7 @@ public class DetailActivity extends ContentBaseActivity
                     @Override
                     public void onClick(final View view)
                     {
-                        downloadContent();
+                        downloadContent(DetailActivity.this);
                     }
                 });
             }
@@ -335,7 +337,7 @@ public class DetailActivity extends ContentBaseActivity
         //endregion Information area.
     }
 
-    private void downloadContent()
+    private void downloadContent(final Context context)
     {
         Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
@@ -344,20 +346,18 @@ public class DetailActivity extends ContentBaseActivity
                 {
                     public void OnFileLoaded(JSONObject content, File file)
                     {
-                        String title = Simple.getTrans(DetailActivity.this, (file == null)
-                                ? R.string.detail_download_failed
-                                : R.string.detail_download_complete);
+                        AppCompatActivity activity = ApplicationBase.getCurrentActivity(context);
 
-                        String text = Json.getString(content, "sub_title");
+                        if (activity instanceof FullScreenActivity)
+                        {
+                            int titleRes = (file == null)
+                                    ? R.string.detail_download_failed
+                                    : R.string.detail_download_complete;
 
-                        NotificationCompat.Builder builder =
-                                new NotificationCompat.Builder(DetailActivity.this)
-                                        .setSmallIcon(R.drawable.lem_t_iany_ralbers_cloud_download)
-                                        .setContentTitle(title)
-                                        .setContentText(text);
+                            String text = Json.getString(content, "sub_title");
 
-                        NotificationManager notifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        notifyMgr.notify(1, builder.build());
+                            DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
+                        }
 
                         if (file == null)
                         {
