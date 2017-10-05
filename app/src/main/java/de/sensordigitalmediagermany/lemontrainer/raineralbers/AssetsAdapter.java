@@ -170,6 +170,9 @@ public class AssetsAdapter extends BaseAdapter
         String thumburl = Json.getString(asset, "thumbnail_url");
         String displayTitle = title + " | " + subtitle;
 
+        long file_size = Json.getLong(asset, "file_size");
+        long mbytes = file_size / (1000 * 1024);
+
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
 
         imageView.setImageDrawable(
@@ -180,7 +183,10 @@ public class AssetsAdapter extends BaseAdapter
 
 
         titleView.setText(displayTitle);
-        summaryView.setText("843 MB");
+
+        summaryView.setText(Simple.getTrans(parent.getContext(),
+                R.string.detail_specs_size_mb,
+                Simple.formatDecimal(mbytes)));
 
         courseView.setVisibility(isCourse ? View.VISIBLE : View.GONE);
 
@@ -210,7 +216,7 @@ public class AssetsAdapter extends BaseAdapter
         TextView summaryView;
         ImageView courseView;
         TextView ownedView;
-        ImageView readView;
+        ImageView loadedView;
 
         if (convertView != null)
         {
@@ -221,7 +227,7 @@ public class AssetsAdapter extends BaseAdapter
             summaryView = (TextView) convertView.findViewById(android.R.id.summary);
             courseView = (ImageView) convertView.findViewById(android.R.id.icon);
             ownedView = (TextView) convertView.findViewById(android.R.id.icon1);
-            readView = (ImageView) convertView.findViewById(android.R.id.icon2);
+            loadedView = (ImageView) convertView.findViewById(android.R.id.icon2);
         }
         else
         {
@@ -278,14 +284,14 @@ public class AssetsAdapter extends BaseAdapter
 
             overlayBar.addView(ownedView);
 
-            readView = new ImageView(parent.getContext());
-            readView.setId(android.R.id.icon2);
-            readView.setImageResource(Screens.getReadMarkerRes());
-            readView.setScaleType(ImageView.ScaleType.FIT_END);
-            Simple.setSizeDip(readView, Simple.MP, Defines.READ_ICON_SIZE + (Defines.PADDING_SMALL * 2));
-            Simple.setPaddingDip(readView, Defines.PADDING_SMALL);
+            loadedView = new ImageView(parent.getContext());
+            loadedView.setId(android.R.id.icon2);
+            loadedView.setImageResource(Screens.getReadMarkerRes());
+            loadedView.setScaleType(ImageView.ScaleType.FIT_END);
+            Simple.setSizeDip(loadedView, Simple.MP, Defines.READ_ICON_SIZE + (Defines.PADDING_SMALL * 2));
+            Simple.setPaddingDip(loadedView, Defines.PADDING_SMALL);
 
-            imageBox.addView(readView);
+            imageBox.addView(loadedView);
 
             LinearLayout textBox = new LinearLayout(parent.getContext());
             textBox.setOrientation(LinearLayout.VERTICAL);
@@ -349,7 +355,7 @@ public class AssetsAdapter extends BaseAdapter
         summaryView.setText(subtitle);
 
         ownedView.setVisibility(View.GONE);
-        readView.setVisibility(View.GONE);
+        loadedView.setVisibility(View.GONE);
 
         if (isCourse)
         {
@@ -366,7 +372,14 @@ public class AssetsAdapter extends BaseAdapter
 
             if (Globals.coursesBought.get(id, false))
             {
-                ownedView.setVisibility(View.VISIBLE);
+                if (ContentHandler.isCachedFile(asset))
+                {
+                    loadedView.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    ownedView.setVisibility(View.VISIBLE);
+                }
             }
         }
         else
@@ -384,7 +397,14 @@ public class AssetsAdapter extends BaseAdapter
 
             if (Globals.contentsBought.get(id, false))
             {
-                ownedView.setVisibility(View.VISIBLE);
+                if (ContentHandler.isCachedFile(asset))
+                {
+                    loadedView.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    ownedView.setVisibility(View.VISIBLE);
+                }
             }
         }
 

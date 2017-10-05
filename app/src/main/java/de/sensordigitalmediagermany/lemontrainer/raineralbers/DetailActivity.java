@@ -1,9 +1,10 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.app.NotificationManager;
+import android.support.v4.app.NotificationCompat;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -13,9 +14,16 @@ import android.text.TextUtils;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONObject;
+
+import java.io.File;
+
 public class DetailActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = DetailActivity.class.getSimpleName();
+
+    protected TextView buyButton;
+    protected ImageView downloadButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,13 +47,15 @@ public class DetailActivity extends ContentBaseActivity
         // Derive data from JSON.
         //
 
-        String courseTitle = Json.getString(Globals.displayContent, "title");
-        String courseInfo = Json.getString(Globals.displayContent, "sub_title");
-        String courseHeader = Json.getString(Globals.displayContent, "description_header");
-        String courseDescription = Json.getString(Globals.displayContent, "description");
+        int contentId = Json.getInt(Globals.displayContent, "id");
+        String contentTitle = Json.getString(Globals.displayContent, "title");
+        String contentInfo = Json.getString(Globals.displayContent, "sub_title");
+        String contentHeader = Json.getString(Globals.displayContent, "description_header");
+        String contentDescription = Json.getString(Globals.displayContent, "description");
         String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
 
         int price = Json.getInt(Globals.displayContent, "price");
+        boolean bought = Globals.contentsBought.get(contentId, false);
 
         //region Image and type area.
 
@@ -71,7 +81,7 @@ public class DetailActivity extends ContentBaseActivity
         //region Header and title area.
 
         TextView ctView = new TextView(this);
-        ctView.setText(courseTitle);
+        ctView.setText(contentTitle);
         ctView.setAllCaps(true);
         ctView.setTextColor(Defines.COLOR_SENSOR_LTBLUE);
         ctView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
@@ -82,7 +92,7 @@ public class DetailActivity extends ContentBaseActivity
         naviFrame.addView(ctView);
 
         TextView ciView = new TextView(this);
-        ciView.setText(courseInfo);
+        ciView.setText(contentInfo);
         ciView.setTextColor(Color.BLACK);
         ciView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
         Simple.setTextSizeDip(ciView, Defines.FS_COURSE_HEADER);
@@ -99,9 +109,9 @@ public class DetailActivity extends ContentBaseActivity
         infoArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(infoArea, Simple.MP, Simple.MP);
 
-        Simple.setMarginTopDip(infoArea,Defines.PADDING_LARGE);
-        Simple.setMarginRightDip(infoArea,Defines.PADDING_LARGE);
-        Simple.setMarginBottomDip(infoArea,Defines.PADDING_LARGE);
+        Simple.setMarginTopDip(infoArea, Defines.PADDING_LARGE);
+        Simple.setMarginRightDip(infoArea, Defines.PADDING_LARGE);
+        Simple.setMarginBottomDip(infoArea, Defines.PADDING_LARGE);
 
         naviFrame.addView(infoArea);
 
@@ -120,7 +130,7 @@ public class DetailActivity extends ContentBaseActivity
         descScroll.addView(descFrame);
 
         TextView chView = new TextView(this);
-        chView.setText(courseHeader);
+        chView.setText(contentHeader);
         chView.setTextColor(Color.BLACK);
         chView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
         Simple.setTextSizeDip(chView, Defines.FS_COURSE_HEADER);
@@ -128,10 +138,10 @@ public class DetailActivity extends ContentBaseActivity
 
         descFrame.addView(chView);
 
-        if (Defines.isDezi) courseDescription += " " + Simple.getLoreIpsum();
+        if (Defines.isDezi) contentDescription += " " + Simple.getLoreIpsum();
 
         TextView cdView = new TextView(this);
-        cdView.setText(courseDescription);
+        cdView.setText(contentDescription);
         cdView.setTextColor(Color.BLACK);
         cdView.setMinLines(2);
         cdView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_LIGHT));
@@ -155,8 +165,9 @@ public class DetailActivity extends ContentBaseActivity
         //region Technical specs area.
 
         int content_type = Json.getInt(Globals.displayContent, "content_type");
-        int file_size = Json.getInt(Globals.displayContent, "file_size");
         int file_duration = Json.getInt(Globals.displayContent, "file_duration");
+        long file_size = Json.getLong(Globals.displayContent, "file_size");
+        long mbytes = file_size / (1000 * 1024);
 
         String suitable_for = Json.getString(Globals.displayContent, "suitable_for");
 
@@ -219,11 +230,9 @@ public class DetailActivity extends ContentBaseActivity
         TableLikeLayout sizeView = new TableLikeLayout(this);
         sizeView.setLeftText(R.string.detail_specs_size);
 
-        int mbytes = file_size / (1000 * 1024);
-
         sizeView.setRightText(Simple.getTrans(this,
                 R.string.detail_specs_size_mb,
-                String.valueOf(mbytes)));
+                Simple.formatDecimal(mbytes)));
 
         specsArea.addView(sizeView);
 
@@ -255,47 +264,112 @@ public class DetailActivity extends ContentBaseActivity
 
         miscArea.addView(buyloadArea);
 
-        ImageView downloadImage = new ImageView(this);
-        downloadImage.setImageResource(R.drawable.lem_t_iany_ralbers_cloud_download);
-        downloadImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        Simple.setSizeDip(downloadImage, Defines.CLOUD_ICON_SIZE, Simple.MP);
-        Simple.setPaddingDip(downloadImage, Defines.PADDING_SMALL);
-        Simple.setRoundedCorners(downloadImage, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
+        downloadButton = new ImageView(this);
+        downloadButton.setImageResource(R.drawable.lem_t_iany_ralbers_cloud_download);
+        downloadButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        downloadButton.setVisibility(View.GONE);
+        Simple.setSizeDip(downloadButton, Defines.CLOUD_ICON_SIZE, Simple.MP);
+        Simple.setPaddingDip(downloadButton, Defines.PADDING_SMALL);
+        Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
+        Simple.setMarginRightDip(downloadButton, Defines.PADDING_LARGE);
 
-        buyloadArea.addView(downloadImage);
+        buyloadArea.addView(downloadButton);
 
         String buyText = (price > 0)
                 ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))
                 : Simple.getTrans(this, R.string.detail_buy_gratis);
 
-        TextView buyButton = new TextView(this);
+        if (bought)
+        {
+            buyText = ContentHandler.isCachedFile(Globals.displayContent)
+                    ? Simple.getTrans(this, R.string.detail_buy_loaded)
+                    : Simple.getTrans(this, R.string.detail_buy_bought);
+        }
+
+        buyButton = new TextView(this);
         buyButton.setText(buyText);
         buyButton.setTextColor(Color.WHITE);
         buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
         Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BIGBUT, Color.BLACK, true);
-        Simple.setMarginLeftDip(buyButton, Defines.PADDING_LARGE);
 
         Simple.setPaddingDip(buyButton,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
 
-        buyButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                topFrame.addView(new BuyContentDialog(DetailActivity.this));
-            }
-        });
-
         buyloadArea.addView(buyButton);
+
+        if (bought)
+        {
+            if (! ContentHandler.isCachedFile(Globals.displayContent))
+            {
+                downloadButton.setVisibility(View.VISIBLE);
+
+                downloadButton.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(final View view)
+                    {
+                        downloadContent();
+                    }
+                });
+            }
+        }
+        else
+        {
+            buyButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    topFrame.addView(new BuyContentDialog(DetailActivity.this));
+                }
+            });
+        }
 
         //endregion Download and buy area.
 
         //endregion Misc area with specs and buy.
 
         //endregion Information area.
+    }
+
+    private void downloadContent()
+    {
+        Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+
+        AssetsDownloadManager.getContentOrFetch(Globals.displayContent,
+                new AssetsDownloadManager.OnFileLoadedHandler()
+                {
+                    public void OnFileLoaded(JSONObject content, File file)
+                    {
+                        String title = Simple.getTrans(DetailActivity.this, (file == null)
+                                ? R.string.detail_download_failed
+                                : R.string.detail_download_complete);
+
+                        String text = Json.getString(content, "sub_title");
+
+                        NotificationCompat.Builder builder =
+                                new NotificationCompat.Builder(DetailActivity.this)
+                                        .setSmallIcon(R.drawable.lem_t_iany_ralbers_cloud_download)
+                                        .setContentTitle(title)
+                                        .setContentText(text);
+
+                        NotificationManager notifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notifyMgr.notify(1, builder.build());
+
+                        if (file == null)
+                        {
+                            Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Color.RED, true);
+                        }
+                        else
+                        {
+                            downloadButton.setVisibility(View.GONE);
+                            buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_loaded));
+                        }
+                    }
+                });
+
     }
 }

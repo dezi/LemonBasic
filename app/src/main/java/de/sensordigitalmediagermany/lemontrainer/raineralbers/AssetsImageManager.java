@@ -39,13 +39,13 @@ public class AssetsImageManager
             if (image != null) return image;
         }
 
-        fetchProfileImage(context, iv, url, ivwidth, ivheight, rounded);
+        fetchAssetImage(context, iv, url, ivwidth, ivheight, rounded);
 
         return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
     }
 
-    private static void fetchProfileImage(Context context, ImageView iv, String url,
-                                          int ivwidth, int ivheight, boolean rounded)
+    private static void fetchAssetImage(Context context, ImageView iv, String url,
+                                        int ivwidth, int ivheight, boolean rounded)
     {
         synchronized (queue)
         {
@@ -150,12 +150,12 @@ public class AssetsImageManager
 
     private static class QueueData
     {
-        public Context cx;
-        public ImageView iv;
-        public String url;
-        public int ivwidth;
-        public int ivheight;
-        public boolean rounded;
+        final public Context cx;
+        final public ImageView iv;
+        final public String url;
+        final public int ivwidth;
+        final public int ivheight;
+        final public boolean rounded;
 
         public QueueData(Context cx, ImageView iv, String url, int ivwidth, int ivheight, boolean rounded)
         {

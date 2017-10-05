@@ -9,12 +9,15 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import java.io.File;
+
 public class ApplicationBase extends Application
 {
     private static final String LOGTAG = ApplicationBase.class.getSimpleName();
 
     public static final Handler handler = new Handler();
     public static SharedPreferences prefs;
+    public static File cacheDir;
 
     private AppCompatActivity currentActivity;
 
@@ -24,6 +27,8 @@ public class ApplicationBase extends Application
         Log.d(LOGTAG, "onCreate...");
 
         super.onCreate();
+
+        cacheDir = getCacheDir();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
     }

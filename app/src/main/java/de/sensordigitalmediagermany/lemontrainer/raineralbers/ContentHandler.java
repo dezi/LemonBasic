@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -166,10 +168,10 @@ public class ContentHandler
 
     public static JSONArray getFilteredContent()
     {
-        return getFilteredContent(Globals.showMyContent, Globals.showCategory);
+        return getFilteredContent(Globals.showMyContent, Globals.showCategory, false);
     }
 
-    public static JSONArray getFilteredContent(boolean showMy, String showCategory)
+    public static JSONArray getFilteredContent(boolean showMy, String showCategory, boolean cachedOnly)
     {
         JSONArray result = new JSONArray();
         JSONArray source = showMy ? Globals.displayMyContents : Globals.displayAllContents;
@@ -179,14 +181,36 @@ public class ContentHandler
             JSONObject item = Json.getObject(source, inx);
             if (item == null) continue;
 
-            if ((showCategory == null) || Simple.equals(showCategory, Json.getString(item, "category")))
-            {
-                Json.put(result, item);
-            }
+            if (cachedOnly && ! isCachedFile(item)) continue;
+
+            if ((showCategory != null) && ! Simple.equals(showCategory, Json.getString(item, "category"))) continue;
+
+            Json.put(result, item);
         }
 
         return result;
     }
 
+    public static File getStorageDir()
+    {
+        File storageDir = new File(ApplicationBase.cacheDir, "download");
 
+        if (! storageDir.exists()) storageDir.mkdirs();
+
+        return storageDir;
+    }
+
+    public static boolean isCachedFile(JSONObject content)
+    {
+        String fileName = Json.getString(content, "content_file_name");
+
+        if (fileName != null)
+        {
+            File cacheFile = new File(getStorageDir(), fileName);
+
+            return cacheFile.exists();
+        }
+
+        return false;
+    }
 }

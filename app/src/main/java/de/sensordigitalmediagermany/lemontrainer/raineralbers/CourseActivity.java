@@ -30,11 +30,13 @@ public class CourseActivity extends ContentBaseActivity
 
         if (Globals.displayContent == null) return;
 
+        int courseId = Json.getInt(Globals.displayContent, "id");
         String courseTitle = Json.getString(Globals.displayContent, "title");
         String courseHeader = Json.getString(Globals.displayContent, "description_header");
         String courseDescription = Json.getString(Globals.displayContent, "description");
 
         int price = Json.getInt(Globals.displayContent, "price");
+        boolean bought = Globals.coursesBought.get(courseId, false);
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
@@ -78,6 +80,13 @@ public class CourseActivity extends ContentBaseActivity
                 ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
                 : Simple.getTrans(this, R.string.course_buy_gratis);
 
+        if (bought)
+        {
+            buyText = ContentHandler.isCachedFile(Globals.displayContent)
+                    ? Simple.getTrans(this, R.string.course_buy_loaded)
+                    : Simple.getTrans(this, R.string.course_buy_bought);
+        }
+
         TextView buyButton = new TextView(this);
         buyButton.setText(buyText);
         buyButton.setTextColor(Color.WHITE);
@@ -90,14 +99,17 @@ public class CourseActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
 
-        buyButton.setOnClickListener(new View.OnClickListener()
+        if (! bought)
         {
-            @Override
-            public void onClick(View view)
+            buyButton.setOnClickListener(new View.OnClickListener()
             {
-                topFrame.addView(new BuyContentDialog(CourseActivity.this));
-            }
-        });
+                @Override
+                public void onClick(View view)
+                {
+                    topFrame.addView(new BuyContentDialog(CourseActivity.this));
+                }
+            });
+        }
 
         infoArea.addView(buyButton);
 

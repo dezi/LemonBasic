@@ -267,6 +267,11 @@ public class Simple
 
     public static String formatDecimal(int number)
     {
+        return formatDecimal((long) number);
+    }
+
+    public static String formatDecimal(long number)
+    {
         String str = "" + number;
         String res = "";
 

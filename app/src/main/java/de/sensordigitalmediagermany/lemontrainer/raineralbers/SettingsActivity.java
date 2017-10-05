@@ -15,6 +15,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.os.Bundle;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class SettingsActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = ContentActivity.class.getSimpleName();
@@ -392,7 +395,6 @@ public class SettingsActivity extends ContentBaseActivity
         contentSizeFrame.addView(contentSizeText);
 
         TextView contentSizeMB = new TextView(this);
-        contentSizeMB.setText(Simple.getTrans(this, R.string.settings_used_storage_mb, Simple.formatDecimal(12345)));
         contentSizeMB.setSingleLine();
         contentSizeMB.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
         contentSizeMB.setTextColor(Color.WHITE);
@@ -434,7 +436,24 @@ public class SettingsActivity extends ContentBaseActivity
 
         //endregion Body frames
 
+        JSONArray content = ContentHandler.getFilteredContent(true, null, true);
+
         assetsAdapter.setHorizontal(true);
-        assetsAdapter.setAssets(ContentHandler.getFilteredContent(true, null));
+        assetsAdapter.setAssets(content);
+
+        long total = 0;
+
+        for (int inx = 0; inx < content.length(); inx++)
+        {
+            JSONObject item = Json.getObject(content, inx);
+            if (item == null) continue;
+
+            long file_size = Json.getLong(item, "file_size");
+            total += file_size / (1000 * 1024);
+        }
+
+        contentSizeMB.setText(Simple.getTrans(this,
+                R.string.settings_used_storage_mb,
+                Simple.formatDecimal(total)));
     }
 }

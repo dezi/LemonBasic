@@ -150,18 +150,15 @@ public class ProfileMenu extends RelativeLayout
         ViewGroup parent = (ViewGroup) ProfileMenu.this.getParent();
         if (parent == null) return;
 
+        parent.removeView(ProfileMenu.this);
+
         if (optionresid == R.string.profile_popup_buy)
         {
-
-            parent.removeView(ProfileMenu.this);
-
             parent.addView(new BuyCoinsDialog(parent.getContext()));
         }
 
         if (optionresid == R.string.profile_popup_redeem)
         {
-            parent.removeView(ProfileMenu.this);
-
             parent.addView(new RedeemCouponDialog(parent.getContext()));
         }
 
