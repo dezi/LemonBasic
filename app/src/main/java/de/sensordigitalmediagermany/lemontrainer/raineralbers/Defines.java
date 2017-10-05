@@ -121,6 +121,7 @@ public class Defines
 
     public static final float FS_ASSET_THUMBNAIL_ASPECT = 1.9f;
     public static final float FS_ASSET_DETAIL_ASPECT = 3.0f;
+    public static final float FS_ASSET_SETTINGS_ASPECT = 2.5f;
 
     //
     // Misc.

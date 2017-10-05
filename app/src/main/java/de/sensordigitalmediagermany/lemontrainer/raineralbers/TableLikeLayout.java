@@ -12,7 +12,25 @@ public class TableLikeLayout extends LinearLayout
     protected TextView leftText;
     protected TextView rightText;
 
+
     public TableLikeLayout(Context context)
+    {
+        this(context,
+                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAMNARROW_LIGHT),
+                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD)
+        );
+    }
+
+    public TableLikeLayout(Context context, boolean plain)
+    {
+        this(context,
+                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAMNARROW_LIGHT), plain
+                        ? Typeface.createFromAsset(context.getAssets(), Defines.GOTHAMNARROW_LIGHT)
+                        : Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD)
+        );
+    }
+
+    public TableLikeLayout(Context context, Typeface leftFace, Typeface rightFace)
     {
         super(context);
 
@@ -21,7 +39,7 @@ public class TableLikeLayout extends LinearLayout
         leftText = new TextView(getContext());
         leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.5)));
         leftText.setTextColor(Color.BLACK);
-        leftText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        leftText.setTypeface(leftFace);
         Simple.setTextSizeDip(leftText, Defines.FS_DETAIL_SPECS);
         Simple.setSizeDip(leftText, Simple.WC, Simple.WC);
 
@@ -32,7 +50,7 @@ public class TableLikeLayout extends LinearLayout
         colonText.setMinEms(1);
         colonText.setTextColor(Color.BLACK);
         colonText.setGravity(Gravity.CENTER_HORIZONTAL);
-        colonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        colonText.setTypeface(leftFace);
         Simple.setTextSizeDip(colonText, Defines.FS_DETAIL_SPECS);
         Simple.setSizeDip(colonText, Simple.WC, Simple.WC);
 
@@ -40,7 +58,7 @@ public class TableLikeLayout extends LinearLayout
 
         rightText = new TextView(getContext());
         rightText.setTextColor(Color.BLACK);
-        rightText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
+        rightText.setTypeface(rightFace);
         Simple.setTextSizeDip(rightText, Defines.FS_DETAIL_SPECS);
         Simple.setSizeDip(rightText, Simple.WC, Simple.WC, 1f);
 

@@ -24,6 +24,7 @@ public class AssetsAdapter extends BaseAdapter
 
     private boolean horizontal;
     private JSONArray assets;
+    private OnAssetClickedHandler onAssetClickedHandler;
 
     public void setHorizontal(boolean horizontal)
     {
@@ -35,10 +36,15 @@ public class AssetsAdapter extends BaseAdapter
         this.assets = assets;
     }
 
+    public void setOnAssetClickedHandler(OnAssetClickedHandler onAssetClickedHandler)
+    {
+        this.onAssetClickedHandler = onAssetClickedHandler;
+    }
+
     @Override
     public int getCount()
     {
-        return (assets == null) ? 0 : (assets.length() * 10);
+        return (assets == null) ? 0 : assets.length();
     }
 
     @Override
@@ -90,7 +96,6 @@ public class AssetsAdapter extends BaseAdapter
         {
             assetFrame = new LinearLayout(parent.getContext());
             assetFrame.setOrientation(LinearLayout.HORIZONTAL);
-            assetFrame.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
             Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
 
             FrameLayout imageBox = new FrameLayout(parent.getContext());
@@ -174,6 +179,9 @@ public class AssetsAdapter extends BaseAdapter
         long mbytes = file_size / (1000 * 1024);
 
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
+        boolean isSelected = Json.getBoolean(asset, "_isSelected");
+
+        assetFrame.setBackgroundColor(isSelected ? Defines.COLOR_SENSOR_LTBLUE : Defines.COLOR_SENSOR_NAVIBAR);
 
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
@@ -188,15 +196,32 @@ public class AssetsAdapter extends BaseAdapter
                 R.string.detail_specs_size_mb,
                 Simple.formatDecimal(mbytes)));
 
-        courseView.setVisibility(isCourse ? View.VISIBLE : View.GONE);
-
-        assetFrame.setOnClickListener(new View.OnClickListener()
+        if (isCourse)
         {
-            @Override
-            public void onClick(View view)
+            courseView.setVisibility(View.VISIBLE);
+
+            assetFrame.setOnClickListener(new View.OnClickListener()
             {
-            }
-        });
+                @Override
+                public void onClick(View view)
+                {
+                    openCourse(gridView, asset);
+                }
+            });
+        }
+        else
+        {
+            courseView.setVisibility(View.GONE);
+
+            assetFrame.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    openContent(gridView, asset);
+                }
+            });
+        }
 
         return assetFrame;
     }
@@ -344,6 +369,9 @@ public class AssetsAdapter extends BaseAdapter
         String thumburl = Json.getString(asset, "thumbnail_url");
 
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
+        boolean isSelected = Json.getBoolean(asset, "_isSelected");
+
+        assetFrame.setBackgroundColor(isSelected ? Defines.COLOR_SENSOR_LTBLUE : Defines.COLOR_SENSOR_NAVIBAR);
 
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
@@ -415,17 +443,36 @@ public class AssetsAdapter extends BaseAdapter
     {
         Log.d(LOGTAG,"openCourse....");
 
-        Globals.displayContent = course;
+        if (onAssetClickedHandler != null)
+        {
+            onAssetClickedHandler.OnAssetClickedHandler(parent, course);
+        }
+        else
+        {
+            Globals.displayContent = course;
 
-        Simple.startActivity(parent.getContext(), CourseActivity.class);
+            Simple.startActivity(parent.getContext(), CourseActivity.class);
+        }
     }
 
     protected void openContent(ViewGroup parent, JSONObject content)
     {
         Log.d(LOGTAG,"openContent....");
 
-        Globals.displayContent = content;
+        if (onAssetClickedHandler != null)
+        {
+            onAssetClickedHandler.OnAssetClickedHandler(parent, content);
+        }
+        else
+        {
+            Globals.displayContent = content;
 
-        Simple.startActivity(parent.getContext(), DetailActivity.class);
+            Simple.startActivity(parent.getContext(), DetailActivity.class);
+        }
+    }
+
+    public interface OnAssetClickedHandler
+    {
+        void OnAssetClickedHandler(ViewGroup parent, JSONObject content);
     }
 }

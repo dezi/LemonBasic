@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.view.Gravity;
-import android.view.View;
 import android.os.Bundle;
 
 import org.json.JSONArray;
@@ -20,9 +19,14 @@ import org.json.JSONObject;
 
 public class SettingsActivity extends ContentBaseActivity
 {
-    private static final String LOGTAG = ContentActivity.class.getSimpleName();
+    private static final String LOGTAG = SettingsActivity.class.getSimpleName();
 
     protected TextView naviLeftButton;
+    protected LinearLayout bodyHorz;
+    protected TextView contentSizeMB;
+    protected LinearLayout rightArea;
+
+    protected JSONArray actContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,7 +60,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Body frames.
 
-        LinearLayout bodyHorz = new LinearLayout(this);
+        bodyHorz = new LinearLayout(this);
         bodyHorz.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(bodyHorz, Simple.MP, Simple.MP);
 
@@ -340,7 +344,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Right area.
 
-        LinearLayout rightArea = new LinearLayout(this);
+        rightArea = new LinearLayout(this);
         rightArea.setOrientation(LinearLayout.VERTICAL);
         rightArea.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
         Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.4f);
@@ -394,7 +398,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeFrame.addView(contentSizeText);
 
-        TextView contentSizeMB = new TextView(this);
+        contentSizeMB = new TextView(this);
         contentSizeMB.setSingleLine();
         contentSizeMB.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
         contentSizeMB.setTextColor(Color.WHITE);
@@ -436,16 +440,22 @@ public class SettingsActivity extends ContentBaseActivity
 
         //endregion Body frames
 
-        JSONArray content = ContentHandler.getFilteredContent(true, null, true);
+        actContent = ContentHandler.getFilteredContent(true, null, true);
 
         assetsAdapter.setHorizontal(true);
-        assetsAdapter.setAssets(content);
+        assetsAdapter.setAssets(actContent);
+        assetsAdapter.setOnAssetClickedHandler(onAssetClickedHandler);
 
+        updateContent();
+    }
+
+    private void updateContent()
+    {
         long total = 0;
 
-        for (int inx = 0; inx < content.length(); inx++)
+        for (int inx = 0; inx < actContent.length(); inx++)
         {
-            JSONObject item = Json.getObject(content, inx);
+            JSONObject item = Json.getObject(actContent, inx);
             if (item == null) continue;
 
             long file_size = Json.getLong(item, "file_size");
@@ -455,5 +465,36 @@ public class SettingsActivity extends ContentBaseActivity
         contentSizeMB.setText(Simple.getTrans(this,
                 R.string.settings_used_storage_mb,
                 Simple.formatDecimal(total)));
+
+        assetsAdapter.notifyDataSetChanged();
     }
+
+    private final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler = new AssetsAdapter.OnAssetClickedHandler()
+    {
+        @Override
+        public void OnAssetClickedHandler(final ViewGroup parent, final JSONObject content)
+        {
+            for (int inx = 0; inx < actContent.length(); inx++)
+            {
+                JSONObject item = Json.getObject(actContent, inx);
+                if (item == null) continue;
+
+                Json.put(item, "_isSelected", (content == item));
+            }
+
+            assetsAdapter.notifyDataSetChanged();
+
+            ApplicationBase.handler.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    SettingsDetail detailView = new SettingsDetail(parent.getContext(), content);
+
+                    bodyHorz.removeView(rightArea);
+                    bodyHorz.addView(detailView);
+                }
+            }, 100);
+        }
+    };
 }

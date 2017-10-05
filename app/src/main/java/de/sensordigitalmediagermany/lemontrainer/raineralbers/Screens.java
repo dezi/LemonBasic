@@ -77,6 +77,22 @@ public class Screens
                 ;
     }
 
+    public static int getArrowWhiteLeftOnRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
+                : R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
+                ;
+    }
+
+    public static int getArrowDarkLeftOnRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel
+                : R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel
+                ;
+    }
+
     public static int getContentScreenButtonBackOnRes()
     {
         return Simple.isTablet()
