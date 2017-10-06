@@ -147,9 +147,9 @@ public class SettingsDetail extends LinearLayout
 
         LinearLayout specsArea = new LinearLayout(getContext());
         specsArea.setOrientation(LinearLayout.VERTICAL);
+        specsArea.setBackgroundColor(Color.WHITE);
         Simple.setSizeDip(specsArea, Simple.MP, Simple.MP);
         Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
-        Simple.setRoundedCorners(specsArea, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
 
         miscArea.addView(specsArea);
 
