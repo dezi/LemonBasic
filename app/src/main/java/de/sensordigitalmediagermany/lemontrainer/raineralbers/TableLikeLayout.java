@@ -37,7 +37,7 @@ public class TableLikeLayout extends LinearLayout
         setOrientation(HORIZONTAL);
 
         leftText = new TextView(getContext());
-        leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.5)));
+        leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.7)));
         leftText.setTextColor(Color.BLACK);
         leftText.setTypeface(leftFace);
         Simple.setTextSizeDip(leftText, Defines.FS_DETAIL_SPECS);

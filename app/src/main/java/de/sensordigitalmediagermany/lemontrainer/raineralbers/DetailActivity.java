@@ -49,15 +49,11 @@ public class DetailActivity extends ContentBaseActivity
         // Derive data from JSON.
         //
 
-        int contentId = Json.getInt(Globals.displayContent, "id");
         String contentTitle = Json.getString(Globals.displayContent, "title");
         String contentInfo = Json.getString(Globals.displayContent, "sub_title");
         String contentHeader = Json.getString(Globals.displayContent, "description_header");
         String contentDescription = Json.getString(Globals.displayContent, "description");
         String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
-
-        int price = Json.getInt(Globals.displayContent, "price");
-        boolean bought = Globals.contentsBought.get(contentId, false);
 
         //region Image and type area.
 
@@ -277,19 +273,7 @@ public class DetailActivity extends ContentBaseActivity
 
         buyloadArea.addView(downloadButton);
 
-        String buyText = (price > 0)
-                ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))
-                : Simple.getTrans(this, R.string.detail_buy_gratis);
-
-        if (bought)
-        {
-            buyText = ContentHandler.isCachedFile(Globals.displayContent)
-                    ? Simple.getTrans(this, R.string.detail_buy_loaded)
-                    : Simple.getTrans(this, R.string.detail_buy_bought);
-        }
-
         buyButton = new TextView(this);
-        buyButton.setText(buyText);
         buyButton.setTextColor(Color.WHITE);
         buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
@@ -302,8 +286,38 @@ public class DetailActivity extends ContentBaseActivity
 
         buyloadArea.addView(buyButton);
 
+        //endregion Download and buy area.
+
+        //endregion Misc area with specs and buy.
+
+        //endregion Information area.
+
+        updateContent();
+    }
+
+    public void updateContent()
+    {
+        int contentId = Json.getInt(Globals.displayContent, "id");
+        int price = Json.getInt(Globals.displayContent, "price");
+        boolean bought = Globals.contentsBought.get(contentId, false);
+
+        String buyText = (price > 0)
+                ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))
+                : Simple.getTrans(this, R.string.detail_buy_gratis);
+
         if (bought)
         {
+            buyText = ContentHandler.isCachedFile(Globals.displayContent)
+                    ? Simple.getTrans(this, R.string.detail_buy_loaded)
+                    : Simple.getTrans(this, R.string.detail_buy_bought);
+        }
+
+        buyButton.setText(buyText);
+
+        if (bought)
+        {
+            buyButton.setOnClickListener(null);
+
             if (! ContentHandler.isCachedFile(Globals.displayContent))
             {
                 downloadButton.setVisibility(View.VISIBLE);
@@ -329,12 +343,6 @@ public class DetailActivity extends ContentBaseActivity
                 }
             });
         }
-
-        //endregion Download and buy area.
-
-        //endregion Misc area with specs and buy.
-
-        //endregion Information area.
     }
 
     private void downloadContent(final Context context)

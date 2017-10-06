@@ -166,6 +166,8 @@ public class AssetsDownloadManager
                 }
 
                 Log.d(LOGTAG, "getFile: done url=" + urlstring);
+
+                return file;
             }
         }
         catch (FileNotFoundException ignore)
@@ -177,6 +179,19 @@ public class AssetsDownloadManager
         }
 
         return null;
+    }
+
+    public static void removeFromCache(JSONObject content)
+    {
+        String name = Json.getString(content, "content_file_name");
+
+        if (name != null)
+        {
+            synchronized (cache)
+            {
+                cache.remove(name);
+            }
+        }
     }
 
     private static class QueueData

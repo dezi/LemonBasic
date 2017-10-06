@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.sax.RootElement;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -17,8 +18,6 @@ import android.widget.TextView;
 public class BuyConfirmedDialog extends DialogView
 {
     private static final String LOGTAG = BuyConfirmedDialog.class.getSimpleName();
-
-    protected EditText passWord;
 
     public BuyConfirmedDialog(Context context)
     {
@@ -73,5 +72,12 @@ public class BuyConfirmedDialog extends DialogView
         dialogItems.addView(titleView);
 
         setCustomView(dialogItems);
+
+        AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
+
+        if (activity instanceof DetailActivity)
+        {
+            ((DetailActivity) activity).updateContent();
+        }
     }
 }

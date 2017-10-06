@@ -71,7 +71,7 @@ public class Defines
     public static final int FS_DIALOG_TITLE    = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_EDIT     = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_BUTTON   = Simple.isTablet() ? 20 : 16;
-    public static final int FS_DIALOG_INFO     = Simple.isTablet() ? 16 : 14;
+    public static final int FS_DIALOG_INFO     = Simple.isTablet() ? 18 : 16;
 
     public static final int FS_BUTTON_IMAGE    = Simple.isTablet() ? 18 : 16;
     public static final int FS_NAVI_MENU       = Simple.isTablet() ? 20 : 14;

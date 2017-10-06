@@ -59,6 +59,35 @@ public class DialogView extends RelativeLayout
         }
     }
 
+    public static void yesnoAlert(final ViewGroup rootView, int titleres, String msgstr, View.OnClickListener onokclick)
+    {
+        final DialogView dialogView = new DialogView(rootView.getContext());
+
+        Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_ALERTS, true);
+
+        dialogView.setTitleText(titleres);
+        dialogView.setInfoText(msgstr);
+
+        dialogView.setPositiveButton(R.string.button_ok, onokclick);
+        dialogView.setNegativeButton(R.string.button_cancel, null);
+
+        if (Simple.isUIThread())
+        {
+            rootView.addView(dialogView);
+        }
+        else
+        {
+            ApplicationBase.handler.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    rootView.addView(dialogView);
+                }
+            });
+        }
+    }
+
     protected RelativeLayout marginView;
     protected ImageView closeButton;
     protected LinearLayout padView;
@@ -173,7 +202,8 @@ public class DialogView extends RelativeLayout
         infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
-        Simple.setMarginBottomDip(infoView, Defines.PADDING_SMALL);
+        Simple.setMarginTopDip(infoView, Defines.PADDING_SMALL);
+        Simple.setMarginBottomDip(infoView, Defines.PADDING_NORMAL);
 
         padView.addView(infoView);
 
@@ -191,14 +221,18 @@ public class DialogView extends RelativeLayout
         negativeButton = new TextView(context);
         negativeButton.setSingleLine(true);
         negativeButton.setAllCaps(true);
+        negativeButton.setMinEms(6);
         negativeButton.setVisibility(GONE);
         negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
         negativeButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(negativeButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(negativeButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setPaddingDip(negativeButton, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
+
+        Simple.setPaddingDip(negativeButton,
+                Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
+                Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
         negativeButton.setOnClickListener(new OnClickListener()
         {
@@ -225,13 +259,17 @@ public class DialogView extends RelativeLayout
         positiveButton.setSingleLine(true);
         positiveButton.setAllCaps(true);
         positiveButton.setVisibility(GONE);
+        positiveButton.setMinEms(6);
         positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         positiveButton.setGravity(Gravity.CENTER_HORIZONTAL);
         positiveButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(positiveButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(positiveButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setPaddingDip(positiveButton, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(positiveButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
+
+        Simple.setPaddingDip(positiveButton,
+                Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
+                Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
         positiveButton.setOnClickListener(new OnClickListener()
         {
@@ -296,6 +334,11 @@ public class DialogView extends RelativeLayout
         positiveButton.setText(resid);
         positiveButton.setVisibility(VISIBLE);
         positiveButtonOnClick = onClickListener;
+
+        if ((positiveButton.getVisibility() == VISIBLE) && (negativeButton.getVisibility() == VISIBLE))
+        {
+            Simple.setMarginLeftDip(positiveButton, Defines.PADDING_NORMAL);
+        }
     }
 
     public void setNegativeButton(int resid, OnClickListener onClickListener)
@@ -303,6 +346,11 @@ public class DialogView extends RelativeLayout
         negativeButton.setText(resid);
         negativeButton.setVisibility(VISIBLE);
         negativeButtonOnClick = onClickListener;
+
+        if ((positiveButton.getVisibility() == VISIBLE) && (negativeButton.getVisibility() == VISIBLE))
+        {
+            Simple.setMarginLeftDip(positiveButton, Defines.PADDING_NORMAL);
+        }
     }
 
     public void setCloseButton(boolean enable, OnClickListener onClickListener)

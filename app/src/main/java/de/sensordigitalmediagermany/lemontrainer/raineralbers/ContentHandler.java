@@ -213,4 +213,23 @@ public class ContentHandler
 
         return false;
     }
+
+    public static boolean deleteCachedFile(JSONObject content)
+    {
+        String fileName = Json.getString(content, "content_file_name");
+
+        if (fileName != null)
+        {
+            File cacheFile = new File(getStorageDir(), fileName);
+
+            if (cacheFile.delete())
+            {
+                AssetsDownloadManager.removeFromCache(content);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

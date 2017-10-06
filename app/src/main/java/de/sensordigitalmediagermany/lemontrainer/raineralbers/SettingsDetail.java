@@ -3,15 +3,16 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.view.Gravity;
+import android.view.View;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -48,7 +49,8 @@ public class SettingsDetail extends LinearLayout
 
         LinearLayout topArea = new LinearLayout(getContext());
         topArea.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(topArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
+        Simple.setSizeDip(topArea, Simple.MP, Simple.WC);
+        Simple.setPaddingDip(topArea, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
 
         addView(topArea);
 
@@ -56,8 +58,16 @@ public class SettingsDetail extends LinearLayout
         backButtonImage.setImageResource(Screens.getArrowDarkLeftOnRes());
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(backButtonImage, Simple.WC, Simple.MP);
-        Simple.setPaddingDip(backButtonImage, Defines.PADDING_SMALL);
         Simple.setMarginRightDip(backButtonImage, Defines.PADDING_NORMAL);
+
+        backButtonImage.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                goBack();
+            }
+        });
 
         topArea.addView(backButtonImage);
 
@@ -146,7 +156,7 @@ public class SettingsDetail extends LinearLayout
         RelativeLayout separ;
 
         TableLikeLayout titleView = new TableLikeLayout(getContext(),
-            Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD),
+                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD),
                 Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
 
         titleView.setLeftText(R.string.settings_specs_title);
@@ -270,6 +280,31 @@ public class SettingsDetail extends LinearLayout
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
 
+        deleteButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                AppCompatActivity activity = ApplicationBase.getCurrentActivity(view.getContext());
+
+                if (activity instanceof FullScreenActivity)
+                {
+                    ViewGroup topframe = ((FullScreenActivity) activity).topFrame;
+
+                    DialogView.yesnoAlert(topframe, R.string.alert_settings_delete_title,
+                            Simple.getTrans(view.getContext(), R.string.alert_settings_delete_info),
+                            new OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    deleteContent();
+                                }
+                            });
+                }
+            }
+        });
+
         deleteArea.addView(deleteButton);
 
         //endregion Delete button.
@@ -309,4 +344,40 @@ public class SettingsDetail extends LinearLayout
                             imageWidth, imageHeight, false));
         }
     };
+
+    private void deleteContent()
+    {
+        boolean ok = ContentHandler.deleteCachedFile(content);
+
+        AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
+
+        if (activity instanceof SettingsActivity)
+        {
+            ViewGroup topframe = ((SettingsActivity) activity).topFrame;
+
+            DialogView.errorAlert(topframe, R.string.alert_settings_delete_title,
+                    Simple.getTrans(getContext(), ok
+                            ? R.string.alert_settings_delete_ok
+                            : R.string.alert_settings_delete_fail));
+
+            if (ok)
+            {
+                ((SettingsActivity) activity).removeContent(content);
+
+                goBack();
+            }
+        }
+    }
+
+    private void goBack()
+    {
+        ((ViewGroup) getParent()).removeView(SettingsDetail.this);
+
+        AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
+
+        if (activity instanceof SettingsActivity)
+        {
+            ((SettingsActivity) activity).reAttachRightArea();
+        }
+    }
 }

@@ -161,6 +161,11 @@
     <string name="alert_buy_content_title">Inhalt kaufen</string>
     <string name="alert_buy_content_fail">Transaktion ist fehlgeschlagen.</string>
 
+    <string name="alert_settings_delete_title">Inhalt löschen</string>
+    <string name="alert_settings_delete_info">Soll dieser Inhalt gelöscht werden?</string>
+    <string name="alert_settings_delete_ok">Der Inhalt wurde gelöscht.</string>
+    <string name="alert_settings_delete_fail">Der Inhalt konnte nicht gelöscht werden.</string>
+
     <string name="login">Login</string>
     <string name="login_success">Login erfolgreich.</string>
     <string name="login_failed">Login nicht erfolgreich.</string>

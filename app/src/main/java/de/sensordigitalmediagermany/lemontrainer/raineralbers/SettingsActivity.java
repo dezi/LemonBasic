@@ -449,26 +449,6 @@ public class SettingsActivity extends ContentBaseActivity
         updateContent();
     }
 
-    private void updateContent()
-    {
-        long total = 0;
-
-        for (int inx = 0; inx < actContent.length(); inx++)
-        {
-            JSONObject item = Json.getObject(actContent, inx);
-            if (item == null) continue;
-
-            long file_size = Json.getLong(item, "file_size");
-            total += file_size / (1000 * 1024);
-        }
-
-        contentSizeMB.setText(Simple.getTrans(this,
-                R.string.settings_used_storage_mb,
-                Simple.formatDecimal(total)));
-
-        assetsAdapter.notifyDataSetChanged();
-    }
-
     private final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler = new AssetsAdapter.OnAssetClickedHandler()
     {
         @Override
@@ -493,8 +473,55 @@ public class SettingsActivity extends ContentBaseActivity
 
                     bodyHorz.removeView(rightArea);
                     bodyHorz.addView(detailView);
+
+                    Json.put(content, "_isSelected", false);
                 }
             }, 100);
         }
     };
+
+    private void updateContent()
+    {
+        long total = 0;
+
+        for (int inx = 0; inx < actContent.length(); inx++)
+        {
+            JSONObject item = Json.getObject(actContent, inx);
+            if (item == null) continue;
+
+            long file_size = Json.getLong(item, "file_size");
+            total += file_size / (1000 * 1024);
+        }
+
+        contentSizeMB.setText(Simple.getTrans(this,
+                R.string.settings_used_storage_mb,
+                Simple.formatDecimal(total)));
+
+        assetsAdapter.notifyDataSetChanged();
+    }
+
+    public void removeContent(JSONObject content)
+    {
+        for (int inx = 0; inx < actContent.length(); inx++)
+        {
+            JSONObject item = Json.getObject(actContent, inx);
+
+            if (item == content)
+            {
+                Json.remove(actContent, inx);
+
+                break;
+            }
+        }
+
+        updateContent();
+    }
+
+    public void reAttachRightArea()
+    {
+        if (rightArea.getParent() == null)
+        {
+            bodyHorz.addView(rightArea);
+        }
+    }
 }

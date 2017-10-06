@@ -36,7 +36,7 @@ public class BuyContentDialog extends DialogView
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
         titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
-        Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
+        Simple.setSizeDip(titleView, Simple.WC, Simple.WC);
 
         Simple.setPaddingDip(titleView,
                 Defines.PADDING_LARGE, Defines.PADDING_TINY,
@@ -48,6 +48,7 @@ public class BuyContentDialog extends DialogView
         LinearLayout roundedFrame = new LinearLayout(getContext());
         roundedFrame.setOrientation(LinearLayout.VERTICAL);
         Simple.setRoundedCorners(roundedFrame, Defines.CORNER_RADIUS_DIALOG, Color.WHITE, true);
+        Simple.setSizeDip(roundedFrame, Simple.MP, Simple.WC);
         Simple.setPaddingDip(roundedFrame, Defines.PADDING_LARGE);
         Simple.setMarginTopDip(roundedFrame, Defines.PADDING_NORMAL);
         Simple.setMarginBottomDip(roundedFrame, Defines.PADDING_SMALL);
@@ -110,10 +111,11 @@ public class BuyContentDialog extends DialogView
 
         TextView cancelButton = new TextView(getContext());
         cancelButton.setText(R.string.button_cancel);
+        cancelButton.setSingleLine(true);
         cancelButton.setTextColor(Color.WHITE);
         cancelButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         cancelButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        Simple.setSizeDip(cancelButton, Simple.MP, Simple.MP, 0.5f);
+        Simple.setSizeDip(cancelButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(cancelButton, Defines.FS_DIALOG_BUTTON);
         Simple.setMarginRightDip(cancelButton, Defines.PADDING_SMALL);
         Simple.setPaddingDip(cancelButton, Defines.PADDING_SMALL);
@@ -132,10 +134,11 @@ public class BuyContentDialog extends DialogView
 
         TextView buyButton = new TextView(getContext());
         buyButton.setText(R.string.buy_content_buy);
+        buyButton.setSingleLine(true);
         buyButton.setTextColor(Color.WHITE);
         buyButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         buyButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        Simple.setSizeDip(buyButton, Simple.MP, Simple.MP, 0.5f);
+        Simple.setSizeDip(buyButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
         Simple.setMarginLeftDip(buyButton, Defines.PADDING_SMALL);
         Simple.setPaddingDip(buyButton, Defines.PADDING_SMALL);
