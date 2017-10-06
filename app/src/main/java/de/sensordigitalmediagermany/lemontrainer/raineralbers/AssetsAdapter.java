@@ -398,7 +398,7 @@ public class AssetsAdapter extends BaseAdapter
                 }
             });
 
-            if (Globals.coursesBought.get(id, false))
+            if (ContentHandler.isCourseBought(id))
             {
                 if (ContentHandler.isCachedFile(asset))
                 {
@@ -423,7 +423,7 @@ public class AssetsAdapter extends BaseAdapter
                 }
             });
 
-            if (Globals.contentsBought.get(id, false))
+            if (ContentHandler.isContentBought(id))
             {
                 if (ContentHandler.isCachedFile(asset))
                 {

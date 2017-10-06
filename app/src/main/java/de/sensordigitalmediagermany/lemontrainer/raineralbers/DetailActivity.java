@@ -299,7 +299,7 @@ public class DetailActivity extends ContentBaseActivity
     {
         int contentId = Json.getInt(Globals.displayContent, "id");
         int price = Json.getInt(Globals.displayContent, "price");
-        boolean bought = Globals.contentsBought.get(contentId, false);
+        boolean bought = ContentHandler.isContentBought(contentId);
 
         String buyText = (price > 0)
                 ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))

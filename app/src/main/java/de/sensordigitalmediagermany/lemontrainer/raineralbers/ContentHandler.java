@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
 import android.view.KeyboardShortcutGroup;
 import android.view.ViewGroup;
@@ -17,6 +18,12 @@ import java.util.Map;
 public class ContentHandler
 {
     private static final String LOGTAG = ContentHandler.class.getSimpleName();
+
+    private static SparseBooleanArray coursesBought = new SparseBooleanArray();
+    private static SparseBooleanArray contentsBought = new SparseBooleanArray();
+    private static SparseIntArray cont2courseMap = new SparseIntArray();
+    private static SparseArray<JSONObject> courseId2objectMap = new SparseArray<>();
+    private static SparseArray<JSONObject> contentId2objectMap = new SparseArray<>();
 
     public static void getAllContent(final ViewGroup rootframe, final Runnable callback)
     {
@@ -36,7 +43,6 @@ public class ContentHandler
                     if (data != null)
                     {
                         SparseArray<JSONObject> courseMap = new SparseArray<>();
-                        SparseIntArray cont2courseMap = new SparseIntArray();
 
                         Globals.courses = Json.getArray(data, "Courses");
                         Globals.courseContents = Json.getArray(data, "CourseContents");
@@ -58,6 +64,7 @@ public class ContentHandler
 
                         if (Globals.contents != null)
                         {
+                            Globals.completeContents = new JSONArray();
                             Globals.displayMyContents = new JSONArray();
                             Globals.displayAllContents = new JSONArray();
                             Globals.displayCategories = new JSONObject();
@@ -70,6 +77,8 @@ public class ContentHandler
                                     if (course == null) continue;
 
                                     int id = Json.getInt(course, "id");
+
+                                    courseId2objectMap.put(id, course);
 
                                     Json.put(course, "_isCourse", true);
                                     Json.put(course, "_cc", new JSONArray());
@@ -92,7 +101,12 @@ public class ContentHandler
 
                                 Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
 
+                                Globals.completeContents.put(content);
+
                                 int id = Json.getInt(content, "id");
+
+                                contentId2objectMap.put(id, content);
+
                                 Json.put(content, "_isCourse", false);
 
                                 if (cont2courseMap.get(id, 0) != 0)
@@ -111,7 +125,8 @@ public class ContentHandler
 
                                     Log.d(LOGTAG, "getAllContent: cc=" + Json.getString(content, "title"));
 
-                                    cc.put(content);
+                                    Json.put(content, "_courseId", courseId);
+                                    Json.put(cc, content);
 
                                     continue;
                                 }
@@ -145,6 +160,52 @@ public class ContentHandler
         });
     }
 
+    public static void registerOldPurchases()
+    {
+        if (Globals.customerContents != null)
+        {
+            for (int inx = 0; inx < Globals.customerContents.length(); inx++)
+            {
+                JSONObject item = Json.getObject(Globals.customerContents, inx);
+                if (item == null) continue;
+
+                if (Json.getInt(item, "course_id") > 0)
+                {
+                    coursesBought.put(Json.getInt(item, "course_id"), true);
+                }
+
+                if (Json.getInt(item, "content_id") > 0)
+                {
+                    contentsBought.put(Json.getInt(item, "content_id"), true);
+                }
+            }
+
+            for (int inx = 0; inx < Globals.displayAllContents.length(); inx++)
+            {
+                JSONObject item = Json.getObject(Globals.displayAllContents, inx);
+                if (item == null) continue;
+
+                int id = Json.getInt(item, "id");
+                boolean isCourse = Json.getBoolean(item, "_isCourse");
+
+                if (isCourse)
+                {
+                    if (coursesBought.get(id, false))
+                    {
+                        Json.put(Globals.displayMyContents, item);
+                    }
+                }
+                else
+                {
+                    if (contentsBought.get(id, false))
+                    {
+                        Json.put(Globals.displayMyContents, item);
+                    }
+                }
+            }
+        }
+    }
+
     public static void registerNewPurchase()
     {
         if (Globals.displayContent == null) return;
@@ -156,22 +217,56 @@ public class ContentHandler
 
         if (isCourse)
         {
-            Globals.coursesBought.put(id, true);
+            coursesBought.put(id, true);
         }
         else
         {
-            Globals.contentsBought.put(id, true);
+            contentsBought.put(id, true);
         }
 
         Json.put(Globals.displayMyContents, Globals.displayContent);
     }
 
-    public static JSONArray getFilteredContent()
+    public static boolean isCourseBought(int courseId)
     {
-        return getFilteredContent(Globals.showMyContent, Globals.showCategory, false);
+        return coursesBought.get(courseId, false);
     }
 
-    public static JSONArray getFilteredContent(boolean showMy, String showCategory, boolean cachedOnly)
+    public static boolean isContentBought(int contentId)
+    {
+        if (cont2courseMap.get(contentId, 0) != 0)
+        {
+            int courseId = cont2courseMap.get(contentId);
+            return coursesBought.get(courseId, false);
+        }
+
+        return contentsBought.get(contentId, false);
+    }
+
+    public static JSONArray getCachedContent()
+    {
+        JSONArray result = new JSONArray();
+        JSONArray source = Globals.completeContents;
+
+        for (int inx = 0; inx < source.length(); inx++)
+        {
+            JSONObject item = Json.getObject(source, inx);
+            if (item == null) continue;
+
+            if (! isCachedFile(item)) continue;
+
+            Json.put(result, item);
+        }
+
+        return result;
+    }
+
+    public static JSONArray getFilteredContent()
+    {
+        return getFilteredContent(Globals.showMyContent, Globals.showCategory);
+    }
+
+    public static JSONArray getFilteredContent(boolean showMy, String showCategory)
     {
         JSONArray result = new JSONArray();
         JSONArray source = showMy ? Globals.displayMyContents : Globals.displayAllContents;
@@ -180,8 +275,6 @@ public class ContentHandler
         {
             JSONObject item = Json.getObject(source, inx);
             if (item == null) continue;
-
-            if (cachedOnly && ! isCachedFile(item)) continue;
 
             if ((showCategory != null) && ! Simple.equals(showCategory, Json.getString(item, "category"))) continue;
 

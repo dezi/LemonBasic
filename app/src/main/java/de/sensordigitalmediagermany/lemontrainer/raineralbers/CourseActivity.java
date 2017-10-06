@@ -36,7 +36,7 @@ public class CourseActivity extends ContentBaseActivity
         String courseDescription = Json.getString(Globals.displayContent, "description");
 
         int price = Json.getInt(Globals.displayContent, "price");
-        boolean bought = Globals.coursesBought.get(courseId, false);
+        boolean bought = ContentHandler.isCourseBought(courseId);
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);

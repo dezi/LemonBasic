@@ -37,15 +37,13 @@ public class Globals
 
     public static JSONObject displayCategories;
 
+    public static JSONArray completeContents;
     public static JSONArray displayMyContents;
     public static JSONArray displayAllContents;
 
     public static JSONObject displayContent;
 
     public static JSONArray customerContents;
-
-    public static SparseBooleanArray coursesBought = new SparseBooleanArray();
-    public static SparseBooleanArray contentsBought = new SparseBooleanArray();
 
     public static int coinsAdded;
 

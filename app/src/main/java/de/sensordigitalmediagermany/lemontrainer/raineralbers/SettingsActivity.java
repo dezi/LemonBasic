@@ -440,7 +440,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //endregion Body frames
 
-        actContent = ContentHandler.getFilteredContent(true, null, true);
+        actContent = ContentHandler.getCachedContent();
 
         assetsAdapter.setHorizontal(true);
         assetsAdapter.setAssets(actContent);
