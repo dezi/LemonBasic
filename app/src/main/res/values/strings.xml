@@ -14,6 +14,10 @@
     <string name="login_password_forgotten">Passwort vergessen?</string>
     <string name="login_register">Noch kein Konto? Jetzt Registrieren</string>
 
+    <string name="login">Login</string>
+    <string name="login_success">Login erfolgreich.</string>
+    <string name="login_failed">Login nicht erfolgreich.</string>
+
     <string name="register_title">Registrieren Sie sich:</string>
     <string name="register_hint_email">E-Mail Adresse</string>
     <string name="register_hint_firstname">Vorname</string>
@@ -28,6 +32,12 @@
     <string name="password_forgot_title">Passwort vergessen:</string>
     <string name="password_forgot_hint_email">E-Mail Adresse</string>
     <string name="password_forgot_request">Absenden</string>
+
+    <string name="password_change_title">Neues Passwort vergeben:</string>
+    <string name="password_change_hint_oldpassword">Altes Passwort</string>
+    <string name="password_change_hint_newpassword">Neues Passwort</string>
+    <string name="password_change_hint_newrepeat">Neues Passwort wiederholen</string>
+    <string name="password_change_request">Passwort ändern</string>
 
     <string name="settings_title">Einstellungen</string>
     <string name="settings_data">Persönliche Daten</string>
@@ -166,8 +176,10 @@
     <string name="alert_settings_delete_ok">Der Inhalt wurde gelöscht.</string>
     <string name="alert_settings_delete_fail">Der Inhalt konnte nicht gelöscht werden.</string>
 
-    <string name="login">Login</string>
-    <string name="login_success">Login erfolgreich.</string>
-    <string name="login_failed">Login nicht erfolgreich.</string>
+    <string name="alert_change_password_diff_title">Passwort falsch</string>
+    <string name="alert_change_password_diff_info">Bitte geben Sie das Passwort erneut ein.</string>
+
+    <string name="alert_not_implemented_title">Falscher Fehler</string>
+    <string name="alert_not_implemented_info">Funktion ist noch nicht implementiert.</string>
 
 </resources>

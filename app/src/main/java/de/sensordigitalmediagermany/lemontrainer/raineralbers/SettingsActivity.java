@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -261,6 +262,16 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setRoundedCorners(changePasswordButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
 
         passwordArea.addView(changePasswordButton);
+
+        changePasswordButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                topFrame.addView(new PasswordChangeDialog(SettingsActivity.this));
+            }
+        });
+
 
         //endregion Left personal data.
 

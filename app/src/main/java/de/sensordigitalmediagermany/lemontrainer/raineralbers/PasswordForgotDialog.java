@@ -56,7 +56,7 @@ public class PasswordForgotDialog extends DialogView
         dialogItems.addView(userEmail);
 
         TextView requestButton = new TextView(getContext());
-        requestButton.setText(R.string.login_login);
+        requestButton.setText(R.string.password_forgot_request);
         requestButton.setTextColor(Color.WHITE);
         requestButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         requestButton.setGravity(Gravity.CENTER_HORIZONTAL);
