@@ -95,8 +95,7 @@
 
     <string name="course_buy_price">%1$s Coins</string>
     <string name="course_buy_gratis">Gratis</string>
-    <string name="course_buy_bought">Gekauft</string>
-    <string name="course_buy_loaded">Geladen</string>
+    <string name="course_buy_train">Trainieren</string>
 
     <string name="detail_buy_price">%1$s Coins</string>
     <string name="detail_buy_gratis">Gratis</string>

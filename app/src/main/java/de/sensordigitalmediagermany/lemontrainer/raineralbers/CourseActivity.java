@@ -82,9 +82,7 @@ public class CourseActivity extends ContentBaseActivity
 
         if (bought)
         {
-            buyText = ContentHandler.isCachedFile(Globals.displayContent)
-                    ? Simple.getTrans(this, R.string.course_buy_loaded)
-                    : Simple.getTrans(this, R.string.course_buy_bought);
+            buyText = Simple.getTrans(this, R.string.course_buy_train);
         }
 
         TextView buyButton = new TextView(this);
