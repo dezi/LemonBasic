@@ -27,6 +27,7 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout bodyHorz;
     protected TextView contentSizeMB;
     protected LinearLayout rightArea;
+    protected OnOffControl onoffControl;
 
     protected JSONArray actContent;
 
@@ -290,12 +291,34 @@ public class SettingsActivity extends ContentBaseActivity
         onoffText.setAllCaps(true);
         onoffText.setTextColor(Color.BLACK);
         onoffText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setSizeDip(onoffText, Simple.WC, Simple.WC);
+        Simple.setSizeDip(onoffText, Simple.MP, Simple.WC, 1.0f);
         Simple.setTextSizeDip(onoffText, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSPACE);
         Simple.setPaddingDip(onoffText, Defines.PADDING_SMALL);
 
         onoffArea.addView(onoffText);
+
+        onoffControl = new OnOffControl(this);
+
+        onoffControl.setOnChangedListener(new OnOffControl.OnChangedListener()
+        {
+            @Override
+            public void OnChanged(View view, boolean on)
+            {
+                Log.d(LOGTAG, "onoffControl: OnChanged: on=" + on);
+            }
+        });
+
+        onoffArea.addView(onoffControl);
+
+        onoffArea.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onoffControl.setOn(! onoffControl.getOn());
+            }
+        });
 
         LinearLayout volumeArea = new LinearLayout(this);
         volumeArea.setOrientation(LinearLayout.HORIZONTAL);
@@ -317,18 +340,18 @@ public class SettingsActivity extends ContentBaseActivity
 
         volumeArea.addView(volumeText);
 
-        SliderControl sliderControl = new SliderControl(this);
+        SliderControl volumeControl = new SliderControl(this);
 
-        sliderControl.setOnChangedListener(new SliderControl.OnChangedListener()
+        volumeControl.setOnChangedListener(new SliderControl.OnChangedListener()
         {
             @Override
             public void OnChanged(View view, float currentPosition)
             {
-                Log.d(LOGTAG, "SliderControl: OnChanged: current=" + currentPosition);
+                Log.d(LOGTAG, "volumeControl: OnChanged: current=" + currentPosition);
             }
         });
 
-        volumeArea.addView(sliderControl);
+        volumeArea.addView(volumeControl);
 
         //endregion Left sound section.
 

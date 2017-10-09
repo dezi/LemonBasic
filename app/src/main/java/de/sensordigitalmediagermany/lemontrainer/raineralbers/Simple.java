@@ -232,6 +232,17 @@ public class Simple
         view.setBackground(shape);
     }
 
+    public static void setRoundedCorners(View view, int radiusdip, int innerColor, int strokeColor)
+    {
+        GradientDrawable shape = new GradientDrawable();
+        shape.setCornerRadius(dipToPx(radiusdip));
+
+        shape.setColor(innerColor);
+        shape.setStroke(dipToPx(1), strokeColor);
+
+        view.setBackground(shape);
+    }
+
     public static void setRoundedCorners(View view, int[] radiusdipse, int color, boolean solid)
     {
         float[] radiuspxse = new float[radiusdipse.length * 2];

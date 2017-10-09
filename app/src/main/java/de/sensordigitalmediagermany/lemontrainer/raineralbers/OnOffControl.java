@@ -1,7 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.graphics.Color;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.SoundEffectConstants;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -9,11 +9,10 @@ import android.widget.RelativeLayout;
 import android.view.MotionEvent;
 import android.view.Gravity;
 import android.view.View;
-import android.util.Log;
 
-public class SliderControl extends FrameLayout
+public class OnOffControl extends FrameLayout
 {
-    private static final String LOGTAG = SliderControl.class.getSimpleName();
+    private static final String LOGTAG = OnOffControl.class.getSimpleName();
 
     protected OnChangedListener onChanged;
     protected float currentPosition;
@@ -27,11 +26,11 @@ public class SliderControl extends FrameLayout
     protected RelativeLayout knobKnob;
     protected RelativeLayout knobRight;
 
-    public SliderControl(Context context)
+    public OnOffControl(Context context)
     {
         super(context);
 
-        Simple.setSizeDip(this, Simple.MP, Simple.MP);
+        Simple.setSizeDip(this, Simple.WC, Simple.MP);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL, 0);
 
         int radiusdipse[] = new int[4];
@@ -47,19 +46,19 @@ public class SliderControl extends FrameLayout
 
         sliderBox = new LinearLayout(getContext());
         sliderBox.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(sliderBox, Simple.MP, Defines.SLIDER_BARS_SIZE);
+        Simple.setSizeDip(sliderBox, Defines.ONOFF_WIDTH_SIZE, Defines.ONOFF_KNOB_SIZE);
 
         sliderCenter.addView(sliderBox);
 
         sliderLeft = new RelativeLayout(getContext());
         Simple.setSizeDip(sliderLeft, Simple.WC, Simple.MP, 0f);
 
-        radiusdipse[0] = Defines.SLIDER_BARS_SIZE;
+        radiusdipse[0] = Defines.ONOFF_KNOB_SIZE;
         radiusdipse[1] = 0;
         radiusdipse[2] = 0;
-        radiusdipse[3] = Defines.SLIDER_BARS_SIZE;
+        radiusdipse[3] = Defines.ONOFF_KNOB_SIZE;
 
-        Simple.setRoundedCorners(sliderLeft, radiusdipse, Defines.COLOR_SENSOR_DKBLUE, true);
+        Simple.setRoundedCorners(sliderLeft, radiusdipse, Color.GRAY, true);
 
         sliderBox.addView(sliderLeft);
 
@@ -67,11 +66,11 @@ public class SliderControl extends FrameLayout
         Simple.setSizeDip(sliderRight, Simple.WC, Simple.MP, 1f);
 
         radiusdipse[0] = 0;
-        radiusdipse[1] = Defines.SLIDER_BARS_SIZE;
-        radiusdipse[2] = Defines.SLIDER_BARS_SIZE;
+        radiusdipse[1] = Defines.ONOFF_KNOB_SIZE;
+        radiusdipse[2] = Defines.ONOFF_KNOB_SIZE;
         radiusdipse[3] = 0;
 
-        Simple.setRoundedCorners(sliderRight, radiusdipse, Color.GRAY, true);
+        Simple.setRoundedCorners(sliderRight, radiusdipse, Defines.COLOR_SENSOR_DKBLUE, true);
 
         sliderBox.addView(sliderRight);
 
@@ -86,7 +85,7 @@ public class SliderControl extends FrameLayout
 
         knobBox = new LinearLayout(getContext());
         knobBox.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(knobBox, Simple.MP, Defines.SLIDER_KNOB_SIZE);
+        Simple.setSizeDip(knobBox, Defines.ONOFF_WIDTH_SIZE, Defines.ONOFF_KNOB_SIZE);
 
         knobCenter.addView(knobBox);
 
@@ -96,8 +95,8 @@ public class SliderControl extends FrameLayout
         knobBox.addView(knobLeft);
 
         knobKnob = new RelativeLayout(getContext());
-        Simple.setSizeDip(knobKnob, Defines.SLIDER_KNOB_SIZE, Defines.SLIDER_KNOB_SIZE);
-        Simple.setRoundedCorners(knobKnob, Defines.SLIDER_KNOB_SIZE, Color.WHITE, Color.GRAY);
+        Simple.setSizeDip(knobKnob, Defines.SLIDER_KNOB_SIZE, Defines.ONOFF_KNOB_SIZE);
+        Simple.setRoundedCorners(knobKnob, Defines.ONOFF_KNOB_SIZE, Color.WHITE, Color.BLACK);
 
         knobBox.addView(knobKnob);
 
@@ -122,20 +121,22 @@ public class SliderControl extends FrameLayout
                     //Log.d(LOGTAG, "onTouch: total=" + total + " current=" + current);
 
                     setCurrentPosition(current / (float) total);
-
-                    if (onChanged != null) onChanged.OnChanged(SliderControl.this, currentPosition);
                 }
 
                 if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_CANCEL))
                 {
+                    setCurrentPosition((currentPosition <= 0.5f) ? 0f : 1f);
+
                     view.playSoundEffect(SoundEffectConstants.CLICK);
+
+                    if (onChanged != null) onChanged.OnChanged(OnOffControl.this, currentPosition < 0.5f);
                 }
 
                 return true;
             }
         });
 
-        setCurrentPosition(0.25f);
+        setCurrentPosition(1f);
     }
 
     public void setOnChangedListener(OnChangedListener onChanged)
@@ -150,8 +151,12 @@ public class SliderControl extends FrameLayout
         sliderBox.removeAllViews();
         knobBox.removeAllViews();
 
-        Simple.setSizeDip(sliderLeft, Simple.WC, Simple.MP, currentPosition);
-        Simple.setSizeDip(sliderRight, Simple.WC, Simple.MP, 1f - currentPosition);
+        float sliderMax = currentPosition;
+        if (sliderMax < 0.25f) sliderMax = 0.25f;
+        if (sliderMax > 0.75f) sliderMax = 0.75f;
+
+        Simple.setSizeDip(sliderLeft, Simple.WC, Simple.MP, sliderMax);
+        Simple.setSizeDip(sliderRight, Simple.WC, Simple.MP, 1f - sliderMax);
 
         Simple.setSizeDip(knobLeft, Simple.WC, Simple.MP, currentPosition);
         Simple.setSizeDip(knobRight, Simple.WC, Simple.MP, 1f - currentPosition);
@@ -164,8 +169,18 @@ public class SliderControl extends FrameLayout
         knobBox.addView(knobRight);
     }
 
+    public boolean getOn()
+    {
+        return (currentPosition > 0.75f);
+    }
+
+    public void setOn(boolean on)
+    {
+        setCurrentPosition(on ? 1f : 0f);
+    }
+
     public interface OnChangedListener
     {
-        void OnChanged(View view, float currentPosition);
+        void OnChanged(View view, boolean on);
     }
 }
