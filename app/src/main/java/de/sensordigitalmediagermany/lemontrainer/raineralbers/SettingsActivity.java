@@ -3,6 +3,8 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.InputType;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -288,7 +290,7 @@ public class SettingsActivity extends ContentBaseActivity
         onoffText.setAllCaps(true);
         onoffText.setTextColor(Color.BLACK);
         onoffText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setSizeDip(onoffText, Simple.MP, Simple.WC);
+        Simple.setSizeDip(onoffText, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(onoffText, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSPACE);
         Simple.setPaddingDip(onoffText, Defines.PADDING_SMALL);
@@ -308,12 +310,25 @@ public class SettingsActivity extends ContentBaseActivity
         volumeText.setAllCaps(true);
         volumeText.setTextColor(Color.BLACK);
         volumeText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setSizeDip(volumeText, Simple.MP, Simple.WC);
+        Simple.setSizeDip(volumeText, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(volumeText, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(volumeText, Defines.FS_NAVIGATION_LSPACE);
         Simple.setPaddingDip(volumeText, Defines.PADDING_SMALL);
 
         volumeArea.addView(volumeText);
+
+        SliderControl sliderControl = new SliderControl(this);
+
+        sliderControl.setOnChangedListener(new SliderControl.OnChangedListener()
+        {
+            @Override
+            public void OnChanged(View view, float currentPosition)
+            {
+                Log.d(LOGTAG, "SliderControl: OnChanged: current=" + currentPosition);
+            }
+        });
+
+        volumeArea.addView(sliderControl);
 
         //endregion Left sound section.
 

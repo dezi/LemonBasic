@@ -156,4 +156,9 @@ public class Defines
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
     // @formatter:on
+
+    // @formatter:off
+    public static final int SLIDER_BARS_SIZE    = Simple.isTablet() ?  3 :  3;
+    public static final int SLIDER_KNOB_SIZE    = Simple.isTablet() ? 30 : 30;
+    // @formatter:on
 }
