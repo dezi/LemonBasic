@@ -295,8 +295,6 @@ public class DetailActivity extends ContentBaseActivity
         //endregion Information area.
 
         updateContent();
-
-
     }
 
     public void updateContent()

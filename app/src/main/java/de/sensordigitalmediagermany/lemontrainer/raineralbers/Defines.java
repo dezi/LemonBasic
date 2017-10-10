@@ -103,6 +103,10 @@ public class Defines
     public static final int FS_SETTINGS_LIST   = Simple.isTablet() ? 22 : 20;
     public static final int FS_SETTINGS_MORE   = Simple.isTablet() ? 30 : 28;
 
+    public static final int FS_TRAINING_TITLE  = Simple.isTablet() ? 46 : 40;
+    public static final int FS_TRAINING_INFO   = Simple.isTablet() ? 20 : 18;
+    public static final int FS_TRAINING_START  = Simple.isTablet() ? 30 : 24;
+
     // @formatter:on
 
     //
@@ -133,15 +137,16 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static final int PADDING_TINY    = Simple.isTablet() ?  4 :  4;
-    public static final int PADDING_SMALL   = Simple.isTablet() ? 10 :  8;
-    public static final int PADDING_MEDIUM  = Simple.isTablet() ? 14 : 12;
-    public static final int PADDING_NORMAL  = Simple.isTablet() ? 16 : 14;
-    public static final int PADDING_LARGE   = Simple.isTablet() ? 20 : 16;
-    public static final int PADDING_XLARGE  = Simple.isTablet() ? 40 : 30;
+    public static final int PADDING_TINY     = Simple.isTablet() ?  4 :  4;
+    public static final int PADDING_SMALL    = Simple.isTablet() ? 10 :  8;
+    public static final int PADDING_MEDIUM   = Simple.isTablet() ? 14 : 12;
+    public static final int PADDING_NORMAL   = Simple.isTablet() ? 16 : 14;
+    public static final int PADDING_LARGE    = Simple.isTablet() ? 20 : 16;
+    public static final int PADDING_XLARGE   = Simple.isTablet() ? 40 : 30;
+    public static final int PADDING_TRAINING = Simple.isTablet() ? 90 : 10;
 
-    public static final int MARGIN_BUTTON   = Simple.isTablet() ?  6 :  4;
-    public static final int MARGIN_POPUP    = Simple.isTablet() ? 16 :  0;
+    public static final int MARGIN_BUTTON    = Simple.isTablet() ?  6 :  4;
+    public static final int MARGIN_POPUP     = Simple.isTablet() ? 16 :  0;
     // @formatter:on
 
     // @formatter:off

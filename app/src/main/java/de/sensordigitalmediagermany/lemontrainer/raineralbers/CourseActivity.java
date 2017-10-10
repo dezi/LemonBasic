@@ -14,6 +14,8 @@ public class CourseActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = CourseActivity.class.getSimpleName();
 
+    protected TextView buyButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -32,13 +34,9 @@ public class CourseActivity extends ContentBaseActivity
 
         if (Globals.displayContent == null) return;
 
-        int courseId = Json.getInt(Globals.displayContent, "id");
         String courseTitle = Json.getString(Globals.displayContent, "title");
         String courseHeader = Json.getString(Globals.displayContent, "description_header");
         String courseDescription = Json.getString(Globals.displayContent, "description");
-
-        int price = Json.getInt(Globals.displayContent, "price");
-        boolean bought = ContentHandler.isCourseBought(courseId);
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
@@ -78,17 +76,7 @@ public class CourseActivity extends ContentBaseActivity
 
         infoArea.addView(cdView);
 
-        String buyText = (price > 0)
-                ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
-                : Simple.getTrans(this, R.string.course_buy_gratis);
-
-        if (bought)
-        {
-            buyText = Simple.getTrans(this, R.string.course_buy_train);
-        }
-
-        TextView buyButton = new TextView(this);
-        buyButton.setText(buyText);
+        buyButton = new TextView(this);
         buyButton.setTextColor(Color.WHITE);
         buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
@@ -99,7 +87,40 @@ public class CourseActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
 
-        if (! bought)
+
+        infoArea.addView(buyButton);
+
+        JSONArray cc = Json.getArray(Globals.displayContent, "_cc");
+
+        assetsAdapter.setAssets(cc);
+
+        updateContent();
+    }
+
+    public void updateContent()
+    {
+        int courseId = Json.getInt(Globals.displayContent, "id");
+        int price = Json.getInt(Globals.displayContent, "price");
+        boolean bought = ContentHandler.isCourseBought(courseId);
+
+        String buyText = (price > 0)
+                ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
+                : Simple.getTrans(this, R.string.course_buy_gratis);
+
+        if (bought)
+        {
+            buyText = Simple.getTrans(this, R.string.course_buy_train);
+
+            buyButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    Simple.startActivity(CourseActivity.this, TrainingActivity.class);
+                }
+            });
+        }
+        else
         {
             buyButton.setOnClickListener(new View.OnClickListener()
             {
@@ -111,10 +132,6 @@ public class CourseActivity extends ContentBaseActivity
             });
         }
 
-        infoArea.addView(buyButton);
-
-        JSONArray cc = Json.getArray(Globals.displayContent, "_cc");
-
-        assetsAdapter.setAssets(cc);
+        buyButton.setText(buyText);
     }
 }

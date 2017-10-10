@@ -138,6 +138,16 @@
 
     <string name="asset_owned">Gekauft</string>
 
+    <string name="training_title">Training</string>
+    <string name="training_info_1">Sie starten jetzt das Wissenstraining zum Lehrgang</string>
+    <string name="training_info_2">
+        Sie können dieses Training jederzeit abbrechen und wieder zur Lehrgangs-Startseite
+        zurückkehren. Für beste Trainingsergebnisse empfehlen wir Ihnen, sich ein ruhiges
+        Plätzchen zu suchen und mögliche Ablenkungen auszuschalten.
+        Wir wünschen Ihnen viel Erfolg!
+    </string>
+    <string name="training_start">Start!</string>
+
     <string name="alert_buy_coins_title">Coins kaufen</string>
     <string name="alert_buy_coins_noselect">Bitte wählen Sie ein Paket.</string>
     <string name="alert_buy_coins_fail">Transaktion ist fehlgeschlagen.</string>
