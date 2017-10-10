@@ -23,6 +23,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected FrameLayout headerFrame;
     protected ImageView headerImage;
     protected ImageView backButtonImage;
+    protected ScaledButton backButton;
     protected ImageView profileButtonImage;
     protected ScaledButton profileButton;
     protected FrameLayout imageFrame;
@@ -71,17 +72,8 @@ public class ContentBaseActivity extends FullScreenActivity
 
         headerFrame.addView(backButtonImage);
 
-        ScaledButton backButton = new ScaledButton(this);
+        backButton = new ScaledButton(this);
         backButton.setContentHorz(headerImage, Screens.getContentScreenButtonBackRect(), hdresid);
-
-        backButton.setOnButtonClicked(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Simple.startActivityTop(ContentBaseActivity.this, MainActivity.class);
-            }
-        });
 
         headerFrame.addView(backButton);
 
@@ -185,5 +177,29 @@ public class ContentBaseActivity extends FullScreenActivity
         profilePopup.setTopMargin(Simple.pxToDip(headerImage.getHeight() * 2 / 3));
 
         topFrame.addView(profilePopup);
+    }
+
+    protected void setBackButton(boolean enable)
+    {
+        if (enable)
+        {
+            backButtonImage.setImageResource(Screens.getContentScreenButtonBackOnRes());
+
+            backButton.setOnButtonClicked(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    onBackPressed();
+                }
+            });
+
+        }
+        else
+        {
+            backButtonImage.setImageResource(Screens.getContentScreenButtonBackOffRes());
+
+            backButton.setOnButtonClicked(null);
+        }
     }
 }

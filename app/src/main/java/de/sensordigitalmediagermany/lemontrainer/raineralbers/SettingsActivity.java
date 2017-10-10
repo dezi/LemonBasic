@@ -2,11 +2,6 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -14,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.text.InputType;
+import android.view.ViewGroup;
+import android.view.View;
 import android.view.Gravity;
 import android.os.Bundle;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +35,8 @@ public class SettingsActivity extends ContentBaseActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        setBackButton(true);
 
         //
         // Remove asset grid for re-arrangement.
@@ -384,6 +385,17 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setTextSizeDip(logoffButton, Defines.FS_SETTINGS_BUTTON);
         Simple.setPaddingDip(logoffButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(logoffButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
+
+        logoffButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                SettingsHandler.killSettings();
+
+                Simple.startActivityTop(SettingsActivity.this, MainActivity.class);
+            }
+        });
 
         logoffArea.addView(logoffButton);
 

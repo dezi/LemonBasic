@@ -43,6 +43,8 @@ public class DetailActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
                 Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
 
+        setBackButton(true);
+
         if (Globals.displayContent == null) return;
 
         //
@@ -293,6 +295,8 @@ public class DetailActivity extends ContentBaseActivity
         //endregion Information area.
 
         updateContent();
+
+
     }
 
     public void updateContent()

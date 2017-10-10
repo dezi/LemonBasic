@@ -28,6 +28,8 @@ public class CourseActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
                 Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
 
+        setBackButton(true);
+
         if (Globals.displayContent == null) return;
 
         int courseId = Json.getInt(Globals.displayContent, "id");
