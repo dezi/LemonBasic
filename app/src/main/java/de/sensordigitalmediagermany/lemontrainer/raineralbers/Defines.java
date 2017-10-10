@@ -21,15 +21,18 @@ public class Defines
     // Fixed values.
     //
 
+    public static final int TRAINING_NUM_QUESTIONS = 4;
+
     public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
 
     //
     // Colors.
     //
 
+    // @formatter:off
     public static final int COLOR_SENSOR_LTBLUE = 0xff657995;
     public static final int COLOR_SENSOR_DKBLUE = 0xff3b4455;
-    public static final int COLOR_SENSOR_GREEN = 0xff54b23b;
+    public static final int COLOR_SENSOR_GREEN  = 0xff54b23b;
 
     public static final int COLOR_SENSOR_DIALOGS = 0xcc3b4455;
     public static final int COLOR_SENSOR_ALERTS  = 0xff3b4455;
@@ -38,6 +41,7 @@ public class Defines
 
     public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM = 0x77000000;
+    // @formatter:on
 
     //
     // Corner radius.
@@ -107,6 +111,8 @@ public class Defines
     public static final int FS_TRAINING_INFO   = Simple.isTablet() ? 20 : 18;
     public static final int FS_TRAINING_START  = Simple.isTablet() ? 30 : 24;
 
+    public static final int FS_QUESTIONS_TITLE = Simple.isTablet() ? 18 : 16;
+
     // @formatter:on
 
     //
@@ -167,5 +173,6 @@ public class Defines
     public static final int SLIDER_KNOB_SIZE   = Simple.isTablet() ? 30 : 30;
     public static final int ONOFF_WIDTH_SIZE   = Simple.isTablet() ? 60 : 60;
     public static final int ONOFF_KNOB_SIZE    = Simple.isTablet() ? 30 : 30;
+    public static final int PROGRESS_BAR_SIZE  = Simple.isTablet() ?  6 :  6;
     // @formatter:on
 }

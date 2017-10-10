@@ -1,17 +1,21 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
+import android.view.View;
+import android.os.Bundle;
+
+import org.json.JSONObject;
 
 public class TrainingActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = TrainingActivity.class.getSimpleName();
+
+    protected boolean wasStartClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -92,7 +96,7 @@ public class TrainingActivity extends ContentBaseActivity
         startButton.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(startButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(startButton, Defines.FS_TRAINING_START);
-        Simple.setRoundedCorners(startButton, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
+        Simple.setRoundedCorners(startButton, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
 
         Simple.setPaddingDip(startButton,
                 Defines.PADDING_TRAINING, Defines.PADDING_NORMAL,
@@ -103,6 +107,12 @@ public class TrainingActivity extends ContentBaseActivity
             @Override
             public void onClick(View view)
             {
+                wasStartClicked = true;
+
+                if (Globals.courseQuestions != null)
+                {
+                    Simple.startActivityFinish(TrainingActivity.this, QuestionsActivity.class);
+                }
             }
         });
 
@@ -123,7 +133,7 @@ public class TrainingActivity extends ContentBaseActivity
         cancelButton.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(cancelButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(cancelButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(cancelButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
+        Simple.setRoundedCorners(cancelButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
         Simple.setPaddingDip(cancelButton,
                 Defines.PADDING_XLARGE, Defines.PADDING_SMALL,
@@ -139,5 +149,44 @@ public class TrainingActivity extends ContentBaseActivity
         });
 
         cancelCenter.addView(cancelButton);
+
+        getQuestions();
     }
+
+    private void getQuestions()
+    {
+        Globals.courseQuestions = null;
+
+        JSONObject params = new JSONObject();
+
+        Json.put(params, "courseId", Json.getInt(Globals.displayContent, "id"));
+
+        RestApi.getPostThreaded("getCourseQuestions", params, new RestApi.RestApiResultListener()
+        {
+            @Override
+            public void OnRestApiResult(String what, JSONObject params, JSONObject result)
+            {
+                if ((result != null) && Json.equals(result, "Status", "OK"))
+                {
+                    JSONObject data = Json.getObject(result, "Data");
+                    Globals.courseQuestions = Json.getArray(data, "CourseQuestions");
+
+                    if (Globals.courseQuestions != null)
+                    {
+                        if (wasStartClicked)
+                        {
+                            Simple.startActivityFinish(TrainingActivity.this, QuestionsActivity.class);
+                        }
+
+                        return;
+                    }
+                }
+
+                DialogView.errorAlert(topFrame,
+                        R.string.alert_training_questions_title,
+                        R.string.alert_training_questions_fail);
+            }
+        });
+    }
+
 }

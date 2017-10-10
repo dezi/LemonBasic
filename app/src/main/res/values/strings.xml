@@ -148,6 +148,10 @@
     </string>
     <string name="training_start">Start!</string>
 
+    <string name="questions_progress">Fortschritt</string>
+    <string name="questions_remain">Noch</string>
+    <string name="questions_next">Weiter</string>
+
     <string name="alert_buy_coins_title">Coins kaufen</string>
     <string name="alert_buy_coins_noselect">Bitte wählen Sie ein Paket.</string>
     <string name="alert_buy_coins_fail">Transaktion ist fehlgeschlagen.</string>
@@ -187,6 +191,9 @@
 
     <string name="alert_change_password_diff_title">Passwort falsch</string>
     <string name="alert_change_password_diff_info">Bitte geben Sie das Passwort erneut ein.</string>
+
+    <string name="alert_training_questions_title">Trainingsfragen</string>
+    <string name="alert_training_questions_fail">Die Fragen können nicht geladen werden.</string>
 
     <string name="alert_not_implemented_title">Falscher Fehler</string>
     <string name="alert_not_implemented_info">Funktion ist noch nicht implementiert.</string>
