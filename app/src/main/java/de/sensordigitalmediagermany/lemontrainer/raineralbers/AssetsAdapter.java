@@ -68,7 +68,7 @@ public class AssetsAdapter extends BaseAdapter
                 ;
     }
 
-    public View getViewHorizontal(int position, View convertView, ViewGroup parent)
+    protected View getViewHorizontal(int position, View convertView, ViewGroup parent)
     {
         final GridView gridView = (GridView) parent;
 
@@ -226,7 +226,7 @@ public class AssetsAdapter extends BaseAdapter
         return assetFrame;
     }
 
-    public View getViewNormal(int position, View convertView, ViewGroup parent)
+    protected View getViewNormal(int position, View convertView, ViewGroup parent)
     {
         final GridView gridView = (GridView) parent;
 
@@ -258,6 +258,7 @@ public class AssetsAdapter extends BaseAdapter
         {
             assetFrame = new LinearLayout(parent.getContext());
             assetFrame.setOrientation(LinearLayout.VERTICAL);
+            assetFrame.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
             Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
             Simple.setPaddingDip(assetFrame, Defines.PADDING_SMALL);
 
@@ -369,9 +370,6 @@ public class AssetsAdapter extends BaseAdapter
         String thumburl = Json.getString(asset, "thumbnail_url");
 
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
-        boolean isSelected = Json.getBoolean(asset, "_isSelected");
-
-        assetFrame.setBackgroundColor(isSelected ? Defines.COLOR_SENSOR_LTBLUE : Defines.COLOR_SENSOR_NAVIBAR);
 
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
