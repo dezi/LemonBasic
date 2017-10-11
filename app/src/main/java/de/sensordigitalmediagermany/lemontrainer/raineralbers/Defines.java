@@ -158,6 +158,7 @@ public class Defines
     // @formatter:off
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  24 :  20; // Important!
+    public static final int QUESTION_CHECK_SIZE = Simple.isTablet() ?  24 :  20;
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;

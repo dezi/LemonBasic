@@ -121,7 +121,7 @@ public class SettingsActivity extends ContentBaseActivity
         profileFrame.addView(profileImageHolder);
 
         ImageView profileImage = new ImageView(this);
-        profileImage.setImageResource(R.drawable.lem_t_iany_genric_profil_platzhalter_225_2x);
+        profileImage.setImageResource(R.drawable.lem_t_iany_generic_profil_platzhalter_225_2x);
         profileImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(profileImage, Simple.MP, Simple.MP);
 

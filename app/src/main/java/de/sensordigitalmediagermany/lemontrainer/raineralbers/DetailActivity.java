@@ -1,8 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.app.NotificationManager;
 import android.content.Context;
-import android.support.v4.app.NotificationCompat;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -74,7 +72,7 @@ public class DetailActivity extends ContentBaseActivity
                         imageWidth, imageHeight, false));
 
         Simple.setSizeDip(typeIcon, Defines.TYPE_ICON_SIZE, Defines.TYPE_ICON_SIZE);
-        typeIcon.setImageResource(R.drawable.lem_t_iany_genric_type_film_gross);
+        typeIcon.setImageResource(R.drawable.lem_t_iany_generic_type_film_gross);
 
         //endregion Image and type area.
 

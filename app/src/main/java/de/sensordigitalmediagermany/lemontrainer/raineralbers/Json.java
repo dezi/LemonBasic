@@ -534,4 +534,14 @@ public class Json
 
         return new JSONArray(jsonValues);
     }
+
+    public static void fixUpNumber2String(JSONObject obj, String key)
+    {
+        if (has(obj, key) && (getString(obj, key) == null))
+        {
+            long val = getLong(obj, key);
+
+            put(obj, key, String.valueOf(val));
+        }
+    }
 }

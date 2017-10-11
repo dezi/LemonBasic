@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,9 +24,15 @@ public class QuestionsActivity extends ContentBaseActivity
 
     protected int totalQuestions;
     protected int currentQuestion;
+    protected boolean correctAnswers[];
 
+    protected LinearLayout[] questlayViews = new LinearLayout[ Defines.TRAINING_NUM_QUESTIONS ];
     protected TextView[] questionViews = new TextView[ Defines.TRAINING_NUM_QUESTIONS ];
+    protected ImageView[] checkimgViews = new ImageView[ Defines.TRAINING_NUM_QUESTIONS ];
+
+    protected LinearLayout[] questlayDisplay;
     protected TextView[] questionDisplay;
+    protected ImageView[] checkimgDisplay;
 
     protected JSONObject question;
 
@@ -111,25 +118,45 @@ public class QuestionsActivity extends ContentBaseActivity
 
         for (int inx = 0; inx < questionViews.length; inx++)
         {
+            LinearLayout questionLayout = new LinearLayout(this);
+            questionLayout.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(questionLayout, Simple.MP, Simple.WC);
+            Simple.setRoundedCorners(questionLayout, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+            Simple.setMarginTopDip(questionLayout, Defines.PADDING_NORMAL);
+
+            questionsBox.addView(questionLayout);
+
+            questionLayout.setOnClickListener(onQuestionClick);
+
+            ImageView questionCheck = new ImageView(this);
+            questionCheck.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Simple.setSizeDip(questionCheck, Defines.QUESTION_CHECK_SIZE, Simple.MP);
+            Simple.setMarginLeftDip(questionCheck, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(questionCheck, Defines.PADDING_SMALL);
+
+            questionLayout.addView(questionCheck);
+
+            RelativeLayout questionSplit = new RelativeLayout(this);
+            questionSplit.setBackgroundColor(Color.GRAY);
+            Simple.setSizeDip(questionSplit, 1, Simple.MP);
+
+            questionLayout.addView(questionSplit);
+
             TextView questionButton = new TextView(this);
-            questionButton.setText("Pupsi " + inx);
             questionButton.setTextColor(Color.WHITE);
             questionButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
-            Simple.setSizeDip(questionButton, Simple.MP, Simple.WC);
             Simple.setTextSizeDip(questionButton, Defines.FS_DIALOG_BUTTON);
-            Simple.setRoundedCorners(questionButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+            Simple.setSizeDip(questionButton, Simple.MP, Simple.WC);
 
             Simple.setPaddingDip(questionButton,
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
-            Simple.setMarginTopDip(questionButton, Defines.PADDING_NORMAL);
+            questionLayout.addView(questionButton);
 
-            questionButton.setOnClickListener(onQuestionClick);
-
-            questionsBox.addView(questionButton);
-
+            questlayViews[ inx ] = questionLayout;
             questionViews[ inx ] = questionButton;
+            checkimgViews[ inx ] = questionCheck;
         }
 
         //endregion Questions
@@ -202,6 +229,8 @@ public class QuestionsActivity extends ContentBaseActivity
         totalQuestions = Globals.courseQuestions.length() * 10;
         currentQuestion = 0;
 
+        correctAnswers = new boolean[ totalQuestions ];
+
         showNext();
     }
 
@@ -230,11 +259,15 @@ public class QuestionsActivity extends ContentBaseActivity
 
         if (numThis > Defines.TRAINING_NUM_QUESTIONS) numThis = Defines.TRAINING_NUM_QUESTIONS;
 
+        questlayDisplay = new LinearLayout[ numThis ];
         questionDisplay = new TextView[ numThis ];
+        checkimgDisplay = new ImageView[ numThis ];
 
         for (int inx = 0; inx < numThis; inx++)
         {
+            questlayDisplay[ inx ] = questlayViews[ inx ];
             questionDisplay[ inx ] = questionViews[ inx ];
+            checkimgDisplay[ inx ] = checkimgViews[ inx ];
         }
 
         Random rand = new Random();
@@ -244,21 +277,35 @@ public class QuestionsActivity extends ContentBaseActivity
             int inx1 = rand.nextInt(numThis);
             int inx2 = rand.nextInt(numThis);
 
-            TextView tmp = questionDisplay[ inx1 ];
+            LinearLayout tmp1 = questlayDisplay[ inx1 ];
+            questlayDisplay[ inx1 ] = questlayDisplay[ inx2 ];
+            questlayDisplay[ inx2 ] = tmp1;
+
+            TextView tmp2 = questionDisplay[ inx1 ];
             questionDisplay[ inx1 ] = questionDisplay[ inx2 ];
-            questionDisplay[ inx2 ] = tmp;
+            questionDisplay[ inx2 ] = tmp2;
+
+            ImageView tmp3 = checkimgDisplay[ inx1 ];
+            checkimgDisplay[ inx1 ] = checkimgDisplay[ inx2 ];
+            checkimgDisplay[ inx2 ] = tmp3;
         }
 
         for (int inx = 0; inx < questionViews.length; inx++)
         {
-            questionViews[ inx ].setVisibility((inx < numThis) ? View.VISIBLE : View.GONE);
+            questlayDisplay[ inx ].setVisibility((inx < numThis) ? View.VISIBLE : View.GONE);
+
+            questionDisplay[ inx ].setText(null);
+            checkimgDisplay[ inx ].setImageDrawable(null);
         }
 
-        questionDisplay[ 0 ].setText(Json.getInt(question, "answer_correct") + "*");
+        String correct = Json.getString(question, "answer_correct");
+        if (Defines.isDezi) correct += "*";
+
+        questionDisplay[ 0 ].setText(correct);
 
         for (int inx = 1; inx < numThis; inx++)
         {
-            questionDisplay[ inx ].setText("" + Json.getInt(question, "answer_wrong" + inx));
+            questionDisplay[ inx ].setText(Json.getString(question, "answer_wrong" + inx));
         }
     }
 
@@ -286,7 +333,19 @@ public class QuestionsActivity extends ContentBaseActivity
         @Override
         public void onClick(View view)
         {
+            for (int inx = 0; inx < questlayDisplay.length; inx++)
+            {
+                if (questlayDisplay[ inx ] == view)
+                {
+                    checkimgDisplay[ inx ].setImageResource(R.drawable.lem_t_iany_generic_question_check);
 
+                    correctAnswers[ currentQuestion - 1 ] = (inx == 0);
+                }
+                else
+                {
+                    checkimgDisplay[ inx ].setImageDrawable(null);
+                }
+            }
         }
     };
 }

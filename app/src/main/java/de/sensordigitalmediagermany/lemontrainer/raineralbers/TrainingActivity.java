@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.os.Bundle;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TrainingActivity extends ContentBaseActivity
@@ -169,10 +170,33 @@ public class TrainingActivity extends ContentBaseActivity
                 if ((result != null) && Json.equals(result, "Status", "OK"))
                 {
                     JSONObject data = Json.getObject(result, "Data");
-                    Globals.courseQuestions = Json.getArray(data, "CourseQuestions");
 
-                    if (Globals.courseQuestions != null)
+                    JSONArray questions = Json.getArray(data, "CourseQuestions");
+
+                    if (questions != null)
                     {
+                        //
+                        // Fix integer answer values into strings.
+                        //
+
+                        for (int inx = 0; inx < questions.length(); inx++)
+                        {
+                            JSONObject question = Json.getObject(questions, inx);
+
+                            Json.fixUpNumber2String(question, "answer_correct");
+                            Json.fixUpNumber2String(question, "answer_wrong1");
+                            Json.fixUpNumber2String(question, "answer_wrong2");
+                            Json.fixUpNumber2String(question, "answer_wrong3");
+                            Json.fixUpNumber2String(question, "answer_wrong4");
+                            Json.fixUpNumber2String(question, "answer_wrong5");
+                            Json.fixUpNumber2String(question, "answer_wrong6");
+                            Json.fixUpNumber2String(question, "answer_wrong7");
+                            Json.fixUpNumber2String(question, "answer_wrong8");
+                            Json.fixUpNumber2String(question, "answer_wrong9");
+                        }
+
+                        Globals.courseQuestions = questions;
+
                         if (wasStartClicked)
                         {
                             Simple.startActivityFinish(TrainingActivity.this, QuestionsActivity.class);
