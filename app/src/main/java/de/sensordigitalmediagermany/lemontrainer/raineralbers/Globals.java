@@ -44,7 +44,11 @@ public class Globals
     public static JSONObject displayContent;
 
     public static JSONArray customerContents;
+
     public static JSONArray courseQuestions;
+    public static boolean correctAnswers[];
+    public static boolean trainingFinished;
+    public static int currentQuestion;
 
     public static int coinsAdded;
 

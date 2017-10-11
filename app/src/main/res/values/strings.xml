@@ -146,16 +146,21 @@
         Plätzchen zu suchen und mögliche Ablenkungen auszuschalten.
         Wir wünschen Ihnen viel Erfolg!
     </string>
-    <string name="training_start">Start!</string>
+    <string name="training_action">Start!</string>
 
     <string name="results_title">Training beendet!</string>
     <string name="results_info_1">Herzlichen Glückwunsch! Sie haben das Wissenstraining zum Lehrgang</string>
     <string name="results_info_2">erfolgreich beendet. Sehen Sie sich jetzt ihr Ergebnis an!</string>
-    <string name="results_start">Ergebnis ansehen</string>
+    <string name="results_action">Ergebnis ansehen</string>
+
+    <string name="overview_title">Ihr Ergebnis.</string>
+    <string name="overview_info_1">Klicken Sie auf die Zahlen, um auf die Frageseite zu gelangen.</string>
+    <string name="overview_action">Zurück zum Lehrgang</string>
 
     <string name="questions_progress">Fortschritt</string>
     <string name="questions_remain">Noch</string>
     <string name="questions_next">Weiter</string>
+    <string name="questions_overview">Übersicht</string>
 
     <string name="alert_buy_coins_title">Coins kaufen</string>
     <string name="alert_buy_coins_noselect">Bitte wählen Sie ein Paket.</string>

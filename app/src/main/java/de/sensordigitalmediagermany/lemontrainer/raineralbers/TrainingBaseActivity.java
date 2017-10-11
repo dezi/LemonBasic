@@ -17,7 +17,8 @@ public class TrainingBaseActivity extends ContentBaseActivity
     protected TextView info1View;
     protected TextView courseView;
     protected TextView info2View;
-    protected TextView startButton;
+    protected RelativeLayout contentCenter;
+    protected TextView actionButton;
     protected TextView cancelButton;
 
     @Override
@@ -26,7 +27,7 @@ public class TrainingBaseActivity extends ContentBaseActivity
         super.onCreate(savedInstanceState);
 
         naviFrame.setOrientation(LinearLayout.VERTICAL);
-        naviFrame.setBackgroundColor(Defines.COLOR_SENSOR_DKBLUE);
+        naviFrame.setBackgroundColor(Defines.COLOR_SENSOR_LTBLUE);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.MP);
         Simple.setPaddingDip(naviFrame, Defines.PADDING_TRAINING);
 
@@ -80,6 +81,12 @@ public class TrainingBaseActivity extends ContentBaseActivity
 
         naviFrame.addView(info2View);
 
+        contentCenter = new RelativeLayout(this);
+        contentCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+        Simple.setSizeDip(contentCenter, Simple.MP, Simple.WC);
+
+        naviFrame.addView(contentCenter);
+
         RelativeLayout startCenter = new RelativeLayout(this);
         startCenter.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(startCenter, Simple.MP, Simple.WC);
@@ -87,20 +94,20 @@ public class TrainingBaseActivity extends ContentBaseActivity
 
         naviFrame.addView(startCenter);
 
-        startButton = new TextView(this);
-        startButton.setAllCaps(true);
-        startButton.setTextColor(Color.BLACK);
-        startButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
-        startButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        Simple.setSizeDip(startButton, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(startButton, Defines.FS_TRAINING_START);
-        Simple.setRoundedCorners(startButton, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
+        actionButton = new TextView(this);
+        actionButton.setAllCaps(true);
+        actionButton.setTextColor(Color.BLACK);
+        actionButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        actionButton.setGravity(Gravity.CENTER_HORIZONTAL);
+        Simple.setSizeDip(actionButton, Simple.WC, Simple.WC);
+        Simple.setTextSizeDip(actionButton, Defines.FS_TRAINING_START);
+        Simple.setRoundedCorners(actionButton, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
 
-        Simple.setPaddingDip(startButton,
+        Simple.setPaddingDip(actionButton,
                 Defines.PADDING_TRAINING, Defines.PADDING_NORMAL,
                 Defines.PADDING_TRAINING, Defines.PADDING_NORMAL);
 
-        startCenter.addView(startButton);
+        startCenter.addView(actionButton);
 
         RelativeLayout cancelCenter = new RelativeLayout(this);
         cancelCenter.setGravity(Gravity.CENTER_HORIZONTAL);

@@ -1,11 +1,5 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.view.Gravity;
 import android.view.View;
 import android.os.Bundle;
 
@@ -29,9 +23,9 @@ public class TrainingActivity extends TrainingBaseActivity
         info1View.setText(R.string.training_info_1);
         courseView.setVisibility(View.VISIBLE);
         info2View.setText(R.string.training_info_2);
-        startButton.setText(R.string.training_start);
+        actionButton.setText(R.string.training_action);
 
-        startButton.setOnClickListener(new View.OnClickListener()
+        actionButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -53,6 +47,7 @@ public class TrainingActivity extends TrainingBaseActivity
     private void getQuestions()
     {
         Globals.courseQuestions = null;
+        Globals.trainingFinished = false;
 
         JSONObject params = new JSONObject();
 

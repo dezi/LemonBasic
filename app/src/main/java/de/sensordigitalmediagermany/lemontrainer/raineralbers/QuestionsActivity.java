@@ -23,16 +23,16 @@ public class QuestionsActivity extends ContentBaseActivity
     protected ProgressBar progressBar;
 
     protected int totalQuestions;
-    protected int currentQuestion;
-    protected boolean correctAnswers[];
 
-    protected LinearLayout[] questlayViews = new LinearLayout[ Defines.TRAINING_NUM_QUESTIONS ];
-    protected TextView[] questionViews = new TextView[ Defines.TRAINING_NUM_QUESTIONS ];
-    protected ImageView[] checkimgViews = new ImageView[ Defines.TRAINING_NUM_QUESTIONS ];
+    protected TextView questionText;
 
-    protected LinearLayout[] questlayDisplay;
-    protected TextView[] questionDisplay;
-    protected ImageView[] checkimgDisplay;
+    protected LinearLayout[] answerlayViews = new LinearLayout[ Defines.TRAINING_NUM_QUESTIONS ];
+    protected TextView[] answertxtViews = new TextView[ Defines.TRAINING_NUM_QUESTIONS ];
+    protected ImageView[] answerchkViews = new ImageView[ Defines.TRAINING_NUM_QUESTIONS ];
+
+    protected LinearLayout[] answerlayDisplay;
+    protected TextView[] answertxtDisplay;
+    protected ImageView[] answerchkDisplay;
 
     protected JSONObject question;
 
@@ -101,65 +101,80 @@ public class QuestionsActivity extends ContentBaseActivity
 
         //endregion Progress
 
-        //region Questions
+        //region Question
 
-        RelativeLayout questionsCenter = new RelativeLayout(this);
-        questionsCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+        questionText = new TextView(this);
+        questionText.setTextColor(Color.BLACK);
+        questionText.setGravity(Gravity.CENTER_HORIZONTAL);
+        questionText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        Simple.setTextSizeDip(questionText, Defines.FS_QUESTIONS_QUESTION);
+        Simple.setSizeDip(questionText, Simple.MP, Simple.WC);
+        Simple.setMarginTopDip(questionText, Defines.PADDING_LARGE);
+        Simple.setMarginBottomDip(questionText, Defines.PADDING_LARGE);
 
-        Simple.setSizeDip(questionsCenter, Simple.MP, Simple.MP, 1.0f);
+        naviFrame.addView(questionText);
 
-        naviFrame.addView(questionsCenter);
+        //endregion Question
 
-        LinearLayout questionsBox = new LinearLayout(this);
-        questionsBox.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(questionsBox, Simple.MP, Simple.WC);
+        //region Answers
 
-        questionsCenter.addView(questionsBox);
+        RelativeLayout answersCenter = new RelativeLayout(this);
+        answersCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
 
-        for (int inx = 0; inx < questionViews.length; inx++)
+        Simple.setSizeDip(answersCenter, Simple.MP, Simple.MP, 1.0f);
+
+        naviFrame.addView(answersCenter);
+
+        LinearLayout answersBox = new LinearLayout(this);
+        answersBox.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(answersBox, Simple.MP, Simple.WC);
+
+        answersCenter.addView(answersBox);
+
+        for (int inx = 0; inx < answertxtViews.length; inx++)
         {
-            LinearLayout questionLayout = new LinearLayout(this);
-            questionLayout.setOrientation(LinearLayout.HORIZONTAL);
-            Simple.setSizeDip(questionLayout, Simple.MP, Simple.WC);
-            Simple.setRoundedCorners(questionLayout, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
-            Simple.setMarginTopDip(questionLayout, Defines.PADDING_NORMAL);
+            LinearLayout answerLayout = new LinearLayout(this);
+            answerLayout.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(answerLayout, Simple.MP, Simple.WC);
+            Simple.setRoundedCorners(answerLayout, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+            Simple.setMarginTopDip(answerLayout, Defines.PADDING_NORMAL);
 
-            questionsBox.addView(questionLayout);
+            answersBox.addView(answerLayout);
 
-            questionLayout.setOnClickListener(onQuestionClick);
+            answerLayout.setOnClickListener(onQuestionClick);
 
-            ImageView questionCheck = new ImageView(this);
-            questionCheck.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Simple.setSizeDip(questionCheck, Defines.QUESTION_CHECK_SIZE, Simple.MP);
-            Simple.setMarginLeftDip(questionCheck, Defines.PADDING_SMALL);
-            Simple.setMarginRightDip(questionCheck, Defines.PADDING_SMALL);
+            ImageView answerCheck = new ImageView(this);
+            answerCheck.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Simple.setSizeDip(answerCheck, Defines.QUESTION_CHECK_SIZE, Simple.MP);
+            Simple.setMarginLeftDip(answerCheck, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(answerCheck, Defines.PADDING_SMALL);
 
-            questionLayout.addView(questionCheck);
+            answerLayout.addView(answerCheck);
 
-            RelativeLayout questionSplit = new RelativeLayout(this);
-            questionSplit.setBackgroundColor(Color.GRAY);
-            Simple.setSizeDip(questionSplit, 1, Simple.MP);
+            RelativeLayout answerSplit = new RelativeLayout(this);
+            answerSplit.setBackgroundColor(Color.GRAY);
+            Simple.setSizeDip(answerSplit, 1, Simple.MP);
 
-            questionLayout.addView(questionSplit);
+            answerLayout.addView(answerSplit);
 
-            TextView questionButton = new TextView(this);
-            questionButton.setTextColor(Color.WHITE);
-            questionButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
-            Simple.setTextSizeDip(questionButton, Defines.FS_DIALOG_BUTTON);
-            Simple.setSizeDip(questionButton, Simple.MP, Simple.WC);
+            TextView answerText = new TextView(this);
+            answerText.setTextColor(Color.WHITE);
+            answerText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            Simple.setTextSizeDip(answerText, Defines.FS_QUESTIONS_ANSWER);
+            Simple.setSizeDip(answerText, Simple.MP, Simple.WC);
 
-            Simple.setPaddingDip(questionButton,
+            Simple.setPaddingDip(answerText,
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
-            questionLayout.addView(questionButton);
+            answerLayout.addView(answerText);
 
-            questlayViews[ inx ] = questionLayout;
-            questionViews[ inx ] = questionButton;
-            checkimgViews[ inx ] = questionCheck;
+            answerlayViews[ inx ] = answerLayout;
+            answertxtViews[ inx ] = answerText;
+            answerchkViews[ inx ] = answerCheck;
         }
 
-        //endregion Questions
+        //endregion Answers
 
         //region Buttons
 
@@ -170,29 +185,32 @@ public class QuestionsActivity extends ContentBaseActivity
 
         naviFrame.addView(buttonsArea);
 
-        TextView cancelButton = new TextView(this);
-        cancelButton.setText(R.string.button_cancel);
-        cancelButton.setAllCaps(true);
-        cancelButton.setTextColor(Color.WHITE);
-        cancelButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
-        Simple.setSizeDip(cancelButton, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(cancelButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(cancelButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_CONTENT, true);
-
-        Simple.setPaddingDip(cancelButton,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
-
-        cancelButton.setOnClickListener(new View.OnClickListener()
+        if (! Globals.trainingFinished)
         {
-            @Override
-            public void onClick(View view)
-            {
-                onBackPressed();
-            }
-        });
+            TextView cancelButton = new TextView(this);
+            cancelButton.setText(R.string.button_cancel);
+            cancelButton.setAllCaps(true);
+            cancelButton.setTextColor(Color.WHITE);
+            cancelButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+            Simple.setSizeDip(cancelButton, Simple.WC, Simple.WC);
+            Simple.setTextSizeDip(cancelButton, Defines.FS_DIALOG_BUTTON);
+            Simple.setRoundedCorners(cancelButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_CONTENT, true);
 
-        buttonsArea.addView(cancelButton);
+            Simple.setPaddingDip(cancelButton,
+                    Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
+                    Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
+
+            cancelButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    onBackPressed();
+                }
+            });
+
+            buttonsArea.addView(cancelButton);
+        }
 
         RelativeLayout nextBox = new RelativeLayout(this);
         nextBox.setGravity(Gravity.END);
@@ -201,7 +219,7 @@ public class QuestionsActivity extends ContentBaseActivity
         buttonsArea.addView(nextBox);
 
         TextView nextButton = new TextView(this);
-        nextButton.setText(R.string.questions_next);
+        nextButton.setText(Globals.trainingFinished ? R.string.questions_overview : R.string.questions_next);
         nextButton.setAllCaps(true);
         nextButton.setTextColor(Color.WHITE);
         nextButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
@@ -218,7 +236,14 @@ public class QuestionsActivity extends ContentBaseActivity
             @Override
             public void onClick(View view)
             {
-                showNext();
+                if (Globals.trainingFinished)
+                {
+                    showOverview();
+                }
+                else
+                {
+                    showNext();
+                }
             }
         });
 
@@ -226,27 +251,38 @@ public class QuestionsActivity extends ContentBaseActivity
 
         //endregion Buttons
 
-        totalQuestions = Globals.courseQuestions.length() * 10;
-        currentQuestion = 0;
+        totalQuestions = (Globals.courseQuestions.length() * 10) + 1;
 
-        correctAnswers = new boolean[ totalQuestions ];
+        if (! Globals.trainingFinished)
+        {
+            Globals.currentQuestion = 0;
+            Globals.correctAnswers = new boolean[totalQuestions];
+        }
+        else
+        {
+            progressText.setVisibility(View.GONE);
+            remainingView.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
+        }
 
         showNext();
     }
 
     private void updateProgress()
     {
-        int remain = (totalQuestions - currentQuestion) + 1;
+        int remain = (totalQuestions - Globals.currentQuestion) + 1;
 
-        String countStr = String.valueOf(currentQuestion) + "/" + String.valueOf(totalQuestions);
+        String countStr = String.valueOf(Globals.currentQuestion) + "/" + String.valueOf(totalQuestions);
         counterView.setText(countStr);
 
         String remainStr = Simple.getTrans(this, R.string.questions_remain) + " " + String.valueOf(remain);
         remainingView.setText(remainStr);
 
-        progressBar.setProgress(currentQuestion, totalQuestions);
+        progressBar.setProgress(Globals.currentQuestion, totalQuestions);
 
-        question = Json.getObject(Globals.courseQuestions, (currentQuestion - 1) % Globals.courseQuestions.length());
+        question = Json.getObject(Globals.courseQuestions, (Globals.currentQuestion - 1) % Globals.courseQuestions.length());
+
+        questionText.setText(Json.getString(question, "question"));
 
         int numThis = 1;
 
@@ -259,15 +295,15 @@ public class QuestionsActivity extends ContentBaseActivity
 
         if (numThis > Defines.TRAINING_NUM_QUESTIONS) numThis = Defines.TRAINING_NUM_QUESTIONS;
 
-        questlayDisplay = new LinearLayout[ numThis ];
-        questionDisplay = new TextView[ numThis ];
-        checkimgDisplay = new ImageView[ numThis ];
+        answerlayDisplay = new LinearLayout[ numThis ];
+        answertxtDisplay = new TextView[ numThis ];
+        answerchkDisplay = new ImageView[ numThis ];
 
         for (int inx = 0; inx < numThis; inx++)
         {
-            questlayDisplay[ inx ] = questlayViews[ inx ];
-            questionDisplay[ inx ] = questionViews[ inx ];
-            checkimgDisplay[ inx ] = checkimgViews[ inx ];
+            answerlayDisplay[ inx ] = answerlayViews[ inx ];
+            answertxtDisplay[ inx ] = answertxtViews[ inx ];
+            answerchkDisplay[ inx ] = answerchkViews[ inx ];
         }
 
         Random rand = new Random();
@@ -277,43 +313,43 @@ public class QuestionsActivity extends ContentBaseActivity
             int inx1 = rand.nextInt(numThis);
             int inx2 = rand.nextInt(numThis);
 
-            LinearLayout tmp1 = questlayDisplay[ inx1 ];
-            questlayDisplay[ inx1 ] = questlayDisplay[ inx2 ];
-            questlayDisplay[ inx2 ] = tmp1;
+            LinearLayout tmp1 = answerlayDisplay[ inx1 ];
+            answerlayDisplay[ inx1 ] = answerlayDisplay[ inx2 ];
+            answerlayDisplay[ inx2 ] = tmp1;
 
-            TextView tmp2 = questionDisplay[ inx1 ];
-            questionDisplay[ inx1 ] = questionDisplay[ inx2 ];
-            questionDisplay[ inx2 ] = tmp2;
+            TextView tmp2 = answertxtDisplay[ inx1 ];
+            answertxtDisplay[ inx1 ] = answertxtDisplay[ inx2 ];
+            answertxtDisplay[ inx2 ] = tmp2;
 
-            ImageView tmp3 = checkimgDisplay[ inx1 ];
-            checkimgDisplay[ inx1 ] = checkimgDisplay[ inx2 ];
-            checkimgDisplay[ inx2 ] = tmp3;
+            ImageView tmp3 = answerchkDisplay[ inx1 ];
+            answerchkDisplay[ inx1 ] = answerchkDisplay[ inx2 ];
+            answerchkDisplay[ inx2 ] = tmp3;
         }
 
-        for (int inx = 0; inx < questionViews.length; inx++)
+        for (int inx = 0; inx < answertxtViews.length; inx++)
         {
-            questlayDisplay[ inx ].setVisibility((inx < numThis) ? View.VISIBLE : View.GONE);
+            answerlayDisplay[ inx ].setVisibility((inx < numThis) ? View.VISIBLE : View.GONE);
 
-            questionDisplay[ inx ].setText(null);
-            checkimgDisplay[ inx ].setImageDrawable(null);
+            answertxtDisplay[ inx ].setText(null);
+            answerchkDisplay[ inx ].setImageDrawable(null);
         }
 
         String correct = Json.getString(question, "answer_correct");
         if (Defines.isDezi) correct += "*";
 
-        questionDisplay[ 0 ].setText(correct);
+        answertxtDisplay[ 0 ].setText(correct);
 
         for (int inx = 1; inx < numThis; inx++)
         {
-            questionDisplay[ inx ].setText(Json.getString(question, "answer_wrong" + inx));
+            answertxtDisplay[ inx ].setText(Json.getString(question, "answer_wrong" + inx));
         }
     }
 
     private void showNext()
     {
-        currentQuestion++;
+        if (! Globals.trainingFinished) Globals.currentQuestion++;
 
-        if (currentQuestion <= totalQuestions)
+        if (Globals.currentQuestion <= totalQuestions)
         {
             updateProgress();
         }
@@ -328,22 +364,27 @@ public class QuestionsActivity extends ContentBaseActivity
         Simple.startActivityFinish(QuestionsActivity.this, ResultsActivity.class);
     }
 
+    private void showOverview()
+    {
+        onBackPressed();
+    }
+
     private final View.OnClickListener onQuestionClick = new View.OnClickListener()
     {
         @Override
         public void onClick(View view)
         {
-            for (int inx = 0; inx < questlayDisplay.length; inx++)
+            for (int inx = 0; inx < answerlayDisplay.length; inx++)
             {
-                if (questlayDisplay[ inx ] == view)
+                if (answerlayDisplay[ inx ] == view)
                 {
-                    checkimgDisplay[ inx ].setImageResource(R.drawable.lem_t_iany_generic_question_check);
+                    answerchkDisplay[ inx ].setImageResource(R.drawable.lem_t_iany_generic_question_check_white);
 
-                    correctAnswers[ currentQuestion - 1 ] = (inx == 0);
+                    Globals.correctAnswers[ Globals.currentQuestion - 1 ] = (inx == 0);
                 }
                 else
                 {
-                    checkimgDisplay[ inx ].setImageDrawable(null);
+                    answerchkDisplay[ inx ].setImageDrawable(null);
                 }
             }
         }
