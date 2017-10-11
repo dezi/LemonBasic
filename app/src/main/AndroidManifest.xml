@@ -33,6 +33,8 @@
         </activity>
         <activity android:name=".QuestionsActivity">
         </activity>
+        <activity android:name=".ResultsActivity">
+        </activity>
     </application>
 
 </manifest>

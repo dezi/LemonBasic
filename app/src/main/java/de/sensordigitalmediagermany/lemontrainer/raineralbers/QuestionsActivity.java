@@ -325,7 +325,7 @@ public class QuestionsActivity extends ContentBaseActivity
 
     private void showFinished()
     {
-
+        Simple.startActivityFinish(QuestionsActivity.this, ResultsActivity.class);
     }
 
     private final View.OnClickListener onQuestionClick = new View.OnClickListener()

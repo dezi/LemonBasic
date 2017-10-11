@@ -109,7 +109,7 @@ public class Defines
 
     public static final int FS_TRAINING_TITLE  = Simple.isTablet() ? 46 : 40;
     public static final int FS_TRAINING_INFO   = Simple.isTablet() ? 20 : 18;
-    public static final int FS_TRAINING_START  = Simple.isTablet() ? 30 : 24;
+    public static final int FS_TRAINING_START  = Simple.isTablet() ? 28 : 24;
 
     public static final int FS_QUESTIONS_TITLE = Simple.isTablet() ? 18 : 16;
 

@@ -148,6 +148,11 @@
     </string>
     <string name="training_start">Start!</string>
 
+    <string name="results_title">Training beendet!</string>
+    <string name="results_info_1">Herzlichen Glückwunsch! Sie haben das Wissenstraining zum Lehrgang</string>
+    <string name="results_info_2">erfolgreich beendet. Sehen Sie sich jetzt ihr Ergebnis an!</string>
+    <string name="results_start">Ergebnis ansehen</string>
+
     <string name="questions_progress">Fortschritt</string>
     <string name="questions_remain">Noch</string>
     <string name="questions_next">Weiter</string>
