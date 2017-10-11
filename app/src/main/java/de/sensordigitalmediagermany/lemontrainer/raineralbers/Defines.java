@@ -42,6 +42,7 @@ public class Defines
 
     public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM = 0x77000000;
+    public static final int COLOR_QUESTIONS_SEP  = 0x11000000;
     // @formatter:on
 
     //

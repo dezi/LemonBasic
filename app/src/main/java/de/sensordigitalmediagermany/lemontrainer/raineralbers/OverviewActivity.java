@@ -16,6 +16,8 @@ public class OverviewActivity extends TrainingBaseActivity
     {
         super.onCreate(savedInstanceState);
 
+        setBackButton(true);
+
         titleView.setText(R.string.overview_title);
         info1View.setText(R.string.overview_info_1);
         actionButton.setText(R.string.overview_action);
@@ -37,7 +39,9 @@ public class OverviewActivity extends TrainingBaseActivity
 
         contentCenter.addView(resultsBox);
 
-        LinearLayout rowBox = new LinearLayout(this); // Dummy fuck to satisfy compiler.
+        //
+        // Compute nice layout of result boxes.
+        //
 
         int optimalRows = Globals.correctAnswers.length / Defines.RESULTS_NUM_COLUMNS;
         int optimalRest = Globals.correctAnswers.length % Defines.RESULTS_NUM_COLUMNS;
@@ -46,6 +50,10 @@ public class OverviewActivity extends TrainingBaseActivity
 
         if ((optimalRows > 0) && (optimalRest > 0))
         {
+            //
+            // Distribute left over cols evenly to rows.
+            //
+
             optimalCols -= (Defines.RESULTS_NUM_COLUMNS - optimalRest) / (optimalRows + 1);
         }
 
@@ -53,6 +61,8 @@ public class OverviewActivity extends TrainingBaseActivity
                 + " optimalRows=" + optimalRows
                 + " optimalRest=" + optimalRest
                 + " optimalCols=" + optimalCols);
+
+        LinearLayout rowBox = new LinearLayout(this); // Dummy fuck to satisfy compiler.
 
         for (int inx = 0; inx < Globals.correctAnswers.length; inx++)
         {

@@ -103,14 +103,17 @@ public class QuestionsActivity extends ContentBaseActivity
 
         //region Question
 
+        RelativeLayout spaceEater1 = new RelativeLayout(this);
+        Simple.setSizeDip(spaceEater1, Simple.MP, Simple.WC, 0.33f);
+
+        naviFrame.addView(spaceEater1);
+
         questionText = new TextView(this);
         questionText.setTextColor(Color.BLACK);
         questionText.setGravity(Gravity.CENTER_HORIZONTAL);
         questionText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
         Simple.setTextSizeDip(questionText, Defines.FS_QUESTIONS_QUESTION);
         Simple.setSizeDip(questionText, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(questionText, Defines.PADDING_LARGE);
-        Simple.setMarginBottomDip(questionText, Defines.PADDING_LARGE);
 
         naviFrame.addView(questionText);
 
@@ -118,10 +121,15 @@ public class QuestionsActivity extends ContentBaseActivity
 
         //region Answers
 
+        RelativeLayout spaceEater2 = new RelativeLayout(this);
+        Simple.setSizeDip(spaceEater2, Simple.MP, Simple.WC, 0.33f);
+
+        naviFrame.addView(spaceEater2);
+
         RelativeLayout answersCenter = new RelativeLayout(this);
         answersCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
 
-        Simple.setSizeDip(answersCenter, Simple.MP, Simple.MP, 1.0f);
+        Simple.setSizeDip(answersCenter, Simple.MP, Simple.WC);
 
         naviFrame.addView(answersCenter);
 
@@ -136,8 +144,8 @@ public class QuestionsActivity extends ContentBaseActivity
             LinearLayout answerLayout = new LinearLayout(this);
             answerLayout.setOrientation(LinearLayout.HORIZONTAL);
             Simple.setSizeDip(answerLayout, Simple.MP, Simple.WC);
-            Simple.setRoundedCorners(answerLayout, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
             Simple.setMarginTopDip(answerLayout, Defines.PADDING_NORMAL);
+            Simple.setRoundedCorners(answerLayout, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
             answersBox.addView(answerLayout);
 
@@ -152,7 +160,7 @@ public class QuestionsActivity extends ContentBaseActivity
             answerLayout.addView(answerCheck);
 
             RelativeLayout answerSplit = new RelativeLayout(this);
-            answerSplit.setBackgroundColor(Color.GRAY);
+            answerSplit.setBackgroundColor(Defines.COLOR_QUESTIONS_SEP);
             Simple.setSizeDip(answerSplit, 1, Simple.MP);
 
             answerLayout.addView(answerSplit);
@@ -178,10 +186,16 @@ public class QuestionsActivity extends ContentBaseActivity
 
         //region Buttons
 
+        RelativeLayout spaceEater3 = new RelativeLayout(this);
+        Simple.setSizeDip(spaceEater3, Simple.MP, Simple.WC, 0.33f);
+
+        naviFrame.addView(spaceEater3);
+
         LinearLayout buttonsArea = new LinearLayout(this);
         buttonsArea.setOrientation(LinearLayout.HORIZONTAL);
 
         Simple.setSizeDip(buttonsArea, Simple.MP, Simple.WC);
+        Simple.setMarginTopDip(buttonsArea, Defines.PADDING_SMALL);
 
         naviFrame.addView(buttonsArea);
 
@@ -256,7 +270,8 @@ public class QuestionsActivity extends ContentBaseActivity
         if (! Globals.trainingFinished)
         {
             Globals.currentQuestion = 0;
-            Globals.correctAnswers = new boolean[totalQuestions];
+            Globals.realAnswers = new String[ totalQuestions ];
+            Globals.correctAnswers = new boolean[ totalQuestions ];
         }
         else
         {
@@ -330,6 +345,11 @@ public class QuestionsActivity extends ContentBaseActivity
         {
             answerlayDisplay[ inx ].setVisibility((inx < numThis) ? View.VISIBLE : View.GONE);
 
+            Simple.setRoundedCorners(answerlayDisplay[ inx ],
+                    Defines.CORNER_RADIUS_BIGBUT,
+                    Defines.COLOR_SENSOR_LTBLUE,
+                    true);
+
             answertxtDisplay[ inx ].setText(null);
             answerchkDisplay[ inx ].setImageDrawable(null);
         }
@@ -339,9 +359,37 @@ public class QuestionsActivity extends ContentBaseActivity
 
         answertxtDisplay[ 0 ].setText(correct);
 
+        if (Globals.trainingFinished)
+        {
+            Simple.setRoundedCorners(answerlayDisplay[ 0 ],
+                    Defines.CORNER_RADIUS_BIGBUT,
+                    Defines.COLOR_SENSOR_GREEN,
+                    true);
+
+            if (Globals.correctAnswers[ Globals.currentQuestion - 1 ])
+            {
+                answerchkDisplay[ 0 ].setImageResource(R.drawable.lem_t_iany_generic_question_check_white);
+            }
+        }
+
         for (int inx = 1; inx < numThis; inx++)
         {
-            answertxtDisplay[ inx ].setText(Json.getString(question, "answer_wrong" + inx));
+            String wrongTxt = Json.getString(question, "answer_wrong" + inx);
+
+            answertxtDisplay[ inx ].setText(wrongTxt);
+
+            if (Globals.trainingFinished)
+            {
+                if (Simple.equals(Globals.realAnswers[ Globals.currentQuestion - 1 ], wrongTxt))
+                {
+                    answerchkDisplay[ inx ].setImageResource(R.drawable.lem_t_iany_generic_question_check_white);
+
+                    Simple.setRoundedCorners(answerlayDisplay[ inx ],
+                            Defines.CORNER_RADIUS_BIGBUT,
+                            Defines.COLOR_SENSOR_CONTENT,
+                            true);
+                }
+            }
         }
     }
 
@@ -381,6 +429,7 @@ public class QuestionsActivity extends ContentBaseActivity
                     answerchkDisplay[ inx ].setImageResource(R.drawable.lem_t_iany_generic_question_check_white);
 
                     Globals.correctAnswers[ Globals.currentQuestion - 1 ] = (inx == 0);
+                    Globals.realAnswers[ Globals.currentQuestion - 1 ] = answertxtDisplay[ inx ].getText().toString();
                 }
                 else
                 {
