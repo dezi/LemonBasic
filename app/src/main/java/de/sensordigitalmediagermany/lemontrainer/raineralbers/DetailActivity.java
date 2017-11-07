@@ -323,14 +323,25 @@ public class DetailActivity extends ContentBaseActivity
         {
             buyButton.setOnClickListener(null);
 
-            if (! ContentHandler.isCachedContent(Globals.displayContent))
+            if (ContentHandler.isCachedContent(Globals.displayContent))
+            {
+                typeIcon.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Simple.startActivity(DetailActivity.this, ViewActivity.class);
+                    }
+                });
+            }
+            else
             {
                 downloadButton.setVisibility(View.VISIBLE);
 
                 downloadButton.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
-                    public void onClick(final View view)
+                    public void onClick(View view)
                     {
                         downloadContent();
                     }

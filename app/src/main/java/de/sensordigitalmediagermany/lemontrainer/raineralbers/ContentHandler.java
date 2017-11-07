@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
@@ -332,6 +333,24 @@ public class ContentHandler
         }
 
         return false;
+    }
+
+    @Nullable
+    public static File getCachedFile(JSONObject content)
+    {
+        String fileName = Json.getString(content, "content_file_name");
+
+        if (fileName != null)
+        {
+            File cacheFile = new File(getStorageDir(), fileName);
+
+            if (cacheFile.exists())
+            {
+                return cacheFile;
+            }
+        }
+
+        return null;
     }
 
     public static boolean deleteCachedFile(JSONObject content)

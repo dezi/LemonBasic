@@ -742,7 +742,7 @@ public class Simple
         Canvas canvas = new Canvas(output);
         canvas.drawARGB(0, 0, 0, 0);
 
-        Rect srcrect = new Rect((bmwidth - width) / 2, (bmheight - height) / 2, width, height);
+        Rect srcrect = new Rect(0, 0, width, height);
         Rect dstrect = new Rect(0, 0, width, height);
         RectF rectF = new RectF(dstrect);
 

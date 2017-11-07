@@ -37,6 +37,8 @@
         </activity>
         <activity android:name=".OverviewActivity">
         </activity>
+        <activity android:name=".ViewActivity">
+        </activity>
     </application>
 
 </manifest>
