@@ -109,6 +109,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left profile image.
 
+        /*
         RelativeLayout profileFrame = new RelativeLayout(this);
         profileFrame.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(profileFrame, Simple.MP, Simple.WC);
@@ -137,6 +138,7 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setPaddingDip(profileEditButton, Defines.PADDING_SMALL);
 
         profileImageHolder.addView(profileEditButton);
+        */
 
         //endregion Left profile image.
 
@@ -278,6 +280,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left sound section.
 
+        /*
         TextView soundSection = new TextView(this);
         soundSection.setText(R.string.settings_sound);
         soundSection.setAllCaps(true);
@@ -364,6 +367,7 @@ public class SettingsActivity extends ContentBaseActivity
         });
 
         volumeArea.addView(volumeControl);
+        */
 
         //endregion Left sound section.
 
