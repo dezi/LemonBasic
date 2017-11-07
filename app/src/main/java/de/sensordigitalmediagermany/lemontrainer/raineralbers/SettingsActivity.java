@@ -3,9 +3,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,20 +12,18 @@ import android.view.ViewGroup;
 import android.view.View;
 import android.view.Gravity;
 import android.os.Bundle;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class SettingsActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = SettingsActivity.class.getSimpleName();
 
-    protected TextView naviLeftButton;
     protected LinearLayout bodyHorz;
-    protected TextView contentSizeMB;
     protected LinearLayout rightArea;
-    protected OnOffControl onoffControl;
+    protected TextView contentSizeMB;
 
     protected JSONArray actContent;
 
@@ -49,7 +45,7 @@ public class SettingsActivity extends ContentBaseActivity
         naviFrame.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(naviFrame, Simple.MP, Defines.NAVIGATION_HEIGHT);
 
-        naviLeftButton = new TextView(this);
+        TextView naviLeftButton = new TextView(this);
         naviLeftButton.setText(R.string.settings_title);
         naviLeftButton.setAllCaps(true);
         naviLeftButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
@@ -60,6 +56,18 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setPaddingDip(naviLeftButton, Defines.PADDING_LARGE, 0, 0, 0);
 
         naviFrame.addView(naviLeftButton);
+
+        TextView naviRightButton = new TextView(this);
+        naviRightButton.setText(Defines.DEBUG_VERSION);
+        naviRightButton.setAllCaps(true);
+        naviRightButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+        naviRightButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+        naviRightButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        Simple.setTextSizeDip(naviRightButton, Defines.FS_DEBUG_VERSION);
+        Simple.setSizeDip(naviRightButton, Simple.MP, Simple.MP, 0.5f);
+        Simple.setPaddingDip(naviRightButton, 0, 0, Defines.PADDING_LARGE, 0);
+
+        naviFrame.addView(naviRightButton);
 
         //endregion Navigation title.
 
@@ -313,7 +321,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         onoffArea.addView(onoffText);
 
-        onoffControl = new OnOffControl(this);
+        OnOffControl onoffControl = new OnOffControl(this);
 
         onoffControl.setOnChangedListener(new OnOffControl.OnChangedListener()
         {

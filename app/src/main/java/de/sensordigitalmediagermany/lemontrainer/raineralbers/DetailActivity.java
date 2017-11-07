@@ -298,8 +298,8 @@ public class DetailActivity extends ContentBaseActivity
     {
         if (AssetsDownloadManager.connectDownload(Globals.displayContent, onDownloadProgressHandler))
         {
+            downloadCenter.setVisibility(View.VISIBLE);
             downloadProgress.setProgress(0, 0);
-            downloadProgress.setVisibility(View.VISIBLE);
         }
 
         int contentId = Json.getInt(Globals.displayContent, "id");
@@ -365,8 +365,8 @@ public class DetailActivity extends ContentBaseActivity
     {
         Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
+        downloadCenter.setVisibility(View.VISIBLE);
         downloadProgress.setProgress(0, 0);
-        downloadProgress.setVisibility(View.VISIBLE);
 
         AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
     }
@@ -405,7 +405,7 @@ public class DetailActivity extends ContentBaseActivity
                 buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_loaded));
             }
 
-            downloadProgress.setVisibility(View.GONE);
+            downloadCenter.setVisibility(View.GONE);
         }
     };
 

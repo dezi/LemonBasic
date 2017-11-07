@@ -30,6 +30,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected FrameLayout imageFrame;
     protected ImageView contentImage;
     protected ImageView typeIcon;
+    protected RelativeLayout downloadCenter;
     protected ProgressBar downloadProgress;
     protected LinearLayout naviFrame;
     protected GridView assetGrid;
@@ -132,7 +133,8 @@ public class ContentBaseActivity extends FullScreenActivity
 
         iconCenter.addView(typeIcon);
 
-        RelativeLayout downloadCenter = new RelativeLayout(this);
+        downloadCenter = new RelativeLayout(this);
+        downloadCenter.setVisibility(View.GONE);
         downloadCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.BOTTOM);
         Simple.setSizeDip(downloadCenter, Simple.MP, Simple.MP);
         Simple.setPaddingDip(downloadCenter, Defines.PADDING_XLARGE);
@@ -142,7 +144,6 @@ public class ContentBaseActivity extends FullScreenActivity
         downloadProgress = new ProgressBar(this);
         downloadProgress.setWidthDip(Defines.PROGRESS_BAR_WIDTH);
         downloadProgress.setColors(Color.GREEN, Color.YELLOW);
-        downloadProgress.setVisibility(View.GONE);
 
         downloadCenter.addView(downloadProgress);
 

@@ -9,6 +9,8 @@ public class Defines
 
     public static final boolean isDezi = true;
 
+    public static final String DEBUG_VERSION = "07.11.2017 13:30 (0.8)";
+
     public static final String TRAINER_NAME = "RAINERALBERS";
 
     //
@@ -82,6 +84,7 @@ public class Defines
     public static final int FS_BUTTON_IMAGE       = Simple.isTablet() ? 18 : 16;
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
+    public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
 
     public static final int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12;
     public static final int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12;
