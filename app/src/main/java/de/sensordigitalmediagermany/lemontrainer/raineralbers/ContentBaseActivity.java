@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected FrameLayout imageFrame;
     protected ImageView contentImage;
     protected ImageView typeIcon;
+    protected ProgressBar downloadProgress;
     protected LinearLayout naviFrame;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
@@ -129,6 +131,20 @@ public class ContentBaseActivity extends FullScreenActivity
         typeIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         iconCenter.addView(typeIcon);
+
+        RelativeLayout downloadCenter = new RelativeLayout(this);
+        downloadCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.BOTTOM);
+        Simple.setSizeDip(downloadCenter, Simple.MP, Simple.MP);
+        Simple.setPaddingDip(downloadCenter, Defines.PADDING_XLARGE);
+
+        imageFrame.addView(downloadCenter);
+
+        downloadProgress = new ProgressBar(this);
+        downloadProgress.setWidthDip(Defines.PROGRESS_BAR_WIDTH);
+        downloadProgress.setColors(Color.GREEN, Color.YELLOW);
+        downloadProgress.setVisibility(View.GONE);
+
+        downloadCenter.addView(downloadProgress);
 
         //
         // Navigation and multi purpose frame.

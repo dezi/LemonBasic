@@ -2,16 +2,14 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.support.annotation.Nullable;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.File;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,6 +23,7 @@ public class AssetsDownloadManager
     private static final ArrayList<QueueData> queue = new ArrayList<>();
     private static final Map<String, File> cache = initializeCache();
 
+    private static QueueData current;
     private static Thread worker;
 
     private static Map<String, File> initializeCache()
@@ -45,40 +44,80 @@ public class AssetsDownloadManager
         return newcache;
     }
 
-    public static void getContentOrFetch(JSONObject content, OnFileLoadedHandler onFileLoadedHandler)
+    public static boolean connectDownload(JSONObject content, OnDownloadProgressHandler onDownloadProgressHandler)
     {
-        synchronized (cache)
-        {
-            String urlstring = Json.getString(content, "content_url");
-            String name = Json.getString(content, "content_file_name");
+        String urlstring = Json.getString(content, "content_url");
+        String name = Json.getString(content, "content_file_name");
 
-            if ((urlstring != null) && (name != null))
+        if ((urlstring != null) && (name != null))
+        {
+            synchronized (queue)
+            {
+                QueueData qd = current;
+
+                if ((qd != null) && Simple.equals(name, Json.getString(qd.content, "content_file_name")))
+                {
+                    qd.onDownloadProgressHandler = onDownloadProgressHandler;
+
+                    return true;
+                }
+                else
+                {
+                    for (QueueData qdc : queue)
+                    {
+                        if (Simple.equals(name, Json.getString(qdc.content, "content_file_name")))
+                        {
+                            qdc.onDownloadProgressHandler = onDownloadProgressHandler;
+
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public static void getContentOrFetch(JSONObject content,
+                                         OnFileLoadedHandler onFileLoadedHandler,
+                                         OnDownloadProgressHandler onDownloadProgressHandler)
+    {
+        String urlstring = Json.getString(content, "content_url");
+        String name = Json.getString(content, "content_file_name");
+
+        if ((urlstring != null) && (name != null))
+        {
+            synchronized (cache)
             {
                 File file = cache.get(name);
 
                 if (file != null)
                 {
-                    onFileLoadedHandler.OnFileLoaded(content, file);
+                    if (onFileLoadedHandler != null)
+                        onFileLoadedHandler.OnFileLoaded(content, file);
 
                     return;
                 }
             }
-            else
-            {
-                onFileLoadedHandler.OnFileLoaded(content, null);
+        }
+        else
+        {
+            if (onFileLoadedHandler != null) onFileLoadedHandler.OnFileLoaded(content, null);
 
-                return;
-            }
+            return;
         }
 
-        fetchProfileImage(content, onFileLoadedHandler);
+        fetchContentData(content, onFileLoadedHandler, onDownloadProgressHandler);
     }
 
-    private static void fetchProfileImage(JSONObject content, OnFileLoadedHandler onFileLoadedHandler)
+    private static void fetchContentData(JSONObject content,
+                                         OnFileLoadedHandler onFileLoadedHandler,
+                                         OnDownloadProgressHandler onDownloadProgressHandler)
     {
         synchronized (queue)
         {
-            queue.add(new QueueData(content, onFileLoadedHandler));
+            queue.add(new QueueData(content, onFileLoadedHandler, onDownloadProgressHandler));
         }
 
         if (worker == null)
@@ -95,16 +134,18 @@ public class AssetsDownloadManager
         {
             while (true)
             {
-                final QueueData qd;
-
                 synchronized (queue)
                 {
                     if (queue.size() == 0) break;
 
-                    qd = queue.remove(0);
+                    current = queue.remove(0);
                 }
 
-                final File file = getFile(qd.content);
+                final QueueData qd = current;
+
+                if (qd.onFileLoadedHandler != null)
+                {
+                    final File file = getFile(qd);
 
                     ApplicationBase.handler.post(new Runnable()
                     {
@@ -114,6 +155,9 @@ public class AssetsDownloadManager
                             qd.onFileLoadedHandler.OnFileLoaded(qd.content, file);
                         }
                     });
+                }
+
+                current = null;
             }
 
             worker = null;
@@ -121,15 +165,26 @@ public class AssetsDownloadManager
     };
 
     @Nullable
-    private static File getFile(JSONObject content)
+    private static File getFile(QueueData qd)
     {
+        File tempfile = null;
+        File realfile = null;
+
         try
         {
-            String urlstring = Json.getString(content, "content_url");
-            String name = Json.getString(content, "content_file_name");
+            String urlstring = Json.getString(qd.content, "content_url");
+            String name = Json.getString(qd.content, "content_file_name");
+
+            long total = Json.getLong(qd.content, "file_size");
+            long current = 0;
 
             if ((urlstring != null) && (name != null))
             {
+                String temp = name + ".tmp";
+
+                realfile = new File(ContentHandler.getStorageDir(), name);
+                tempfile = new File(ContentHandler.getStorageDir(), temp);
+
                 URL url = new URL(urlstring);
 
                 Log.d(LOGTAG, "getFile: load url=" + urlstring);
@@ -137,45 +192,48 @@ public class AssetsDownloadManager
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 InputStream inputStream = conn.getInputStream();
 
-                File file = new File(ContentHandler.getStorageDir(), name);
-                FileOutputStream outputStream = new FileOutputStream(file);
+                FileOutputStream outputStream = new FileOutputStream(tempfile);
 
                 byte[] chunk = new byte[8192];
                 int xfer;
 
-                try
+                while ((xfer = inputStream.read(chunk)) > 0)
                 {
-                    while ((xfer = inputStream.read(chunk)) > 0)
-                    {
-                        outputStream.write(chunk, 0, xfer);
-                    }
-                }
-                catch (IOException ex)
-                {
-                    Log.d(LOGTAG, ex.toString());
+                    outputStream.write(chunk, 0, xfer);
 
-                    return null;
+                    current += xfer;
+
+                    OnDownloadProgressHandler qdph = qd.onDownloadProgressHandler;
+                    if (qdph != null) qdph.OnDownloadProgress(qd.content, current, total);
                 }
 
                 outputStream.close();
                 inputStream.close();
 
-                synchronized (cache)
+                if (tempfile.renameTo(realfile))
                 {
-                    cache.put(name, file);
+                    synchronized (cache)
+                    {
+                        cache.put(name, realfile);
+                    }
+
+                    Log.d(LOGTAG, "getFile: done url=" + urlstring);
+
+                    return realfile;
                 }
-
-                Log.d(LOGTAG, "getFile: done url=" + urlstring);
-
-                return file;
             }
-        }
-        catch (FileNotFoundException ignore)
-        {
         }
         catch (Exception ex)
         {
             Log.d(LOGTAG, ex.toString());
+        }
+
+        OnDownloadProgressHandler qdph = qd.onDownloadProgressHandler;
+        if (qdph != null) qdph.OnDownloadProgress(qd.content, 0, 0);
+
+        if (tempfile != null)
+        {
+            Log.d(LOGTAG, "getFile: delete temp=" + tempfile.delete());
         }
 
         return null;
@@ -198,12 +256,21 @@ public class AssetsDownloadManager
     {
         public JSONObject content;
         public OnFileLoadedHandler onFileLoadedHandler;
+        public OnDownloadProgressHandler onDownloadProgressHandler;
 
-        public QueueData(JSONObject content, OnFileLoadedHandler onFileLoadedHandler)
+        public QueueData(JSONObject content,
+                         OnFileLoadedHandler onFileLoadedHandler,
+                         OnDownloadProgressHandler onDownloadProgressHandler)
         {
             this.content = content;
             this.onFileLoadedHandler = onFileLoadedHandler;
+            this.onDownloadProgressHandler = onDownloadProgressHandler;
         }
+    }
+
+    public interface OnDownloadProgressHandler
+    {
+        void OnDownloadProgress(JSONObject content, long current, long total);
     }
 
     public interface OnFileLoadedHandler

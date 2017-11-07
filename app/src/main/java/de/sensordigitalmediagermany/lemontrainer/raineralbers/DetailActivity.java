@@ -1,6 +1,5 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -297,6 +296,12 @@ public class DetailActivity extends ContentBaseActivity
 
     public void updateContent()
     {
+        if (AssetsDownloadManager.connectDownload(Globals.displayContent, onDownloadProgressHandler))
+        {
+            downloadProgress.setProgress(0, 0);
+            downloadProgress.setVisibility(View.VISIBLE);
+        }
+
         int contentId = Json.getInt(Globals.displayContent, "id");
         int price = Json.getInt(Globals.displayContent, "price");
         boolean bought = ContentHandler.isContentBought(contentId);
@@ -307,7 +312,7 @@ public class DetailActivity extends ContentBaseActivity
 
         if (bought)
         {
-            buyText = ContentHandler.isCachedFile(Globals.displayContent)
+            buyText = ContentHandler.isCachedContent(Globals.displayContent)
                     ? Simple.getTrans(this, R.string.detail_buy_loaded)
                     : Simple.getTrans(this, R.string.detail_buy_bought);
         }
@@ -318,7 +323,7 @@ public class DetailActivity extends ContentBaseActivity
         {
             buyButton.setOnClickListener(null);
 
-            if (! ContentHandler.isCachedFile(Globals.displayContent))
+            if (! ContentHandler.isCachedContent(Globals.displayContent))
             {
                 downloadButton.setVisibility(View.VISIBLE);
 
@@ -327,7 +332,7 @@ public class DetailActivity extends ContentBaseActivity
                     @Override
                     public void onClick(final View view)
                     {
-                        downloadContent(DetailActivity.this);
+                        downloadContent();
                     }
                 });
             }
@@ -345,39 +350,76 @@ public class DetailActivity extends ContentBaseActivity
         }
     }
 
-    private void downloadContent(final Context context)
+    private void downloadContent()
     {
         Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
-        AssetsDownloadManager.getContentOrFetch(Globals.displayContent,
-                new AssetsDownloadManager.OnFileLoadedHandler()
-                {
-                    public void OnFileLoaded(JSONObject content, File file)
-                    {
-                        AppCompatActivity activity = ApplicationBase.getCurrentActivity(context);
+        downloadProgress.setProgress(0, 0);
+        downloadProgress.setVisibility(View.VISIBLE);
 
-                        if (activity instanceof FullScreenActivity)
-                        {
-                            int titleRes = (file == null)
-                                    ? R.string.detail_download_failed
-                                    : R.string.detail_download_complete;
-
-                            String text = Json.getString(content, "sub_title");
-
-                            DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
-                        }
-
-                        if (file == null)
-                        {
-                            Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Color.RED, true);
-                        }
-                        else
-                        {
-                            downloadButton.setVisibility(View.GONE);
-                            buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_loaded));
-                        }
-                    }
-                });
-
+        AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
     }
+
+    private final AssetsDownloadManager.OnFileLoadedHandler onFileLoadedHandler
+            = new AssetsDownloadManager.OnFileLoadedHandler()
+    {
+        @Override
+        public void OnFileLoaded(JSONObject content, File file)
+        {
+            AppCompatActivity activity = ApplicationBase.getCurrentActivity(DetailActivity.this);
+
+            if (activity instanceof ContentBaseActivity)
+            {
+                ((ContentBaseActivity) activity).assetsAdapter.notifyDataSetChanged();
+            }
+
+            if (activity instanceof FullScreenActivity)
+            {
+                int titleRes = (file == null)
+                        ? R.string.detail_download_failed
+                        : R.string.detail_download_complete;
+
+                String text = Json.getString(content, "sub_title");
+
+                DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
+            }
+
+            if (file == null)
+            {
+                Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Color.RED, true);
+            }
+            else
+            {
+                downloadButton.setVisibility(View.GONE);
+                buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_loaded));
+            }
+
+            downloadProgress.setVisibility(View.GONE);
+        }
+    };
+
+    private final AssetsDownloadManager.OnDownloadProgressHandler onDownloadProgressHandler
+            = new AssetsDownloadManager.OnDownloadProgressHandler()
+    {
+        @Override
+        public void OnDownloadProgress(JSONObject content, long current, long total)
+        {
+            downloadProgressRunCurrent = current;
+            downloadProgressRunTotal = total;
+
+            ApplicationBase.handler.post(downloadProgressRun);
+        }
+    };
+
+    private long downloadProgressRunCurrent;
+    private long downloadProgressRunTotal;
+
+    private final Runnable downloadProgressRun = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            downloadProgress.setProgressLong(downloadProgressRunCurrent, downloadProgressRunTotal);
+        }
+    };
 }

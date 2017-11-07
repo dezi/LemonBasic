@@ -176,10 +176,11 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static final int SLIDER_BARS_SIZE   = Simple.isTablet() ?  3 :  3;
-    public static final int SLIDER_KNOB_SIZE   = Simple.isTablet() ? 30 : 30;
-    public static final int ONOFF_WIDTH_SIZE   = Simple.isTablet() ? 60 : 60;
-    public static final int ONOFF_KNOB_SIZE    = Simple.isTablet() ? 30 : 30;
-    public static final int PROGRESS_BAR_SIZE  = Simple.isTablet() ?  6 :  6;
+    public static final int SLIDER_BARS_SIZE   = Simple.isTablet() ?   3 :   3;
+    public static final int SLIDER_KNOB_SIZE   = Simple.isTablet() ?  30 :  30;
+    public static final int ONOFF_WIDTH_SIZE   = Simple.isTablet() ?  60 :  60;
+    public static final int ONOFF_KNOB_SIZE    = Simple.isTablet() ?  30 :  30;
+    public static final int PROGRESS_BAR_SIZE  = Simple.isTablet() ?   6 :   6;
+    public static final int PROGRESS_BAR_WIDTH = Simple.isTablet() ? 300 : 200;
     // @formatter:on
 }

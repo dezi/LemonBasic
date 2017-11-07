@@ -1,19 +1,15 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
-import android.view.KeyboardShortcutGroup;
 import android.view.ViewGroup;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ContentHandler
 {
@@ -253,7 +249,7 @@ public class ContentHandler
             JSONObject item = Json.getObject(source, inx);
             if (item == null) continue;
 
-            if (! isCachedFile(item)) continue;
+            if (! isCachedContent(item)) continue;
 
             Json.put(result, item);
         }
@@ -293,15 +289,46 @@ public class ContentHandler
         return storageDir;
     }
 
-    public static boolean isCachedFile(JSONObject content)
+    public static boolean isCachedContent(JSONObject content)
     {
-        String fileName = Json.getString(content, "content_file_name");
+        boolean isCourse = Json.getBoolean(content, "_isCourse");
 
-        if (fileName != null)
+        if (! isCourse)
         {
-            File cacheFile = new File(getStorageDir(), fileName);
+            String fileName = Json.getString(content, "content_file_name");
 
-            return cacheFile.exists();
+            if (fileName != null)
+            {
+                File cacheFile = new File(getStorageDir(), fileName);
+
+                return cacheFile.exists();
+            }
+        }
+        else
+        {
+            JSONArray cc = Json.getArray(content, "_cc");
+
+            if (cc != null)
+            {
+                int numLoaded = 0;
+
+                for (int inx = 0; inx < cc.length(); inx++)
+                {
+                    JSONObject ccontent = Json.getObject(cc, inx);
+                    if (ccontent == null) continue;
+
+                    String fileName = Json.getString(ccontent, "content_file_name");
+
+                    if (fileName != null)
+                    {
+                        File cacheFile = new File(getStorageDir(), fileName);
+
+                        numLoaded += cacheFile.exists() ? 1 : 0;
+                    }
+                }
+
+                return (numLoaded == cc.length());
+            }
         }
 
         return false;

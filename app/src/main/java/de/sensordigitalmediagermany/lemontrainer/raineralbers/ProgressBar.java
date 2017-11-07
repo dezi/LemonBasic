@@ -31,16 +31,35 @@ public class ProgressBar extends LinearLayout
         addView(forceBar);
     }
 
+    public void setWidthDip(int width)
+    {
+        Simple.setSizeDip(this, width, Defines.PROGRESS_BAR_SIZE);
+    }
+
+    public void setColors(int currentColor, int backgroundColor)
+    {
+        progressBar.setBackgroundColor(currentColor);
+        forceBar.setBackgroundColor(backgroundColor);
+    }
+
     public void setProgress(int current, int total)
     {
-        float actval = current / (float) total;
+        setProgressLong(current, total);
+    }
 
-        Simple.setSizeDip(progressBar, Simple.WC, Simple.MP, actval);
-        Simple.setSizeDip(forceBar, Simple.WC, Simple.MP, 1f - actval);
+    public void setProgressLong(long current, long total)
+    {
+        if (total > 0)
+        {
+            float actval = current / (float) total;
 
-        removeAllViews();
+            Simple.setSizeDip(progressBar, Simple.WC, Simple.MP, actval);
+            Simple.setSizeDip(forceBar, Simple.WC, Simple.MP, 1f - actval);
 
-        addView(progressBar);
-        addView(forceBar);
+            removeAllViews();
+
+            addView(progressBar);
+            addView(forceBar);
+        }
     }
 }

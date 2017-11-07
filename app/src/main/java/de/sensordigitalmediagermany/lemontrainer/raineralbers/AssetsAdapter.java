@@ -242,6 +242,7 @@ public class AssetsAdapter extends BaseAdapter
         ImageView courseView;
         TextView ownedView;
         ImageView loadedView;
+        ProgressBar downloadProgress;
 
         if (convertView != null)
         {
@@ -253,6 +254,7 @@ public class AssetsAdapter extends BaseAdapter
             courseView = (ImageView) convertView.findViewById(android.R.id.icon);
             ownedView = (TextView) convertView.findViewById(android.R.id.icon1);
             loadedView = (ImageView) convertView.findViewById(android.R.id.icon2);
+            downloadProgress = (ProgressBar) convertView.findViewById(android.R.id.custom);
         }
         else
         {
@@ -319,6 +321,20 @@ public class AssetsAdapter extends BaseAdapter
 
             imageBox.addView(loadedView);
 
+            RelativeLayout downloadCenter = new RelativeLayout(parent.getContext());
+            downloadCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.BOTTOM);
+            Simple.setSizeDip(downloadCenter, Simple.MP, Simple.MP);
+            Simple.setPaddingDip(downloadCenter, Defines.PADDING_SMALL);
+
+            imageBox.addView(downloadCenter);
+
+            downloadProgress = new ProgressBar(parent.getContext());
+            downloadProgress.setId(android.R.id.custom);
+            downloadProgress.setWidthDip(Simple.MP);
+            downloadProgress.setColors(Color.GREEN, Color.YELLOW);
+
+            downloadCenter.addView(downloadProgress);
+
             LinearLayout textBox = new LinearLayout(parent.getContext());
             textBox.setOrientation(LinearLayout.VERTICAL);
 
@@ -382,6 +398,7 @@ public class AssetsAdapter extends BaseAdapter
 
         ownedView.setVisibility(View.GONE);
         loadedView.setVisibility(View.GONE);
+        downloadProgress.setVisibility(View.GONE);
 
         if (isCourse)
         {
@@ -398,7 +415,7 @@ public class AssetsAdapter extends BaseAdapter
 
             if (ContentHandler.isCourseBought(id))
             {
-                if (ContentHandler.isCachedFile(asset))
+                if (ContentHandler.isCachedContent(asset))
                 {
                     loadedView.setVisibility(View.VISIBLE);
                 }
@@ -423,7 +440,7 @@ public class AssetsAdapter extends BaseAdapter
 
             if (ContentHandler.isContentBought(id))
             {
-                if (ContentHandler.isCachedFile(asset))
+                if (ContentHandler.isCachedContent(asset))
                 {
                     loadedView.setVisibility(View.VISIBLE);
                 }
@@ -432,6 +449,37 @@ public class AssetsAdapter extends BaseAdapter
                     ownedView.setVisibility(View.VISIBLE);
                 }
             }
+        }
+
+        if (AssetsDownloadManager.connectDownload(asset, null))
+        {
+            downloadProgress.setProgress(0,0);
+            downloadProgress.setVisibility(View.VISIBLE);
+
+            final ProgressBar dpFinal = downloadProgress;
+
+            AssetsDownloadManager.connectDownload(asset, new AssetsDownloadManager.OnDownloadProgressHandler()
+            {
+                @Override
+                public void OnDownloadProgress(JSONObject content, final long current, final long total)
+                {
+                    ApplicationBase.handler.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            if (current == total)
+                            {
+                                dpFinal.setVisibility(View.GONE);
+                            }
+                            else
+                            {
+                                dpFinal.setProgressLong(current, total);
+                            }
+                        }
+                    });
+                }
+            });
         }
 
         return assetFrame;

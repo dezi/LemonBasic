@@ -264,7 +264,7 @@ public class SettingsDetail extends LinearLayout
         RelativeLayout deleteArea = new RelativeLayout(getContext());
         deleteArea.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setSizeDip(deleteArea, Simple.MP, Simple.MP);
-        Simple.setMarginTopDip(deleteArea, Defines.PADDING_LARGE);
+        Simple.setMarginTopDip(deleteArea, Defines.PADDING_SMALL);
 
         specsArea.addView(deleteArea);
 
