@@ -189,9 +189,12 @@ public class SettingsDetail extends LinearLayout
         TableLikeLayout fileView = new TableLikeLayout(getContext(), true);
         fileView.setLeftText(R.string.settings_specs_file);
 
-        fileView.setRightText(content_type == 2
-                ? R.string.detail_specs_type_video
-                : R.string.detail_specs_type_unknown);
+        int typeResid = R.string.detail_specs_type_unknown;
+
+        if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
+
+        fileView.setRightText(typeResid);
 
         specsArea.addView(fileView);
 
@@ -205,6 +208,15 @@ public class SettingsDetail extends LinearLayout
         TableLikeLayout quantView = new TableLikeLayout(getContext(), true);
         quantView.setLeftText(R.string.settings_specs_quantity);
 
+        quantView.setRightText("-");
+
+        if (content_type == 1)
+        {
+            quantView.setRightText(Simple.getTrans(getContext(),
+                    R.string.detail_specs_quantity_pages,
+                    String.valueOf(file_duration)));
+        }
+
         if (content_type == 2)
         {
             int minutes = 1 + (file_duration / 60);
@@ -212,10 +224,6 @@ public class SettingsDetail extends LinearLayout
             quantView.setRightText(Simple.getTrans(getContext(),
                     R.string.settings_specs_quantity_duration,
                     String.valueOf(minutes)));
-        }
-        else
-        {
-            quantView.setRightText("-");
         }
 
         specsArea.addView(quantView);

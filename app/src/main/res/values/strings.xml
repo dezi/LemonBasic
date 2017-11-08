@@ -109,6 +109,7 @@
 
     <string name="detail_specs_quantity">Umfang</string>
     <string name="detail_specs_quantity_duration">%1$s Min.</string>
+    <string name="detail_specs_quantity_pages">%1$s Seiten</string>
 
     <string name="detail_specs_size">Größe</string>
     <string name="detail_specs_size_mb">%1$s MB Daten</string>

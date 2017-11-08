@@ -186,9 +186,14 @@ public class DetailActivity extends ContentBaseActivity
         TableLikeLayout fileView = new TableLikeLayout(this);
         fileView.setLeftText(R.string.detail_specs_file);
 
-        fileView.setRightText(content_type == 2
-                ? R.string.detail_specs_type_video
-                : R.string.detail_specs_type_unknown);
+        Log.d(LOGTAG, "content_type=" + content_type);
+
+        int typeResid = R.string.detail_specs_type_unknown;
+
+        if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
+
+        fileView.setRightText(typeResid);
 
         specsArea.addView(fileView);
 
@@ -201,6 +206,14 @@ public class DetailActivity extends ContentBaseActivity
 
         TableLikeLayout quantView = new TableLikeLayout(this);
         quantView.setLeftText(R.string.detail_specs_quantity);
+        quantView.setRightText("-");
+
+        if (content_type == 1)
+        {
+            quantView.setRightText(Simple.getTrans(this,
+                    R.string.detail_specs_quantity_pages,
+                    String.valueOf(file_duration)));
+        }
 
         if (content_type == 2)
         {
@@ -209,10 +222,6 @@ public class DetailActivity extends ContentBaseActivity
             quantView.setRightText(Simple.getTrans(this,
                     R.string.detail_specs_quantity_duration,
                     String.valueOf(minutes)));
-        }
-        else
-        {
-            quantView.setRightText("-");
         }
 
         specsArea.addView(quantView);

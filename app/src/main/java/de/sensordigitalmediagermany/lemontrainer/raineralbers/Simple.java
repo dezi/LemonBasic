@@ -77,6 +77,19 @@ public class Simple
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
+    public static int getDeviceWidth(Context context)
+    {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return metrics.widthPixels;
+    }
+
+    public static int getDeviceHeight(Context context)
+    {
+
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return metrics.heightPixels;
+    }
+
     public static int dipToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);

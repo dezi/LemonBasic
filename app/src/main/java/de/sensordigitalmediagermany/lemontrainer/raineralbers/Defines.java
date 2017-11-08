@@ -9,7 +9,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "07.11.2017 13:30 (0.8)";
+    public static final String DEBUG_VERSION = "08.11.2017 17:00 (0.9)";
 
     public static final String TRAINER_NAME = "RAINERALBERS";
 
@@ -27,6 +27,9 @@ public class Defines
 
     public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
     public static final int RESULTS_NUM_COLUMNS = Simple.isTablet() ? 8 : 6;
+
+    public static final int CONTENT_TYPE_PDF = 1;
+    public static final int CONTENT_TYPE_VIDEO = 2;
 
     //
     // Colors.
