@@ -50,7 +50,7 @@ public class ViewPDFFrame extends ViewZoomFrame
     }
 
     @Override
-    protected void onVertScrollChanged(int l, int t, int oldl, int oldt)
+    protected void onVertScrollChanged()
     {
         int stop = vertScroll.getScrollY();
         int sbot = stop + display.height();
@@ -99,32 +99,26 @@ public class ViewPDFFrame extends ViewZoomFrame
 
             imageViews[inx].setLayoutParams(new LinearLayout.LayoutParams(displayWidth, displayHeight));
         }
-
-        getHandler().removeCallbacks(nukeBitmaps);
-        getHandler().postDelayed(nukeBitmaps, 250);
     }
 
-    private final Runnable nukeBitmaps = new Runnable()
+    @Override
+    protected void onZoomEnded(float newZoomFactor)
     {
-        @Override
-        public void run()
+        for (int inx = 0; inx < numPages; inx++)
         {
-            for (int inx = 0; inx < numPages; inx++)
+            synchronized (renderDat)
             {
-                synchronized (renderDat)
+                if ((pageBitmaps[inx] != null) && !renderDat.contains(inx))
                 {
-                    if ((pageBitmaps[inx] != null) && !renderDat.contains(inx))
-                    {
-                        Log.d(LOGTAG, "nukeBitmaps: inx=" + inx + " load");
+                    Log.d(LOGTAG, "nukeBitmaps: inx=" + inx + " load");
 
-                        renderDat.add(inx);
-                    }
+                    renderDat.add(inx);
                 }
             }
-
-            onVertScrollChanged(0, 0, 0, 0);
         }
-    };
+
+        onVertScrollChanged();
+    }
 
     @Override
     public void onAttachedToWindow()

@@ -101,6 +101,7 @@
     <string name="detail_buy_gratis">Gratis</string>
     <string name="detail_buy_bought">Gekauft</string>
     <string name="detail_buy_loaded">Geladen</string>
+    <string name="detail_buy_display">Anzeigen</string>
 
     <string name="detail_download_complete">Download abgeschlossen.</string>
     <string name="detail_download_failed">Download fehlgeschlagen.</string>

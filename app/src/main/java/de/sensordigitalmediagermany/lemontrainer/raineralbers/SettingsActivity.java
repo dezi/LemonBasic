@@ -568,7 +568,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB.setText(Simple.getTrans(this,
                 R.string.settings_used_storage_mb,
-                Simple.formatDecimal(total)));
+                (total < 1) ? "< 1" : Simple.formatDecimal(total)));
 
         assetsAdapter.notifyDataSetChanged();
     }

@@ -194,7 +194,7 @@ public class AssetsAdapter extends BaseAdapter
 
         summaryView.setText(Simple.getTrans(parent.getContext(),
                 R.string.detail_specs_size_mb,
-                Simple.formatDecimal(mbytes)));
+                (mbytes < 1) ? "< 1" : Simple.formatDecimal(mbytes)));
 
         if (isCourse)
         {
@@ -413,13 +413,13 @@ public class AssetsAdapter extends BaseAdapter
                 }
             });
 
-            if (ContentHandler.isCourseBought(id))
+            if (ContentHandler.isCachedContent(asset))
             {
-                if (ContentHandler.isCachedContent(asset))
-                {
-                    loadedView.setVisibility(View.VISIBLE);
-                }
-                else
+                loadedView.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                if (ContentHandler.isCourseBought(id))
                 {
                     ownedView.setVisibility(View.VISIBLE);
                 }
@@ -438,13 +438,13 @@ public class AssetsAdapter extends BaseAdapter
                 }
             });
 
-            if (ContentHandler.isContentBought(id))
+            if (ContentHandler.isCachedContent(asset))
             {
-                if (ContentHandler.isCachedContent(asset))
-                {
-                    loadedView.setVisibility(View.VISIBLE);
-                }
-                else
+                loadedView.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                if (ContentHandler.isContentBought(id))
                 {
                     ownedView.setVisibility(View.VISIBLE);
                 }

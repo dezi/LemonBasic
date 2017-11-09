@@ -41,15 +41,13 @@ public class ViewZoomFrame extends FrameLayout
 
                 if (! scaleListener.isInScaling())
                 {
-                    ViewZoomFrame.this.onVertScrollChanged(l, t, oldl, oldt);
+                    ViewZoomFrame.this.onVertScrollChanged();
                 }
             }
 
             @Override
             public boolean onTouchEvent(MotionEvent ev)
             {
-                //Log.d(LOGTAG, "vertScroll: onTouchEvent: ev=" + ev);
-
                 scaleDetector.onTouchEvent(ev);
 
                 return scaleListener.isInScaling() || super.onTouchEvent(ev);
@@ -63,8 +61,6 @@ public class ViewZoomFrame extends FrameLayout
             @Override
             public boolean onTouchEvent(MotionEvent ev)
             {
-                //Log.d(LOGTAG, "horzScroll: onTouchEvent: ev=" + ev);
-
                 scaleDetector.onTouchEvent(ev);
 
                 return scaleListener.isInScaling() || super.onTouchEvent(ev);
@@ -84,7 +80,7 @@ public class ViewZoomFrame extends FrameLayout
         linearLayout.addView(view);
     }
 
-    protected void onVertScrollChanged(int l, int t, int oldl, int oldt)
+    protected void onVertScrollChanged()
     {
         //
         // To be overwritten.
@@ -195,6 +191,8 @@ public class ViewZoomFrame extends FrameLayout
             public void run()
             {
                 scaling = 0;
+
+                onZoomEnded(zoomFactor);
             }
         };
     }

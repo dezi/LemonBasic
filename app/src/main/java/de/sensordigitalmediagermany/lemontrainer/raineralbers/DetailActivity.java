@@ -23,6 +23,7 @@ public class DetailActivity extends ContentBaseActivity
 
     protected TextView buyButton;
     protected ImageView downloadButton;
+    protected boolean shouldDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,6 +54,7 @@ public class DetailActivity extends ContentBaseActivity
         String contentHeader = Json.getString(Globals.displayContent, "description_header");
         String contentDescription = Json.getString(Globals.displayContent, "description");
         String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
+        int content_type = Json.getInt(Globals.displayContent, "content_type");
 
         //region Image and type area.
 
@@ -71,7 +73,13 @@ public class DetailActivity extends ContentBaseActivity
                         imageWidth, imageHeight, false));
 
         Simple.setSizeDip(typeIcon, Defines.TYPE_ICON_SIZE, Defines.TYPE_ICON_SIZE);
-        typeIcon.setImageResource(R.drawable.lem_t_iany_generic_type_film_gross);
+
+        int iconResid = 0;
+
+        if (content_type == Defines.CONTENT_TYPE_PDF) iconResid = R.drawable.lem_t_iany_generic_type_pdf_gross;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_film_gross;
+
+        if (iconResid > 0) typeIcon.setImageResource(iconResid);
 
         //endregion Image and type area.
 
@@ -135,8 +143,6 @@ public class DetailActivity extends ContentBaseActivity
 
         descFrame.addView(chView);
 
-        if (Defines.isDezi) contentDescription += " " + Simple.getLoreIpsum();
-
         TextView cdView = new TextView(this);
         cdView.setText(contentDescription);
         cdView.setTextColor(Color.BLACK);
@@ -161,17 +167,11 @@ public class DetailActivity extends ContentBaseActivity
 
         //region Technical specs area.
 
-        int content_type = Json.getInt(Globals.displayContent, "content_type");
         int file_duration = Json.getInt(Globals.displayContent, "file_duration");
         long file_size = Json.getLong(Globals.displayContent, "file_size");
         long mbytes = file_size / (1000 * 1024);
 
         String suitable_for = Json.getString(Globals.displayContent, "suitable_for");
-
-        if (Defines.isDezi && (suitable_for == null))
-        {
-            suitable_for = Simple.getLoreIpsum();
-        }
 
         LinearLayout specsArea = new LinearLayout(this);
         specsArea.setOrientation(LinearLayout.VERTICAL);
@@ -238,7 +238,7 @@ public class DetailActivity extends ContentBaseActivity
 
         sizeView.setRightText(Simple.getTrans(this,
                 R.string.detail_specs_size_mb,
-                Simple.formatDecimal(mbytes)));
+                (mbytes < 1) ? "< 1" : Simple.formatDecimal(mbytes)));
 
         specsArea.addView(sizeView);
 
@@ -314,47 +314,33 @@ public class DetailActivity extends ContentBaseActivity
         int contentId = Json.getInt(Globals.displayContent, "id");
         int price = Json.getInt(Globals.displayContent, "price");
         boolean bought = ContentHandler.isContentBought(contentId);
+        boolean gratis = (price == 0);
 
-        String buyText = (price > 0)
+        String buyText = gratis
                 ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))
                 : Simple.getTrans(this, R.string.detail_buy_gratis);
 
-        if (bought)
+        if (bought || (gratis && Defines.isGiveAway))
         {
-            buyText = ContentHandler.isCachedContent(Globals.displayContent)
-                    ? Simple.getTrans(this, R.string.detail_buy_loaded)
-                    : Simple.getTrans(this, R.string.detail_buy_bought);
+            buyText = Simple.getTrans(this, R.string.detail_buy_display);
         }
 
         buyButton.setText(buyText);
 
-        if (bought)
+        if (bought || (gratis && Defines.isGiveAway))
         {
-            buyButton.setOnClickListener(null);
-
             if (ContentHandler.isCachedContent(Globals.displayContent))
             {
-                typeIcon.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        Simple.startActivity(DetailActivity.this, ViewActivity.class);
-                    }
-                });
+                typeIcon.setOnClickListener(startDisplay);
+                buyButton.setOnClickListener(startDisplay);
             }
             else
             {
                 downloadButton.setVisibility(View.VISIBLE);
+                downloadButton.setOnClickListener(startDownload);
 
-                downloadButton.setOnClickListener(new View.OnClickListener()
-                {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        downloadContent();
-                    }
-                });
+                typeIcon.setOnClickListener(startDownloadAndDisplay);
+                buyButton.setOnClickListener(startDownloadAndDisplay);
             }
         }
         else
@@ -370,15 +356,46 @@ public class DetailActivity extends ContentBaseActivity
         }
     }
 
-    private void downloadContent()
+    private final View.OnClickListener startDisplay = new View.OnClickListener()
     {
-        Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+        @Override
+        public void onClick(View view)
+        {
+            Simple.startActivity(DetailActivity.this, ViewActivity.class);
+        }
+    };
 
-        downloadCenter.setVisibility(View.VISIBLE);
-        downloadProgress.setProgress(0, 0);
+    private final View.OnClickListener startDownload = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            shouldDisplay = false;
 
-        AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
-    }
+            Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+
+            downloadCenter.setVisibility(View.VISIBLE);
+            downloadProgress.setProgress(0, 0);
+
+            AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
+        }
+    };
+
+    private final View.OnClickListener startDownloadAndDisplay = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            shouldDisplay = true;
+
+            Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
+
+            downloadCenter.setVisibility(View.VISIBLE);
+            downloadProgress.setProgress(0, 0);
+
+            AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
+        }
+    };
 
     private final AssetsDownloadManager.OnFileLoadedHandler onFileLoadedHandler
             = new AssetsDownloadManager.OnFileLoadedHandler()
@@ -388,6 +405,11 @@ public class DetailActivity extends ContentBaseActivity
         {
             AppCompatActivity activity = ApplicationBase.getCurrentActivity(DetailActivity.this);
 
+            int id_current = Json.getInt(Globals.displayContent, "id");
+            int id_loaded = Json.getInt(content, "id");
+
+            boolean doDisplay = (activity instanceof DetailActivity) && (id_current == id_loaded) && shouldDisplay;
+
             if (activity instanceof ContentBaseActivity)
             {
                 ((ContentBaseActivity) activity).assetsAdapter.notifyDataSetChanged();
@@ -395,13 +417,16 @@ public class DetailActivity extends ContentBaseActivity
 
             if (activity instanceof FullScreenActivity)
             {
-                int titleRes = (file == null)
-                        ? R.string.detail_download_failed
-                        : R.string.detail_download_complete;
+                if ((file == null) || ! doDisplay)
+                {
+                    int titleRes = (file == null)
+                            ? R.string.detail_download_failed
+                            : R.string.detail_download_complete;
 
-                String text = Json.getString(content, "sub_title");
+                    String text = Json.getString(content, "sub_title");
 
-                DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
+                    DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
+                }
             }
 
             if (file == null)
@@ -411,7 +436,13 @@ public class DetailActivity extends ContentBaseActivity
             else
             {
                 downloadButton.setVisibility(View.GONE);
-                buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_loaded));
+
+                buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_display));
+
+                typeIcon.setOnClickListener(startDisplay);
+                buyButton.setOnClickListener(startDisplay);
+
+                if (doDisplay) startDisplay.onClick(typeIcon);
             }
 
             downloadCenter.setVisibility(View.GONE);

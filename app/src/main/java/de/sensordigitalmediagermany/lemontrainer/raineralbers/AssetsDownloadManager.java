@@ -7,7 +7,6 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.File;
 import java.net.HttpURLConnection;
@@ -46,7 +45,7 @@ public class AssetsDownloadManager
 
     public static boolean connectDownload(JSONObject content, OnDownloadProgressHandler onDownloadProgressHandler)
     {
-        String urlstring = Json.getString(content, "content_url");
+        String urlstring = Simple.urlEncodeFuckedUpDirty(Json.getString(content, "content_url"));
         String name = Json.getString(content, "content_file_name");
 
         if ((urlstring != null) && (name != null))
@@ -83,7 +82,7 @@ public class AssetsDownloadManager
                                          OnFileLoadedHandler onFileLoadedHandler,
                                          OnDownloadProgressHandler onDownloadProgressHandler)
     {
-        String urlstring = Json.getString(content, "content_url");
+        String urlstring = Simple.urlEncodeFuckedUpDirty(Json.getString(content, "content_url"));
         String name = Json.getString(content, "content_file_name");
 
         if ((urlstring != null) && (name != null))
@@ -172,7 +171,7 @@ public class AssetsDownloadManager
 
         try
         {
-            String urlstring = Json.getString(qd.content, "content_url");
+            String urlstring = Simple.urlEncodeFuckedUpDirty(Json.getString(qd.content, "content_url"));
             String name = Json.getString(qd.content, "content_file_name");
 
             long total = Json.getLong(qd.content, "file_size");

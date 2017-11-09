@@ -10,7 +10,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -102,7 +101,7 @@ public class AssetsImageManager
     {
         try
         {
-            URL url = new URL(urlstring);
+            URL url = new URL(Simple.urlEncodeFuckedUpDirty(urlstring));
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
             InputStream inputStream = conn.getInputStream();
@@ -136,9 +135,6 @@ public class AssetsImageManager
 
                 return drawable;
             }
-        }
-        catch (FileNotFoundException ignore)
-        {
         }
         catch (Exception ex)
         {

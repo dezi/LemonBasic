@@ -8,8 +8,9 @@ public class Defines
     //
 
     public static final boolean isDezi = true;
+    public static final boolean isGiveAway = true;
 
-    public static final String DEBUG_VERSION = "08.11.2017 17:00 (0.9)";
+    public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
 
     public static final String TRAINER_NAME = "RAINERALBERS";
 

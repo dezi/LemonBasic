@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.net.Uri;
+import android.os.Parcel;
 import android.support.annotation.Nullable;
 
 import android.app.Activity;
@@ -20,6 +22,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,12 +43,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.File;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -990,7 +997,50 @@ public class Simple
         return getLayoutFromRect(rect);
     }
 
-    public static String getLoreIpsum()
+    @Nullable
+    public static String urlEncodeFuckedUpDirty(String urlString)
+    {
+        if ((urlString != null) && ! isValidURL(urlString))
+        {
+            try
+            {
+                String[] parts = urlString.split("/");
+
+                if (parts.length > 1)
+                {
+                    parts[ parts.length - 1 ] = URLEncoder.encode(parts[ parts.length - 1 ], "UTF-8");
+                }
+
+                urlString = TextUtils.join("/", parts);
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+
+        return urlString;
+    }
+
+    public static boolean isValidURL(String urlString)
+    {
+        try
+        {
+            new URL(urlString).toURI();
+        }
+        catch (MalformedURLException ex)
+        {
+            return false;
+        }
+        catch (URISyntaxException ex)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static String getLoreIpsumx()
     {
         return "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
                 + " Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."
