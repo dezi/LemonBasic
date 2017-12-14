@@ -99,6 +99,8 @@ public class AssetsImageManager
     private static Drawable getDrawable(Context context, String urlstring,
                                         int ivwidth, int ivheight, boolean rounded)
     {
+        if (urlstring == null) return null;
+        
         try
         {
             URL url = new URL(Simple.urlEncodeFuckedUpDirty(urlstring));

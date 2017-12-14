@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.io.InputStream;
@@ -75,7 +76,6 @@ public class ViewWebFrame extends FrameLayout
             {
                 zipFile = new ZipFile(cacheFile);
 
-                /*
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
                 while (entries.hasMoreElements())
@@ -86,7 +86,6 @@ public class ViewWebFrame extends FrameLayout
 
                     Log.d(LOGTAG, "file unzip : " + fileName);
                 }
-                */
 
                 //
                 // Important:
