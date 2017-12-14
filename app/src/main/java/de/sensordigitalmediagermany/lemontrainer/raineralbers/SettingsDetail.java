@@ -193,6 +193,7 @@ public class SettingsDetail extends LinearLayout
 
         if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
         if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
+        if (content_type == Defines.CONTENT_TYPE_ZIP) typeResid = R.string.detail_specs_type_zip;
 
         fileView.setRightText(typeResid);
 

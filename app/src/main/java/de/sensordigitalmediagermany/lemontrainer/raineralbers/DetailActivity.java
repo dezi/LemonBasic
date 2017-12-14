@@ -78,6 +78,7 @@ public class DetailActivity extends ContentBaseActivity
 
         if (content_type == Defines.CONTENT_TYPE_PDF) iconResid = R.drawable.lem_t_iany_generic_type_pdf_gross;
         if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_film_gross;
+        if (content_type == Defines.CONTENT_TYPE_ZIP) iconResid = R.drawable.lem_t_iany_generic_type_film_gross;
 
         if (iconResid > 0) typeIcon.setImageResource(iconResid);
 
@@ -192,6 +193,7 @@ public class DetailActivity extends ContentBaseActivity
 
         if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
         if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
+        if (content_type == Defines.CONTENT_TYPE_ZIP) typeResid = R.string.detail_specs_type_zip;
 
         fileView.setRightText(typeResid);
 

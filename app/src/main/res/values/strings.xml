@@ -119,6 +119,7 @@
     <string name="detail_specs_type_video">Video</string>
     <string name="detail_specs_type_audio">Audio</string>
     <string name="detail_specs_type_pdf">PDF</string>
+    <string name="detail_specs_type_zip">WEB</string>
 
     <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
     <string name="redeem_coupon_redeem">Einlösen</string>

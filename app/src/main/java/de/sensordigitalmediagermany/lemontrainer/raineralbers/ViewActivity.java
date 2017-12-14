@@ -25,5 +25,11 @@ public class ViewActivity extends FullScreenActivity
             ViewVideoFrame videoFrame = new ViewVideoFrame(this);
             topFrame.addView(videoFrame);
         }
+
+        if (content_type == Defines.CONTENT_TYPE_ZIP)
+        {
+            ViewWebFrame webFrame = new ViewWebFrame(this);
+            topFrame.addView(webFrame);
+        }
     }
 }

@@ -12,7 +12,7 @@ public class Defines
 
     public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
 
-    public static final String TRAINER_NAME = "RAINERALBERS";
+    public static final String TRAINER_NAME = "RAINERALBERSTEST";
 
     //
     // Access urls.
@@ -31,6 +31,7 @@ public class Defines
 
     public static final int CONTENT_TYPE_PDF = 1;
     public static final int CONTENT_TYPE_VIDEO = 2;
+    public static final int CONTENT_TYPE_ZIP = 4;
 
     //
     // Colors.
