@@ -21,7 +21,9 @@ import java.io.File;
 
 public class ViewWebFrame extends FrameLayout
 {
-    private static final String LOGTAG = ViewWebFrame.class.getSimpleName();
+    private final static String LOGTAG = ViewWebFrame.class.getSimpleName();
+
+    private final static String DUMMYHOSTNAME = "xzzylemondummy42";
 
     private WebView webview;
     private ZipFile zipFile;
@@ -86,7 +88,19 @@ public class ViewWebFrame extends FrameLayout
                 }
                 */
 
-                webview.loadUrl("file:///content/index.html");
+                //
+                // Important:
+                //
+                // We do NOT use file:// scheme here but a dummy host name,
+                // because some cross domain issues with iframe access are
+                // not validated correct in file mode.
+                //
+                // Basicly this is a bug in Chrome, which evaluates protocol and port
+                // to a null object when in file-scheme and believes, a cross domain
+                // access takes place. So it is denied.
+                //
+
+                webview.loadUrl("http://" + DUMMYHOSTNAME + "/content/index.html");
             }
         }
         catch (Exception ex)
@@ -141,7 +155,7 @@ public class ViewWebFrame extends FrameLayout
 
             Log.d(LOGTAG, "shouldInterceptRequest: uri=" + uri.toString());
 
-            if (! uri.getScheme().equals("file")) return null;
+            if (! uri.getHost().equals(DUMMYHOSTNAME)) return null;
 
             try
             {

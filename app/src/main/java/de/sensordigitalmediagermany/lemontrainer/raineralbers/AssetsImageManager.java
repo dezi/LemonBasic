@@ -138,7 +138,7 @@ public class AssetsImageManager
         }
         catch (Exception ex)
         {
-            Log.d(LOGTAG, ex.toString());
+            ex.printStackTrace();
         }
 
         return null;
