@@ -515,7 +515,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         actContent = ContentHandler.getCachedContent();
 
-        assetsAdapter.setHorizontal(true);
+        assetsAdapter.setSettings(true);
         assetsAdapter.setAssets(actContent);
         assetsAdapter.setOnAssetClickedHandler(onAssetClickedHandler);
 
@@ -525,7 +525,7 @@ public class SettingsActivity extends ContentBaseActivity
     private final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler = new AssetsAdapter.OnAssetClickedHandler()
     {
         @Override
-        public void OnAssetClickedHandler(final ViewGroup parent, final JSONObject content)
+        public void OnAssetClicked(final JSONObject content)
         {
             for (int inx = 0; inx < actContent.length(); inx++)
             {
@@ -542,7 +542,7 @@ public class SettingsActivity extends ContentBaseActivity
                 @Override
                 public void run()
                 {
-                    SettingsDetail detailView = new SettingsDetail(parent.getContext(), content);
+                    SettingsDetail detailView = new SettingsDetail(SettingsActivity.this, content);
 
                     bodyHorz.removeView(rightArea);
                     bodyHorz.addView(detailView);

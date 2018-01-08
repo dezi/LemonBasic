@@ -20,6 +20,7 @@ public class AssetFrame extends LinearLayout
 {
     private static final String LOGTAG = AssetFrame.class.getSimpleName();
 
+    private FrameLayout imageBox;
     private ImageView imageView;
     private TextView titleView;
     private TextView summaryView;
@@ -31,7 +32,7 @@ public class AssetFrame extends LinearLayout
     public static AssetFrame createAssetFrame(GridView gridView, View convertView, JSONObject asset,
                                               AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler)
     {
-        AssetFrame assetFrame = null;
+        AssetFrame assetFrame;
 
         if ((convertView != null) && (convertView instanceof AssetFrame))
         {
@@ -39,7 +40,7 @@ public class AssetFrame extends LinearLayout
         }
         else
         {
-            assetFrame = new AssetFrame(gridView.getContext(), gridView);
+            assetFrame = new AssetFrame(gridView.getContext());
         }
 
         assetFrame.setAsset(gridView, asset, onAssetClickedHandler);
@@ -50,29 +51,19 @@ public class AssetFrame extends LinearLayout
     public AssetFrame(Context context)
     {
         super(context);
-    }
-
-    public AssetFrame(Context context, GridView gridView)
-    {
-        super(context);
-
-        int imageWidth = gridView.getColumnWidth();
-        int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_THUMBNAIL_ASPECT);
 
         this.setOrientation(LinearLayout.VERTICAL);
         this.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
         Simple.setSizeDip(this, Simple.MP, Simple.WC);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL);
 
-        FrameLayout imageBox = new FrameLayout(getContext());
-        Simple.setSizeDip(imageBox, Simple.MP, Simple.pxToDip(imageHeight));
+        imageBox = new FrameLayout(getContext());
 
         this.addView(imageBox);
 
         imageView = new ImageView(getContext());
         imageView.setId(android.R.id.content);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        Simple.setSizeDip(imageView, Simple.MP, Simple.pxToDip(imageHeight));
 
         imageBox.addView(imageView);
 
@@ -192,6 +183,9 @@ public class AssetFrame extends LinearLayout
 
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
 
+        Simple.setSizeDip(imageBox, Simple.MP, Simple.pxToDip(imageHeight));
+        Simple.setSizeDip(imageView, Simple.MP, Simple.pxToDip(imageHeight));
+
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
                         getContext(),
@@ -218,7 +212,7 @@ public class AssetFrame extends LinearLayout
 
                     if (onAssetClickedHandler != null)
                     {
-                        onAssetClickedHandler.OnAssetClickedHandler(gridView, asset);
+                        onAssetClickedHandler.OnAssetClicked(asset);
                     }
                     else
                     {
@@ -254,7 +248,7 @@ public class AssetFrame extends LinearLayout
 
                     if (onAssetClickedHandler != null)
                     {
-                        onAssetClickedHandler.OnAssetClickedHandler(gridView, asset);
+                        onAssetClickedHandler.OnAssetClicked(asset);
                     }
                     else
                     {
