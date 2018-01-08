@@ -4,7 +4,9 @@ import android.annotation.TargetApi;
 import android.annotation.SuppressLint;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -44,8 +46,29 @@ public class ViewWebFrame extends FrameLayout
         webview.getSettings().setAppCacheEnabled(true);
         webview.getSettings().setDatabaseEnabled(true);
         webview.getSettings().setAllowFileAccess(true);
+        webview.getSettings().setSupportMultipleWindows(true);
+        webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
         webview.setWebViewClient(new UriWebViewClient());
+
+        webview.setWebChromeClient(new WebChromeClient()
+        {
+            @Override
+            public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, android.os.Message resultMsg)
+            {
+                Log.d(LOGTAG, "WebChromeClient: onCreateWindow");
+
+                /*
+                WebView.HitTestResult result = view.getHitTestResult();
+                String data = result.getExtra();
+                Context context = view.getContext();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(data));
+                context.startActivity(browserIntent);
+                */
+
+                return false;
+            }
+        });
 
         addView(webview);
     }
@@ -76,6 +99,7 @@ public class ViewWebFrame extends FrameLayout
             {
                 zipFile = new ZipFile(cacheFile);
 
+                /*
                 Enumeration<? extends ZipEntry> entries = zipFile.entries();
 
                 while (entries.hasMoreElements())
@@ -86,6 +110,7 @@ public class ViewWebFrame extends FrameLayout
 
                     Log.d(LOGTAG, "file unzip : " + fileName);
                 }
+                */
 
                 //
                 // Important:
@@ -130,13 +155,16 @@ public class ViewWebFrame extends FrameLayout
         @SuppressWarnings("deprecation")
         public boolean shouldOverrideUrlLoading(WebView view, String url)
         {
+            Log.d(LOGTAG, "shouldOverrideUrlLoading url=" + url);
+
             return handleUri(Uri.parse(url));
         }
 
         @Override
-        @TargetApi(Build.VERSION_CODES.N)
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request)
         {
+            Log.d(LOGTAG, "shouldOverrideUrlLoading request=" + request);
+
             return handleUri(request.getUrl());
         }
 

@@ -100,7 +100,7 @@ public class AssetsImageManager
                                         int ivwidth, int ivheight, boolean rounded)
     {
         if (urlstring == null) return null;
-        
+
         try
         {
             URL url = new URL(Simple.urlEncodeFuckedUpDirty(urlstring));

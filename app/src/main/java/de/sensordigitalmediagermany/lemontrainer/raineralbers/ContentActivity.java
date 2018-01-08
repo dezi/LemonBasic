@@ -22,16 +22,14 @@ public class ContentActivity extends ContentBaseActivity
     {
         super.onCreate(savedInstanceState);
 
-        naviFrame.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(naviFrame, Simple.MP, Defines.NAVIGATION_HEIGHT);
-
         naviLeftButton = new TextView(this);
+        naviLeftButton.setText(R.string.content_navibar_left_show_all);
         naviLeftButton.setAllCaps(true);
         naviLeftButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
         naviLeftButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
         naviLeftButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(naviLeftButton, Defines.FS_NAVI_MENU);
-        Simple.setSizeDip(naviLeftButton, Simple.MP, Simple.MP, 0.5f);
+        Simple.setSizeDip(naviLeftButton, Simple.MP, Defines.NAVIGATION_HEIGHT, 0.5f);
         Simple.setPaddingDip(naviLeftButton, Defines.PADDING_LARGE, 0, 0, 0);
         Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSPACE);
 
@@ -66,7 +64,7 @@ public class ContentActivity extends ContentBaseActivity
         naviRightButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
         naviRightButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
         Simple.setTextSizeDip(naviRightButton, Defines.FS_NAVI_MENU);
-        Simple.setSizeDip(naviRightButton, Simple.MP, Simple.MP, 0.5f);
+        Simple.setSizeDip(naviRightButton, Simple.MP, Defines.NAVIGATION_HEIGHT, 0.5f);
         Simple.setPaddingDip(naviRightButton, 0, 0, Defines.PADDING_LARGE, 0);
         Simple.setLetterSpacing(naviRightButton, Defines.FS_NAVIGATION_LSPACE);
 
@@ -81,8 +79,11 @@ public class ContentActivity extends ContentBaseActivity
 
         naviFrame.addView(naviRightButton);
 
+        naviLeftButton.setVisibility(Defines.isGiveAway ? View.GONE : View.VISIBLE);
+        naviRightButton.setVisibility(Defines.isCategoryMenu ? View.VISIBLE : View.GONE);
+
         Globals.showMyContent = false;
-        naviLeftButton.setText(R.string.content_navibar_left_show_all);
+
         assetsAdapter.setAssets(ContentHandler.getFilteredContent());
     }
 
