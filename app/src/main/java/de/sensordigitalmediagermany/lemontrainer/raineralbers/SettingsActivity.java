@@ -83,7 +83,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         LinearLayout leftArea = new LinearLayout(this);
         leftArea.setOrientation(LinearLayout.VERTICAL);
-        leftArea.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
+        leftArea.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(leftArea, Simple.MP, Simple.MP, 0.6f);
 
         Simple.setPaddingDip(leftArea,
@@ -419,7 +419,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         rightArea = new LinearLayout(this);
         rightArea.setOrientation(LinearLayout.VERTICAL);
-        rightArea.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
+        rightArea.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.4f);
 
         Simple.setPaddingDip(rightArea,

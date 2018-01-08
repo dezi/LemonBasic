@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,7 +28,7 @@ public class AssetFrame extends LinearLayout
     private ImageView loadedView;
     private ProgressBar downloadProgress;
 
-    public static AssetFrame createAssetFrame(GridView gridView, View convertView, JSONObject asset,
+    public static AssetFrame createAssetFrame(Context context, View convertView, int width, JSONObject asset,
                                               AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler)
     {
         AssetFrame assetFrame;
@@ -40,10 +39,10 @@ public class AssetFrame extends LinearLayout
         }
         else
         {
-            assetFrame = new AssetFrame(gridView.getContext());
+            assetFrame = new AssetFrame(context);
         }
 
-        assetFrame.setAsset(gridView, asset, onAssetClickedHandler);
+        assetFrame.setAsset(width, asset, onAssetClickedHandler);
 
         return assetFrame;
     }
@@ -52,8 +51,19 @@ public class AssetFrame extends LinearLayout
     {
         super(context);
 
+        createGenericStyle();
+    }
+
+    private void createGenericStyle()
+    {
+        Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),
+                Defines.isPierCardin ? Defines.FUTURA_LIGHT : Defines.GOTHAM_BOLD);
+
+        Typeface summaryFont = Typeface.createFromAsset(getContext().getAssets(),
+                Defines.isPierCardin ? Defines.FUTURA_LIGHT : Defines.GOTHAMNARROW_LIGHT);
+
         this.setOrientation(LinearLayout.VERTICAL);
-        this.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
+        this.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(this, Simple.MP, Simple.WC);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL);
 
@@ -129,20 +139,32 @@ public class AssetFrame extends LinearLayout
         LinearLayout textBox = new LinearLayout(getContext());
         textBox.setOrientation(LinearLayout.VERTICAL);
 
-        int radiusdipse[] = new int[4];
-
-        radiusdipse[0] = 0;
-        radiusdipse[1] = 0;
-        radiusdipse[2] = Defines.CORNER_RADIUS_ASSETS;
-        radiusdipse[3] = Defines.CORNER_RADIUS_ASSETS;
-
-        Simple.setRoundedCorners(textBox, radiusdipse, Color.WHITE, true);
-
         Simple.setPaddingDip(textBox,
                 Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
                 Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
 
-        this.addView(textBox);
+        if (! Defines.isPierCardin)
+        {
+            int radiusdipse[] = new int[4];
+
+            radiusdipse[0] = 0;
+            radiusdipse[1] = 0;
+            radiusdipse[2] = Defines.CORNER_RADIUS_ASSETS;
+            radiusdipse[3] = Defines.CORNER_RADIUS_ASSETS;
+
+            Simple.setRoundedCorners(textBox, radiusdipse, Color.WHITE, true);
+
+            this.addView(textBox);
+        }
+        else
+        {
+            imageBox.addView(textBox);
+
+            LinearLayout forceDown = new LinearLayout(getContext());
+            Simple.setSizeDip(forceDown, Simple.MP, Simple.MP, 1.0f);
+
+            textBox.addView(forceDown);
+        }
 
         titleView = new TextView(getContext());
         titleView.setId(android.R.id.title);
@@ -150,30 +172,32 @@ public class AssetFrame extends LinearLayout
         titleView.setMinLines(1);
         titleView.setMaxLines(1);
         titleView.setEllipsize(TextUtils.TruncateAt.END);
-        titleView.setTextColor(Color.BLACK);
-        titleView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
+        titleView.setTextColor(Defines.isPierCardin ? Color.WHITE : Color.BLACK);
+        titleView.setTypeface(titleFont);
+
         Simple.setTextSizeDip(titleView, Defines.FS_ASSET_TITLE);
 
         textBox.addView(titleView);
 
         summaryView = new TextView(getContext());
         summaryView.setId(android.R.id.summary);
+        summaryView.setAllCaps(Defines.isPierCardin);
         summaryView.setMinLines(2);
         summaryView.setMaxLines(2);
         summaryView.setEllipsize(TextUtils.TruncateAt.END);
-        summaryView.setTextColor(Color.BLACK);
-        summaryView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
         summaryView.setLineSpacing(0.0f, Defines.FS_ASSET_INFO_LSMULT);
+        summaryView.setTextColor(Defines.isPierCardin ? Color.WHITE : Color.BLACK);
+        summaryView.setTypeface(summaryFont);
+
         Simple.setTextSizeDip(summaryView, Defines.FS_ASSET_INFO);
 
         textBox.addView(summaryView);
     }
 
-    public void setAsset(final GridView gridView,
+    public void setAsset(int imageWidth,
                          final JSONObject asset,
                          final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler)
     {
-        int imageWidth = gridView.getColumnWidth();
         int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_THUMBNAIL_ASPECT);
 
         int id = Json.getInt(asset, "id");
@@ -190,7 +214,8 @@ public class AssetFrame extends LinearLayout
                 AssetsImageManager.getDrawableOrFetch(
                         getContext(),
                         imageView, thumburl,
-                        imageWidth, imageHeight, true));
+                        imageWidth, imageHeight,
+                        ! Defines.isPierCardin));
 
         titleView.setText(title);
         summaryView.setText(subtitle);

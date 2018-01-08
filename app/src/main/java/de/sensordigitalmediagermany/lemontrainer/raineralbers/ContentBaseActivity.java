@@ -1,20 +1,15 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import java.util.Iterator;
 
 public class ContentBaseActivity extends FullScreenActivity
 {
@@ -43,7 +38,7 @@ public class ContentBaseActivity extends FullScreenActivity
 
         contentFrame = new LinearLayout(this);
         contentFrame.setOrientation(LinearLayout.VERTICAL);
-        contentFrame.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
+        contentFrame.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(contentFrame, Simple.MP, Simple.MP);
 
         topFrame.addView(contentFrame);
@@ -168,7 +163,7 @@ public class ContentBaseActivity extends FullScreenActivity
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
         assetGrid.setVerticalSpacing(0);
         assetGrid.setHorizontalSpacing(0);
-        assetGrid.setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
+        assetGrid.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setPaddingDip(assetGrid, Defines.PADDING_SMALL);
         Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
 

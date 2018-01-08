@@ -58,7 +58,7 @@ public class QuestionResultView extends LinearLayout
         radiusdipse[2] = Defines.CORNER_RADIUS_BIGBUT;
         radiusdipse[3] = Defines.CORNER_RADIUS_BIGBUT;
 
-        Simple.setRoundedCorners(checkBox, radiusdipse, Defines.COLOR_SENSOR_CONTENT, true);
+        Simple.setRoundedCorners(checkBox, radiusdipse, Defines.COLOR_CONTENT, true);
 
         addView(checkBox);
 

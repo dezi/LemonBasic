@@ -208,7 +208,7 @@ public class QuestionsActivity extends ContentBaseActivity
             cancelButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
             Simple.setSizeDip(cancelButton, Simple.WC, Simple.WC);
             Simple.setTextSizeDip(cancelButton, Defines.FS_DIALOG_BUTTON);
-            Simple.setRoundedCorners(cancelButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_CONTENT, true);
+            Simple.setRoundedCorners(cancelButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_CONTENT, true);
 
             Simple.setPaddingDip(cancelButton,
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
@@ -386,7 +386,7 @@ public class QuestionsActivity extends ContentBaseActivity
 
                     Simple.setRoundedCorners(answerlayDisplay[ inx ],
                             Defines.CORNER_RADIUS_BIGBUT,
-                            Defines.COLOR_SENSOR_CONTENT,
+                            Defines.COLOR_CONTENT,
                             true);
                 }
             }

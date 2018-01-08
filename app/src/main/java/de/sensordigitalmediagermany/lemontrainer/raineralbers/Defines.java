@@ -9,7 +9,8 @@ public class Defines
 
     public static final boolean isDezi = true;
     public static final boolean isGiveAway = true;
-    public static final boolean isCategoryMenu = true;
+    public static final boolean isCategoryMenu = false;
+    public static final boolean isPierCardin = true;
 
     public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
 
@@ -47,10 +48,15 @@ public class Defines
     public static final int COLOR_SENSOR_ALERTS  = 0xff3b4455;
     public static final int COLOR_SENSOR_NAVIBAR = 0xffedf0f4;
     public static final int COLOR_SENSOR_CONTENT = 0xffb6c4d2;
+    public static final int COLOR_SENSOR_TABBAR  = 0xfff5f5f5;
+
+    public static final int COLOR_PCADIN_CONTENT = 0xffffffff;
 
     public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP  = 0x11000000;
+
+    public static       int COLOR_CONTENT = COLOR_SENSOR_CONTENT; // static!
     // @formatter:on
 
     //
@@ -66,16 +72,32 @@ public class Defines
     // @formatter:on
 
     //
-    // Typefaces.
+    // Available Typefaces.
     //
 
-    public static final String GOTHAM_BOLD = "fonts/Gotham-Bold.otf";
-    public static final String GOTHAM_LIGHT = "fonts/Gotham-Light.otf";
-    public static final String GOTHAM_MEDIUM = "fonts/Gotham-Medium.otf";
-    public static final String ROONEY_LIGHT = "fonts/Rooney-Light.otf";
-    public static final String ROONEY_MEDIUM = "fonts/Rooney-Medium.otf";
-    public static final String ROONEY_REGULAR = "fonts/Rooney-Regular.otf";
-    public static final String GOTHAMNARROW_LIGHT = "fonts/GothamNarrow-Light.otf";
+    // @formatter:off
+    public static final String GOTHAM_BOLD          = "fonts/Gotham-Bold.otf";
+    public static final String GOTHAM_LIGHT         = "fonts/Gotham-Light.otf";
+    public static final String GOTHAM_MEDIUM        = "fonts/Gotham-Medium.otf";
+    public static final String ROONEY_LIGHT         = "fonts/Rooney-Light.otf";
+    public static final String ROONEY_MEDIUM        = "fonts/Rooney-Medium.otf";
+    public static final String ROONEY_REGULAR       = "fonts/Rooney-Regular.otf";
+    public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
+    public static final String FUTURA_BOLD          = "fonts/Futura-Bold.ttf";
+    public static final String FUTURA_LIGHT         = "fonts/Futura-Light.ttf";
+    public static final String FUTURA_BOOK          = "fonts/Futura-Book.ttf";
+    public static final String FUTURA_MEDIUM        = "fonts/Futura-Medium.ttf";
+    public static final String FUTURA_HEAVY         = "fonts/Futura-Heavy.ttf";
+    // @formatter:on
+
+    //
+    // Used Typefaces.
+    //
+
+    // @formatter:off
+    public static String FONT_ASSET_TITLE   = GOTHAM_BOLD;          // static!
+    public static String FONT_ASSET_SUMMARY = GOTHAMNARROW_LIGHT;   // static!
+    // @formatter:on
 
     //
     // Fontsizes.
@@ -92,8 +114,8 @@ public class Defines
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
 
-    public static final int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12;
-    public static final int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12;
+    public static       int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12; // static!
+    public static       int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // static!
     public static final int FS_ASSET_OWNED        = Simple.isTablet() ? 12 : 11;
 
     public static final int FS_COINS_COINS        = Simple.isTablet() ? 56 : 48;
@@ -135,18 +157,22 @@ public class Defines
     // for assets info/subtitle display.
     //
 
-    public static final float FS_CONFIRMED_LSMULT = 1.5f;
-    public static final float FS_ASSET_INFO_LSMULT = 1.3f;
+    // @formatter:off
+    public static final float FS_CONFIRMED_LSMULT  = 1.50f;
+    public static final float FS_ASSET_INFO_LSMULT = 1.30f;
     public static final float FS_NAVIGATION_LSPACE = 0.08f;
+    // @formatter:on
 
     //
     // Estimation of the overall aspect ratio of asset
     // thumbnails to precompute an equal cell height.
     //
 
-    public static final float FS_ASSET_THUMBNAIL_ASPECT = 1.9f;
-    public static final float FS_ASSET_DETAIL_ASPECT = 3.0f;
-    public static final float FS_ASSET_SETTINGS_ASPECT = 2.5f;
+    // @formatter:off
+    public static       float FS_ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
+    public static final float FS_ASSET_DETAIL_ASPECT    = 3.0f;
+    public static final float FS_ASSET_SETTINGS_ASPECT  = 2.5f;
+    // @formatter:on
 
     //
     // Misc.
@@ -192,4 +218,28 @@ public class Defines
     public static final int PROGRESS_BAR_SIZE  = Simple.isTablet() ?   6 :   6;
     public static final int PROGRESS_BAR_WIDTH = Simple.isTablet() ? 300 : 200;
     // @formatter:on
+
+    static
+    {
+        if (isPierCardin)
+        {
+            //
+            // Tuneups fpr Pier Cadin style.
+            //
+
+            // @formatter:off
+
+            COLOR_CONTENT = COLOR_PCADIN_CONTENT;
+
+            FONT_ASSET_TITLE   = FUTURA_LIGHT;
+            FONT_ASSET_SUMMARY = FUTURA_LIGHT;
+
+            FS_ASSET_TITLE = Simple.isTablet() ? 14 : 13;
+            FS_ASSET_INFO  = Simple.isTablet() ? 20 : 18;
+
+            FS_ASSET_THUMBNAIL_ASPECT = 1.184f;
+
+            // @formatter:on
+        }
+    }
 }

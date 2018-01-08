@@ -229,8 +229,9 @@ public class AssetsAdapter extends BaseAdapter
     private View getViewContents(int position, View convertView, ViewGroup parent)
     {
         JSONObject asset = (JSONObject) getItem(position % assets.length());
+        int width = ((GridView) parent).getColumnWidth();
 
-        return AssetFrame.createAssetFrame((GridView) parent, convertView, asset, onAssetClickedHandler);
+        return AssetFrame.createAssetFrame(parent.getContext(), convertView, width, asset, onAssetClickedHandler);
     }
 
     private void openCourse(ViewGroup parent, JSONObject course)

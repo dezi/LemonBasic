@@ -38,7 +38,7 @@ public class SettingsDetail extends LinearLayout
         this.content = content;
 
         setOrientation(LinearLayout.VERTICAL);
-        setBackgroundColor(Defines.COLOR_SENSOR_CONTENT);
+        setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(this, Simple.MP, Simple.MP, 0.4f);
 
         Simple.setPaddingDip(this,
