@@ -47,6 +47,14 @@ public class Screens
 
     public static int getMainScreenRes()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_ipad_piercadin_startscreen
+                    : R.drawable.lem_t_ipho_piercadin_startscreen
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_ipad_ralbers_startscreen
                 : R.drawable.lem_t_ipho_ralbers_startscreen
@@ -71,6 +79,14 @@ public class Screens
 
     public static int getContentScreenHeaderRes()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_ipad_piercadin_menuoben
+                    : R.drawable.lem_t_ipad_piercadin_menuoben
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_ipad_ralbers_menueoben
                 : R.drawable.lem_t_ipho_ralbers_menueoben
@@ -119,6 +135,14 @@ public class Screens
 
     public static int getContentScreenButtonProfileRes()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_ipad_piercadin_profile
+                    : R.drawable.lem_t_ipad_piercadin_profile
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_ipad_ralbers_profile
                 : R.drawable.lem_t_ipho_ralbers_profile
@@ -128,9 +152,17 @@ public class Screens
 
     public static Rect getContentScreenButtonProfileRect()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? new Rect(1100, 39, 1500, 99)
+                    : new Rect(300, 22, 360, 82)
+                    ;
+        }
+
         return Simple.isTablet()
-                ? new Rect(100, 22,  500, 82)
-                : new Rect(100, 22,  160, 82)
+                ? new Rect(100, 22, 500, 82)
+                : new Rect(100, 22, 160, 82)
                 ;
     }
 }
