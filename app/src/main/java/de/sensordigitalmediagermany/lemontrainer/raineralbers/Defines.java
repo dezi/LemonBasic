@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.graphics.Color;
+
 @SuppressWarnings({"WeakerAccess"})
 public class Defines
 {
@@ -40,23 +42,26 @@ public class Defines
     //
 
     // @formatter:off
-    public static final int COLOR_SENSOR_LTBLUE = 0xff657995;
-    public static final int COLOR_SENSOR_DKBLUE = 0xff3b4455;
-    public static final int COLOR_SENSOR_GREEN  = 0xff54b23b;
+    public static final int COLOR_SENSOR_LTBLUE      = 0xff657995;
+    public static final int COLOR_SENSOR_DKBLUE      = 0xff3b4455;
+    public static final int COLOR_SENSOR_GREEN       = 0xff54b23b;
 
-    public static final int COLOR_SENSOR_DIALOGS = 0xcc3b4455;
-    public static final int COLOR_SENSOR_ALERTS  = 0xff3b4455;
-    public static final int COLOR_SENSOR_NAVIBAR = 0xffedf0f4;
-    public static final int COLOR_SENSOR_CONTENT = 0xffb6c4d2;
-    public static final int COLOR_SENSOR_TABBAR  = 0xfff5f5f5;
+    public static final int COLOR_SENSOR_DIALOGS     = 0xcc3b4455;
+    public static final int COLOR_SENSOR_ALERTS      = 0xff3b4455;
+    public static final int COLOR_SENSOR_NAVIBAR     = 0xffedf0f4;
+    public static final int COLOR_SENSOR_CONTENT     = 0xffb6c4d2;
+    public static final int COLOR_SENSOR_TABBAR      = 0xfff5f5f5;
+    public static final int COLOR_SENSOR_BUTTONTEXT  = 0xfff5f5f5;
 
-    public static final int COLOR_PCADIN_CONTENT = 0xffffffff;
+    public static final int COLOR_PCADIN_CONTENT     = 0xffffffff;
+    public static final int COLOR_PCADIN_BUTTONTEXT  = 0xffb4b4b4;
 
-    public static final int COLOR_BUTTON_TOUCHED = 0x88888888;
-    public static final int COLOR_BACKGROUND_DIM = 0x77000000;
-    public static final int COLOR_QUESTIONS_SEP  = 0x11000000;
+    public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
+    public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
+    public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
 
-    public static       int COLOR_CONTENT = COLOR_SENSOR_CONTENT; // static!
+    public static       int COLOR_CONTENT    = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_BUTTONTEXT = COLOR_SENSOR_BUTTONTEXT; // static!
     // @formatter:on
 
     //
@@ -229,7 +234,8 @@ public class Defines
 
             // @formatter:off
 
-            COLOR_CONTENT = COLOR_PCADIN_CONTENT;
+            COLOR_CONTENT    = COLOR_PCADIN_CONTENT;
+            COLOR_BUTTONTEXT = COLOR_PCADIN_BUTTONTEXT;
 
             FONT_ASSET_TITLE   = FUTURA_LIGHT;
             FONT_ASSET_SUMMARY = FUTURA_LIGHT;

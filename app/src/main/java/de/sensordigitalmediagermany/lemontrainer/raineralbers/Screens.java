@@ -93,7 +93,7 @@ public class Screens
                 ;
     }
 
-    public static int getArrowWhiteLeftOnRes()
+    public static int getArrowWhiteLeftOnResx()
     {
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
@@ -111,6 +111,14 @@ public class Screens
 
     public static int getContentScreenButtonBackOnRes()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_iany_piercadin_back_on
+                    : R.drawable.lem_t_iany_piercadin_back_on
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_back_on
                 : R.drawable.lem_t_iany_ralbers_back_on
@@ -119,6 +127,14 @@ public class Screens
 
     public static int getContentScreenButtonBackOffRes()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_iany_piercadin_back_off
+                    : R.drawable.lem_t_iany_piercadin_back_off
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_back_off
                 : R.drawable.lem_t_iany_ralbers_back_off
@@ -127,9 +143,17 @@ public class Screens
 
     public static Rect getContentScreenButtonBackRect()
     {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? new Rect(30, 39, 90, 99)
+                    : new Rect(30, 39, 90, 99)
+                    ;
+        }
+
         return Simple.isTablet()
-                ? new Rect(30, 22,  90, 82)
-                : new Rect(30, 22,  90, 82)
+                ? new Rect(30, 22, 90, 82)
+                : new Rect(30, 22, 90, 82)
                 ;
     }
 
