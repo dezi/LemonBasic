@@ -93,7 +93,7 @@ public class Screens
                 ;
     }
 
-    public static int getArrowWhiteLeftOnResx()
+    public static int getArrowWhiteLeftOnRes()
     {
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
@@ -106,6 +106,22 @@ public class Screens
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel
                 : R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel
+                ;
+    }
+
+    public static int getArrowBannerLeftRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_generic_banner_arrow_left
+                : R.drawable.lem_t_iany_generic_banner_arrow_left
+                ;
+    }
+
+    public static int getArrowBannerRightRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_generic_banner_arrow_right
+                : R.drawable.lem_t_iany_generic_banner_arrow_right
                 ;
     }
 
@@ -172,7 +188,6 @@ public class Screens
                 : R.drawable.lem_t_ipho_ralbers_profile
                 ;
     }
-
 
     public static Rect getContentScreenButtonProfileRect()
     {

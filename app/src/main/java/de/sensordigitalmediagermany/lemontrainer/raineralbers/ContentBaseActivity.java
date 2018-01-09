@@ -28,6 +28,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected RelativeLayout downloadCenter;
     protected ProgressBar downloadProgress;
     protected LinearLayout naviFrame;
+    protected TopBanners topBanners;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
 
@@ -151,6 +152,14 @@ public class ContentBaseActivity extends FullScreenActivity
         naviFrame.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
 
         contentFrame.addView(naviFrame);
+
+        //
+        // Banner area.
+        //
+
+        topBanners = new TopBanners(this);
+
+        contentFrame.addView(topBanners);
 
         //
         // Asset grid.

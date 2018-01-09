@@ -281,6 +281,24 @@ public class ContentHandler
         return result;
     }
 
+    public static JSONArray getBannerContent()
+    {
+        JSONArray result = new JSONArray();
+        JSONArray source = Globals.displayAllContents;
+
+        for (int inx = 0; inx < source.length(); inx++)
+        {
+            JSONObject item = Json.getObject(source, inx);
+            if (item == null) continue;
+
+            Json.put(result, item);
+
+            if (inx > 5) break;
+        }
+
+        return result;
+    }
+
     public static File getStorageDir()
     {
         File storageDir = new File(ApplicationBase.cacheDir, "download");

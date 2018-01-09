@@ -2,7 +2,6 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
 import android.content.Context;
@@ -12,9 +11,13 @@ import android.view.WindowManager;
 import android.view.Display;
 import android.view.View;
 import android.os.Bundle;
+import android.util.Log;
 
+@SuppressLint("Registered")
 public class FullScreenActivity extends AppCompatActivity
 {
+    private static final String LOGTAG = FullScreenActivity.class.getSimpleName();
+
     @SuppressLint("InlinedApi")
     private final int uiOptions
             = View.SYSTEM_UI_FLAG_LAYOUT_STABLE

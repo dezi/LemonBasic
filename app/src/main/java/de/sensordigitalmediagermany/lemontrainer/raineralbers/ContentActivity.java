@@ -1,7 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Typeface;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.Gravity;
 import android.view.View;
@@ -85,6 +84,11 @@ public class ContentActivity extends ContentBaseActivity
         Globals.showMyContent = false;
 
         assetsAdapter.setAssets(ContentHandler.getFilteredContent());
+
+        if (Defines.isTopBanner)
+        {
+            topBanners.setAssets(topFrame, ContentHandler.getBannerContent());
+        }
     }
 
     private void showCategoryMenu()

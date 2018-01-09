@@ -10,9 +10,11 @@ public class Defines
     //
 
     public static final boolean isDezi = true;
+    public static final boolean isPierCardin = true;
+
     public static final boolean isGiveAway = true;
     public static final boolean isCategoryMenu = false;
-    public static final boolean isPierCardin = true;
+    public static final boolean isTopBanner = true;
 
     public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
 
@@ -177,6 +179,7 @@ public class Defines
     public static       float FS_ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
     public static final float FS_ASSET_DETAIL_ASPECT    = 3.0f;
     public static final float FS_ASSET_SETTINGS_ASPECT  = 2.5f;
+    public static final float FS_ASSET_BANNER_ASPECT    = 3.0f;
     // @formatter:on
 
     //
@@ -205,6 +208,7 @@ public class Defines
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  24 :  20;
     public static final int QUESTION_CHECK_SIZE = Simple.isTablet() ?  30 :  24;
+    public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  25;
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
