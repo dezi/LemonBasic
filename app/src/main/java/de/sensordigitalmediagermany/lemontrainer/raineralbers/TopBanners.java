@@ -1,24 +1,37 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
+import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.content.Context;
+import android.view.MotionEvent;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+@SuppressWarnings("unused")
 public class TopBanners extends FrameLayout
 {
     private static final String LOGTAG = TopBanners.class.getSimpleName();
 
+    private HorizontalScrollView scrollView;
+    private LinearLayout scrollContent;
     private ImageView arrowLeftIcon;
     private ImageView arrowRightIcon;
+
+    private int bannerWidth;
+    private int bannerHeight;
+    private int xDirTouch;
+    private int yDirTouch;
+    private int xLastTouch;
+    private int yLastTouch;
+
+    private JSONArray assets;
 
     public TopBanners(Context context)
     {
@@ -28,36 +41,187 @@ public class TopBanners extends FrameLayout
     @SuppressLint("RtlHardcoded")
     public void setAssets(View rootview, JSONArray assets)
     {
+        this.assets = assets;
+
         if ((assets == null) || (assets.length() == 0)) return;
 
         setBackgroundColor(0xcccccccc);
 
+        //
+        // Adjust view to aspect height.
+        //
+
         int screenWidth = rootview.getLayoutParams().width;
-        int bannerHeight = Math.round(screenWidth / Defines.FS_ASSET_BANNER_ASPECT);
+
+        bannerWidth = screenWidth - (Defines.PADDING_LARGE * 2);
+        bannerHeight = Math.round(bannerWidth / Defines.FS_ASSET_BANNER_ASPECT);
+
+        Simple.setSizeDip(this, bannerWidth, bannerHeight);
+        Simple.setMarginLeftDip(this, Defines.PADDING_LARGE);
+        Simple.setMarginRightDip(this, Defines.PADDING_LARGE);
+
+        //
+        // Add scroll views.
+        //
+
+        scrollView = new HorizontalScrollView(getContext())
+        {
+            @Override
+            public boolean onTouchEvent(MotionEvent motionEvent)
+            {
+                onTouchEventCustom(motionEvent);
+
+                return super.onTouchEvent(motionEvent);
+            }
+        };
+
+        Simple.setSizeDip(scrollView, Simple.MP, Simple.MP);
+
+        scrollView.setBackgroundColor(0x88880000);
+        addView(scrollView);
+
+        scrollContent = new LinearLayout(getContext());
+        scrollContent.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
+
+        scrollView.addView(scrollContent);
+
+        //
+        // Add control arrows.
+        //
 
         int arrowPadding = Defines.PADDING_SMALL;
         int arrowWidth = Defines.BANNER_ARROW_WIDTH + (arrowPadding * 2);
 
-        Log.d(LOGTAG, "setAssets: width=" + rootview.getWidth());
-
-        Simple.setSizeDip(this, Simple.MP, bannerHeight);
-        Simple.setMarginLeftDip(this, Defines.PADDING_LARGE);
-        Simple.setMarginRightDip(this, Defines.PADDING_LARGE);
-
         arrowLeftIcon = new ImageView(getContext());
+        arrowLeftIcon.setVisibility(INVISIBLE);
         arrowLeftIcon.setImageResource(Screens.getArrowBannerLeftRes());
         arrowLeftIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(arrowLeftIcon, arrowWidth, Simple.MP);
         Simple.setPaddingDip(arrowLeftIcon, arrowPadding);
 
+        arrowLeftIcon.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onClickLeftArrow();
+            }
+        });
+
         addView(arrowLeftIcon, new LayoutParams(arrowWidth, Simple.MP, Gravity.LEFT));
 
         arrowRightIcon = new ImageView(getContext());
+        arrowRightIcon.setVisibility(INVISIBLE);
         arrowRightIcon.setImageResource(Screens.getArrowBannerRightRes());
         arrowRightIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(arrowRightIcon, arrowWidth, Simple.MP);
         Simple.setPaddingDip(arrowRightIcon, arrowPadding);
 
+        arrowRightIcon.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onClickRightArrow();
+            }
+        });
+
         addView(arrowRightIcon, new LayoutParams(arrowWidth, Simple.MP, Gravity.RIGHT));
+
+        for (int inx = 0; inx < assets.length(); inx++)
+        {
+            JSONObject asset = Json.getObject(assets, inx);
+            if (asset == null) continue;
+
+            TopBannerImage bannerImage = new TopBannerImage(getContext(), bannerWidth, bannerHeight);
+            bannerImage.setAsset(asset);
+
+            scrollContent.addView(bannerImage);
+        }
+
+        adjustArrows.run();
     }
+
+    private void onTouchEventCustom(MotionEvent motionEvent)
+    {
+        int xscreen = (int) motionEvent.getRawX();
+        int yscreen = (int) motionEvent.getRawY();
+
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            xDirTouch = 0;
+            yDirTouch = 0;
+
+            xLastTouch = xscreen;
+            yLastTouch = yscreen;
+        }
+
+        if (motionEvent.getAction() == MotionEvent.ACTION_MOVE)
+        {
+            xDirTouch = (xLastTouch > xscreen) ? -1 : 1;
+            yDirTouch = (yLastTouch > yscreen) ? -1 : 1;
+
+            xLastTouch = xscreen;
+            yLastTouch = yscreen;
+        }
+
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+        {
+            getHandler().post(onTouchEventCustomEnded);
+        }
+    }
+
+    private final Runnable onTouchEventCustomEnded = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            int xoffset = scrollView.getScrollX();
+            int leftrest = xoffset % bannerWidth;
+            int rightrest = bannerWidth - leftrest;
+
+            scrollView.smoothScrollBy((xDirTouch > 0) ? -leftrest : rightrest, 0);
+
+            getHandler().postDelayed(adjustArrows, 100);
+        }
+    };
+
+    private void onClickRightArrow()
+    {
+        int current = scrollView.getScrollX() / bannerWidth;
+
+        if (current < (assets.length() - 1))
+        {
+            scrollView.smoothScrollBy(bannerWidth, 0);
+
+            getHandler().postDelayed(adjustArrows, 100);
+        }
+    }
+
+    private void onClickLeftArrow()
+    {
+        int current = scrollView.getScrollX() / bannerWidth;
+
+        if (current > 0)
+        {
+            scrollView.smoothScrollBy(-bannerWidth, 0);
+
+            getHandler().postDelayed(adjustArrows, 100);
+        }
+    }
+
+    private final Runnable adjustArrows = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            int current = scrollView.getScrollX() / bannerWidth;
+
+            Log.d(LOGTAG,"adjustArrows: current=" + current);
+            
+            arrowLeftIcon.setVisibility((current > 0) ? VISIBLE : INVISIBLE);
+            arrowRightIcon.setVisibility((current < (assets.length() - 1)) ? VISIBLE : INVISIBLE);
+        }
+    };
 }

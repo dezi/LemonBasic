@@ -91,7 +91,8 @@ public class Defines
     public static final String ROONEY_REGULAR       = "fonts/Rooney-Regular.otf";
     public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
     public static final String FUTURA_BOLD          = "fonts/Futura-Bold.ttf";
-    public static final String FUTURA_LIGHT         = "fonts/Futura-Light.ttf";
+    public static final String FUTURA_LIGHT         = "fonts/Futura-Light.otf";
+    public static final String FUTURA_LIGHT_REG     = "fonts/Futura-Light-Regular.otf";
     public static final String FUTURA_BOOK          = "fonts/Futura-Book.ttf";
     public static final String FUTURA_MEDIUM        = "fonts/Futura-Medium.ttf";
     public static final String FUTURA_HEAVY         = "fonts/Futura-Heavy.ttf";
@@ -102,6 +103,7 @@ public class Defines
     //
 
     // @formatter:off
+    public static String FONT_DIALOG_BUTTON = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_TITLE   = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_SUMMARY = GOTHAMNARROW_LIGHT;   // static!
     // @formatter:on
@@ -120,6 +122,10 @@ public class Defines
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
+
+    public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // static!
+    public static       int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // static!
+    public static final int FS_BANNER_BUTTON      = Simple.isTablet() ? 16 : 14;
 
     public static       int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12; // static!
     public static       int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // static!
@@ -143,7 +149,6 @@ public class Defines
     public static final int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14;
     public static final int FS_SETTINGS_EDIT      = Simple.isTablet() ? 20 : 18;
     public static final int FS_SETTINGS_BUTTON    = Simple.isTablet() ? 14 : 12;
-    public static final int FS_SETTINGS_UPLOAD    = Simple.isTablet() ? 12 : 11;
     public static final int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20;
     public static final int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28;
 
@@ -165,9 +170,9 @@ public class Defines
     //
 
     // @formatter:off
-    public static final float FS_CONFIRMED_LSMULT  = 1.50f;
-    public static final float FS_ASSET_INFO_LSMULT = 1.30f;
-    public static final float FS_NAVIGATION_LSPACE = 0.08f;
+    public static final float FS_CONFIRMED_LSMULT   = 1.50f;
+    public static final float FS_ASSET_INFO_LSMULT  = 1.30f;
+    public static final float FS_NAVIGATION_LSPACE  = 0.08f;
     // @formatter:on
 
     //
@@ -241,8 +246,12 @@ public class Defines
             COLOR_CONTENT    = COLOR_PCADIN_CONTENT;
             COLOR_BUTTONTEXT = COLOR_PCADIN_BUTTONTEXT;
 
-            FONT_ASSET_TITLE   = FUTURA_LIGHT;
-            FONT_ASSET_SUMMARY = FUTURA_LIGHT;
+            FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
+            FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;
+
+            FONT_DIALOG_BUTTON = FUTURA_BOLD;
+            FONT_ASSET_TITLE   = FUTURA_LIGHT_REG;
+            FONT_ASSET_SUMMARY = FUTURA_LIGHT_REG;
 
             FS_ASSET_TITLE = Simple.isTablet() ? 14 : 13;
             FS_ASSET_INFO  = Simple.isTablet() ? 20 : 18;
