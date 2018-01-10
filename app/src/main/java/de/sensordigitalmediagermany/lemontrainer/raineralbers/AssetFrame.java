@@ -139,7 +139,7 @@ public class AssetFrame extends LinearLayout
                 Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
                 Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
 
-        if (! Defines.isPierCardin)
+        if (Defines.isRoundedAsset)
         {
             int radiusdipse[] = new int[4];
 
@@ -149,17 +149,20 @@ public class AssetFrame extends LinearLayout
             radiusdipse[3] = Defines.CORNER_RADIUS_ASSETS;
 
             Simple.setRoundedCorners(textBox, radiusdipse, Color.WHITE, true);
-
-            this.addView(textBox);
         }
-        else
-        {
-            imageBox.addView(textBox);
 
+        if (Defines.isOverlayAsset)
+        {
             LinearLayout forceDown = new LinearLayout(getContext());
             Simple.setSizeDip(forceDown, Simple.MP, Simple.MP, 1.0f);
 
             textBox.addView(forceDown);
+
+            imageBox.addView(textBox);
+        }
+        else
+        {
+            this.addView(textBox);
         }
 
         titleView = new TextView(getContext());
@@ -216,7 +219,7 @@ public class AssetFrame extends LinearLayout
                         getContext(),
                         imageView, thumburl,
                         imageWidth, imageHeight,
-                        ! Defines.isPierCardin));
+                        Defines.isRoundedAsset));
 
         titleView.setText(title);
         summaryView.setText(subtitle);

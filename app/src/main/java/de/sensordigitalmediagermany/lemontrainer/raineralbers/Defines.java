@@ -21,12 +21,14 @@ public class Defines
     public static final boolean isRainerAlbers = false;
 
     //
-    // Client specific defines.
+    // Client specific styles and variants.
     //
 
     public static final boolean isGiveAway = isPierCardin || isRainerAlbers;
     public static final boolean isTopBanner = isPierCardin;
     public static final boolean isCategoryMenu = isRainerAlbers;
+    public static final boolean isRoundedAsset = isRainerAlbers;
+    public static final boolean isOverlayAsset = isPierCardin;
 
     //
     // Access urls.
