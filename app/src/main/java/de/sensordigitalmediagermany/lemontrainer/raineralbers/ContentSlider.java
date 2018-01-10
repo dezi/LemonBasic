@@ -148,6 +148,8 @@ public class ContentSlider extends LinearLayout
             sliderImage.setAsset(imageWidth, asset);
 
             imageCell.addView(sliderImage);
+
+            if ((inx + 1) > Defines.SLIDER_MAX_COLUMNS) break;
         }
     }
 

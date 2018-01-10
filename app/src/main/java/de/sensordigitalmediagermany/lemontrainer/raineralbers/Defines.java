@@ -11,7 +11,7 @@ public class Defines
     public static final boolean isPierCardin = true;
 
     public static final boolean isGiveAway = true;
-    public static final boolean isCategoryMenu = false;
+    public static final boolean isCategoryMenu = true;
     public static final boolean isTopBanner = true;
 
     public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
@@ -29,6 +29,7 @@ public class Defines
     //
 
     public static final int TRAINING_NUM_QUESTIONS = 4;
+    public static final int SLIDER_MAX_COLUMNS = 6;
 
     public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
     public static final int RESULTS_NUM_COLUMNS = Simple.isTablet() ? 8 : 6;

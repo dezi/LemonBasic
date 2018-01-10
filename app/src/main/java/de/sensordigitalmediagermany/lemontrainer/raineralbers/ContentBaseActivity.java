@@ -191,10 +191,10 @@ public class ContentBaseActivity extends FullScreenActivity
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
         assetGrid.setColumnWidth(GridView.AUTO_FIT);
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-        assetGrid.setVerticalSpacing(0);
-        assetGrid.setHorizontalSpacing(0);
+        assetGrid.setVerticalSpacing(Defines.PADDING_NORMAL);
+        assetGrid.setHorizontalSpacing(Defines.PADDING_NORMAL);
         assetGrid.setBackgroundColor(Defines.COLOR_CONTENT);
-        Simple.setPaddingDip(assetGrid, Defines.PADDING_SMALL);
+        Simple.setPaddingDip(assetGrid, Defines.PADDING_LARGE);
         Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
 
         contentFrame.addView(assetGrid);

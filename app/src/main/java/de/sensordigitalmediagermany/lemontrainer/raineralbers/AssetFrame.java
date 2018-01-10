@@ -62,7 +62,6 @@ public class AssetFrame extends LinearLayout
         this.setOrientation(LinearLayout.VERTICAL);
         this.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(this, Simple.MP, Simple.WC);
-        //Simple.setPaddingDip(this, Defines.PADDING_SMALL);
 
         imageBox = new FrameLayout(getContext());
 

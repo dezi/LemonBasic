@@ -97,17 +97,17 @@ public class ContentActivity extends ContentBaseActivity
             assetGrid.setVisibility(View.GONE);
             categoryScroll.setVisibility(View.VISIBLE);
 
-            ContentSlider cs1 = new ContentSlider(this, topFrame);
-            cs1.setAssets("Diverses", ContentHandler.getBannerContent());
-            categoryContent.addView(cs1);
+            Iterator<String> keysIterator = Globals.displayCategories.keys();
 
-            ContentSlider cs2 = new ContentSlider(this, topFrame);
-            cs2.setAssets("Alles", ContentHandler.getFilteredContent());
-            categoryContent.addView(cs2);
+            while (keysIterator.hasNext())
+            {
+                String category = keysIterator.next();
 
-            ContentSlider cs3 = new ContentSlider(this, topFrame);
-            cs3.setAssets("Nochmal alles", ContentHandler.getFilteredContent());
-            categoryContent.addView(cs3);
+                ContentSlider cs = new ContentSlider(this, topFrame);
+                cs.setAssets(category, ContentHandler.getFilteredContent(false, category));
+
+                categoryContent.addView(cs);
+            }
         }
     }
 
