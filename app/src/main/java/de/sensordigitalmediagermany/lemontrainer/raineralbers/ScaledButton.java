@@ -1,6 +1,5 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.widget.RelativeLayout;
@@ -9,7 +8,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
-import android.util.Log;
 
 public class ScaledButton extends RelativeLayout
 {
@@ -23,7 +21,7 @@ public class ScaledButton extends RelativeLayout
         super(context);
 
         buttonText = new TextView(getContext());
-        buttonText.setTextColor(Defines.COLOR_BUTTONTEXT);
+        buttonText.setTextColor(Defines.COLOR_BUTTON_TEXT);
         buttonText.setGravity(Gravity.CENTER_VERTICAL);
         buttonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.ROONEY_MEDIUM));
         Simple.setSizeDip(buttonText, Simple.MP, Simple.MP);

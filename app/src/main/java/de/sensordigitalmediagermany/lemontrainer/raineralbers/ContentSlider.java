@@ -75,7 +75,7 @@ public class ContentSlider extends LinearLayout
         leftButton.setSingleLine(true);
         leftButton.setAllCaps(true);
         leftButton.setTypeface(textFont);
-        leftButton.setTextColor(Defines.COLOR_BUTTONTEXT);
+        leftButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
         Simple.setTextSizeDip(leftButton, Defines.FS_SLIDER_CATEGORY);
 
         leftButtonBox.addView(leftButton);
@@ -84,7 +84,7 @@ public class ContentSlider extends LinearLayout
         rightButton.setSingleLine(true);
         rightButton.setAllCaps(true);
         rightButton.setTypeface(textFont);
-        rightButton.setTextColor(Defines.COLOR_BUTTONTEXT);
+        rightButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
         rightButton.setText(R.string.slider_more_button);
         Simple.setTextSizeDip(rightButton, Defines.FS_SLIDER_SHOWMORE);
 

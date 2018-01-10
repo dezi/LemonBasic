@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.graphics.Color;
+
 @SuppressWarnings({"WeakerAccess"})
 public class Defines
 {
@@ -24,11 +26,17 @@ public class Defines
     // Client specific styles and variants.
     //
 
-    public static final boolean isGiveAway = isPierCardin || isRainerAlbers;
-    public static final boolean isTopBanner = isPierCardin;
-    public static final boolean isCategoryMenu = isRainerAlbers;
-    public static final boolean isRoundedAsset = isRainerAlbers;
-    public static final boolean isOverlayAsset = isPierCardin;
+    // @formatter:off
+    public static final boolean isLoginButton   = isRainerAlbers;
+    public static final boolean isSimpleLogin   = isPierCardin;
+    public static final boolean isGiveAway      = isPierCardin || isRainerAlbers;
+    public static final boolean isTopBanner     = isPierCardin;
+    public static final boolean isCategoryMenu  = isRainerAlbers;
+    public static final boolean isRoundedAsset  = isRainerAlbers;
+    public static final boolean isOverlayAsset  = isPierCardin;
+    public static final boolean isHintsAllCaps  = isPierCardin;
+    public static final boolean isButtonAllCaps = isPierCardin;
+    // @formatter:on
 
     //
     // Access urls.
@@ -68,13 +76,17 @@ public class Defines
 
     public static final int COLOR_PCADIN_CONTENT     = 0xffffffff;
     public static final int COLOR_PCADIN_BUTTONTEXT  = 0xffb4b4b4;
+    public static final int COLOR_PCADIN_DIALOGS     = 0xffb4b4b4;
 
     public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
 
-    public static       int COLOR_CONTENT    = COLOR_SENSOR_CONTENT;    // static!
-    public static       int COLOR_BUTTONTEXT = COLOR_SENSOR_BUTTONTEXT; // static!
+    public static       int COLOR_CONTENT     = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_DIALOG_BACK = COLOR_SENSOR_DIALOGS;    // static!
+    public static       int COLOR_BUTTON_TEXT = COLOR_SENSOR_BUTTONTEXT; // static!
+    public static       int COLOR_BUTTON_BACK = COLOR_SENSOR_LTBLUE;     // static!
+
     // @formatter:on
 
     //
@@ -82,10 +94,10 @@ public class Defines
     //
 
     // @formatter:off
-    public static final int CORNER_RADIUS_BUTTON  =  3;
+    public static       int CORNER_RADIUS_BUTTON  =  3; // static!
     public static final int CORNER_RADIUS_BIGBUT  =  8;
     public static final int CORNER_RADIUS_OVERLAY = 10;
-    public static final int CORNER_RADIUS_DIALOG  = 16;
+    public static       int CORNER_RADIUS_DIALOG  = 16; // static!
     public static final int CORNER_RADIUS_ASSETS  = 16;
     // @formatter:on
 
@@ -258,8 +270,13 @@ public class Defines
 
             // @formatter:off
 
-            COLOR_CONTENT    = COLOR_PCADIN_CONTENT;
-            COLOR_BUTTONTEXT = COLOR_PCADIN_BUTTONTEXT;
+            CORNER_RADIUS_BUTTON = 0;
+            CORNER_RADIUS_DIALOG = 0;
+
+            COLOR_CONTENT     = COLOR_PCADIN_CONTENT;
+            COLOR_DIALOG_BACK = COLOR_PCADIN_DIALOGS;
+            COLOR_BUTTON_TEXT = COLOR_PCADIN_BUTTONTEXT;
+            COLOR_BUTTON_BACK = Color.BLACK;
 
             FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
             FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;

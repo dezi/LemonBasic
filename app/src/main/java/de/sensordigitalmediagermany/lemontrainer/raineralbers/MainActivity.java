@@ -59,6 +59,10 @@ public class MainActivity extends FullScreenActivity
                     {
                         SettingsHandler.realLoginAction(topFrame, loginSuccess, loginFailure);
                     }
+                    else
+                    {
+                        topFrame.addView(new LoginDialog(MainActivity.this));
+                    }
 
                     if (contentButtonClicked)
                     {
@@ -78,40 +82,42 @@ public class MainActivity extends FullScreenActivity
 
             splashScreen.setImageResource(msresid);
 
-            ScaledButton loginButton = new ScaledButton(topFrame.getContext());
-            loginButton.setContent(topFrame, Screens.getMainScreenButtonRegisterRect(), msresid);
-
-            loginButton.setOnButtonClicked(new Runnable()
+            if (Defines.isLoginButton)
             {
-                @Override
-                public void run()
+                ScaledButton loginButton = new ScaledButton(topFrame.getContext());
+                loginButton.setContent(topFrame, Screens.getMainScreenButtonRegisterRect(), msresid);
+
+                loginButton.setOnButtonClicked(new Runnable()
                 {
-                    topFrame.addView(new LoginDialog(MainActivity.this));
-                }
-            });
+                    @Override
+                    public void run()
+                    {
+                        topFrame.addView(new LoginDialog(MainActivity.this));
+                    }
+                });
 
-            topFrame.addView(loginButton);
+                topFrame.addView(loginButton);
 
-            ScaledButton contentButton = new ScaledButton(topFrame.getContext());
-            contentButton.setContent(topFrame, Screens.getMainScreenButtonContentRect(), msresid);
+                ScaledButton contentButton = new ScaledButton(topFrame.getContext());
+                contentButton.setContent(topFrame, Screens.getMainScreenButtonContentRect(), msresid);
 
-            contentButton.setOnButtonClicked(new Runnable()
-            {
-                @Override
-                public void run()
+                contentButton.setOnButtonClicked(new Runnable()
                 {
-                    if (Globals.contentsLoaded)
+                    @Override
+                    public void run()
                     {
-                        Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                        if (Globals.contentsLoaded)
+                        {
+                            Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                        } else
+                        {
+                            contentButtonClicked = true;
+                        }
                     }
-                    else
-                    {
-                        contentButtonClicked = true;
-                    }
-                }
-            });
+                });
 
-            topFrame.addView(contentButton);
+                topFrame.addView(contentButton);
+            }
         }
     };
 
@@ -120,14 +126,23 @@ public class MainActivity extends FullScreenActivity
         @Override
         public void run()
         {
-            ApplicationBase.handler.postDelayed(new Runnable()
+            String pwchanged = "pwchanged:" + Globals.accountId;
+
+            if (true || ! SettingsHandler.getSharedPrefBoolean(pwchanged))
             {
-                @Override
-                public void run()
+                topFrame.addView(new PasswordChangeDialog(MainActivity.this, true));
+            }
+            else
+            {
+                ApplicationBase.handler.postDelayed(new Runnable()
                 {
-                    Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
-                }
-            }, 750);
+                    @Override
+                    public void run()
+                    {
+                        Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                    }
+                }, 750);
+            }
         }
     };
 

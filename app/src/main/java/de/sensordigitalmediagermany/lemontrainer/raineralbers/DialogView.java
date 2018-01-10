@@ -117,7 +117,8 @@ public class DialogView extends RelativeLayout
             public void onClick(View view)
             {
                 if ((negativeButton.getVisibility() == GONE) &&
-                        (positiveButton.getVisibility() == GONE))
+                        (positiveButton.getVisibility() == GONE) &&
+                        (closeButton.getVisibility() != GONE))
                 {
                     ViewGroup parent = (ViewGroup) DialogView.this.getParent();
 
@@ -132,7 +133,7 @@ public class DialogView extends RelativeLayout
         marginView = new RelativeLayout(context);
         Simple.setSizeDip(marginView, Simple.WC, Simple.WC);
         Simple.setPaddingDip(marginView, Defines.PADDING_TINY);
-        Simple.setRoundedCorners(marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_DIALOGS, true);
+        Simple.setRoundedCorners(marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_DIALOG_BACK, true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
@@ -228,7 +229,7 @@ public class DialogView extends RelativeLayout
         negativeButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(negativeButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(negativeButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
+        Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
 
         Simple.setPaddingDip(negativeButton,
                 Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
@@ -265,7 +266,7 @@ public class DialogView extends RelativeLayout
         positiveButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(positiveButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(positiveButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(positiveButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
+        Simple.setRoundedCorners(positiveButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
 
         Simple.setPaddingDip(positiveButton,
                 Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
@@ -378,5 +379,21 @@ public class DialogView extends RelativeLayout
         }
 
         return parent;
+    }
+
+    protected String getButtonText(int resid)
+    {
+        String text = Simple.getTrans(getContext(), resid);
+        if (Defines.isButtonAllCaps) text = text.toUpperCase();
+
+        return text;
+    }
+
+    protected String getHint(int resid)
+    {
+        String hint = Simple.getTrans(getContext(), resid);
+        if (Defines.isHintsAllCaps) hint = hint.toUpperCase();
+
+        return hint;
     }
 }

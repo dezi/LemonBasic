@@ -8,6 +8,7 @@
 
     <string name="login_title">Melden Sie sich an:</string>
     <string name="login_hint_email">E-Mail Adresse</string>
+    <string name="login_hint_emailpc">Emailadresse</string>
     <string name="login_hint_password">Passwort</string>
     <string name="login_login">Anmelden</string>
     <string name="login_already_registered">Sie haben bereits ein Konto?</string>
@@ -34,9 +35,10 @@
     <string name="password_forgot_request">Absenden</string>
 
     <string name="password_change_title">Neues Passwort vergeben:</string>
+    <string name="password_change_title_forced">Passwort ändern</string>
     <string name="password_change_hint_oldpassword">Altes Passwort</string>
     <string name="password_change_hint_newpassword">Neues Passwort</string>
-    <string name="password_change_hint_newrepeat">Neues Passwort wiederholen</string>
+    <string name="password_change_hint_newrepeat">Neues Passwort bestätigen</string>
     <string name="password_change_request">Passwort ändern</string>
 
     <string name="settings_title">Einstellungen</string>

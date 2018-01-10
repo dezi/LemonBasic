@@ -21,9 +21,14 @@ public class PasswordChangeDialog extends DialogView
 
     public PasswordChangeDialog(Context context)
     {
+        this(context, false);
+    }
+
+    public PasswordChangeDialog(Context context, final boolean forced)
+    {
         super(context);
 
-        setCloseButton(true, null);
+        setCloseButton(! forced, null);
 
         LinearLayout dialogItems = new LinearLayout(getContext());
         dialogItems.setOrientation(LinearLayout.VERTICAL);
@@ -31,7 +36,7 @@ public class PasswordChangeDialog extends DialogView
         Simple.setMarginBottomDip(dialogItems, Defines.PADDING_LARGE);
 
         TextView titleView = new TextView(getContext());
-        titleView.setText(R.string.password_change_title);
+        titleView.setText(forced ? R.string.password_change_title_forced : R.string.password_change_title);
         titleView.setAllCaps(true);
         titleView.setTextColor(Color.WHITE);
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -47,7 +52,7 @@ public class PasswordChangeDialog extends DialogView
         dialogItems.addView(titleView);
 
         oldPassword = new EditText(getContext());
-        oldPassword.setHint(R.string.password_change_hint_oldpassword);
+        oldPassword.setHint(getHint(R.string.password_change_hint_oldpassword));
         oldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         oldPassword.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(oldPassword, Defines.FS_DIALOG_EDIT);
@@ -59,7 +64,7 @@ public class PasswordChangeDialog extends DialogView
         dialogItems.addView(oldPassword);
 
         passWord1 = new EditText(getContext());
-        passWord1.setHint(R.string.password_change_hint_newpassword);
+        passWord1.setHint(getHint(R.string.password_change_hint_newpassword));
         passWord1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passWord1.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(passWord1, Defines.FS_DIALOG_EDIT);
@@ -71,7 +76,7 @@ public class PasswordChangeDialog extends DialogView
         dialogItems.addView(passWord1);
 
         passWord2 = new EditText(getContext());
-        passWord2.setHint(R.string.password_change_hint_newrepeat);
+        passWord2.setHint(getHint(R.string.password_change_hint_newrepeat));
         passWord2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passWord2.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
         Simple.setTextSizeDip(passWord2, Defines.FS_DIALOG_EDIT);
@@ -83,7 +88,7 @@ public class PasswordChangeDialog extends DialogView
         dialogItems.addView(passWord2);
 
         TextView requestButton = new TextView(getContext());
-        requestButton.setText(R.string.password_change_request);
+        requestButton.setText(getHint(R.string.password_change_request));
         requestButton.setTextColor(Color.WHITE);
         requestButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
         requestButton.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -92,7 +97,7 @@ public class PasswordChangeDialog extends DialogView
         Simple.setPaddingDip(requestButton, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(requestButton, Defines.PADDING_NORMAL);
         Simple.setMarginBottomDip(requestButton, Defines.PADDING_SMALL);
-        Simple.setRoundedCorners(requestButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_SENSOR_LTBLUE, true);
+        Simple.setRoundedCorners(requestButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
 
         requestButton.setOnClickListener(new OnClickListener()
         {
@@ -131,9 +136,30 @@ public class PasswordChangeDialog extends DialogView
 
                 dismissDialog();
 
+                String pwchanged = "pwchanged:" + Globals.accountId;
+                SettingsHandler.setSharedPrefBoolean(pwchanged, true);
+
                 DialogView.errorAlert(topFrame,
                         R.string.alert_not_implemented_title,
-                        R.string.alert_not_implemented_info);
+                        R.string.alert_not_implemented_info,
+                        new OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                if (forced)
+                                {
+                                    ApplicationBase.handler.postDelayed(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            Simple.startActivityFinish(getContext(), ContentActivity.class);
+                                        }
+                                    }, 100);
+                                }
+                            }
+                        });
             }
         });
 
