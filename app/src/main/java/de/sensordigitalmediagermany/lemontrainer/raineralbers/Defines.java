@@ -8,15 +8,25 @@ public class Defines
     //
 
     public static final boolean isDezi = true;
-    public static final boolean isPierCardin = true;
-
-    public static final boolean isGiveAway = true;
-    public static final boolean isCategoryMenu = true;
-    public static final boolean isTopBanner = true;
 
     public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
 
     public static final String TRAINER_NAME = "RAINERALBERS";
+
+    //
+    // Client specific defines.
+    //
+
+    public static final boolean isPierCardin = true;
+    public static final boolean isRainerAlbers = false;
+
+    //
+    // Client specific defines.
+    //
+
+    public static final boolean isGiveAway = isPierCardin || isRainerAlbers;
+    public static final boolean isTopBanner = isPierCardin;
+    public static final boolean isCategoryMenu = isRainerAlbers;
 
     //
     // Access urls.
