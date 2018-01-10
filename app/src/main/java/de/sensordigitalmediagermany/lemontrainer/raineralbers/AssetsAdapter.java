@@ -73,7 +73,7 @@ public class AssetsAdapter extends BaseAdapter
         final GridView gridView = (GridView) parent;
 
         int imageWidth = Simple.dipToPx(Defines.ASSET_IMAGE_SIZE);
-        int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_THUMBNAIL_ASPECT);
+        int imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 
         Log.d(LOGTAG, "getView: imageWidth=" + imageWidth + " imageHeight=" + +imageHeight);
 

@@ -337,7 +337,7 @@ public class SettingsDetail extends LinearLayout
         public void run()
         {
             int imageWidth = SettingsDetail.this.getWidth();
-            int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_SETTINGS_ASPECT);
+            int imageHeight = Math.round(imageWidth / Defines.ASSET_SETTINGS_ASPECT);
 
             Simple.setSizeDip(imageFrame, Simple.MP, Simple.pxToDip(imageHeight));
             Simple.setSizeDip(contentImage, Simple.MP, Simple.pxToDip(imageHeight));

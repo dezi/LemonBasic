@@ -83,11 +83,31 @@ public class ContentActivity extends ContentBaseActivity
 
         Globals.showMyContent = false;
 
-        assetsAdapter.setAssets(ContentHandler.getFilteredContent());
-
         if (Defines.isTopBanner)
         {
             topBanners.setAssets(topFrame, ContentHandler.getBannerContent());
+        }
+
+        if (Defines.isCategoryMenu)
+        {
+            assetsAdapter.setAssets(ContentHandler.getFilteredContent());
+        }
+        else
+        {
+            assetGrid.setVisibility(View.GONE);
+            categoryScroll.setVisibility(View.VISIBLE);
+
+            ContentSlider cs1 = new ContentSlider(this, topFrame);
+            cs1.setAssets("Diverses", ContentHandler.getBannerContent());
+            categoryContent.addView(cs1);
+
+            ContentSlider cs2 = new ContentSlider(this, topFrame);
+            cs2.setAssets("Alles", ContentHandler.getFilteredContent());
+            categoryContent.addView(cs2);
+
+            ContentSlider cs3 = new ContentSlider(this, topFrame);
+            cs3.setAssets("Nochmal alles", ContentHandler.getFilteredContent());
+            categoryContent.addView(cs3);
         }
     }
 

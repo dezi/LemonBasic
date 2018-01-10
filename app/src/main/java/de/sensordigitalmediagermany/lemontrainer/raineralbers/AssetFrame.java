@@ -62,7 +62,7 @@ public class AssetFrame extends LinearLayout
         this.setOrientation(LinearLayout.VERTICAL);
         this.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(this, Simple.MP, Simple.WC);
-        Simple.setPaddingDip(this, Defines.PADDING_SMALL);
+        //Simple.setPaddingDip(this, Defines.PADDING_SMALL);
 
         imageBox = new FrameLayout(getContext());
 
@@ -191,11 +191,16 @@ public class AssetFrame extends LinearLayout
         textBox.addView(summaryView);
     }
 
+    public void setAsset(int imageWidth, JSONObject asset)
+    {
+        setAsset(imageWidth, asset, null);
+    }
+
     public void setAsset(int imageWidth,
                          final JSONObject asset,
                          final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler)
     {
-        int imageHeight = Math.round(imageWidth / Defines.FS_ASSET_THUMBNAIL_ASPECT);
+        int imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 
         int id = Json.getInt(asset, "id");
         String title = Json.getString(asset, "title");

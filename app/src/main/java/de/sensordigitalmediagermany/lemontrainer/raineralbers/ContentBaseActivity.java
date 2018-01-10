@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 public class ContentBaseActivity extends FullScreenActivity
 {
@@ -29,6 +31,8 @@ public class ContentBaseActivity extends FullScreenActivity
     protected ProgressBar downloadProgress;
     protected LinearLayout naviFrame;
     protected TopBanners topBanners;
+    protected ScrollView categoryScroll;
+    protected LinearLayout categoryContent;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
 
@@ -160,6 +164,23 @@ public class ContentBaseActivity extends FullScreenActivity
         topBanners = new TopBanners(this);
 
         contentFrame.addView(topBanners);
+
+        //
+        // Category sliders scrollview.
+        //
+
+        categoryScroll = new ScrollView(this);
+        categoryScroll.setVisibility(View.GONE);
+        Simple.setPaddingDip(categoryScroll, Defines.PADDING_SMALL);
+        Simple.setSizeDip(categoryScroll, Simple.MP, Simple.MP);
+
+        contentFrame.addView(categoryScroll);
+
+        categoryContent = new LinearLayout(this);
+        categoryContent.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(categoryContent, Simple.MP, Simple.WC);
+
+        categoryScroll.addView(categoryContent);
 
         //
         // Asset grid.

@@ -1,7 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
@@ -10,26 +9,24 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.Gravity;
 import android.view.View;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
 public class TopBanners extends FrameLayout
 {
     private static final String LOGTAG = TopBanners.class.getSimpleName();
 
     private HorizontalScrollView scrollView;
-    private LinearLayout scrollContent;
     private ImageView arrowLeftIcon;
     private ImageView arrowRightIcon;
 
     private int bannerWidth;
     private int bannerHeight;
     private int xDirTouch;
-    private int yDirTouch;
     private int xLastTouch;
-    private int yLastTouch;
 
     private JSONArray assets;
 
@@ -54,7 +51,7 @@ public class TopBanners extends FrameLayout
         int screenWidth = rootview.getLayoutParams().width;
 
         bannerWidth = screenWidth - (Defines.PADDING_LARGE * 2);
-        bannerHeight = Math.round(bannerWidth / Defines.FS_ASSET_BANNER_ASPECT);
+        bannerHeight = Math.round(bannerWidth / Defines.ASSET_BANNER_ASPECT);
 
         Simple.setSizeDip(this, bannerWidth, bannerHeight);
         Simple.setMarginLeftDip(this, Defines.PADDING_LARGE);
@@ -67,6 +64,7 @@ public class TopBanners extends FrameLayout
         scrollView = new HorizontalScrollView(getContext())
         {
             @Override
+            @SuppressLint("ClickableViewAccessibility")
             public boolean onTouchEvent(MotionEvent motionEvent)
             {
                 onTouchEventCustom(motionEvent);
@@ -80,7 +78,7 @@ public class TopBanners extends FrameLayout
         scrollView.setBackgroundColor(0x88880000);
         addView(scrollView);
 
-        scrollContent = new LinearLayout(getContext());
+        LinearLayout scrollContent = new LinearLayout(getContext());
         scrollContent.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
 
@@ -146,24 +144,17 @@ public class TopBanners extends FrameLayout
     private void onTouchEventCustom(MotionEvent motionEvent)
     {
         int xscreen = (int) motionEvent.getRawX();
-        int yscreen = (int) motionEvent.getRawY();
 
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
         {
             xDirTouch = 0;
-            yDirTouch = 0;
-
             xLastTouch = xscreen;
-            yLastTouch = yscreen;
         }
 
         if (motionEvent.getAction() == MotionEvent.ACTION_MOVE)
         {
             xDirTouch = (xLastTouch > xscreen) ? -1 : 1;
-            yDirTouch = (yLastTouch > yscreen) ? -1 : 1;
-
             xLastTouch = xscreen;
-            yLastTouch = yscreen;
         }
 
         if (motionEvent.getAction() == MotionEvent.ACTION_UP)
@@ -183,7 +174,7 @@ public class TopBanners extends FrameLayout
 
             scrollView.smoothScrollBy((xDirTouch > 0) ? -leftrest : rightrest, 0);
 
-            getHandler().postDelayed(adjustArrows, 100);
+            getHandler().postDelayed(adjustArrows, 300);
         }
     };
 
@@ -195,7 +186,7 @@ public class TopBanners extends FrameLayout
         {
             scrollView.smoothScrollBy(bannerWidth, 0);
 
-            getHandler().postDelayed(adjustArrows, 100);
+            getHandler().postDelayed(adjustArrows, 300);
         }
     }
 
@@ -207,7 +198,7 @@ public class TopBanners extends FrameLayout
         {
             scrollView.smoothScrollBy(-bannerWidth, 0);
 
-            getHandler().postDelayed(adjustArrows, 100);
+            getHandler().postDelayed(adjustArrows, 300);
         }
     }
 
@@ -219,7 +210,7 @@ public class TopBanners extends FrameLayout
             int current = scrollView.getScrollX() / bannerWidth;
 
             Log.d(LOGTAG,"adjustArrows: current=" + current);
-            
+
             arrowLeftIcon.setVisibility((current > 0) ? VISIBLE : INVISIBLE);
             arrowRightIcon.setVisibility((current < (assets.length() - 1)) ? VISIBLE : INVISIBLE);
         }

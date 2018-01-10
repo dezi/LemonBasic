@@ -1,7 +1,5 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.graphics.Color;
-
 @SuppressWarnings({"WeakerAccess"})
 public class Defines
 {
@@ -106,6 +104,7 @@ public class Defines
     public static String FONT_DIALOG_BUTTON = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_TITLE   = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_SUMMARY = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SLIDER_ALL    = GOTHAMNARROW_LIGHT;   // static!
     // @formatter:on
 
     //
@@ -122,6 +121,9 @@ public class Defines
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
+
+    public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 20 : 18;
+    public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 13;
 
     public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // static!
     public static       int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // static!
@@ -181,10 +183,10 @@ public class Defines
     //
 
     // @formatter:off
-    public static       float FS_ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
-    public static final float FS_ASSET_DETAIL_ASPECT    = 3.0f;
-    public static final float FS_ASSET_SETTINGS_ASPECT  = 2.5f;
-    public static final float FS_ASSET_BANNER_ASPECT    = 3.0f;
+    public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
+    public static final float ASSET_DETAIL_ASPECT    = 3.0f;
+    public static final float ASSET_SETTINGS_ASPECT  = 2.5f;
+    public static final float ASSET_BANNER_ASPECT    = 3.0f;
     // @formatter:on
 
     //
@@ -252,11 +254,12 @@ public class Defines
             FONT_DIALOG_BUTTON = FUTURA_BOLD;
             FONT_ASSET_TITLE   = FUTURA_LIGHT_REG;
             FONT_ASSET_SUMMARY = FUTURA_LIGHT_REG;
+            FONT_SLIDER_ALL    = FUTURA_LIGHT_REG;
 
             FS_ASSET_TITLE = Simple.isTablet() ? 14 : 13;
             FS_ASSET_INFO  = Simple.isTablet() ? 20 : 18;
 
-            FS_ASSET_THUMBNAIL_ASPECT = 1.184f;
+            ASSET_THUMBNAIL_ASPECT = 1.184f;
 
             // @formatter:on
         }
