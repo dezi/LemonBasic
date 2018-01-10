@@ -253,7 +253,7 @@ public class Defines
         if (isPierCardin)
         {
             //
-            // Tuneups fpr Pier Cadin style.
+            // Tuneups for Pier Cadin style.
             //
 
             // @formatter:off
