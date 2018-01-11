@@ -76,16 +76,19 @@ public class Defines
 
     public static final int COLOR_PCADIN_CONTENT     = 0xffffffff;
     public static final int COLOR_PCADIN_BUTTONTEXT  = 0xffb4b4b4;
-    public static final int COLOR_PCADIN_DIALOGS     = 0xffb4b4b4;
+    public static final int COLOR_PCADIN_DIALOGS     = 0xfff5f5f5;
 
     public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
 
-    public static       int COLOR_CONTENT     = COLOR_SENSOR_CONTENT;    // static!
-    public static       int COLOR_DIALOG_BACK = COLOR_SENSOR_DIALOGS;    // static!
-    public static       int COLOR_BUTTON_TEXT = COLOR_SENSOR_BUTTONTEXT; // static!
-    public static       int COLOR_BUTTON_BACK = COLOR_SENSOR_LTBLUE;     // static!
+    public static       int COLOR_CONTENT      = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_DIALOG_BACK  = COLOR_SENSOR_DIALOGS;    // static!
+    public static       int COLOR_DIALOG_TITLE = Color.WHITE;             // static!
+    public static       int COLOR_DIALOG_INFOS = Color.WHITE;             // static!
+    public static       int COLOR_BUTTON_TEXT  = COLOR_SENSOR_BUTTONTEXT; // static!
+    public static       int COLOR_BUTTON_BACK  = COLOR_SENSOR_LTBLUE;     // static!
+    public static       int COLOR_ALERT_BACK   = COLOR_SENSOR_DIALOGS;    // static!
 
     // @formatter:on
 
@@ -113,12 +116,8 @@ public class Defines
     public static final String ROONEY_MEDIUM        = "fonts/Rooney-Medium.otf";
     public static final String ROONEY_REGULAR       = "fonts/Rooney-Regular.otf";
     public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
-    public static final String FUTURA_BOLD          = "fonts/Futura-Bold.ttf";
-    public static final String FUTURA_LIGHT         = "fonts/Futura-Light.otf";
     public static final String FUTURA_LIGHT_REG     = "fonts/Futura-Light-Regular.otf";
-    public static final String FUTURA_BOOK          = "fonts/Futura-Book.ttf";
-    public static final String FUTURA_MEDIUM        = "fonts/Futura-Medium.ttf";
-    public static final String FUTURA_HEAVY         = "fonts/Futura-Heavy.ttf";
+    public static final String FUTURA_BOOK          = "fonts/Futura-Book.otf";
     // @formatter:on
 
     //
@@ -126,10 +125,14 @@ public class Defines
     //
 
     // @formatter:off
+    public static String FONT_DIALOG_TITLE  = GOTHAM_BOLD;          // static!
+    public static String FONT_DIALOG_INFOS  = GOTHAM_LIGHT;         // static!
+    public static String FONT_DIALOG_EDITS  = GOTHAM_LIGHT;         // static!
     public static String FONT_DIALOG_BUTTON = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_TITLE   = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_SUMMARY = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SLIDER_ALL    = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SCALED_BUTTON = ROONEY_MEDIUM;        // static!
     // @formatter:on
 
     //
@@ -142,7 +145,7 @@ public class Defines
     public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 18 : 16;
 
-    public static final int FS_BUTTON_IMAGE       = Simple.isTablet() ? 18 : 16;
+    public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
@@ -273,21 +276,28 @@ public class Defines
             CORNER_RADIUS_BUTTON = 0;
             CORNER_RADIUS_DIALOG = 0;
 
-            COLOR_CONTENT     = COLOR_PCADIN_CONTENT;
-            COLOR_DIALOG_BACK = COLOR_PCADIN_DIALOGS;
-            COLOR_BUTTON_TEXT = COLOR_PCADIN_BUTTONTEXT;
-            COLOR_BUTTON_BACK = Color.BLACK;
+            COLOR_CONTENT      = COLOR_PCADIN_CONTENT;
+            COLOR_DIALOG_BACK  = COLOR_PCADIN_DIALOGS;
+            COLOR_DIALOG_TITLE = Color.BLACK;
+            COLOR_DIALOG_INFOS = Color.BLACK;
+            COLOR_BUTTON_TEXT  = COLOR_PCADIN_BUTTONTEXT;
+            COLOR_BUTTON_BACK  = Color.BLACK;
+            COLOR_ALERT_BACK   = COLOR_PCADIN_DIALOGS;
 
-            FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
-            FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;
-
-            FONT_DIALOG_BUTTON = FUTURA_BOLD;
+            FONT_DIALOG_TITLE  = FUTURA_BOOK;
+            FONT_DIALOG_INFOS  = FUTURA_LIGHT_REG;
+            FONT_DIALOG_EDITS  = FUTURA_LIGHT_REG;
+            FONT_DIALOG_BUTTON = FUTURA_BOOK;
             FONT_ASSET_TITLE   = FUTURA_LIGHT_REG;
             FONT_ASSET_SUMMARY = FUTURA_LIGHT_REG;
             FONT_SLIDER_ALL    = FUTURA_LIGHT_REG;
+            FONT_SCALED_BUTTON = FUTURA_LIGHT_REG;
 
-            FS_ASSET_TITLE = Simple.isTablet() ? 14 : 13;
-            FS_ASSET_INFO  = Simple.isTablet() ? 20 : 18;
+            FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
+            FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;
+            FS_SCALED_BUTTON = Simple.isTablet() ? 14 : 13;
+            FS_ASSET_TITLE   = Simple.isTablet() ? 14 : 13;
+            FS_ASSET_INFO    = Simple.isTablet() ? 20 : 18;
 
             ASSET_THUMBNAIL_ASPECT = 1.184f;
 

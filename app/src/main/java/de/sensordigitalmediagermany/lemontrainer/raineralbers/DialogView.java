@@ -35,7 +35,7 @@ public class DialogView extends RelativeLayout
     {
         final DialogView dialogView = new DialogView(rootView.getContext());
 
-        Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_ALERTS, true);
+        Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_ALERT_BACK, true);
 
         dialogView.setTitleText(titleres);
         dialogView.setInfoText(msgstr);
@@ -63,7 +63,7 @@ public class DialogView extends RelativeLayout
     {
         final DialogView dialogView = new DialogView(rootView.getContext());
 
-        Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_SENSOR_ALERTS, true);
+        Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_ALERT_BACK, true);
 
         dialogView.setTitleText(titleres);
         dialogView.setInfoText(msgstr);
@@ -88,6 +88,11 @@ public class DialogView extends RelativeLayout
         }
     }
 
+    protected static Typeface titleFont;
+    protected static Typeface infosFont;
+    protected static Typeface editsFont;
+    protected static Typeface buttonFont;
+
     protected RelativeLayout marginView;
     protected ImageView closeButton;
     protected LinearLayout padView;
@@ -104,6 +109,8 @@ public class DialogView extends RelativeLayout
     public DialogView(Context context)
     {
         super(context);
+
+        initFonts();
 
         ApplicationBase.hideActionBar(context);
 
@@ -186,9 +193,9 @@ public class DialogView extends RelativeLayout
         titleView = new TextView(context);
         titleView.setAllCaps(true);
         titleView.setVisibility(GONE);
-        titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
+        titleView.setTypeface(titleFont);
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);
-        titleView.setTextColor(Color.WHITE);
+        titleView.setTextColor(Defines.COLOR_DIALOG_TITLE);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
 
@@ -198,8 +205,8 @@ public class DialogView extends RelativeLayout
         infoView.setVisibility(GONE);
         infoView.setMinLines(2);
         infoView.setMaxEms(8);
-        infoView.setTextColor(Color.WHITE);
-        infoView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_LIGHT));
+        infoView.setTextColor(Defines.COLOR_DIALOG_INFOS);
+        infoView.setTypeface(infosFont);
         infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
@@ -224,7 +231,7 @@ public class DialogView extends RelativeLayout
         negativeButton.setAllCaps(true);
         negativeButton.setMinEms(6);
         negativeButton.setVisibility(GONE);
-        negativeButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
+        negativeButton.setTypeface(buttonFont);
         negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
         negativeButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(negativeButton, Simple.WC, Simple.WC, 0.5f);
@@ -261,7 +268,7 @@ public class DialogView extends RelativeLayout
         positiveButton.setAllCaps(true);
         positiveButton.setVisibility(GONE);
         positiveButton.setMinEms(6);
-        positiveButton.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
+        positiveButton.setTypeface(buttonFont);
         positiveButton.setGravity(Gravity.CENTER_HORIZONTAL);
         positiveButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(positiveButton, Simple.WC, Simple.WC, 0.5f);
@@ -292,6 +299,17 @@ public class DialogView extends RelativeLayout
         });
 
         buttonFrame.addView(positiveButton);
+    }
+
+    private void initFonts()
+    {
+        if (editsFont == null)
+        {
+            titleFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_TITLE);
+            infosFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_INFOS);
+            editsFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_EDITS);
+            buttonFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_BUTTON);
+        }
     }
 
     public void setTitleText(int resid)

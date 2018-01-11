@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Rect;
+import android.support.annotation.Nullable;
 
 @SuppressWarnings({"WeakerAccess"})
 public class Screens
@@ -203,5 +204,19 @@ public class Screens
                 ? new Rect(100, 22, 500, 82)
                 : new Rect(100, 22, 160, 82)
                 ;
+    }
+
+    @Nullable
+    public static Rect getContentScreenNavigationRect()
+    {
+        if (Defines.isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? new Rect(100, 39, 800, 99)
+                    : new Rect(100, 39, 280, 99)
+                    ;
+        }
+
+        return null;
     }
 }

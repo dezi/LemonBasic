@@ -23,9 +23,11 @@ public class ScaledButton extends RelativeLayout
         buttonText = new TextView(getContext());
         buttonText.setTextColor(Defines.COLOR_BUTTON_TEXT);
         buttonText.setGravity(Gravity.CENTER_VERTICAL);
-        buttonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.ROONEY_MEDIUM));
+        buttonText.setSingleLine(true);
+        buttonText.setAllCaps(Defines.isPierCardin);
+        buttonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SCALED_BUTTON));
         Simple.setSizeDip(buttonText, Simple.MP, Simple.MP);
-        Simple.setTextSizeDip(buttonText, Defines.FS_BUTTON_IMAGE);
+        Simple.setTextSizeDip(buttonText, Defines.FS_SCALED_BUTTON);
 
         addView(buttonText);
     }

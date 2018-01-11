@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +25,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected ScaledButton backButton;
     protected ImageView profileButtonImage;
     protected ScaledButton profileButton;
+    protected ScaledButton navigationButton;
     protected FrameLayout imageFrame;
     protected ImageView contentImage;
     protected ImageView typeIcon;
@@ -80,6 +82,10 @@ public class ContentBaseActivity extends FullScreenActivity
 
         headerFrame.addView(backButton);
 
+        //
+        // Profile.
+        //
+
         int pfresid = Screens.getContentScreenButtonProfileRes();
 
         profileButtonImage = new ImageView(this);
@@ -108,6 +114,22 @@ public class ContentBaseActivity extends FullScreenActivity
         }
 
         headerFrame.addView(profileButton);
+
+        //
+        // Non mandatory navigation.
+        //
+
+        Rect naviRect = Screens.getContentScreenNavigationRect();
+
+        if (naviRect != null)
+        {
+            navigationButton = new ScaledButton(this);
+            navigationButton.setContentHorz(headerImage, naviRect, hdresid);
+
+            navigationButton.setButtonText(Defines.PADDING_TINY, "Schniddelfuss | blabladsgdgs");
+
+            headerFrame.addView(navigationButton);
+        }
 
         //
         // Frame for image and image type icon.

@@ -128,7 +128,7 @@ public class MainActivity extends FullScreenActivity
         {
             String pwchanged = "pwchanged:" + Globals.accountId;
 
-            if (true || ! SettingsHandler.getSharedPrefBoolean(pwchanged))
+            if (! SettingsHandler.getSharedPrefBoolean(pwchanged))
             {
                 topFrame.addView(new PasswordChangeDialog(MainActivity.this, true));
             }

@@ -38,23 +38,20 @@ public class PasswordChangeDialog extends DialogView
         TextView titleView = new TextView(getContext());
         titleView.setText(forced ? R.string.password_change_title_forced : R.string.password_change_title);
         titleView.setAllCaps(true);
-        titleView.setTextColor(Color.WHITE);
-        titleView.setGravity(Gravity.CENTER_HORIZONTAL);
-        titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
+        titleView.setTextColor(Defines.COLOR_DIALOG_TITLE);
+        titleView.setGravity(Defines.isPierCardin ? Gravity.START : Gravity.CENTER_HORIZONTAL);
+        titleView.setTypeface(titleFont);
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
 
-        Simple.setPaddingDip(titleView,
-                Defines.PADDING_LARGE, Defines.PADDING_TINY,
-                Defines.PADDING_LARGE, Defines.PADDING_TINY
-                );
+        Simple.setPaddingDip(titleView, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
 
         dialogItems.addView(titleView);
 
         oldPassword = new EditText(getContext());
         oldPassword.setHint(getHint(R.string.password_change_hint_oldpassword));
         oldPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        oldPassword.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
+        oldPassword.setTypeface(editsFont);
         Simple.setTextSizeDip(oldPassword, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(oldPassword, Defines.PADDING_LARGE);
         Simple.setPaddingDip(oldPassword,Defines.PADDING_SMALL);
@@ -66,7 +63,7 @@ public class PasswordChangeDialog extends DialogView
         passWord1 = new EditText(getContext());
         passWord1.setHint(getHint(R.string.password_change_hint_newpassword));
         passWord1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        passWord1.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
+        passWord1.setTypeface(editsFont);
         Simple.setTextSizeDip(passWord1, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(passWord1, Defines.PADDING_LARGE);
         Simple.setPaddingDip(passWord1,Defines.PADDING_SMALL);
@@ -78,7 +75,7 @@ public class PasswordChangeDialog extends DialogView
         passWord2 = new EditText(getContext());
         passWord2.setHint(getHint(R.string.password_change_hint_newrepeat));
         passWord2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        passWord2.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
+        passWord2.setTypeface(editsFont);
         Simple.setTextSizeDip(passWord2, Defines.FS_DIALOG_EDIT);
         Simple.setMarginTopDip(passWord2, Defines.PADDING_LARGE);
         Simple.setPaddingDip(passWord2,Defines.PADDING_SMALL);
@@ -90,12 +87,12 @@ public class PasswordChangeDialog extends DialogView
         TextView requestButton = new TextView(getContext());
         requestButton.setText(getHint(R.string.password_change_request));
         requestButton.setTextColor(Color.WHITE);
-        requestButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
+        requestButton.setTypeface(buttonFont);
         requestButton.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(requestButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(requestButton, Defines.FS_DIALOG_BUTTON);
         Simple.setPaddingDip(requestButton, Defines.PADDING_SMALL);
-        Simple.setMarginTopDip(requestButton, Defines.PADDING_NORMAL);
+        Simple.setMarginTopDip(requestButton, Defines.PADDING_LARGE);
         Simple.setMarginBottomDip(requestButton, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(requestButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
 
