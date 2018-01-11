@@ -56,6 +56,24 @@ public class DetailActivity extends ContentBaseActivity
         String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
         int content_type = Json.getInt(Globals.displayContent, "content_type");
 
+        //
+        // Setup navigation path.
+        //
+
+        if (navigationButton != null)
+        {
+            String navipath = "";
+
+            if (Globals.category != null)
+            {
+                navipath = Globals.category + " | ";
+            }
+
+            navipath += contentTitle;
+
+            navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
+        }
+
         //region Image and type area.
 
         int imageWidth = topFrame.getLayoutParams().width;

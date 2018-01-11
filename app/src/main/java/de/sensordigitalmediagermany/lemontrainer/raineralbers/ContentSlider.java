@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Gravity;
 import android.widget.HorizontalScrollView;
@@ -30,6 +31,7 @@ public class ContentSlider extends LinearLayout
     private int xDirTouch;
     private int xLastTouch;
 
+    private String category;
     private JSONArray assets;
 
     public ContentSlider(Context context)
@@ -88,6 +90,18 @@ public class ContentSlider extends LinearLayout
         rightButton.setText(R.string.slider_more_button);
         Simple.setTextSizeDip(rightButton, Defines.FS_SLIDER_SHOWMORE);
 
+        rightButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Globals.category = category;
+                Globals.categoryContents = assets;
+
+                Simple.startActivity(getContext(), CategoryActivity.class);
+            }
+        });
+
         rightButtonBox.addView(rightButton);
 
         imageWidth = sliderWidth - ((Defines.ASSETS_NUM_COLUMNS - 1) * Defines.PADDING_NORMAL);
@@ -117,6 +131,7 @@ public class ContentSlider extends LinearLayout
 
     public void setAssets(String category, JSONArray assets)
     {
+        this.category = category;
         this.assets = assets;
 
         if ((assets == null) || (assets.length() == 0)) return;

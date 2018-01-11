@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
+@SuppressLint("Registered")
 public class ContentBaseActivity extends FullScreenActivity
 {
     private static final String LOGTAG = ContentBaseActivity.class.getSimpleName();
@@ -126,8 +128,6 @@ public class ContentBaseActivity extends FullScreenActivity
             navigationButton = new ScaledButton(this);
             navigationButton.setContentHorz(headerImage, naviRect, hdresid);
 
-            navigationButton.setButtonText(Defines.PADDING_TINY, "Schniddelfuss | blabladsgdgs");
-
             headerFrame.addView(navigationButton);
         }
 
@@ -175,7 +175,7 @@ public class ContentBaseActivity extends FullScreenActivity
 
         naviFrame = new LinearLayout(this);
         naviFrame.setOrientation(LinearLayout.HORIZONTAL);
-        naviFrame.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+        naviFrame.setBackgroundColor(Defines.COLOR_NAVIBAR);
 
         contentFrame.addView(naviFrame);
 

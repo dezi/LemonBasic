@@ -45,6 +45,9 @@ public class Globals
 
     public static JSONArray customerContents;
 
+    public static String category;
+    public static JSONArray categoryContents;
+
     public static JSONArray courseQuestions;
     public static String realAnswers[];
     public static boolean correctAnswers[];

@@ -75,13 +75,14 @@ public class Defines
     public static final int COLOR_SENSOR_BUTTONTEXT  = 0xfff5f5f5;
 
     public static final int COLOR_PCADIN_CONTENT     = 0xffffffff;
-    public static final int COLOR_PCADIN_BUTTONTEXT  = 0xffb4b4b4;
+    public static final int COLOR_PCADIN_GRAY        = 0xffb4b4b4;
     public static final int COLOR_PCADIN_DIALOGS     = 0xfff5f5f5;
 
     public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
 
+    public static       int COLOR_NAVIBAR      = COLOR_SENSOR_NAVIBAR;    // static!
     public static       int COLOR_CONTENT      = COLOR_SENSOR_CONTENT;    // static!
     public static       int COLOR_DIALOG_BACK  = COLOR_SENSOR_DIALOGS;    // static!
     public static       int COLOR_DIALOG_TITLE = Color.WHITE;             // static!
@@ -125,14 +126,15 @@ public class Defines
     //
 
     // @formatter:off
-    public static String FONT_DIALOG_TITLE  = GOTHAM_BOLD;          // static!
-    public static String FONT_DIALOG_INFOS  = GOTHAM_LIGHT;         // static!
-    public static String FONT_DIALOG_EDITS  = GOTHAM_LIGHT;         // static!
-    public static String FONT_DIALOG_BUTTON = GOTHAM_BOLD;          // static!
-    public static String FONT_ASSET_TITLE   = GOTHAM_BOLD;          // static!
-    public static String FONT_ASSET_SUMMARY = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SLIDER_ALL    = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SCALED_BUTTON = ROONEY_MEDIUM;        // static!
+    public static String FONT_DIALOG_TITLE   = GOTHAM_BOLD;          // static!
+    public static String FONT_DIALOG_INFOS   = GOTHAM_LIGHT;         // static!
+    public static String FONT_DIALOG_EDITS   = GOTHAM_LIGHT;         // static!
+    public static String FONT_DIALOG_BUTTON  = GOTHAM_BOLD;          // static!
+    public static String FONT_ASSET_TITLE    = GOTHAM_BOLD;          // static!
+    public static String FONT_ASSET_SUMMARY  = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SLIDER_ALL     = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SCALED_BUTTON  = ROONEY_MEDIUM;        // static!
+    public static String FONT_CATEGORY_TITLE = GOTHAM_BOLD;          // static!
     // @formatter:on
 
     //
@@ -147,6 +149,7 @@ public class Defines
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
+    public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 22;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
 
@@ -276,22 +279,24 @@ public class Defines
             CORNER_RADIUS_BUTTON = 0;
             CORNER_RADIUS_DIALOG = 0;
 
-            COLOR_CONTENT      = COLOR_PCADIN_CONTENT;
-            COLOR_DIALOG_BACK  = COLOR_PCADIN_DIALOGS;
-            COLOR_DIALOG_TITLE = Color.BLACK;
-            COLOR_DIALOG_INFOS = Color.BLACK;
-            COLOR_BUTTON_TEXT  = COLOR_PCADIN_BUTTONTEXT;
-            COLOR_BUTTON_BACK  = Color.BLACK;
-            COLOR_ALERT_BACK   = COLOR_PCADIN_DIALOGS;
+            COLOR_NAVIBAR        = COLOR_PCADIN_GRAY;
+            COLOR_CONTENT        = COLOR_PCADIN_CONTENT;
+            COLOR_DIALOG_BACK    = COLOR_PCADIN_DIALOGS;
+            COLOR_DIALOG_TITLE   = Color.BLACK;
+            COLOR_DIALOG_INFOS   = Color.BLACK;
+            COLOR_BUTTON_TEXT    = COLOR_PCADIN_GRAY;
+            COLOR_BUTTON_BACK    = Color.BLACK;
+            COLOR_ALERT_BACK     = COLOR_PCADIN_DIALOGS;
 
-            FONT_DIALOG_TITLE  = FUTURA_BOOK;
-            FONT_DIALOG_INFOS  = FUTURA_LIGHT_REG;
-            FONT_DIALOG_EDITS  = FUTURA_LIGHT_REG;
-            FONT_DIALOG_BUTTON = FUTURA_BOOK;
-            FONT_ASSET_TITLE   = FUTURA_LIGHT_REG;
-            FONT_ASSET_SUMMARY = FUTURA_LIGHT_REG;
-            FONT_SLIDER_ALL    = FUTURA_LIGHT_REG;
-            FONT_SCALED_BUTTON = FUTURA_LIGHT_REG;
+            FONT_DIALOG_TITLE    = FUTURA_BOOK;
+            FONT_DIALOG_INFOS    = FUTURA_LIGHT_REG;
+            FONT_DIALOG_EDITS    = FUTURA_LIGHT_REG;
+            FONT_DIALOG_BUTTON   = FUTURA_BOOK;
+            FONT_ASSET_TITLE     = FUTURA_LIGHT_REG;
+            FONT_ASSET_SUMMARY   = FUTURA_LIGHT_REG;
+            FONT_SLIDER_ALL      = FUTURA_LIGHT_REG;
+            FONT_SCALED_BUTTON   = FUTURA_LIGHT_REG;
+            FONT_CATEGORY_TITLE  = FUTURA_LIGHT_REG;
 
             FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
             FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;

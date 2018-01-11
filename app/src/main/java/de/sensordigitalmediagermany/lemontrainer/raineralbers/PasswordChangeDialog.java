@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 public class PasswordChangeDialog extends DialogView
 {
     private static final String LOGTAG = PasswordChangeDialog.class.getSimpleName();
@@ -18,6 +20,8 @@ public class PasswordChangeDialog extends DialogView
     protected EditText oldPassword;
     protected EditText passWord1;
     protected EditText passWord2;
+
+    protected boolean forced;
 
     public PasswordChangeDialog(Context context)
     {
@@ -27,6 +31,8 @@ public class PasswordChangeDialog extends DialogView
     public PasswordChangeDialog(Context context, final boolean forced)
     {
         super(context);
+
+        this.forced = forced;
 
         setCloseButton(! forced, null);
 
@@ -131,37 +137,68 @@ public class PasswordChangeDialog extends DialogView
                     return;
                 }
 
-                dismissDialog();
-
-                String pwchanged = "pwchanged:" + Globals.accountId;
-                SettingsHandler.setSharedPrefBoolean(pwchanged, true);
-
-                DialogView.errorAlert(topFrame,
-                        R.string.alert_not_implemented_title,
-                        R.string.alert_not_implemented_info,
-                        new OnClickListener()
-                        {
-                            @Override
-                            public void onClick(View view)
-                            {
-                                if (forced)
-                                {
-                                    ApplicationBase.handler.postDelayed(new Runnable()
-                                    {
-                                        @Override
-                                        public void run()
-                                        {
-                                            Simple.startActivityFinish(getContext(), ContentActivity.class);
-                                        }
-                                    }, 100);
-                                }
-                            }
-                        });
+                changePassword();
             }
         });
 
         dialogItems.addView(requestButton);
 
         setCustomView(dialogItems);
+    }
+
+    private void changePassword()
+    {
+        JSONObject params = new JSONObject();
+
+        Json.put(params, "accountId", Globals.accountId);
+        Json.put(params, "oldPassword", Globals.passWord);
+        Json.put(params, "newPassword", passWord1.getText().toString());
+        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        RestApi.getPostThreaded("checkForLogin", params, new RestApi.RestApiResultListener()
+        {
+            @Override
+            public void OnRestApiResult(String what, JSONObject params, JSONObject result)
+            {
+                if ((result != null) && Json.equals(result, "Status", "OK"))
+                {
+                    ViewGroup topframe = dismissDialog();
+
+                    Globals.passWord = passWord1.getText().toString();
+                    SettingsHandler.saveSettings();
+
+                    String pwchanged = "pwchanged:" + Globals.accountId;
+                    SettingsHandler.setSharedPrefBoolean(pwchanged, true);
+
+                    DialogView.errorAlert(topframe,
+                            R.string.alert_change_password_success_title,
+                            R.string.alert_change_password_success_info,
+                            new OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    if (forced)
+                                    {
+                                        ApplicationBase.handler.postDelayed(new Runnable()
+                                        {
+                                            @Override
+                                            public void run()
+                                            {
+                                                Simple.startActivityFinish(getContext(), ContentActivity.class);
+                                            }
+                                        }, 100);
+                                    }
+                                }
+                            });
+
+                    return;
+                }
+
+                DialogView.errorAlert((ViewGroup) getParent(),
+                        R.string.alert_change_password_fail_title,
+                        R.string.alert_change_password_fail_info);
+            }
+        });
     }
 }

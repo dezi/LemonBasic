@@ -72,12 +72,14 @@ public class Simple
 
     public static boolean isTablet()
     {
+        /*
         Log.d(LOGTAG, "isTablet: " + (Resources.getSystem().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK));
 
         Log.d(LOGTAG, "isTablet: " + ((Resources.getSystem().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE));
+        */
 
         return ((Resources.getSystem().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)

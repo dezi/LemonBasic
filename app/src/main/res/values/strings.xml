@@ -209,6 +209,12 @@
     <string name="alert_change_password_diff_title">Passwort falsch</string>
     <string name="alert_change_password_diff_info">Bitte geben Sie das Passwort erneut ein.</string>
 
+    <string name="alert_change_password_success_title">Passwort Ändern geändert</string>
+    <string name="alert_change_password_success_info">Das neue Passwort wurde gespeichert.</string>
+
+    <string name="alert_change_password_fail_title">Passwort Ändern fehlgeschlagen</string>
+    <string name="alert_change_password_fail_info">Das Passwort konnte nicht gespeichert werden.</string>
+
     <string name="alert_training_questions_title">Trainingsfragen</string>
     <string name="alert_training_questions_fail">Die Fragen können nicht geladen werden.</string>
 
