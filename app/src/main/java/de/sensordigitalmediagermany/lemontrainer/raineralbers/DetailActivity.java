@@ -34,8 +34,9 @@ public class DetailActivity extends ContentBaseActivity
         // Extend navigation frame to fill screen.
         //
 
+        assetGrid.setVisibility(View.GONE);
         naviFrame.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(naviFrame, Simple.MP, Simple.MP);
+        Simple.setSizeDip(naviFrame, Simple.MP, Simple.MP, 1.0f);
 
         Simple.setPaddingDip(naviFrame,
                 Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,

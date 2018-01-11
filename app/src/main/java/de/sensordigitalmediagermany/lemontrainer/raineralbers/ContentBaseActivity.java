@@ -39,6 +39,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected LinearLayout categoryContent;
     protected GridView assetGrid;
     protected AssetsAdapter assetsAdapter;
+    protected TabBar tabBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -194,7 +195,7 @@ public class ContentBaseActivity extends FullScreenActivity
         categoryScroll = new ScrollView(this);
         categoryScroll.setVisibility(View.GONE);
         Simple.setPaddingDip(categoryScroll, Defines.PADDING_SMALL);
-        Simple.setSizeDip(categoryScroll, Simple.MP, Simple.MP);
+        Simple.setSizeDip(categoryScroll, Simple.MP, Simple.MP, 1.0f);
 
         contentFrame.addView(categoryScroll);
 
@@ -217,12 +218,20 @@ public class ContentBaseActivity extends FullScreenActivity
         assetGrid.setHorizontalSpacing(Defines.PADDING_NORMAL);
         assetGrid.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setPaddingDip(assetGrid, Defines.PADDING_LARGE);
-        Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
+        Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP, 1.0f);
 
         contentFrame.addView(assetGrid);
 
         assetsAdapter = new AssetsAdapter();
         assetGrid.setAdapter(assetsAdapter);
+
+        //
+        // Tab bar.
+        //
+
+        tabBar = new TabBar(this);
+
+        contentFrame.addView(tabBar);
     }
 
     @Override
@@ -257,7 +266,6 @@ public class ContentBaseActivity extends FullScreenActivity
                     onBackPressed();
                 }
             });
-
         }
         else
         {

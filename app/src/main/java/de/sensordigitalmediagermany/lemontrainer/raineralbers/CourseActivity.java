@@ -38,6 +38,24 @@ public class CourseActivity extends ContentBaseActivity
         String courseHeader = Json.getString(Globals.displayContent, "description_header");
         String courseDescription = Json.getString(Globals.displayContent, "description");
 
+        //
+        // Setup navigation path.
+        //
+
+        if (navigationButton != null)
+        {
+            String navipath = "";
+
+            if (Globals.category != null)
+            {
+                navipath = Globals.category + " | ";
+            }
+
+            navipath += courseTitle;
+
+            navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
+        }
+
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
         ctView.setAllCaps(true);

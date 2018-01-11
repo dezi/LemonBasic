@@ -30,6 +30,7 @@ public class Defines
     public static final boolean isLoginButton   = isRainerAlbers;
     public static final boolean isSimpleLogin   = isPierCardin;
     public static final boolean isGiveAway      = isPierCardin || isRainerAlbers;
+    public static final boolean isTabBar        = isPierCardin;
     public static final boolean isTopBanner     = isPierCardin;
     public static final boolean isCategoryMenu  = isRainerAlbers;
     public static final boolean isRoundedAsset  = isRainerAlbers;
@@ -76,13 +77,14 @@ public class Defines
 
     public static final int COLOR_PCADIN_CONTENT     = 0xffffffff;
     public static final int COLOR_PCADIN_GRAY        = 0xffb4b4b4;
-    public static final int COLOR_PCADIN_DIALOGS     = 0xfff5f5f5;
+    public static final int COLOR_PCADIN_LTGRAY      = 0xfff5f5f5;
 
     public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
 
     public static       int COLOR_NAVIBAR      = COLOR_SENSOR_NAVIBAR;    // static!
+    public static       int COLOR_TABBAR       = COLOR_SENSOR_TABBAR;     // static!
     public static       int COLOR_CONTENT      = COLOR_SENSOR_CONTENT;    // static!
     public static       int COLOR_DIALOG_BACK  = COLOR_SENSOR_DIALOGS;    // static!
     public static       int COLOR_DIALOG_TITLE = Color.WHITE;             // static!
@@ -134,6 +136,7 @@ public class Defines
     public static String FONT_ASSET_SUMMARY  = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SLIDER_ALL     = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SCALED_BUTTON  = ROONEY_MEDIUM;        // static!
+    public static String FONT_TABBAR_ENTRY   = ROONEY_MEDIUM;        // static!
     public static String FONT_CATEGORY_TITLE = GOTHAM_BOLD;          // static!
     // @formatter:on
 
@@ -152,6 +155,8 @@ public class Defines
     public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 22;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
+
+    public static final int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
 
     public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 20 : 18;
     public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 13;
@@ -217,7 +222,7 @@ public class Defines
     public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
     public static final float ASSET_DETAIL_ASPECT    = 3.0f;
     public static final float ASSET_SETTINGS_ASPECT  = 2.5f;
-    public static final float ASSET_BANNER_ASPECT    = 3.0f;
+    public static final float ASSET_BANNER_ASPECT    = 3.2f;
     // @formatter:on
 
     //
@@ -250,7 +255,7 @@ public class Defines
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
-    public static final int PROFILE_IMAGE_SIZE  = Simple.isTablet() ? 100 :  90;
+    public static final int TABBAR_HEIGHT       = Simple.isTablet() ?  60 :  60;
     public static final int ASSET_IMAGE_SIZE    = Simple.isTablet() ? 100 :  90;
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 : 100;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
@@ -280,13 +285,14 @@ public class Defines
             CORNER_RADIUS_DIALOG = 0;
 
             COLOR_NAVIBAR        = COLOR_PCADIN_GRAY;
+            COLOR_TABBAR         = COLOR_PCADIN_LTGRAY;
             COLOR_CONTENT        = COLOR_PCADIN_CONTENT;
-            COLOR_DIALOG_BACK    = COLOR_PCADIN_DIALOGS;
+            COLOR_DIALOG_BACK    = COLOR_PCADIN_LTGRAY;
             COLOR_DIALOG_TITLE   = Color.BLACK;
             COLOR_DIALOG_INFOS   = Color.BLACK;
             COLOR_BUTTON_TEXT    = COLOR_PCADIN_GRAY;
             COLOR_BUTTON_BACK    = Color.BLACK;
-            COLOR_ALERT_BACK     = COLOR_PCADIN_DIALOGS;
+            COLOR_ALERT_BACK     = COLOR_PCADIN_LTGRAY;
 
             FONT_DIALOG_TITLE    = FUTURA_BOOK;
             FONT_DIALOG_INFOS    = FUTURA_LIGHT_REG;
@@ -296,6 +302,7 @@ public class Defines
             FONT_ASSET_SUMMARY   = FUTURA_LIGHT_REG;
             FONT_SLIDER_ALL      = FUTURA_LIGHT_REG;
             FONT_SCALED_BUTTON   = FUTURA_LIGHT_REG;
+            FONT_TABBAR_ENTRY    = FUTURA_LIGHT_REG;
             FONT_CATEGORY_TITLE  = FUTURA_LIGHT_REG;
 
             FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
@@ -304,7 +311,7 @@ public class Defines
             FS_ASSET_TITLE   = Simple.isTablet() ? 14 : 13;
             FS_ASSET_INFO    = Simple.isTablet() ? 20 : 18;
 
-            ASSET_THUMBNAIL_ASPECT = 1.184f;
+            ASSET_THUMBNAIL_ASPECT = 1.30f;
 
             // @formatter:on
         }

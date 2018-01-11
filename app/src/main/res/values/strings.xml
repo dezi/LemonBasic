@@ -19,6 +19,9 @@
     <string name="login_success">Login erfolgreich.</string>
     <string name="login_failed">Login nicht erfolgreich.</string>
 
+    <string name="tabbar_home">Home</string>
+    <string name="tabbar_profile">Profil</string>
+
     <string name="register_title">Registrieren Sie sich:</string>
     <string name="register_hint_email">E-Mail Adresse</string>
     <string name="register_hint_firstname">Vorname</string>
