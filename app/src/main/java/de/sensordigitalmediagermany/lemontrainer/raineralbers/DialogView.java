@@ -215,6 +215,13 @@ public class DialogView extends RelativeLayout
 
         padView.addView(infoView);
 
+        if (Defines.isPierCardin)
+        {
+            titleView.setGravity(Gravity.START);
+            infoView.setGravity(Gravity.START + Gravity.CENTER_VERTICAL);
+            infoView.setAllCaps(true);
+        }
+
         customView = new RelativeLayout(context);
         customView.setVisibility(GONE);
 
@@ -233,10 +240,19 @@ public class DialogView extends RelativeLayout
         negativeButton.setVisibility(GONE);
         negativeButton.setTypeface(buttonFont);
         negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        negativeButton.setTextColor(Color.WHITE);
         Simple.setSizeDip(negativeButton, Simple.WC, Simple.WC, 0.5f);
         Simple.setTextSizeDip(negativeButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+
+        if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
+        {
+            negativeButton.setTextColor(Color.BLACK);
+            Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
+        }
+        else
+        {
+            negativeButton.setTextColor(Color.WHITE);
+            Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+        }
 
         Simple.setPaddingDip(negativeButton,
                 Defines.PADDING_NORMAL, Defines.PADDING_SMALL,

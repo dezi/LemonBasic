@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class TabBarItem extends RelativeLayout
 {
+    private LinearLayout itemBox;
     private ImageView iconView;
     private TextView textView;
 
@@ -26,7 +27,7 @@ public class TabBarItem extends RelativeLayout
 
         Simple.setSizeDip(this, Simple.MP, dipheight, 1.0f);
 
-        LinearLayout itemBox = new LinearLayout(context);
+        itemBox = new LinearLayout(context);
         itemBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(itemBox, Simple.WC, Simple.MP);
 
@@ -49,6 +50,12 @@ public class TabBarItem extends RelativeLayout
         Simple.setTextSizeDip(textView, Defines.FS_TABBAR_ENTRY);
 
         itemBox.addView(textView);
+    }
+
+    @Override
+    public void setOnClickListener(OnClickListener onClickListener)
+    {
+        itemBox.setOnClickListener(onClickListener);
     }
 
     public void setContent(int iconresid, int textresid)

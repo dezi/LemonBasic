@@ -364,7 +364,7 @@ public class SettingsDetail extends LinearLayout
         {
             ViewGroup topframe = ((SettingsActivity) activity).topFrame;
 
-            DialogView.errorAlert(topframe, R.string.alert_settings_delete_title,
+            DialogView.errorAlert(topframe, R.string.alert_settings_delete_oktitle,
                     Simple.getTrans(getContext(), ok
                             ? R.string.alert_settings_delete_ok
                             : R.string.alert_settings_delete_fail));

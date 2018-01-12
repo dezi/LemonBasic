@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.LinearLayout;
 
 public class TabBar extends LinearLayout
@@ -19,10 +20,31 @@ public class TabBar extends LinearLayout
         TabBarItem homeTab = new TabBarItem(context, Defines.TABBAR_HEIGHT);
         homeTab.setContent(R.drawable.lem_t_iany_generic_tabbar_icon_home, R.string.tabbar_home);
 
+        homeTab.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (! (ApplicationBase.getCurrentActivity(getContext()) instanceof ContentActivity))
+                {
+                    Simple.startActivityTop(getContext(), ContentActivity.class);
+                }
+            }
+        });
+
         addView(homeTab);
 
         TabBarItem profileTab = new TabBarItem(context, Defines.TABBAR_HEIGHT);
         profileTab.setContent(R.drawable.lem_t_iany_generic_tabbar_icon_profile, R.string.tabbar_profile);
+
+        profileTab.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Simple.startActivity(getContext(), SettingsActivity.class);
+            }
+        });
 
         addView(profileTab);
     }
