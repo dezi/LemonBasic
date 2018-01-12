@@ -194,7 +194,6 @@ public class DialogView extends RelativeLayout
         titleView.setAllCaps(true);
         titleView.setVisibility(GONE);
         titleView.setTypeface(titleFont);
-        titleView.setGravity(Gravity.CENTER_HORIZONTAL);
         titleView.setTextColor(Defines.COLOR_DIALOG_TITLE);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
@@ -207,7 +206,6 @@ public class DialogView extends RelativeLayout
         infoView.setMaxEms(8);
         infoView.setTextColor(Defines.COLOR_DIALOG_INFOS);
         infoView.setTypeface(infosFont);
-        infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
         Simple.setMarginTopDip(infoView, Defines.PADDING_SMALL);
@@ -215,7 +213,13 @@ public class DialogView extends RelativeLayout
 
         padView.addView(infoView);
 
-        if (Defines.isPierCardin)
+        if (Defines.isDialogTextCenter)
+        {
+            titleView.setGravity(Gravity.CENTER_HORIZONTAL);
+            infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+            infoView.setAllCaps(false);
+        }
+        else
         {
             titleView.setGravity(Gravity.START);
             infoView.setGravity(Gravity.START + Gravity.CENTER_VERTICAL);

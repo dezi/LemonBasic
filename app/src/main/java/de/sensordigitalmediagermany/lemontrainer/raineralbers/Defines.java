@@ -20,8 +20,8 @@ public class Defines
     //
 
     // @formatter:off
-    public static final boolean isPierCardin   = true;
-    public static final boolean isRainerAlbers = false;
+    protected static final boolean isPierCardin   = true;
+    protected static final boolean isRainerAlbers = false;
     // @formatter:on
 
     //
@@ -43,6 +43,7 @@ public class Defines
     public static final boolean isCompanyAvailable = isRainerAlbers;
     public static final boolean isSectionDividers  = isPierCardin;
     public static final boolean isFlatEdits        = isPierCardin;
+    public static final boolean isDialogTextCenter = isRainerAlbers;
     // @formatter:on
 
     //
@@ -75,7 +76,6 @@ public class Defines
     public static final int COLOR_SENSOR_GREEN       = 0xff54b23b;
 
     public static final int COLOR_SENSOR_DIALOGS     = 0xcc3b4455;
-    public static final int COLOR_SENSOR_ALERTS      = 0xff3b4455;
     public static final int COLOR_SENSOR_NAVIBAR     = 0xffedf0f4;
     public static final int COLOR_SENSOR_CONTENT     = 0xffb6c4d2;
     public static final int COLOR_SENSOR_TABBAR      = 0xfff5f5f5;

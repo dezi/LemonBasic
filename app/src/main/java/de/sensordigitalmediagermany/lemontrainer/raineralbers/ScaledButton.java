@@ -24,7 +24,7 @@ public class ScaledButton extends RelativeLayout
         buttonText.setTextColor(Defines.COLOR_BUTTON_TEXT);
         buttonText.setGravity(Gravity.CENTER_VERTICAL);
         buttonText.setSingleLine(true);
-        buttonText.setAllCaps(Defines.isPierCardin);
+        buttonText.setAllCaps(Defines.isButtonAllCaps);
         buttonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SCALED_BUTTON));
         Simple.setSizeDip(buttonText, Simple.MP, Simple.MP);
         Simple.setTextSizeDip(buttonText, Defines.FS_SCALED_BUTTON);

@@ -171,7 +171,7 @@ public class AssetFrame extends LinearLayout
         titleView.setMinLines(1);
         titleView.setMaxLines(1);
         titleView.setEllipsize(TextUtils.TruncateAt.END);
-        titleView.setTextColor(Defines.isPierCardin ? Color.WHITE : Color.BLACK);
+        titleView.setTextColor(Defines.isOverlayAsset ? Color.WHITE : Color.BLACK);
         titleView.setTypeface(titleFont);
 
         Simple.setTextSizeDip(titleView, Defines.FS_ASSET_TITLE);
@@ -180,12 +180,12 @@ public class AssetFrame extends LinearLayout
 
         summaryView = new TextView(getContext());
         summaryView.setId(android.R.id.summary);
-        summaryView.setAllCaps(Defines.isPierCardin);
+        summaryView.setAllCaps(Defines.isInfosAllCaps);
         summaryView.setMinLines(2);
         summaryView.setMaxLines(2);
         summaryView.setEllipsize(TextUtils.TruncateAt.END);
         summaryView.setLineSpacing(0.0f, Defines.FS_ASSET_INFO_LSMULT);
-        summaryView.setTextColor(Defines.isPierCardin ? Color.WHITE : Color.BLACK);
+        summaryView.setTextColor(Defines.isOverlayAsset ? Color.WHITE : Color.BLACK);
         summaryView.setTypeface(summaryFont);
 
         Simple.setTextSizeDip(summaryView, Defines.FS_ASSET_INFO);

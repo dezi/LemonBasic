@@ -44,7 +44,7 @@ public class PasswordChangeDialog extends DialogView
         titleView.setText(forced ? R.string.password_change_title_forced : R.string.password_change_title);
         titleView.setAllCaps(true);
         titleView.setTextColor(Defines.COLOR_DIALOG_TITLE);
-        titleView.setGravity(Defines.isPierCardin ? Gravity.START : Gravity.CENTER_HORIZONTAL);
+        titleView.setGravity(Defines.isDialogTextCenter ? Gravity.CENTER_HORIZONTAL : Gravity.START);
         titleView.setTypeface(titleFont);
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
         Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
