@@ -45,11 +45,12 @@
     <string name="password_change_request">Passwort ändern</string>
 
     <string name="settings_title">Einstellungen</string>
+    <string name="settings_version">App-Version</string>
     <string name="settings_data">Persönliche Daten</string>
     <string name="settings_edit_image">Bearbeiten</string>
     <string name="settings_name">Name</string>
     <string name="settings_company">Unternehmen</string>
-    <string name="settings_email">Mailadresse</string>
+    <string name="settings_email">Mail</string>
     <string name="settings_password">Passwort</string>
     <string name="settings_change_password">Passwort ändern</string>
     <string name="settings_sound">Sound</string>
@@ -213,7 +214,7 @@
     <string name="alert_change_password_diff_title">Passwort falsch</string>
     <string name="alert_change_password_diff_info">Bitte geben Sie das Passwort erneut ein.</string>
 
-    <string name="alert_change_password_success_title">Passwort Ändern geändert</string>
+    <string name="alert_change_password_success_title">Passwort Ändern</string>
     <string name="alert_change_password_success_info">Das neue Passwort wurde gespeichert.</string>
 
     <string name="alert_change_password_fail_title">Passwort Ändern fehlgeschlagen</string>

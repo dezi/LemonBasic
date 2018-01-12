@@ -1,13 +1,21 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.graphics.Rect;
 
 @SuppressWarnings({"WeakerAccess"})
-public class Screens
+public class DefinesScreens extends Defines
 {
     public static int getCloseButtonRes()
     {
+        if (isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_iany_piercadin_kreuz
+                    : R.drawable.lem_t_iany_piercadin_kreuz
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_kreuz
                 : R.drawable.lem_t_iany_ralbers_kreuz
@@ -48,7 +56,7 @@ public class Screens
 
     public static int getMainScreenRes()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_startscreen
@@ -80,7 +88,7 @@ public class Screens
 
     public static int getContentScreenHeaderRes()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_menuoben
@@ -128,7 +136,7 @@ public class Screens
 
     public static int getContentScreenButtonBackOnRes()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_back_on
@@ -144,7 +152,7 @@ public class Screens
 
     public static int getContentScreenButtonBackOffRes()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_back_off
@@ -160,7 +168,7 @@ public class Screens
 
     public static Rect getContentScreenButtonBackRect()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? new Rect(30, 39, 90, 99)
@@ -176,7 +184,7 @@ public class Screens
 
     public static int getContentScreenButtonProfileRes()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_profile
@@ -192,7 +200,7 @@ public class Screens
 
     public static Rect getContentScreenButtonProfileRect()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? new Rect(1100, 39, 1500, 99)
@@ -209,7 +217,7 @@ public class Screens
     @Nullable
     public static Rect getContentScreenNavigationRect()
     {
-        if (Defines.isPierCardin)
+        if (isPierCardin)
         {
             return Simple.isTablet()
                     ? new Rect(100, 39, 800, 99)

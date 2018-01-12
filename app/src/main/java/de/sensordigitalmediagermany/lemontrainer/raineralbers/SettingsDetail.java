@@ -55,7 +55,7 @@ public class SettingsDetail extends LinearLayout
         addView(topArea);
 
         ImageView backButtonImage = new ImageView(getContext());
-        backButtonImage.setImageResource(Screens.getArrowDarkLeftOnRes());
+        backButtonImage.setImageResource(DefinesScreens.getArrowDarkLeftOnRes());
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(backButtonImage, Simple.WC, Simple.MP);
         Simple.setMarginRightDip(backButtonImage, Defines.PADDING_NORMAL);

@@ -1,7 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -62,7 +61,7 @@ public class ContentBaseActivity extends FullScreenActivity
 
         contentFrame.addView(headerFrame);
 
-        int hdresid = Screens.getContentScreenHeaderRes();
+        int hdresid = DefinesScreens.getContentScreenHeaderRes();
 
         headerImage = new ImageView(this);
         headerImage.setLayoutParams(Simple.getFittedHorzLayout(topFrame, hdresid));
@@ -71,17 +70,17 @@ public class ContentBaseActivity extends FullScreenActivity
 
         headerFrame.addView(headerImage);
 
-        int bbresid = Screens.getContentScreenButtonBackOffRes();
+        int bbresid = DefinesScreens.getContentScreenButtonBackOffRes();
 
         backButtonImage = new ImageView(this);
         backButtonImage.setImageResource(bbresid);
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        backButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, Screens.getContentScreenButtonBackRect(), hdresid));
+        backButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, DefinesScreens.getContentScreenButtonBackRect(), hdresid));
 
         headerFrame.addView(backButtonImage);
 
         backButton = new ScaledButton(this);
-        backButton.setContentHorz(headerImage, Screens.getContentScreenButtonBackRect(), hdresid);
+        backButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonBackRect(), hdresid);
 
         headerFrame.addView(backButton);
 
@@ -89,17 +88,17 @@ public class ContentBaseActivity extends FullScreenActivity
         // Profile.
         //
 
-        int pfresid = Screens.getContentScreenButtonProfileRes();
+        int pfresid = DefinesScreens.getContentScreenButtonProfileRes();
 
         profileButtonImage = new ImageView(this);
         profileButtonImage.setImageResource(pfresid);
         profileButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        profileButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, Screens.getContentScreenButtonProfileRect(), hdresid));
+        profileButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid));
 
         headerFrame.addView(profileButtonImage);
 
         profileButton = new ScaledButton(this);
-        profileButton.setContentHorz(headerImage, Screens.getContentScreenButtonProfileRect(), hdresid);
+        profileButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid);
 
         if (Globals.accountId > 0)
         {
@@ -122,7 +121,7 @@ public class ContentBaseActivity extends FullScreenActivity
         // Non mandatory navigation.
         //
 
-        Rect naviRect = Screens.getContentScreenNavigationRect();
+        Rect naviRect = DefinesScreens.getContentScreenNavigationRect();
 
         if (naviRect != null)
         {
@@ -256,7 +255,7 @@ public class ContentBaseActivity extends FullScreenActivity
     {
         if (enable)
         {
-            backButtonImage.setImageResource(Screens.getContentScreenButtonBackOnRes());
+            backButtonImage.setImageResource(DefinesScreens.getContentScreenButtonBackOnRes());
 
             backButton.setOnButtonClicked(new Runnable()
             {
@@ -269,7 +268,7 @@ public class ContentBaseActivity extends FullScreenActivity
         }
         else
         {
-            backButtonImage.setImageResource(Screens.getContentScreenButtonBackOffRes());
+            backButtonImage.setImageResource(DefinesScreens.getContentScreenButtonBackOffRes());
 
             backButton.setOnButtonClicked(null);
         }

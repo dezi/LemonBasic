@@ -3,13 +3,8 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.sax.RootElement;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -44,7 +39,7 @@ public class BuyConfirmedDialog extends DialogView
         dialogItems.addView(imageFrame);
 
         ImageView confirmedIcon = new ImageView(getContext());
-        confirmedIcon.setImageResource(Screens.getConfirmedIconRes());
+        confirmedIcon.setImageResource(DefinesScreens.getConfirmedIconRes());
         confirmedIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(confirmedIcon, Simple.WC, Defines.CONFIRMED_ICON_SIZE);
 

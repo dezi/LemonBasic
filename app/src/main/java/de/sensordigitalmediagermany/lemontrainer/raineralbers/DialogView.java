@@ -157,7 +157,7 @@ public class DialogView extends RelativeLayout
 
         closeButton = new ImageView(context);
         closeButton.setVisibility(GONE);
-        closeButton.setImageResource(Screens.getCloseButtonRes());
+        closeButton.setImageResource(DefinesScreens.getCloseButtonRes());
         closeButton.setScaleType(ImageView.ScaleType.FIT_END);
         Simple.setSizeDip(closeButton, Simple.MP, Defines.CLOSE_ICON_SIZE + (Defines.PADDING_MEDIUM * 2));
         Simple.setPaddingDip(closeButton, Defines.PADDING_MEDIUM);

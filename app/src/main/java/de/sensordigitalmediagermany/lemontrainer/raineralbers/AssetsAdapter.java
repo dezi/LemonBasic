@@ -117,7 +117,7 @@ public class AssetsAdapter extends BaseAdapter
 
             courseView = new ImageView(parent.getContext());
             courseView.setId(android.R.id.icon);
-            courseView.setImageResource(Screens.getCourseMarkerRes());
+            courseView.setImageResource(DefinesScreens.getCourseMarkerRes());
             courseView.setScaleType(ImageView.ScaleType.FIT_CENTER);
             Simple.setSizeDip(courseView, Simple.WC, Simple.pxToDip(imageHeight) * 2 / 3);
 

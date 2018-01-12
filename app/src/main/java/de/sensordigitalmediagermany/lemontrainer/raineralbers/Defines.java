@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "09.11.2017 11:00 (0.95)";
+    public static final String DEBUG_VERSION = "1.0 (1) 12.01.2018 11:00 ";
 
     public static final String TRAINER_NAME = "RAINERALBERS";
 
@@ -19,24 +19,30 @@ public class Defines
     // Client specific defines.
     //
 
-    public static final boolean isPierCardin = true;
+    // @formatter:off
+    public static final boolean isPierCardin   = true;
     public static final boolean isRainerAlbers = false;
+    // @formatter:on
 
     //
     // Client specific styles and variants.
     //
 
     // @formatter:off
-    public static final boolean isLoginButton   = isRainerAlbers;
-    public static final boolean isSimpleLogin   = isPierCardin;
-    public static final boolean isGiveAway      = isPierCardin || isRainerAlbers;
-    public static final boolean isTabBar        = isPierCardin;
-    public static final boolean isTopBanner     = isPierCardin;
-    public static final boolean isCategoryMenu  = isRainerAlbers;
-    public static final boolean isRoundedAsset  = isRainerAlbers;
-    public static final boolean isOverlayAsset  = isPierCardin;
-    public static final boolean isHintsAllCaps  = isPierCardin;
-    public static final boolean isButtonAllCaps = isPierCardin;
+    public static final boolean isLoginButton      = isRainerAlbers;
+    public static final boolean isSimpleLogin      = isPierCardin;
+    public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
+    public static final boolean isTabBar           = isPierCardin;
+    public static final boolean isTopBanner        = isPierCardin;
+    public static final boolean isCategoryMenu     = isRainerAlbers;
+    public static final boolean isRoundedAsset     = isRainerAlbers;
+    public static final boolean isOverlayAsset     = isPierCardin;
+    public static final boolean isHintsAllCaps     = isPierCardin;
+    public static final boolean isButtonAllCaps    = isPierCardin;
+    public static final boolean isInfosAllCaps     = isPierCardin;
+    public static final boolean isCompanyAvailable = isRainerAlbers;
+    public static final boolean isSectionDividers  = isPierCardin;
+    public static final boolean isFlatEdits        = isPierCardin;
     // @formatter:on
 
     //
@@ -86,13 +92,13 @@ public class Defines
     public static       int COLOR_NAVIBAR      = COLOR_SENSOR_NAVIBAR;    // static!
     public static       int COLOR_TABBAR       = COLOR_SENSOR_TABBAR;     // static!
     public static       int COLOR_CONTENT      = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_FRAMES       = COLOR_SENSOR_CONTENT;    // static!
     public static       int COLOR_DIALOG_BACK  = COLOR_SENSOR_DIALOGS;    // static!
     public static       int COLOR_DIALOG_TITLE = Color.WHITE;             // static!
     public static       int COLOR_DIALOG_INFOS = Color.WHITE;             // static!
     public static       int COLOR_BUTTON_TEXT  = COLOR_SENSOR_BUTTONTEXT; // static!
     public static       int COLOR_BUTTON_BACK  = COLOR_SENSOR_LTBLUE;     // static!
     public static       int COLOR_ALERT_BACK   = COLOR_SENSOR_DIALOGS;    // static!
-
     // @formatter:on
 
     //
@@ -128,16 +134,20 @@ public class Defines
     //
 
     // @formatter:off
-    public static String FONT_DIALOG_TITLE   = GOTHAM_BOLD;          // static!
-    public static String FONT_DIALOG_INFOS   = GOTHAM_LIGHT;         // static!
-    public static String FONT_DIALOG_EDITS   = GOTHAM_LIGHT;         // static!
-    public static String FONT_DIALOG_BUTTON  = GOTHAM_BOLD;          // static!
-    public static String FONT_ASSET_TITLE    = GOTHAM_BOLD;          // static!
-    public static String FONT_ASSET_SUMMARY  = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SLIDER_ALL     = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SCALED_BUTTON  = ROONEY_MEDIUM;        // static!
-    public static String FONT_TABBAR_ENTRY   = ROONEY_MEDIUM;        // static!
-    public static String FONT_CATEGORY_TITLE = GOTHAM_BOLD;          // static!
+    public static String FONT_DIALOG_TITLE     = GOTHAM_BOLD;          // static!
+    public static String FONT_DIALOG_INFOS     = GOTHAM_LIGHT;         // static!
+    public static String FONT_DIALOG_EDITS     = GOTHAM_LIGHT;         // static!
+    public static String FONT_DIALOG_BUTTON    = GOTHAM_BOLD;          // static!
+    public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // static!
+    public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SLIDER_ALL       = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SCALED_BUTTON    = ROONEY_MEDIUM;        // static!
+    public static String FONT_TABBAR_ENTRY     = ROONEY_MEDIUM;        // static!
+    public static String FONT_CATEGORY_TITLE   = GOTHAM_BOLD;          // static!
+    public static String FONT_SETTINGS_HEADER  = GOTHAM_BOLD;          // static!
+    public static String FONT_SETTINGS_SUBHEAD = GOTHAM_MEDIUM;        // static!
+    public static String FONT_SETTINGS_INFOS   = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SETTINGS_VERSION = GOTHAMNARROW_LIGHT;   // static!
     // @formatter:on
 
     //
@@ -154,7 +164,7 @@ public class Defines
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
     public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 22;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
-    public static final int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12;
+    public static       int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12; // static!
 
     public static final int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
 
@@ -284,32 +294,38 @@ public class Defines
             CORNER_RADIUS_BUTTON = 0;
             CORNER_RADIUS_DIALOG = 0;
 
-            COLOR_NAVIBAR        = COLOR_PCADIN_GRAY;
-            COLOR_TABBAR         = COLOR_PCADIN_LTGRAY;
-            COLOR_CONTENT        = COLOR_PCADIN_CONTENT;
-            COLOR_DIALOG_BACK    = COLOR_PCADIN_LTGRAY;
-            COLOR_DIALOG_TITLE   = Color.BLACK;
-            COLOR_DIALOG_INFOS   = Color.BLACK;
-            COLOR_BUTTON_TEXT    = COLOR_PCADIN_GRAY;
-            COLOR_BUTTON_BACK    = Color.BLACK;
-            COLOR_ALERT_BACK     = COLOR_PCADIN_LTGRAY;
+            COLOR_NAVIBAR         = COLOR_PCADIN_GRAY;
+            COLOR_TABBAR          = COLOR_PCADIN_LTGRAY;
+            COLOR_CONTENT         = COLOR_PCADIN_CONTENT;
+            COLOR_FRAMES          = COLOR_PCADIN_LTGRAY;
+            COLOR_DIALOG_BACK     = COLOR_PCADIN_LTGRAY;
+            COLOR_DIALOG_TITLE    = Color.BLACK;
+            COLOR_DIALOG_INFOS    = Color.BLACK;
+            COLOR_BUTTON_TEXT     = COLOR_PCADIN_GRAY;
+            COLOR_BUTTON_BACK     = Color.BLACK;
+            COLOR_ALERT_BACK      = COLOR_PCADIN_LTGRAY;
 
-            FONT_DIALOG_TITLE    = FUTURA_BOOK;
-            FONT_DIALOG_INFOS    = FUTURA_LIGHT_REG;
-            FONT_DIALOG_EDITS    = FUTURA_LIGHT_REG;
-            FONT_DIALOG_BUTTON   = FUTURA_BOOK;
-            FONT_ASSET_TITLE     = FUTURA_LIGHT_REG;
-            FONT_ASSET_SUMMARY   = FUTURA_LIGHT_REG;
-            FONT_SLIDER_ALL      = FUTURA_LIGHT_REG;
-            FONT_SCALED_BUTTON   = FUTURA_LIGHT_REG;
-            FONT_TABBAR_ENTRY    = FUTURA_LIGHT_REG;
-            FONT_CATEGORY_TITLE  = FUTURA_LIGHT_REG;
+            FONT_DIALOG_TITLE     = FUTURA_BOOK;
+            FONT_DIALOG_INFOS     = FUTURA_LIGHT_REG;
+            FONT_DIALOG_EDITS     = FUTURA_LIGHT_REG;
+            FONT_DIALOG_BUTTON    = FUTURA_BOOK;
+            FONT_ASSET_TITLE      = FUTURA_LIGHT_REG;
+            FONT_ASSET_SUMMARY    = FUTURA_LIGHT_REG;
+            FONT_SLIDER_ALL       = FUTURA_LIGHT_REG;
+            FONT_SCALED_BUTTON    = FUTURA_LIGHT_REG;
+            FONT_TABBAR_ENTRY     = FUTURA_LIGHT_REG;
+            FONT_CATEGORY_TITLE   = FUTURA_LIGHT_REG;
+            FONT_SETTINGS_HEADER  = FUTURA_BOOK;
+            FONT_SETTINGS_SUBHEAD = FUTURA_BOOK;
+            FONT_SETTINGS_INFOS   = FUTURA_LIGHT_REG;
+            FONT_SETTINGS_VERSION = FUTURA_LIGHT_REG;
 
             FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
             FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;
             FS_SCALED_BUTTON = Simple.isTablet() ? 14 : 13;
             FS_ASSET_TITLE   = Simple.isTablet() ? 14 : 13;
             FS_ASSET_INFO    = Simple.isTablet() ? 20 : 18;
+            FS_DEBUG_VERSION = Simple.isTablet() ? 10 :  0;
 
             ASSET_THUMBNAIL_ASPECT = 1.30f;
 

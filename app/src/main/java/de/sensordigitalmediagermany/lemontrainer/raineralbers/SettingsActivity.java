@@ -3,9 +3,9 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.text.InputType;
 import android.view.ViewGroup;
@@ -34,40 +34,50 @@ public class SettingsActivity extends ContentBaseActivity
 
         setBackButton(true);
 
+        Typeface headerTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_HEADER);
+        Typeface subheadTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_SUBHEAD);
+        Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_INFOS);
+        Typeface versionTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_VERSION);
+        Typeface buttonsTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DIALOG_BUTTON);
+
         //
-        // Remove asset grid for re-arrangement.
+        // Remove asset grid and tab bar for re-arrangement.
         //
 
         ((ViewGroup) assetGrid.getParent()).removeView(assetGrid);
+        ((ViewGroup) tabBar.getParent()).removeView(tabBar);
 
         //region Navigation title.
 
-        naviFrame.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(naviFrame, Simple.MP, Defines.NAVIGATION_HEIGHT);
+        if (! Defines.isTabBar)
+        {
+            naviFrame.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(naviFrame, Simple.MP, Defines.NAVIGATION_HEIGHT);
 
-        TextView naviLeftButton = new TextView(this);
-        naviLeftButton.setText(R.string.settings_title);
-        naviLeftButton.setAllCaps(true);
-        naviLeftButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        naviLeftButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
-        naviLeftButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
-        Simple.setTextSizeDip(naviLeftButton, Defines.FS_NAVI_MENU);
-        Simple.setSizeDip(naviLeftButton, Simple.MP, Simple.MP, 0.5f);
-        Simple.setPaddingDip(naviLeftButton, Defines.PADDING_LARGE, 0, 0, 0);
+            TextView naviLeftButton = new TextView(this);
+            naviLeftButton.setText(R.string.settings_title);
+            naviLeftButton.setAllCaps(true);
+            naviLeftButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
+            naviLeftButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            naviLeftButton.setTypeface(headerTF);
+            Simple.setTextSizeDip(naviLeftButton, Defines.FS_NAVI_MENU);
+            Simple.setSizeDip(naviLeftButton, Simple.MP, Simple.MP, 0.5f);
+            Simple.setPaddingDip(naviLeftButton, Defines.PADDING_LARGE, 0, 0, 0);
 
-        naviFrame.addView(naviLeftButton);
+            naviFrame.addView(naviLeftButton);
 
-        TextView naviRightButton = new TextView(this);
-        naviRightButton.setText(Defines.DEBUG_VERSION);
-        naviRightButton.setAllCaps(true);
-        naviRightButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-        naviRightButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
-        naviRightButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
-        Simple.setTextSizeDip(naviRightButton, Defines.FS_DEBUG_VERSION);
-        Simple.setSizeDip(naviRightButton, Simple.MP, Simple.MP, 0.5f);
-        Simple.setPaddingDip(naviRightButton, 0, 0, Defines.PADDING_LARGE, 0);
+            TextView naviRightButton = new TextView(this);
+            naviRightButton.setText(Defines.DEBUG_VERSION);
+            naviRightButton.setAllCaps(true);
+            naviRightButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+            naviRightButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            naviRightButton.setTypeface(versionTF);
+            Simple.setTextSizeDip(naviRightButton, Defines.FS_DEBUG_VERSION);
+            Simple.setSizeDip(naviRightButton, Simple.MP, Simple.MP, 0.5f);
+            Simple.setPaddingDip(naviRightButton, 0, 0, Defines.PADDING_LARGE, 0);
 
-        naviFrame.addView(naviRightButton);
+            naviFrame.addView(naviRightButton);
+        }
 
         //endregion Navigation title.
 
@@ -75,7 +85,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         bodyHorz = new LinearLayout(this);
         bodyHorz.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(bodyHorz, Simple.MP, Simple.MP);
+        Simple.setSizeDip(bodyHorz, Simple.MP, Simple.MP, 1.0f);
 
         contentFrame.addView(bodyHorz);
 
@@ -83,19 +93,21 @@ public class SettingsActivity extends ContentBaseActivity
 
         LinearLayout leftArea = new LinearLayout(this);
         leftArea.setOrientation(LinearLayout.VERTICAL);
-        leftArea.setBackgroundColor(Defines.COLOR_CONTENT);
+        leftArea.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setSizeDip(leftArea, Simple.MP, Simple.MP, 0.6f);
+        Simple.setPaddingDip(leftArea, Defines.PADDING_NORMAL);
 
-        Simple.setPaddingDip(leftArea,
+        Simple.setMarginDip(leftArea,
                 Defines.PADDING_LARGE, Defines.PADDING_SMALL,
-                Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+                Defines.PADDING_LARGE / 2, Defines.PADDING_LARGE);
+
 
         bodyHorz.addView(leftArea);
 
         //region Left top area.
 
         LinearLayout leftTopArea = new LinearLayout(this);
-        leftTopArea.setOrientation(LinearLayout.HORIZONTAL);
+        leftTopArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(leftTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
 
         leftArea.addView(leftTopArea);
@@ -105,13 +117,29 @@ public class SettingsActivity extends ContentBaseActivity
         settingsTitle.setSingleLine();
         settingsTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
         settingsTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
-        settingsTitle.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        settingsTitle.setTypeface(headerTF);
         settingsTitle.setAllCaps(true);
         Simple.setTextSizeDip(settingsTitle, Defines.FS_SETTINGS_TITLE);
         Simple.setSizeDip(settingsTitle, Simple.MP, Simple.MP);
         Simple.setLetterSpacing(settingsTitle, Defines.FS_NAVIGATION_LSPACE);
 
         leftTopArea.addView(settingsTitle);
+
+        if (Defines.isTabBar)
+        {
+            String version = Simple.getTrans(this, R.string.settings_version) + " " + Defines.DEBUG_VERSION;
+
+            TextView systemVersion = new TextView(this);
+            systemVersion.setText(version);
+            systemVersion.setAllCaps(true);
+            systemVersion.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+            systemVersion.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            systemVersion.setTypeface(versionTF);
+            Simple.setTextSizeDip(systemVersion, Defines.FS_DEBUG_VERSION);
+            Simple.setSizeDip(systemVersion, Simple.WC, Simple.WC);
+
+            leftArea.addView(systemVersion);
+        }
 
         //endregion Left top area.
 
@@ -140,7 +168,7 @@ public class SettingsActivity extends ContentBaseActivity
         profileEditButton.setText(R.string.settings_edit_image);
         profileEditButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.BOTTOM);
         profileEditButton.setTextColor(Color.WHITE);
-        profileEditButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        profileEditButton.setTypeface(buttonsTF);
         Simple.setSizeDip(profileEditButton, Simple.MP, Simple.MP);
         Simple.setTextSizeDip(profileEditButton, Defines.FS_SETTINGS_UPLOAD);
         Simple.setPaddingDip(profileEditButton, Defines.PADDING_SMALL);
@@ -152,11 +180,21 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left personal data.
 
+        if (Defines.isSectionDividers)
+        {
+            FrameLayout divider = new FrameLayout(this);
+            divider.setBackgroundColor(Color.BLACK);
+            Simple.setSizeDip(divider, Simple.MP, 1);
+            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+            leftArea.addView(divider);
+        }
+
         TextView nameSection = new TextView(this);
         nameSection.setText(R.string.settings_name);
         nameSection.setAllCaps(true);
         nameSection.setTextColor(Color.BLACK);
-        nameSection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        nameSection.setTypeface(headerTF);
         Simple.setSizeDip(nameSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(nameSection, Defines.PADDING_TINY);
         Simple.setTextSizeDip(nameSection, Defines.FS_SETTINGS_INFO);
@@ -166,49 +204,78 @@ public class SettingsActivity extends ContentBaseActivity
 
         String userName = Globals.firstName + " " + Globals.lastName;
 
-        EditText nameEdit = new EditText(this);
+        TextView nameEdit = new TextView(this);
         nameEdit.setText(userName);
-        nameEdit.setFocusable(false);
-        nameEdit.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        nameEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
-        nameEdit.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        nameEdit.setAllCaps(Defines.isInfosAllCaps);
+        nameEdit.setTypeface(infosTF);
         Simple.setTextSizeDip(nameEdit, Defines.FS_SETTINGS_EDIT);
         Simple.setSizeDip(nameEdit, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(nameEdit, Defines.PADDING_TINY);
-        Simple.setPaddingDip(nameEdit,Defines.PADDING_SMALL);
+
+        if (! Defines.isFlatEdits)
+        {
+            nameEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+            Simple.setPaddingDip(nameEdit,Defines.PADDING_SMALL);
+        }
 
         leftArea.addView(nameEdit);
 
-        TextView companySection = new TextView(this);
-        companySection.setText(R.string.settings_company);
-        companySection.setAllCaps(true);
-        companySection.setTextColor(Color.BLACK);
-        companySection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setSizeDip(companySection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(companySection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(companySection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(companySection, Defines.FS_NAVIGATION_LSPACE);
+        if (Defines.isCompanyAvailable)
+        {
+            if (Defines.isSectionDividers)
+            {
+                FrameLayout divider = new FrameLayout(this);
+                divider.setBackgroundColor(Color.BLACK);
+                Simple.setSizeDip(divider, Simple.MP, 1);
+                Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+                Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+                leftArea.addView(divider);
+            }
 
-        leftArea.addView(companySection);
+            TextView companySection = new TextView(this);
+            companySection.setText(R.string.settings_company);
+            companySection.setAllCaps(true);
+            companySection.setTextColor(Color.BLACK);
+            companySection.setTypeface(headerTF);
+            Simple.setSizeDip(companySection, Simple.MP, Simple.WC);
+            Simple.setMarginTopDip(companySection, Defines.PADDING_SMALL);
+            Simple.setTextSizeDip(companySection, Defines.FS_SETTINGS_INFO);
+            Simple.setLetterSpacing(companySection, Defines.FS_NAVIGATION_LSPACE);
 
-        EditText companyEdit = new EditText(this);
-        companyEdit.setText(Globals.company);
-        companyEdit.setFocusable(false);
-        companyEdit.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        companyEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
-        companyEdit.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
-        Simple.setTextSizeDip(companyEdit, Defines.FS_SETTINGS_EDIT);
-        Simple.setSizeDip(companyEdit, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(companyEdit, Defines.PADDING_TINY);
-        Simple.setPaddingDip(companyEdit,Defines.PADDING_SMALL);
+            leftArea.addView(companySection);
 
-        leftArea.addView(companyEdit);
+            TextView companyEdit = new TextView(this);
+            companyEdit.setText(Globals.company);
+            companyEdit.setAllCaps(Defines.isInfosAllCaps);
+            companyEdit.setTypeface(infosTF);
+            Simple.setTextSizeDip(companyEdit, Defines.FS_SETTINGS_EDIT);
+            Simple.setSizeDip(companyEdit, Simple.MP, Simple.WC);
+            Simple.setMarginTopDip(companyEdit, Defines.PADDING_TINY);
+
+            if (! Defines.isFlatEdits)
+            {
+                companyEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+                Simple.setPaddingDip(companyEdit, Defines.PADDING_SMALL);
+            }
+
+            leftArea.addView(companyEdit);
+        }
+
+        if (Defines.isSectionDividers)
+        {
+            FrameLayout divider = new FrameLayout(this);
+            divider.setBackgroundColor(Color.BLACK);
+            Simple.setSizeDip(divider, Simple.MP, 1);
+            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+            leftArea.addView(divider);
+        }
 
         TextView emailSection = new TextView(this);
         emailSection.setText(R.string.settings_email);
         emailSection.setAllCaps(true);
         emailSection.setTextColor(Color.BLACK);
-        emailSection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        emailSection.setTypeface(headerTF);
         Simple.setSizeDip(emailSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(emailSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(emailSection, Defines.FS_SETTINGS_INFO);
@@ -216,24 +283,38 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(emailSection);
 
-        EditText emailEdit = new EditText(this);
+        TextView emailEdit = new TextView(this);
         emailEdit.setText(Globals.emailAddress);
-        emailEdit.setFocusable(false);
-        emailEdit.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        emailEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
-        emailEdit.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        emailEdit.setAllCaps(Defines.isInfosAllCaps);
+        emailEdit.setTypeface(infosTF);
         Simple.setTextSizeDip(emailEdit, Defines.FS_SETTINGS_EDIT);
         Simple.setSizeDip(emailEdit, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(emailEdit, Defines.PADDING_TINY);
-        Simple.setPaddingDip(emailEdit,Defines.PADDING_SMALL);
+
+        if (! Defines.isFlatEdits)
+        {
+            emailEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+            Simple.setPaddingDip(emailEdit,Defines.PADDING_SMALL);
+        }
 
         leftArea.addView(emailEdit);
 
+        if (Defines.isSectionDividers)
+        {
+            FrameLayout divider = new FrameLayout(this);
+            divider.setBackgroundColor(Color.BLACK);
+            Simple.setSizeDip(divider, Simple.MP, 1);
+            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+            leftArea.addView(divider);
+        }
+
+        /*
         TextView passwordSection = new TextView(this);
         passwordSection.setText(R.string.settings_password);
         passwordSection.setAllCaps(true);
         passwordSection.setTextColor(Color.BLACK);
-        passwordSection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        passwordSection.setTypeface(headersTF);
         Simple.setSizeDip(passwordSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(passwordSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(passwordSection, Defines.FS_SETTINGS_INFO);
@@ -254,7 +335,7 @@ public class SettingsActivity extends ContentBaseActivity
         passwordEdit.setFocusable(false);
         passwordEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passwordEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
-        passwordEdit.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAMNARROW_LIGHT));
+        passwordEdit.setTypeface(infosTF);
         Simple.setTextSizeDip(passwordEdit, Defines.FS_SETTINGS_EDIT);
         Simple.setSizeDip(passwordEdit, Simple.WC, Simple.WC, 1.0f);
         Simple.setPaddingDip(passwordEdit,Defines.PADDING_SMALL);
@@ -264,7 +345,7 @@ public class SettingsActivity extends ContentBaseActivity
         TextView changePasswordButton = new TextView(this);
         changePasswordButton.setText(R.string.settings_change_password);
         changePasswordButton.setTextColor(Color.WHITE);
-        changePasswordButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        changePasswordButton.setTypeface(buttonsTF);
         changePasswordButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setSizeDip(changePasswordButton, Simple.WC, Simple.MP);
         Simple.setMarginDip(changePasswordButton, Defines.MARGIN_BUTTON);
@@ -282,7 +363,7 @@ public class SettingsActivity extends ContentBaseActivity
                 topFrame.addView(new PasswordChangeDialog(SettingsActivity.this));
             }
         });
-
+        */
 
         //endregion Left personal data.
 
@@ -293,7 +374,7 @@ public class SettingsActivity extends ContentBaseActivity
         soundSection.setText(R.string.settings_sound);
         soundSection.setAllCaps(true);
         soundSection.setTextColor(Color.BLACK);
-        soundSection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        soundSection.setTypeface(headersTF);
         Simple.setSizeDip(soundSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(soundSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(soundSection, Defines.FS_SETTINGS_INFO);
@@ -313,7 +394,7 @@ public class SettingsActivity extends ContentBaseActivity
         onoffText.setText(R.string.settings_sound_button);
         onoffText.setAllCaps(true);
         onoffText.setTextColor(Color.BLACK);
-        onoffText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        onoffText.setTypeface(headersTF);
         Simple.setSizeDip(onoffText, Simple.MP, Simple.WC, 1.0f);
         Simple.setTextSizeDip(onoffText, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSPACE);
@@ -355,7 +436,7 @@ public class SettingsActivity extends ContentBaseActivity
         volumeText.setText(R.string.settings_sound_volume);
         volumeText.setAllCaps(true);
         volumeText.setTextColor(Color.BLACK);
-        volumeText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        volumeText.setTypeface(headersTF);
         Simple.setSizeDip(volumeText, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(volumeText, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(volumeText, Defines.FS_NAVIGATION_LSPACE);
@@ -381,7 +462,8 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left logoff button.
 
-        RelativeLayout logoffArea = new RelativeLayout(this);
+        LinearLayout logoffArea = new LinearLayout(this);
+        logoffArea.setOrientation(LinearLayout.VERTICAL);
         logoffArea.setGravity(Gravity.BOTTOM);
         Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
         Simple.setMarginTopDip(logoffArea, Defines.PADDING_SMALL);
@@ -391,12 +473,24 @@ public class SettingsActivity extends ContentBaseActivity
         TextView logoffButton = new TextView(this);
         logoffButton.setText(R.string.settings_logoff);
         logoffButton.setTextColor(Color.WHITE);
-        logoffButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        logoffButton.setTypeface(buttonsTF);
         logoffButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+        logoffButton.setAllCaps(Defines.isButtonAllCaps);
         Simple.setSizeDip(logoffButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(logoffButton, Defines.FS_SETTINGS_BUTTON);
         Simple.setPaddingDip(logoffButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
-        Simple.setRoundedCorners(logoffButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
+        Simple.setMarginTopDip(logoffButton, Defines.PADDING_LARGE);
+
+        if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
+        {
+            logoffButton.setTextColor(Color.BLACK);
+            Simple.setRoundedCorners(logoffButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
+        }
+        else
+        {
+            logoffButton.setTextColor(Color.WHITE);
+            Simple.setRoundedCorners(logoffButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+        }
 
         logoffButton.setOnClickListener(new View.OnClickListener()
         {
@@ -411,6 +505,29 @@ public class SettingsActivity extends ContentBaseActivity
 
         logoffArea.addView(logoffButton);
 
+        TextView passwordButton = new TextView(this);
+        passwordButton.setText(R.string.settings_change_password);
+        passwordButton.setTextColor(Color.WHITE);
+        passwordButton.setTypeface(buttonsTF);
+        passwordButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+        passwordButton.setAllCaps(Defines.isButtonAllCaps);
+        Simple.setSizeDip(passwordButton, Simple.MP, Simple.WC);
+        Simple.setTextSizeDip(passwordButton, Defines.FS_SETTINGS_BUTTON);
+        Simple.setPaddingDip(passwordButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
+        Simple.setRoundedCorners(passwordButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+        Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
+
+        passwordButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                topFrame.addView(new PasswordChangeDialog(SettingsActivity.this));
+            }
+        });
+
+        logoffArea.addView(passwordButton);
+
         //endregion Left logoff button.
 
         //endregion Left area.
@@ -419,11 +536,12 @@ public class SettingsActivity extends ContentBaseActivity
 
         rightArea = new LinearLayout(this);
         rightArea.setOrientation(LinearLayout.VERTICAL);
-        rightArea.setBackgroundColor(Defines.COLOR_CONTENT);
+        rightArea.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.4f);
+        Simple.setPaddingDip(rightArea, Defines.PADDING_NORMAL);
 
-        Simple.setPaddingDip(rightArea,
-                Defines.PADDING_LARGE, Defines.PADDING_SMALL,
+        Simple.setMarginDip(rightArea,
+                Defines.PADDING_LARGE / 2, Defines.PADDING_SMALL,
                 Defines.PADDING_LARGE, Defines.PADDING_LARGE);
 
         bodyHorz.addView(rightArea);
@@ -441,7 +559,7 @@ public class SettingsActivity extends ContentBaseActivity
         contentTitle.setSingleLine();
         contentTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
         contentTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
-        contentTitle.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        contentTitle.setTypeface(headerTF);
         contentTitle.setAllCaps(true);
         Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
         Simple.setSizeDip(contentTitle, Simple.MP, Simple.MP, 0.58f);
@@ -465,7 +583,7 @@ public class SettingsActivity extends ContentBaseActivity
         contentSizeText.setSingleLine();
         contentSizeText.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
         contentSizeText.setTextColor(Color.WHITE);
-        contentSizeText.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        contentSizeText.setTypeface(headerTF);
         Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(contentSizeText, Defines.FS_SETTINGS_TITLE);
 
@@ -475,7 +593,7 @@ public class SettingsActivity extends ContentBaseActivity
         contentSizeMB.setSingleLine();
         contentSizeMB.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
         contentSizeMB.setTextColor(Color.WHITE);
-        contentSizeMB.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        contentSizeMB.setTypeface(headerTF);
         Simple.setSizeDip(contentSizeMB, Simple.MP, Simple.WC, 1.0f);
         Simple.setTextSizeDip(contentSizeMB, Defines.FS_SETTINGS_TITLE);
 
@@ -489,7 +607,7 @@ public class SettingsActivity extends ContentBaseActivity
         contentSection.setText(R.string.settings_your_contents);
         contentSection.setAllCaps(true);
         contentSection.setTextColor(Color.BLACK);
-        contentSection.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        contentSection.setTypeface(subheadTF);
         Simple.setSizeDip(contentSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(contentSection, Defines.PADDING_SMALL);
         Simple.setMarginBottomDip(contentSection, Defines.PADDING_SMALL);
@@ -518,6 +636,12 @@ public class SettingsActivity extends ContentBaseActivity
         assetsAdapter.setSettings(true);
         assetsAdapter.setAssets(actContent);
         assetsAdapter.setOnAssetClickedHandler(onAssetClickedHandler);
+
+        //
+        // Add tab bar again.
+        //
+
+        contentFrame.addView(tabBar);
 
         updateContent();
     }

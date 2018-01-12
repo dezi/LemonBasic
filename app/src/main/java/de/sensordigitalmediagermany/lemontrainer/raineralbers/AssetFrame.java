@@ -80,7 +80,7 @@ public class AssetFrame extends LinearLayout
 
         courseView = new ImageView(getContext());
         courseView.setId(android.R.id.icon);
-        courseView.setImageResource(Screens.getCourseMarkerRes());
+        courseView.setImageResource(DefinesScreens.getCourseMarkerRes());
         courseView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(courseView, Simple.WC, Defines.COURSE_ICON_SIZE);
 
@@ -111,7 +111,7 @@ public class AssetFrame extends LinearLayout
 
         loadedView = new ImageView(getContext());
         loadedView.setId(android.R.id.icon2);
-        loadedView.setImageResource(Screens.getReadMarkerRes());
+        loadedView.setImageResource(DefinesScreens.getReadMarkerRes());
         loadedView.setScaleType(ImageView.ScaleType.FIT_END);
         Simple.setSizeDip(loadedView, Simple.MP, Defines.READ_ICON_SIZE + (Defines.PADDING_SMALL * 2));
         Simple.setPaddingDip(loadedView, Defines.PADDING_SMALL);

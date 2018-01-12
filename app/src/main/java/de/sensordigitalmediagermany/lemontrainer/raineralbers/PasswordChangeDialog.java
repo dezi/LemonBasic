@@ -2,7 +2,6 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;

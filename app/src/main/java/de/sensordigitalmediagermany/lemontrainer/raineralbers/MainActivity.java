@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.os.Bundle;
 
-import org.json.JSONObject;
-
 public class MainActivity extends FullScreenActivity
 {
     private static final String LOGTAG = MainActivity.class.getSimpleName();
@@ -29,13 +27,13 @@ public class MainActivity extends FullScreenActivity
 
         topFrame.addView(splashScreen);
 
-        if (Screens.getSplashScreenRes() < 0)
+        if (DefinesScreens.getSplashScreenRes() < 0)
         {
             showMainScreen.run();
         }
         else
         {
-            splashScreen.setImageResource(Screens.getSplashScreenRes());
+            splashScreen.setImageResource(DefinesScreens.getSplashScreenRes());
 
             ApplicationBase.handler.postDelayed(showMainScreen, 2000);
         }
@@ -78,14 +76,14 @@ public class MainActivity extends FullScreenActivity
         @Override
         public void run()
         {
-            int msresid = Screens.getMainScreenRes();
+            int msresid = DefinesScreens.getMainScreenRes();
 
             splashScreen.setImageResource(msresid);
 
             if (Defines.isLoginButton)
             {
                 ScaledButton loginButton = new ScaledButton(topFrame.getContext());
-                loginButton.setContent(topFrame, Screens.getMainScreenButtonRegisterRect(), msresid);
+                loginButton.setContent(topFrame, DefinesScreens.getMainScreenButtonRegisterRect(), msresid);
 
                 loginButton.setOnButtonClicked(new Runnable()
                 {
@@ -99,7 +97,7 @@ public class MainActivity extends FullScreenActivity
                 topFrame.addView(loginButton);
 
                 ScaledButton contentButton = new ScaledButton(topFrame.getContext());
-                contentButton.setContent(topFrame, Screens.getMainScreenButtonContentRect(), msresid);
+                contentButton.setContent(topFrame, DefinesScreens.getMainScreenButtonContentRect(), msresid);
 
                 contentButton.setOnButtonClicked(new Runnable()
                 {
