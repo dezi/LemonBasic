@@ -68,11 +68,18 @@ public class AssetsAdapter extends BaseAdapter
                 ;
     }
 
+    private static Typeface settingsFont;
+
     private View getViewSettings(int position, View convertView, ViewGroup parent)
     {
         final GridView gridView = (GridView) parent;
 
-        int imageWidth = Simple.dipToPx(Defines.ASSET_IMAGE_SIZE);
+        if (settingsFont == null)
+        {
+            settingsFont = Typeface.createFromAsset(parent.getContext().getAssets(), Defines.FONT_SETTINGS_LIST);
+        }
+
+        int imageWidth = Simple.dipToPx(Defines.SETTINGS_IMAGE_SIZE);
         int imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 
         Log.d(LOGTAG, "getView: imageWidth=" + imageWidth + " imageHeight=" + +imageHeight);
@@ -82,6 +89,7 @@ public class AssetsAdapter extends BaseAdapter
         TextView titleView;
         TextView summaryView;
         ImageView courseView;
+        TextView moreView;
 
         if (convertView != null)
         {
@@ -91,6 +99,7 @@ public class AssetsAdapter extends BaseAdapter
             titleView = (TextView) convertView.findViewById(android.R.id.title);
             summaryView = (TextView) convertView.findViewById(android.R.id.summary);
             courseView = (ImageView) convertView.findViewById(android.R.id.icon);
+            moreView = (TextView) convertView.findViewById(android.R.id.custom);
         }
         else
         {
@@ -133,9 +142,10 @@ public class AssetsAdapter extends BaseAdapter
             titleView.setId(android.R.id.title);
             titleView.setSingleLine();
             titleView.setEllipsize(TextUtils.TruncateAt.END);
+            titleView.setAllCaps(Defines.isInfosAllCaps);
             titleView.setGravity(Gravity.CENTER_VERTICAL);
             titleView.setTextColor(Color.BLACK);
-            titleView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            titleView.setTypeface(settingsFont);
             Simple.setTextSizeDip(titleView, Defines.FS_SETTINGS_LIST);
             Simple.setSizeDip(titleView, Simple.MP, Simple.MP, 1.0f);
             Simple.setMarginLeftDip(titleView, Defines.PADDING_SMALL);
@@ -145,21 +155,21 @@ public class AssetsAdapter extends BaseAdapter
             summaryView = new TextView(parent.getContext());
             summaryView.setId(android.R.id.summary);
             summaryView.setSingleLine();
+            summaryView.setAllCaps(Defines.isInfosAllCaps);
             summaryView.setGravity(Gravity.CENTER_VERTICAL);
-            summaryView.setTextColor(Color.BLACK);
-            summaryView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            summaryView.setTypeface(settingsFont);
             Simple.setTextSizeDip(summaryView, Defines.FS_SETTINGS_LIST);
             Simple.setSizeDip(summaryView, Simple.WC, Simple.MP);
             Simple.setMarginLeftDip(summaryView, Defines.PADDING_SMALL);
 
             textBox.addView(summaryView);
 
-            TextView moreView = new TextView(parent.getContext());
+            moreView = new TextView(parent.getContext());
+            moreView.setId(android.R.id.custom);
             moreView.setText(">");
             moreView.setSingleLine();
             moreView.setGravity(Gravity.CENTER_VERTICAL);
-            moreView.setTextColor(Color.BLACK);
-            moreView.setTypeface(Typeface.createFromAsset(parent.getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
+            moreView.setTypeface(settingsFont);
             Simple.setTextSizeDip(moreView, Defines.FS_SETTINGS_MORE);
             Simple.setSizeDip(moreView, Simple.WC, Simple.MP);
             Simple.setMarginLeftDip(moreView, Defines.PADDING_SMALL);
@@ -173,7 +183,10 @@ public class AssetsAdapter extends BaseAdapter
         String title = Json.getString(asset, "title");
         String subtitle = Json.getString(asset, "sub_title");
         String thumburl = Json.getString(asset, "thumbnail_url");
-        String displayTitle = title + " | " + subtitle;
+
+        String displayTitle = subtitle;
+
+        if (! Defines.isSectionDividers) displayTitle = title + " | " + displayTitle;
 
         long file_size = Json.getLong(asset, "file_size");
         long mbytes = file_size / (1000 * 1024);
@@ -181,7 +194,31 @@ public class AssetsAdapter extends BaseAdapter
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
         boolean isSelected = Json.getBoolean(asset, "_isSelected");
 
-        assetFrame.setBackgroundColor(isSelected ? Defines.COLOR_SENSOR_LTBLUE : Defines.COLOR_SENSOR_NAVIBAR);
+        if (isSelected)
+        {
+            if (Defines.COLOR_SETTINGS_LIST_SEL == Color.BLACK)
+            {
+                titleView.setTextColor(Color.WHITE);
+                summaryView.setTextColor(Color.WHITE);
+                moreView.setTextColor(Color.WHITE);
+            }
+            else
+            {
+                titleView.setTextColor(Color.BLACK);
+                summaryView.setTextColor(Color.BLACK);
+                moreView.setTextColor(Color.BLACK);
+            }
+
+            assetFrame.setBackgroundColor(Defines.COLOR_SETTINGS_LIST_SEL);
+        }
+        else
+        {
+            titleView.setTextColor(Color.BLACK);
+            summaryView.setTextColor(Color.BLACK);
+            moreView.setTextColor(Color.BLACK);
+
+            assetFrame.setBackgroundColor(Defines.COLOR_SETTINGS_LIST);
+        }
 
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
@@ -193,7 +230,7 @@ public class AssetsAdapter extends BaseAdapter
         titleView.setText(displayTitle);
 
         summaryView.setText(Simple.getTrans(parent.getContext(),
-                R.string.detail_specs_size_mb,
+                R.string.settings_list_size_mb,
                 (mbytes < 1) ? "< 1" : Simple.formatDecimal(mbytes)));
 
         if (isCourse)

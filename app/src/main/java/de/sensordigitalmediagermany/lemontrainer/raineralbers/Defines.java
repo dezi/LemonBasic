@@ -89,16 +89,19 @@ public class Defines
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
 
-    public static       int COLOR_NAVIBAR      = COLOR_SENSOR_NAVIBAR;    // static!
-    public static       int COLOR_TABBAR       = COLOR_SENSOR_TABBAR;     // static!
-    public static       int COLOR_CONTENT      = COLOR_SENSOR_CONTENT;    // static!
-    public static       int COLOR_FRAMES       = COLOR_SENSOR_CONTENT;    // static!
-    public static       int COLOR_DIALOG_BACK  = COLOR_SENSOR_DIALOGS;    // static!
-    public static       int COLOR_DIALOG_TITLE = Color.WHITE;             // static!
-    public static       int COLOR_DIALOG_INFOS = Color.WHITE;             // static!
-    public static       int COLOR_BUTTON_TEXT  = COLOR_SENSOR_BUTTONTEXT; // static!
-    public static       int COLOR_BUTTON_BACK  = COLOR_SENSOR_LTBLUE;     // static!
-    public static       int COLOR_ALERT_BACK   = COLOR_SENSOR_DIALOGS;    // static!
+    public static       int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // static!
+    public static       int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // static!
+    public static       int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_FRAMES            = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // static!
+    public static       int COLOR_DIALOG_TITLE      = Color.WHITE;             // static!
+    public static       int COLOR_DIALOG_INFOS      = Color.WHITE;             // static!
+    public static       int COLOR_BUTTON_TEXT       = COLOR_SENSOR_BUTTONTEXT; // static!
+    public static       int COLOR_BUTTON_BACK       = COLOR_SENSOR_LTBLUE;     // static!
+    public static       int COLOR_ALERT_BACK        = COLOR_SENSOR_DIALOGS;    // static!
+    public static       int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // static!
+    public static       int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // static!
+    public static       int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // static!
     // @formatter:on
 
     //
@@ -148,6 +151,8 @@ public class Defines
     public static String FONT_SETTINGS_SUBHEAD = GOTHAM_MEDIUM;        // static!
     public static String FONT_SETTINGS_INFOS   = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SETTINGS_VERSION = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SETTINGS_ASSETS  = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_SETTINGS_LIST    = GOTHAMNARROW_LIGHT;   // static!
     // @formatter:on
 
     //
@@ -197,8 +202,8 @@ public class Defines
     public static final int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14;
     public static final int FS_SETTINGS_EDIT      = Simple.isTablet() ? 20 : 18;
     public static final int FS_SETTINGS_BUTTON    = Simple.isTablet() ? 14 : 12;
-    public static final int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20;
-    public static final int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28;
+    public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // static!
+    public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // static!
 
     public static final int FS_TRAINING_TITLE     = Simple.isTablet() ? 46 : 40;
     public static final int FS_TRAINING_INFO      = Simple.isTablet() ? 20 : 18;
@@ -266,7 +271,7 @@ public class Defines
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
     public static final int TABBAR_HEIGHT       = Simple.isTablet() ?  60 :  60;
-    public static final int ASSET_IMAGE_SIZE    = Simple.isTablet() ? 100 :  90;
+    public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // static!
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 : 100;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
@@ -294,40 +299,49 @@ public class Defines
             CORNER_RADIUS_BUTTON = 0;
             CORNER_RADIUS_DIALOG = 0;
 
-            COLOR_NAVIBAR         = COLOR_PCADIN_GRAY;
-            COLOR_TABBAR          = COLOR_PCADIN_LTGRAY;
-            COLOR_CONTENT         = COLOR_PCADIN_CONTENT;
-            COLOR_FRAMES          = COLOR_PCADIN_LTGRAY;
-            COLOR_DIALOG_BACK     = COLOR_PCADIN_LTGRAY;
-            COLOR_DIALOG_TITLE    = Color.BLACK;
-            COLOR_DIALOG_INFOS    = Color.BLACK;
-            COLOR_BUTTON_TEXT     = COLOR_PCADIN_GRAY;
-            COLOR_BUTTON_BACK     = Color.BLACK;
-            COLOR_ALERT_BACK      = COLOR_PCADIN_LTGRAY;
+            COLOR_NAVIBAR           = COLOR_PCADIN_GRAY;
+            COLOR_TABBAR            = COLOR_PCADIN_LTGRAY;
+            COLOR_CONTENT           = COLOR_PCADIN_CONTENT;
+            COLOR_FRAMES            = COLOR_PCADIN_LTGRAY;
+            COLOR_DIALOG_BACK       = COLOR_PCADIN_LTGRAY;
+            COLOR_DIALOG_TITLE      = Color.BLACK;
+            COLOR_DIALOG_INFOS      = Color.BLACK;
+            COLOR_BUTTON_TEXT       = COLOR_PCADIN_GRAY;
+            COLOR_BUTTON_BACK       = Color.BLACK;
+            COLOR_ALERT_BACK        = COLOR_PCADIN_LTGRAY;
+            COLOR_SETTINGS_HEADERS  = Color.BLACK;
+            COLOR_SETTINGS_LIST     = Color.WHITE;
+            COLOR_SETTINGS_LIST_SEL = Color.BLACK;
 
-            FONT_DIALOG_TITLE     = FUTURA_BOOK;
-            FONT_DIALOG_INFOS     = FUTURA_LIGHT_REG;
-            FONT_DIALOG_EDITS     = FUTURA_LIGHT_REG;
-            FONT_DIALOG_BUTTON    = FUTURA_BOOK;
-            FONT_ASSET_TITLE      = FUTURA_LIGHT_REG;
-            FONT_ASSET_SUMMARY    = FUTURA_LIGHT_REG;
-            FONT_SLIDER_ALL       = FUTURA_LIGHT_REG;
-            FONT_SCALED_BUTTON    = FUTURA_LIGHT_REG;
-            FONT_TABBAR_ENTRY     = FUTURA_LIGHT_REG;
-            FONT_CATEGORY_TITLE   = FUTURA_LIGHT_REG;
-            FONT_SETTINGS_HEADER  = FUTURA_BOOK;
-            FONT_SETTINGS_SUBHEAD = FUTURA_BOOK;
-            FONT_SETTINGS_INFOS   = FUTURA_LIGHT_REG;
-            FONT_SETTINGS_VERSION = FUTURA_LIGHT_REG;
+            FONT_DIALOG_TITLE       = FUTURA_BOOK;
+            FONT_DIALOG_INFOS       = FUTURA_LIGHT_REG;
+            FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
+            FONT_DIALOG_BUTTON      = FUTURA_BOOK;
+            FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;
+            FONT_ASSET_SUMMARY      = FUTURA_LIGHT_REG;
+            FONT_SLIDER_ALL         = FUTURA_LIGHT_REG;
+            FONT_SCALED_BUTTON      = FUTURA_LIGHT_REG;
+            FONT_TABBAR_ENTRY       = FUTURA_LIGHT_REG;
+            FONT_CATEGORY_TITLE     = FUTURA_LIGHT_REG;
+            FONT_SETTINGS_HEADER    = FUTURA_BOOK;
+            FONT_SETTINGS_SUBHEAD   = FUTURA_BOOK;
+            FONT_SETTINGS_INFOS     = FUTURA_LIGHT_REG;
+            FONT_SETTINGS_VERSION   = FUTURA_LIGHT_REG;
+            FONT_SETTINGS_ASSETS    = FUTURA_LIGHT_REG;
+            FONT_SETTINGS_LIST      = FUTURA_BOOK;
 
-            FS_BANNER_TITLE  = Simple.isTablet() ? 20 : 18;
-            FS_BANNER_INFO   = Simple.isTablet() ? 26 : 22;
-            FS_SCALED_BUTTON = Simple.isTablet() ? 14 : 13;
-            FS_ASSET_TITLE   = Simple.isTablet() ? 14 : 13;
-            FS_ASSET_INFO    = Simple.isTablet() ? 20 : 18;
-            FS_DEBUG_VERSION = Simple.isTablet() ? 10 :  0;
+            FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 18;
+            FS_BANNER_INFO          = Simple.isTablet() ? 26 : 22;
+            FS_SCALED_BUTTON        = Simple.isTablet() ? 14 : 13;
+            FS_ASSET_TITLE          = Simple.isTablet() ? 14 : 13;
+            FS_ASSET_INFO           = Simple.isTablet() ? 20 : 18;
+            FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  0;
+            FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
+            FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;
 
-            ASSET_THUMBNAIL_ASPECT = 1.30f;
+            SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
+
+            ASSET_THUMBNAIL_ASPECT  = 1.30f;
 
             // @formatter:on
         }

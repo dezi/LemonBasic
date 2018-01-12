@@ -75,6 +75,7 @@
 
     <string name="settings_specs_size">Daten</string>
     <string name="settings_specs_size_mb">%1$s MB Daten</string>
+    <string name="settings_list_size_mb">%1$s MB</string>
 
     <string name="settings_specs_seen">Gesehen</string>
     <string name="settings_specs_seen_date">Komplett gesehen am %1$s</string>

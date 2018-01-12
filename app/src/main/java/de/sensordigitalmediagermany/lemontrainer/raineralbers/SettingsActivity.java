@@ -2,15 +2,13 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.text.InputType;
+import android.widget.GridView;
 import android.view.ViewGroup;
-import android.view.View;
 import android.view.Gravity;
+import android.view.View;
 import android.os.Bundle;
 
 import org.json.JSONArray;
@@ -58,7 +56,7 @@ public class SettingsActivity extends ContentBaseActivity
             naviLeftButton.setText(R.string.settings_title);
             naviLeftButton.setAllCaps(true);
             naviLeftButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-            naviLeftButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            naviLeftButton.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
             naviLeftButton.setTypeface(headerTF);
             Simple.setTextSizeDip(naviLeftButton, Defines.FS_NAVI_MENU);
             Simple.setSizeDip(naviLeftButton, Simple.MP, Simple.MP, 0.5f);
@@ -70,7 +68,7 @@ public class SettingsActivity extends ContentBaseActivity
             naviRightButton.setText(Defines.DEBUG_VERSION);
             naviRightButton.setAllCaps(true);
             naviRightButton.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-            naviRightButton.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            naviRightButton.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
             naviRightButton.setTypeface(versionTF);
             Simple.setTextSizeDip(naviRightButton, Defines.FS_DEBUG_VERSION);
             Simple.setSizeDip(naviRightButton, Simple.MP, Simple.MP, 0.5f);
@@ -109,6 +107,7 @@ public class SettingsActivity extends ContentBaseActivity
         LinearLayout leftTopArea = new LinearLayout(this);
         leftTopArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(leftTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
+        Simple.setMarginTopDip(leftTopArea, Defines.PADDING_SMALL);
 
         leftArea.addView(leftTopArea);
 
@@ -116,11 +115,11 @@ public class SettingsActivity extends ContentBaseActivity
         settingsTitle.setText(R.string.settings_data);
         settingsTitle.setSingleLine();
         settingsTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        settingsTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+        settingsTitle.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
         settingsTitle.setTypeface(headerTF);
         settingsTitle.setAllCaps(true);
         Simple.setTextSizeDip(settingsTitle, Defines.FS_SETTINGS_TITLE);
-        Simple.setSizeDip(settingsTitle, Simple.MP, Simple.MP);
+        Simple.setSizeDip(settingsTitle, Simple.MP, Simple.WC);
         Simple.setLetterSpacing(settingsTitle, Defines.FS_NAVIGATION_LSPACE);
 
         leftTopArea.addView(settingsTitle);
@@ -133,12 +132,13 @@ public class SettingsActivity extends ContentBaseActivity
             systemVersion.setText(version);
             systemVersion.setAllCaps(true);
             systemVersion.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-            systemVersion.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            systemVersion.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
             systemVersion.setTypeface(versionTF);
             Simple.setTextSizeDip(systemVersion, Defines.FS_DEBUG_VERSION);
             Simple.setSizeDip(systemVersion, Simple.WC, Simple.WC);
+            Simple.setMarginTopDip(systemVersion, Defines.PADDING_NORMAL);
 
-            leftArea.addView(systemVersion);
+            leftTopArea.addView(systemVersion);
         }
 
         //endregion Left top area.
@@ -214,7 +214,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (! Defines.isFlatEdits)
         {
-            nameEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+            nameEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
             Simple.setPaddingDip(nameEdit,Defines.PADDING_SMALL);
         }
 
@@ -254,7 +254,7 @@ public class SettingsActivity extends ContentBaseActivity
 
             if (! Defines.isFlatEdits)
             {
-                companyEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+                companyEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
                 Simple.setPaddingDip(companyEdit, Defines.PADDING_SMALL);
             }
 
@@ -293,7 +293,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (! Defines.isFlatEdits)
         {
-            emailEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+            emailEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
             Simple.setPaddingDip(emailEdit,Defines.PADDING_SMALL);
         }
 
@@ -324,7 +324,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         LinearLayout passwordArea = new LinearLayout(this);
         passwordArea.setOrientation(LinearLayout.HORIZONTAL);
-        passwordArea.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+        passwordArea.setBackgroundColor(Defines.COLOR_NAVIBAR);
         Simple.setSizeDip(passwordArea, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(passwordArea, Defines.PADDING_TINY);
 
@@ -334,7 +334,7 @@ public class SettingsActivity extends ContentBaseActivity
         passwordEdit.setText("????????");
         passwordEdit.setFocusable(false);
         passwordEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        passwordEdit.setBackgroundColor(Defines.COLOR_SENSOR_NAVIBAR);
+        passwordEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
         passwordEdit.setTypeface(infosTF);
         Simple.setTextSizeDip(passwordEdit, Defines.FS_SETTINGS_EDIT);
         Simple.setSizeDip(passwordEdit, Simple.WC, Simple.WC, 1.0f);
@@ -551,6 +551,7 @@ public class SettingsActivity extends ContentBaseActivity
         LinearLayout rightTopArea = new LinearLayout(this);
         rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(rightTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
+        Simple.setMarginTopDip(rightTopArea, Defines.PADDING_SMALL);
 
         rightArea.addView(rightTopArea);
 
@@ -558,31 +559,23 @@ public class SettingsActivity extends ContentBaseActivity
         contentTitle.setText(R.string.settings_contents);
         contentTitle.setSingleLine();
         contentTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        contentTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+        contentTitle.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
         contentTitle.setTypeface(headerTF);
         contentTitle.setAllCaps(true);
         Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
-        Simple.setSizeDip(contentTitle, Simple.MP, Simple.MP, 0.58f);
+        Simple.setSizeDip(contentTitle, Simple.MP, Simple.WC, 0.58f);
         Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSPACE);
 
         rightTopArea.addView(contentTitle);
 
         LinearLayout contentSizeFrame = new LinearLayout(this);
         contentSizeFrame.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC, 0.42f);
-        Simple.setRoundedCorners(contentSizeFrame, Defines.CORNER_RADIUS_BIGBUT, Color.LTGRAY, true);
-
-        Simple.setPaddingDip(contentSizeFrame,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
-
-        rightTopArea.addView(contentSizeFrame);
 
         TextView contentSizeText = new TextView(this);
         contentSizeText.setText(R.string.settings_used_storage);
         contentSizeText.setSingleLine();
+        contentSizeText.setAllCaps(Defines.isInfosAllCaps);
         contentSizeText.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        contentSizeText.setTextColor(Color.WHITE);
         contentSizeText.setTypeface(headerTF);
         Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(contentSizeText, Defines.FS_SETTINGS_TITLE);
@@ -592,35 +585,91 @@ public class SettingsActivity extends ContentBaseActivity
         contentSizeMB = new TextView(this);
         contentSizeMB.setSingleLine();
         contentSizeMB.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-        contentSizeMB.setTextColor(Color.WHITE);
         contentSizeMB.setTypeface(headerTF);
         Simple.setSizeDip(contentSizeMB, Simple.MP, Simple.WC, 1.0f);
         Simple.setTextSizeDip(contentSizeMB, Defines.FS_SETTINGS_TITLE);
 
         contentSizeFrame.addView(contentSizeMB);
 
+        if (Defines.isSectionDividers)
+        {
+            FrameLayout divider = new FrameLayout(this);
+            divider.setBackgroundColor(Color.BLACK);
+            Simple.setSizeDip(divider, Simple.MP, 1);
+            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+            rightArea.addView(divider);
+        }
+
+        if (Defines.isSectionDividers)
+        {
+            contentSizeText.setTextColor(Color.BLACK);
+            contentSizeMB.setTextColor(Color.BLACK);
+
+            Simple.setPaddingDip(contentSizeFrame, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_TINY);
+
+            Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC);
+
+            rightArea.addView(contentSizeFrame);
+        }
+        else
+        {
+            contentSizeText.setTextColor(Color.WHITE);
+            contentSizeMB.setTextColor(Color.WHITE);
+
+            Simple.setPaddingDip(contentSizeFrame,
+                    Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
+                    Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
+
+            Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC, 0.42f);
+            Simple.setRoundedCorners(contentSizeFrame, Defines.CORNER_RADIUS_BIGBUT, Color.LTGRAY, true);
+
+            rightTopArea.addView(contentSizeFrame);
+        }
+
+        if (Defines.isSectionDividers)
+        {
+            FrameLayout divider = new FrameLayout(this);
+            divider.setBackgroundColor(Color.BLACK);
+            Simple.setSizeDip(divider, Simple.MP, 1);
+            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+            rightArea.addView(divider);
+        }
+
         //endregion Right top area.
 
         //region Right content area.
 
-        TextView contentSection = new TextView(this);
-        contentSection.setText(R.string.settings_your_contents);
-        contentSection.setAllCaps(true);
-        contentSection.setTextColor(Color.BLACK);
-        contentSection.setTypeface(subheadTF);
-        Simple.setSizeDip(contentSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(contentSection, Defines.PADDING_SMALL);
-        Simple.setMarginBottomDip(contentSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(contentSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(contentSection, Defines.FS_NAVIGATION_LSPACE);
+        if (Defines.isSectionDividers)
+        {
+            Simple.setMarginTopDip(assetGrid, Defines.PADDING_LARGE);
+            assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_NORMAL));
+        }
+        else
+        {
+            Simple.setMarginTopDip(assetGrid, 0);
+            assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_SMALL));
 
-        rightArea.addView(contentSection);
+            TextView contentSection = new TextView(this);
+            contentSection.setText(R.string.settings_your_contents);
+            contentSection.setAllCaps(true);
+            contentSection.setTextColor(Color.BLACK);
+            contentSection.setTypeface(subheadTF);
+            Simple.setSizeDip(contentSection, Simple.MP, Simple.WC);
+            Simple.setMarginTopDip(contentSection, Defines.PADDING_SMALL);
+            Simple.setMarginBottomDip(contentSection, Defines.PADDING_SMALL);
+            Simple.setTextSizeDip(contentSection, Defines.FS_SETTINGS_INFO);
+            Simple.setLetterSpacing(contentSection, Defines.FS_NAVIGATION_LSPACE);
+
+            rightArea.addView(contentSection);
+        }
 
         assetGrid.setNumColumns(1);
         assetGrid.setColumnWidth(GridView.AUTO_FIT);
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-        assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_TINY * 2));
         assetGrid.setHorizontalSpacing(0);
+        assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setPaddingDip(assetGrid, 0);
 
         rightArea.addView(assetGrid);
