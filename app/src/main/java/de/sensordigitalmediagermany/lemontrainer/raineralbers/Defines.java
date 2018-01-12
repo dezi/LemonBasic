@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.0 (1) 12.01.2018 11:00 ";
+    public static final String DEBUG_VERSION = "1.0 (1) 12.01.2018 13:30 ";
 
     public static final String TRAINER_NAME = "RAINERALBERS";
 
