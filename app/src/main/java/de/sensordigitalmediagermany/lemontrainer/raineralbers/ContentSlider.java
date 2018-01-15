@@ -137,9 +137,9 @@ public class ContentSlider extends LinearLayout
         this.category = category;
         this.assets = assets;
 
-        if ((assets == null) || (assets.length() == 0)) return;
-
         leftButton.setText(category);
+
+        if ((assets == null) || (assets.length() == 0)) return;
 
         //
         // Adjust view to aspect height.

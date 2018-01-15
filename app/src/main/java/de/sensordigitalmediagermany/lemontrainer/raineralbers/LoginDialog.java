@@ -251,7 +251,7 @@ public class LoginDialog extends DialogView
                     }
                     else
                     {
-                        Simple.startActivityTop(LoginDialog.this.getContext(), ContentActivity.class);
+                        ContentHandler.getUserContentAndStart((ViewGroup) LoginDialog.this.getParent());
                     }
                 }
             });

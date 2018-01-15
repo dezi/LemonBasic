@@ -113,7 +113,7 @@ public class TopBannerImage extends FrameLayout
         String detailUrl = Json.getString(asset, "detail_image_url");
 
         infoTitle.setText(contentTitle);
-        infoSummary.setText(contentInfo + " fsd fdf dsf df sdf dsfsdfsdfjsdfshdfsd fsd fsd fgsd gggdgdfghdfg");
+        infoSummary.setText(contentInfo);
 
         contentImage.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(

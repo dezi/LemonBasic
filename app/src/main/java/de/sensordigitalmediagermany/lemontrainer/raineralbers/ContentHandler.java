@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.SparseArray;
@@ -22,12 +23,137 @@ public class ContentHandler
     private static SparseArray<JSONObject> courseId2objectMap = new SparseArray<>();
     private static SparseArray<JSONObject> contentId2objectMap = new SparseArray<>();
 
+    public static void getUserContentAndStart(final ViewGroup rootframe)
+    {
+        if (Defines.isBasic)
+        {
+            getAllContent(rootframe, new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Simple.startActivityFinish(rootframe.getContext(), ContentActivity.class);
+                }
+            });
+
+            return;
+        }
+
+        Simple.startActivityFinish(rootframe.getContext(), ContentActivity.class);
+    }
+
+    private static void buildAndCountCategory(JSONObject asset)
+    {
+        String category = Json.getString(asset, "category");
+        int categoryId = Json.getInt(asset, "category_id");
+
+        JSONObject catjson = null;
+
+        if (categoryId == 0)
+        {
+            //
+            // We have no category id. Try to look up
+            // existing category from list by name.
+            //
+
+            if (category == null) category = "Unknown";
+
+            for (int inx = 0; inx < Globals.displayCategories.length(); inx++)
+            {
+                catjson = Json.getObject(Globals.displayCategories, inx);
+                if (catjson == null) continue;
+
+                if (Simple.equals(category, Json.getString(catjson, "name")))
+                {
+                    categoryId = Json.getInt(catjson, "id");
+
+                    break;
+                }
+
+                catjson = null;
+            }
+        }
+        else
+        {
+            //
+            // We have a category id. It should be present
+            // in the category list.
+            //
+
+            for (int inx = 0; inx < Globals.displayCategories.length(); inx++)
+            {
+                catjson = Json.getObject(Globals.displayCategories, inx);
+                if (catjson == null) continue;
+
+                if (Json.getInt(catjson, "id") == categoryId)
+                {
+                    break;
+                }
+
+                catjson = null;
+            }
+        }
+
+        if (catjson == null)
+        {
+            //
+            // A category id could not be resolved. Create
+            // a virtual new category.
+            //
+
+            if (categoryId == 0)
+            {
+                //
+                // Create even a virtual id which will hopefully
+                // not collide with other real categories.
+                //
+
+                categoryId = 1000000000 + Globals.displayCategories.length();
+            }
+
+            catjson = new JSONObject();
+
+            Json.put(catjson, "id", categoryId);
+            Json.put(catjson, "sort", categoryId);
+            Json.put(catjson, "name", category);
+
+            Globals.displayCategories.put(catjson);
+        }
+
+        //
+        // Now the category json is defined. Increment asset count.
+        //
+
+        if (! Json.has(catjson, "_count")) Json.put(catjson, "_count", 0);
+        Json.put(catjson, "_count", Json.getInt(catjson, "_count") + 1);
+
+        //
+        // Get correct category name from category
+        // list, as contradictory or missing category
+        // strings in asset might exists.
+        //
+
+        category = Json.getString(catjson, "name");
+
+        //
+        // Write back category id and name into asset.
+        //
+
+        Json.put(asset, "category", category);
+        Json.put(asset, "category_id", categoryId);
+
+        Log.d(LOGTAG, "buildAndCountCategory: category_id=" + categoryId + " category=" + category);
+    }
+
     public static void getAllContent(final ViewGroup rootframe, final Runnable callback)
     {
         JSONObject params = new JSONObject();
+
         Json.put(params, "language", Globals.language);
 
         Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
+
+        if (Defines.isBasic) Json.put(params, "accountId", Globals.accountId);
 
         RestApi.getPostThreaded("getCoursesAndContents", params, false, new RestApi.RestApiResultListener()
         {
@@ -45,6 +171,24 @@ public class ContentHandler
                         Globals.courses = Json.getArray(data, "Courses");
                         Globals.courseContents = Json.getArray(data, "CourseContents");
                         Globals.contents = Json.getArray(data, "Contents");
+                        Globals.displayCategories = Json.getArray(data, "Categories");
+
+                        if (Globals.displayCategories != null)
+                        {
+                            //
+                            // This version contains a category list. Sort it.
+                            //
+
+                            Globals.displayCategories = Json.sortInteger(Globals.displayCategories, "sort", true);
+                        }
+                        else
+                        {
+                            //
+                            // This version does not contain a category list. Build it.
+                            //
+
+                            Globals.displayCategories = new JSONArray();
+                        }
 
                         if (Globals.courseContents != null)
                         {
@@ -65,7 +209,6 @@ public class ContentHandler
                             Globals.completeContents = new JSONArray();
                             Globals.displayMyContents = new JSONArray();
                             Globals.displayAllContents = new JSONArray();
-                            Globals.displayCategories = new JSONObject();
 
                             if (Globals.courses != null)
                             {
@@ -83,8 +226,11 @@ public class ContentHandler
 
                                     Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
 
-                                    String category = Json.getString(course, "category");
-                                    Json.put(Globals.displayCategories, category, true);
+                                    //
+                                    // Make sure, a real or virtual category_id is present.
+                                    //
+
+                                    buildAndCountCategory(course);
 
                                     Globals.displayAllContents.put(course);
 
@@ -98,6 +244,12 @@ public class ContentHandler
                                 if (content == null) continue;
 
                                 Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
+
+                                //
+                                // Make sure, a real or virtual category_id is present.
+                                //
+
+                                buildAndCountCategory(content);
 
                                 Globals.completeContents.put(content);
 
@@ -126,11 +278,16 @@ public class ContentHandler
                                     Json.put(content, "_courseId", courseId);
                                     Json.put(cc, content);
 
-                                    continue;
-                                }
+                                    if (Defines.isTrainer)
+                                    {
+                                        //
+                                        // Course content in Trainer version
+                                        // is not added to global content list.
+                                        //
 
-                                String category = Json.getString(content, "category");
-                                Json.put(Globals.displayCategories, category, true);
+                                        continue;
+                                    }
+                                }
 
                                 Globals.displayAllContents.put(content);
                             }

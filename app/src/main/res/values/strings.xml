@@ -2,6 +2,8 @@
 
     <string name="app_name">LT Rainer Albers</string>
 
+    <string name="no_category">Ohne Kategorie</string>
+
     <string name="button_ok">OK</string>
     <string name="button_cancel">Abbrechen</string>
     <string name="button_close">Schließen</string>

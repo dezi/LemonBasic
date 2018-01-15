@@ -7,6 +7,8 @@ import android.view.View;
 import android.os.Bundle;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.util.Iterator;
 
 public class ContentActivity extends ContentBaseActivity
@@ -99,11 +101,17 @@ public class ContentActivity extends ContentBaseActivity
 
             if (Globals.displayCategories != null)
             {
-                Iterator<String> keysIterator = Globals.displayCategories.keys();
-
-                while (keysIterator.hasNext())
+                for (int inx = 0; inx < Globals.displayCategories.length(); inx++)
                 {
-                    String category = keysIterator.next();
+                    JSONObject catjson = Json.getObject(Globals.displayCategories, inx);
+                    if (catjson == null) continue;
+
+                    String category = Json.getString(catjson, "name");
+                    int categoryCount = Json.getInt(catjson, "_count");
+
+                    Log.d(LOGTAG, "onCreate: category=" + category + " count=" + categoryCount);
+
+                    if (categoryCount == 0) continue;
 
                     ContentSlider cs = new ContentSlider(this, topFrame);
                     cs.setAssets(category, ContentHandler.getFilteredContent(false, category));
@@ -119,15 +127,21 @@ public class ContentActivity extends ContentBaseActivity
         CategoryMenu categoryPopup = new CategoryMenu(this, onCategoryMenuClick);
         categoryPopup.setTopMargin(Simple.pxToDip(headerImage.getHeight() + naviFrame.getHeight()));
 
-        Iterator<String> keysIterator = Globals.displayCategories.keys();
-
-        while (keysIterator.hasNext())
+        if (Globals.displayCategories != null)
         {
-            String category = keysIterator.next();
+            for (int inx = 0; inx < Globals.displayCategories.length(); inx++)
+            {
+                JSONObject catjson = Json.getObject(Globals.displayCategories, inx);
+                if (catjson == null) continue;
 
-            Log.d(LOGTAG, "showCategoryMenu: category=" + category);
+                if (Json.getInt(catjson, "_count") == 0) continue;
 
-            categoryPopup.addOption(category);
+                String category = Json.getString(catjson, "name");
+
+                Log.d(LOGTAG, "showCategoryMenu: category=" + category);
+
+                categoryPopup.addOption(category);
+            }
         }
 
         topFrame.addView(categoryPopup);

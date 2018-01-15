@@ -1,8 +1,8 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
-import android.view.View;
 import android.widget.ImageView;
+import android.view.View;
 import android.os.Bundle;
 
 public class MainActivity extends FullScreenActivity
@@ -42,27 +42,24 @@ public class MainActivity extends FullScreenActivity
 
         if (Defines.isBasic)
         {
+            //
+            // Perform authentification first before
+            // any content data is loaded.
+            //
+
             ApplicationBase.handler.post(validateOrLogin);
         }
-        else
+
+        if (Defines.isTrainer)
         {
             //
             // Data is universal for TRAINER_NAME and
             // not dependent on the accountId.
             //
 
-            ApplicationBase.handler.post(getData);
-        }
-    }
-
-    protected final Runnable getData = new Runnable()
-    {
-        @Override
-        public void run()
-        {
             ContentHandler.getAllContent(topFrame, validateOrLogin);
         }
-    };
+    }
 
     protected final Runnable validateOrLogin = new Runnable()
     {
@@ -80,7 +77,7 @@ public class MainActivity extends FullScreenActivity
 
             if (contentButtonClicked)
             {
-                Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                ContentHandler.getUserContentAndStart(topFrame);
             }
         }
     };
@@ -120,7 +117,7 @@ public class MainActivity extends FullScreenActivity
                     {
                         if (Globals.contentsLoaded)
                         {
-                            Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                            ContentHandler.getUserContentAndStart(topFrame);
                         } else
                         {
                             contentButtonClicked = true;
@@ -149,7 +146,7 @@ public class MainActivity extends FullScreenActivity
                     @Override
                     public void run()
                     {
-                        Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+                        ContentHandler.getUserContentAndStart(topFrame);
                     }
                 }, 750);
             }

@@ -40,6 +40,8 @@ public class Defines
 
     // @formatter:off
     public static final boolean isBasic            = isPierCardin;
+    public static final boolean isTrainer          = isRainerAlbers;
+
     public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = isPierCardin;
@@ -293,7 +295,8 @@ public class Defines
 
     static
     {
-        SYSTEM_USER_PARAM = isBasic ? "systemuserName" : "trainerName";
+        if (isBasic) SYSTEM_USER_PARAM = "systemuserName";
+        if (isTrainer) SYSTEM_USER_PARAM = "trainerName";
 
         if (isRainerAlbers)
         {
