@@ -29,9 +29,9 @@ public class Defines
     //
 
     // @formatter:off
+    public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = isPierCardin;
-    public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isTabBar           = isPierCardin;
     public static final boolean isTopBanner        = isPierCardin;
     public static final boolean isCategoryMenu     = isRainerAlbers;
