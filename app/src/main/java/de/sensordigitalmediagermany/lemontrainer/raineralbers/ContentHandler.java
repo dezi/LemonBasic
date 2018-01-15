@@ -171,6 +171,12 @@ public class ContentHandler
                         Globals.courses = Json.getArray(data, "Courses");
                         Globals.courseContents = Json.getArray(data, "CourseContents");
                         Globals.contents = Json.getArray(data, "Contents");
+
+                        //
+                        // Display categories either com from data
+                        // or are created on the fly from contents.
+                        //
+
                         Globals.displayCategories = Json.getArray(data, "Categories");
 
                         if (Globals.displayCategories != null)
@@ -179,7 +185,7 @@ public class ContentHandler
                             // This version contains a category list. Sort it.
                             //
 
-                            Globals.displayCategories = Json.sortInteger(Globals.displayCategories, "sort", true);
+                            Globals.displayCategories = Json.sortInteger(Globals.displayCategories, "sort", false);
                         }
                         else
                         {
