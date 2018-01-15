@@ -40,7 +40,19 @@ public class MainActivity extends FullScreenActivity
 
         SettingsHandler.loadSettings();
 
-        ApplicationBase.handler.post(getData);
+        if (Defines.isBasic)
+        {
+            ApplicationBase.handler.post(validateOrLogin);
+        }
+        else
+        {
+            //
+            // Data is universal for TRAINER_NAME and
+            // not dependent on the accountId.
+            //
+
+            ApplicationBase.handler.post(getData);
+        }
     }
 
     protected final Runnable getData = new Runnable()
@@ -48,26 +60,28 @@ public class MainActivity extends FullScreenActivity
         @Override
         public void run()
         {
-            ContentHandler.getAllContent(topFrame, new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    if (Globals.accountId > 0)
-                    {
-                        SettingsHandler.realLoginAction(topFrame, loginSuccess, loginFailure);
-                    }
-                    else
-                    {
-                        topFrame.addView(new LoginDialog(MainActivity.this));
-                    }
+            ContentHandler.getAllContent(topFrame, validateOrLogin);
+        }
+    };
 
-                    if (contentButtonClicked)
-                    {
-                        Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
-                    }
-                }
-            });
+    protected final Runnable validateOrLogin = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            if (Globals.accountId > 0)
+            {
+                SettingsHandler.realLoginAction(topFrame, loginSuccess, loginFailure);
+            }
+            else
+            {
+                topFrame.addView(new LoginDialog(MainActivity.this));
+            }
+
+            if (contentButtonClicked)
+            {
+                Simple.startActivityFinish(MainActivity.this, ContentActivity.class);
+            }
         }
     };
 
@@ -124,9 +138,7 @@ public class MainActivity extends FullScreenActivity
         @Override
         public void run()
         {
-            String pwchanged = "pwchanged:" + Globals.accountId;
-
-            if (! SettingsHandler.getSharedPrefBoolean(pwchanged))
+            if (SettingsHandler.isPasswordChangeRequired())
             {
                 topFrame.addView(new PasswordChangeDialog(MainActivity.this, true));
             }

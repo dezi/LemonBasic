@@ -132,7 +132,8 @@ public class BuyCoinsDialog extends DialogView
         Json.put(params, "transactionId", Simple.getUUID());
         Json.put(params, "transactionDate", Simple.getNowDateSQL());
         Json.put(params, "originalTransactionId", "-");
-        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
 
         RestApi.getPostThreaded("saveAppStoreTransaction", params, new RestApi.RestApiResultListener()
         {

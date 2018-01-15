@@ -76,28 +76,32 @@ public class SettingsHandler
     {
         Globals.UDID = getSharedPrefString("session.UDID");
 
+        Globals.accountId = getSharedPrefInt("user.accountId");
+
         Globals.emailAddress = getSharedPrefString("user.emailAddress");
         Globals.passWord = getSharedPrefString("user.passWord");
         Globals.firstName = getSharedPrefString("user.firstName");
         Globals.lastName = getSharedPrefString("user.lastName");
         Globals.company = getSharedPrefString("user.company");
 
-        Globals.accountId = getSharedPrefInt("user.accountId");
-
-        Log.d(LOGTAG, "loadSettings: firstName=" + Globals.firstName +  " lastName=" + Globals.lastName);
+        Log.d(LOGTAG, "loadSettings:"
+                + " accountId=" + Globals.accountId
+                + " firstName=" + Globals.firstName
+                +  " lastName=" + Globals.lastName
+        );
     }
 
     public static void saveSettings()
     {
         setSharedPrefString("session.UDID", Globals.UDID);
 
+        setSharedPrefInt("user.accountId", Globals.accountId);
+
         setSharedPrefString("user.emailAddress", Globals.emailAddress);
         setSharedPrefString("user.passWord", Globals.passWord);
         setSharedPrefString("user.firstName", Globals.firstName);
         setSharedPrefString("user.lastName", Globals.lastName);
         setSharedPrefString("user.company", Globals.company);
-
-        setSharedPrefInt("user.accountId", Globals.accountId);
     }
 
     public static void killSettings()
@@ -123,13 +127,14 @@ public class SettingsHandler
         Json.put(params, "UDID", Globals.UDID);
         Json.put(params, "email", Globals.emailAddress);
         Json.put(params, "password", Globals.passWord);
-        Json.put(params, "trainerName", Defines.TRAINER_NAME);
 
         Json.put(params, "deviceKind", 2);
         Json.put(params, "deviceType", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));
         Json.put(params, "platform", Build.MANUFACTURER + " " + Build.MODEL);
         Json.put(params, "version", Simple.getAppVersion(rootView.getContext()));
         Json.put(params, "language", Globals.language);
+
+        Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
 
         RestApi.getPostThreaded("checkForLogin", params, new RestApi.RestApiResultListener()
         {
@@ -151,6 +156,7 @@ public class SettingsHandler
                         Globals.coins = Json.getInt(data, "coin_credit");
                         Globals.admin = Json.getInt(data, "is_admin");
                         Globals.state = Json.getInt(data, "state");
+                        Globals.fnpw = Json.getInt(data, "password_must_change");
 
                         Globals.customerContents = Json.getArray(data, "CustomerContents");
 
@@ -167,5 +173,13 @@ public class SettingsHandler
                 loginFailure.run();
             }
         });
+    }
+
+    public static boolean isPasswordChangeRequired()
+    {
+        //String pwchanged = "pwchanged:" + Globals.accountId;
+        //return ! SettingsHandler.getSharedPrefBoolean(pwchanged);
+
+        return (Globals.fnpw == 1);
     }
 }

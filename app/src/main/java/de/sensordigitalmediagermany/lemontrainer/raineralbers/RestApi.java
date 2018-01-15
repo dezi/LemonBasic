@@ -6,6 +6,8 @@ import android.util.Log;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -17,6 +19,16 @@ import org.json.JSONObject;
 public class RestApi
 {
     private static final String LOGTAG = RestApi.class.getSimpleName();
+
+    static
+    {
+        //
+        // Initialize cookie handling.
+        //
+
+        CookieManager cookieManager = new CookieManager();
+        CookieHandler.setDefault(cookieManager);
+    }
 
     public static void getPostThreaded(String what,
                                        JSONObject params,

@@ -152,9 +152,10 @@ public class PasswordChangeDialog extends DialogView
         Json.put(params, "accountId", Globals.accountId);
         Json.put(params, "oldPassword", Globals.passWord);
         Json.put(params, "newPassword", passWord1.getText().toString());
-        Json.put(params, "trainerName", Defines.TRAINER_NAME);
 
-        RestApi.getPostThreaded("checkForLogin", params, new RestApi.RestApiResultListener()
+        Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
+
+        RestApi.getPostThreaded("changePassword", params, new RestApi.RestApiResultListener()
         {
             @Override
             public void OnRestApiResult(String what, JSONObject params, JSONObject result)

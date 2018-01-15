@@ -243,7 +243,16 @@ public class LoginDialog extends DialogView
             {
                 public void onClick(View view)
                 {
-                    Simple.startActivityTop(LoginDialog.this.getContext(), ContentActivity.class);
+                    if (SettingsHandler.isPasswordChangeRequired())
+                    {
+                        ViewGroup topFrame = (ViewGroup) LoginDialog.this.getParent();
+
+                        topFrame.addView(new PasswordChangeDialog(topFrame.getContext(), true));
+                    }
+                    else
+                    {
+                        Simple.startActivityTop(LoginDialog.this.getContext(), ContentActivity.class);
+                    }
                 }
             });
         }

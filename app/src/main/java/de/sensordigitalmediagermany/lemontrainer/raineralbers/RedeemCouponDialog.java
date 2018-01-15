@@ -113,7 +113,8 @@ public class RedeemCouponDialog extends DialogView
 
                 Json.put(params, "accountId", Globals.accountId);
                 Json.put(params, "couponCode", couponCode.getText().toString());
-                Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+                Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
 
                 RestApi.getPostThreaded("redeemCoupon", params, new RestApi.RestApiResultListener()
                 {

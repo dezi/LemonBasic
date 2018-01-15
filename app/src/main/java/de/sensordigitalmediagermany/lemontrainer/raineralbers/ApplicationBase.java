@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.File;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 
 public class ApplicationBase extends Application
 {

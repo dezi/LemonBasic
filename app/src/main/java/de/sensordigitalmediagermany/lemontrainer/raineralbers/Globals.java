@@ -24,6 +24,7 @@ public class Globals
     public static int admin;
     public static int coins;
     public static int state;
+    public static int fnpw;
 
     //
     // JSON data.

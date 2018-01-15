@@ -256,7 +256,8 @@ public class RegisterDialog extends DialogView
         Json.put(params, "password", Globals.passWord);
         Json.put(params, "firstname", Globals.firstName);
         Json.put(params, "lastname", Globals.lastName);
-        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
 
         Json.put(params, "deviceKind", 2);
         Json.put(params, "deviceType", "ANDROID" + " " + (Simple.isTablet() ? "TABLET" : "PHONE"));

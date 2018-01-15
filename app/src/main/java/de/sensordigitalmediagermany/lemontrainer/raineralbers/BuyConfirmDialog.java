@@ -135,7 +135,8 @@ public class BuyConfirmDialog extends DialogView
         Json.put(params, "accountId", Globals.accountId);
         Json.put(params, "productId", Json.getInt(Globals.displayContent, "id"));
         Json.put(params, "isCourse", Json.getBoolean(Globals.displayContent, "_isCourse") ? 1 : 0);
-        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
 
         RestApi.getPostThreaded("buyContent", params, new RestApi.RestApiResultListener()
         {

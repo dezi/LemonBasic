@@ -13,7 +13,17 @@ public class Defines
 
     public static final String DEBUG_VERSION = "1.0 (1) 12.01.2018 13:30 ";
 
-    public static final String TRAINER_NAME = "RAINERALBERS";
+    //
+    // Rest API database access selectors.
+    //
+
+    // @formatter:off
+    public static String SYSTEM_USER_NAME  = "undefinied";
+    public static String SYSTEM_USER_PARAM = "undefinied!";
+
+    public static String APIURL = "undefinied";
+
+    // @formatter:on
 
     //
     // Client specific defines.
@@ -29,6 +39,7 @@ public class Defines
     //
 
     // @formatter:off
+    public static final boolean isBasic            = isPierCardin;
     public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = isPierCardin;
@@ -45,12 +56,6 @@ public class Defines
     public static final boolean isFlatEdits        = isPierCardin;
     public static final boolean isDialogTextCenter = isRainerAlbers;
     // @formatter:on
-
-    //
-    // Access urls.
-    //
-
-    public static final String APIURL = "https://lemon-mobile-learning.com/lemon-trainer/ws/";
 
     //
     // Fixed values.
@@ -288,8 +293,21 @@ public class Defines
 
     static
     {
+        SYSTEM_USER_PARAM = isBasic ? "systemuserName" : "trainerName";
+
+        if (isRainerAlbers)
+        {
+            SYSTEM_USER_NAME = "RAINERALBERS";
+
+            APIURL = "https://lemon-mobile-learning.com/lemon-trainer/ws/";
+        }
+
         if (isPierCardin)
         {
+            SYSTEM_USER_NAME = "PIERRECARDIN";
+
+            APIURL = "https://lemon-mobile-learning.com/lemon-basic/ws/";
+
             //
             // Tuneups for Pier Cadin style.
             //

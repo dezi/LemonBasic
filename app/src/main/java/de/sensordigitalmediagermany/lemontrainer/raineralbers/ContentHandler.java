@@ -26,7 +26,8 @@ public class ContentHandler
     {
         JSONObject params = new JSONObject();
         Json.put(params, "language", Globals.language);
-        Json.put(params, "trainerName", Defines.TRAINER_NAME);
+
+        Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
 
         RestApi.getPostThreaded("getCoursesAndContents", params, false, new RestApi.RestApiResultListener()
         {
@@ -268,14 +269,18 @@ public class ContentHandler
         JSONArray result = new JSONArray();
         JSONArray source = showMy ? Globals.displayMyContents : Globals.displayAllContents;
 
-        for (int inx = 0; inx < source.length(); inx++)
+        if (source != null)
         {
-            JSONObject item = Json.getObject(source, inx);
-            if (item == null) continue;
+            for (int inx = 0; inx < source.length(); inx++)
+            {
+                JSONObject item = Json.getObject(source, inx);
+                if (item == null) continue;
 
-            if ((showCategory != null) && ! Simple.equals(showCategory, Json.getString(item, "category"))) continue;
+                if ((showCategory != null) && !Simple.equals(showCategory, Json.getString(item, "category")))
+                    continue;
 
-            Json.put(result, item);
+                Json.put(result, item);
+            }
         }
 
         return result;
@@ -286,14 +291,17 @@ public class ContentHandler
         JSONArray result = new JSONArray();
         JSONArray source = Globals.displayAllContents;
 
-        for (int inx = 0; inx < source.length(); inx++)
+        if (source != null)
         {
-            JSONObject item = Json.getObject(source, inx);
-            if (item == null) continue;
+            for (int inx = 0; inx < source.length(); inx++)
+            {
+                JSONObject item = Json.getObject(source, inx);
+                if (item == null) continue;
 
-            Json.put(result, item);
+                Json.put(result, item);
 
-            if (inx > 5) break;
+                if (inx > 5) break;
+            }
         }
 
         return result;
