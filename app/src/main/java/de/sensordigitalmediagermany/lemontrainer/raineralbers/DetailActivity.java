@@ -298,7 +298,19 @@ public class DetailActivity extends ContentBaseActivity
 
         specsArea.addView(createSeparator());
 
-        if (! Defines.isCompactDetails)
+        if (Defines.isCompactDetails)
+        {
+            TableLikeLayout statusView = new TableLikeLayout(this, headerTF, infosTF, true);
+
+            statusView.setLeftText(R.string.detail_specs_status);
+
+            statusView.setRightText(ContentHandler.isCachedContent(Globals.displayContent)
+                ? R.string.detail_specs_status_online
+                : R.string.detail_specs_status_offline);
+
+            specsArea.addView(statusView);
+        }
+        else
         {
             TableLikeLayout sizeView = new TableLikeLayout(this, headerTF, infosTF, true);
             sizeView.setLeftText(R.string.detail_specs_size);

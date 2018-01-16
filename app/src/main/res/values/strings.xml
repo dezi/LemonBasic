@@ -141,6 +141,10 @@
     <string name="detail_specs_type_pdf">PDF-Datei</string>
     <string name="detail_specs_type_zip">WEB</string>
 
+    <string name="detail_specs_status">Status</string>
+    <string name="detail_specs_status_online">Geladen</string>
+    <string name="detail_specs_status_offline">Offline</string>
+
     <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
     <string name="redeem_coupon_redeem">Einlösen</string>
 
