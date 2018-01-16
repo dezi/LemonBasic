@@ -1,12 +1,11 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.util.SparseArray;
+import android.view.ViewGroup;
 import android.util.SparseBooleanArray;
 import android.util.SparseIntArray;
-import android.view.ViewGroup;
+import android.util.SparseArray;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,11 +16,11 @@ public class ContentHandler
 {
     private static final String LOGTAG = ContentHandler.class.getSimpleName();
 
-    private static SparseBooleanArray coursesBought = new SparseBooleanArray();
-    private static SparseBooleanArray contentsBought = new SparseBooleanArray();
-    private static SparseIntArray cont2courseMap = new SparseIntArray();
-    private static SparseArray<JSONObject> courseId2objectMap = new SparseArray<>();
-    private static SparseArray<JSONObject> contentId2objectMap = new SparseArray<>();
+    private static final SparseBooleanArray coursesBought = new SparseBooleanArray();
+    private static final SparseBooleanArray contentsBought = new SparseBooleanArray();
+    private static final SparseIntArray cont2courseMap = new SparseIntArray();
+    private static final SparseArray<JSONObject> courseId2objectMap = new SparseArray<>();
+    private static final SparseArray<JSONObject> contentId2objectMap = new SparseArray<>();
 
     public static void getUserContentAndStart(final ViewGroup rootframe)
     {
@@ -461,9 +460,27 @@ public class ContentHandler
                 JSONObject item = Json.getObject(source, inx);
                 if (item == null) continue;
 
-                Json.put(result, item);
+                int hasbanner = Json.getInt(item, "has_banner");
+                if (hasbanner == 0) continue;
 
-                if (inx > 5) break;
+                Json.put(result, item);
+            }
+
+            if (result.length() == 0)
+            {
+                //
+                // Fake some banners if they are desired.
+                //
+
+                for (int inx = 0; inx < source.length(); inx++)
+                {
+                    JSONObject item = Json.getObject(source, inx);
+                    if (item == null) continue;
+
+                    Json.put(result, item);
+
+                    if (inx > 5) break;
+                }
             }
         }
 

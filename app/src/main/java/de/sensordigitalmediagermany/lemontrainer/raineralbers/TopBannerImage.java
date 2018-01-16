@@ -110,7 +110,9 @@ public class TopBannerImage extends FrameLayout
         String contentInfo = Json.getString(asset, "sub_title");
         String contentHeader = Json.getString(asset, "description_header");
         String contentDescription = Json.getString(asset, "description");
-        String detailUrl = Json.getString(asset, "detail_image_url");
+
+        String bannerUrl = Json.getString(asset, "banner_image_url");
+        if (bannerUrl == null) bannerUrl = Json.getString(asset, "detail_image_url");
 
         infoTitle.setText(contentTitle);
         infoSummary.setText(contentInfo);
@@ -118,7 +120,7 @@ public class TopBannerImage extends FrameLayout
         contentImage.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
                         getContext(),
-                        contentImage, detailUrl,
+                        contentImage, bannerUrl,
                         imageWidth, imageHeight, false));
     }
 }
