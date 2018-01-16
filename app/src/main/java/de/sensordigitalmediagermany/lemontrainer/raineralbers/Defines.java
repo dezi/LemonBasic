@@ -57,6 +57,7 @@ public class Defines
     public static final boolean isSectionDividers  = isPierCardin;
     public static final boolean isFlatEdits        = isPierCardin;
     public static final boolean isDialogTextCenter = isRainerAlbers;
+    public static final boolean isCompactDetails   = isPierCardin;
     public static final boolean isCompactSettings  = isPierCardin;
     // @formatter:on
 
@@ -81,6 +82,7 @@ public class Defines
 
     public static final int CONTENT_TYPE_PDF = 1;
     public static final int CONTENT_TYPE_VIDEO = 2;
+    public static final int CONTENT_TYPE_AUDIO = 3;
     public static final int CONTENT_TYPE_ZIP = 4;
 
     //
@@ -119,6 +121,7 @@ public class Defines
     public static       int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // static!
     public static       int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // static!
     public static       int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // static!
+    public static       int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // static!
     // @formatter:on
 
     //
@@ -127,6 +130,7 @@ public class Defines
 
     // @formatter:off
     public static       int CORNER_RADIUS_BUTTON  =  3; // static!
+    public static       int CORNER_RADIUS_FRAMES  =  8; // static!
     public static final int CORNER_RADIUS_BIGBUT  =  8;
     public static final int CORNER_RADIUS_OVERLAY = 10;
     public static       int CORNER_RADIUS_DIALOG  = 16; // static!
@@ -170,6 +174,10 @@ public class Defines
     public static String FONT_SETTINGS_VERSION = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SETTINGS_ASSETS  = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SETTINGS_LIST    = GOTHAMNARROW_LIGHT;   // static!
+    public static String FONT_DETAILS_HEADER   = GOTHAM_MEDIUM;        // static!
+    public static String FONT_DETAILS_SUBHEAD  = ROONEY_REGULAR;       // static!
+    public static String FONT_DETAILS_TITLE    = ROONEY_REGULAR;       // static!
+    public static String FONT_DETAILS_INFOS    = ROONEY_LIGHT;         // static!
     // @formatter:on
 
     //
@@ -205,9 +213,10 @@ public class Defines
     public static final int FS_COINS_PRICE        = Simple.isTablet() ? 26 : 22;
     public static final int FS_COINS_BUTTONS      = Simple.isTablet() ? 22 : 20;
 
-    public static final int FS_COURSE_TITLE       = Simple.isTablet() ? 16 : 14;
-    public static final int FS_COURSE_HEADER      = Simple.isTablet() ? 24 : 22;
-    public static final int FS_COURSE_DESC        = Simple.isTablet() ? 15 : 12;
+    public static       int FS_DETAIL_HEADER      = Simple.isTablet() ? 16 : 14; // static!
+    public static       int FS_DETAIL_SUBHEAD     = Simple.isTablet() ? 24 : 22; // static!
+    public static       int FS_DETAIL_TITLE       = Simple.isTablet() ? 16 : 14; // static!
+    public static       int FS_DETAIL_INFOS       = Simple.isTablet() ? 15 : 12; // static!
 
     public static final int FS_BUY_TITLE          = Simple.isTablet() ? 16 : 14;
     public static final int FS_BUY_HEADER         = Simple.isTablet() ? 24 : 22;
@@ -335,6 +344,7 @@ public class Defines
 
             CORNER_RADIUS_BUTTON = 0;
             CORNER_RADIUS_DIALOG = 0;
+            CORNER_RADIUS_FRAMES = 0;
 
             COLOR_NAVIBAR           = COLOR_PCADIN_GRAY;
             COLOR_TABBAR            = COLOR_PCADIN_LTGRAY;
@@ -349,6 +359,7 @@ public class Defines
             COLOR_SETTINGS_HEADERS  = Color.BLACK;
             COLOR_SETTINGS_LIST     = Color.WHITE;
             COLOR_SETTINGS_LIST_SEL = Color.BLACK;
+            COLOR_DETAIL_TITLE      = Color.BLACK;
 
             FONT_DIALOG_TITLE       = FUTURA_BOOK;
             FONT_DIALOG_INFOS       = FUTURA_LIGHT_REG;
@@ -366,6 +377,10 @@ public class Defines
             FONT_SETTINGS_VERSION   = FUTURA_LIGHT_REG;
             FONT_SETTINGS_ASSETS    = FUTURA_LIGHT_REG;
             FONT_SETTINGS_LIST      = FUTURA_BOOK;
+            FONT_DETAILS_HEADER     = FUTURA_BOOK;
+            FONT_DETAILS_SUBHEAD    = FUTURA_LIGHT_REG;
+            FONT_DETAILS_TITLE      = FUTURA_BOOK;
+            FONT_DETAILS_INFOS      = FUTURA_LIGHT_REG;
 
             FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 18;
             FS_BANNER_INFO          = Simple.isTablet() ? 26 : 22;
@@ -375,6 +390,10 @@ public class Defines
             FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  0;
             FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
             FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;
+            FS_DETAIL_HEADER        = Simple.isTablet() ? 16 : 14;
+            FS_DETAIL_SUBHEAD       = Simple.isTablet() ? 24 : 22;
+            FS_DETAIL_TITLE         = Simple.isTablet() ? 16 : 14;
+            FS_DETAIL_INFOS         = Simple.isTablet() ? 15 : 12;
 
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
 

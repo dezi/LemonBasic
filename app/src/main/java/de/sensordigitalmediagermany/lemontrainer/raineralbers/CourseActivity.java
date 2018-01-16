@@ -61,7 +61,7 @@ public class CourseActivity extends ContentBaseActivity
         ctView.setAllCaps(true);
         ctView.setTextColor(Defines.COLOR_SENSOR_LTBLUE);
         ctView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setTextSizeDip(ctView, Defines.FS_COURSE_TITLE);
+        Simple.setTextSizeDip(ctView, Defines.FS_DETAIL_HEADER);
         Simple.setSizeDip(ctView, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(ctView, Defines.PADDING_SMALL);
 
@@ -71,7 +71,7 @@ public class CourseActivity extends ContentBaseActivity
         chView.setText(courseHeader);
         chView.setTextColor(Color.BLACK);
         chView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
-        Simple.setTextSizeDip(chView, Defines.FS_COURSE_HEADER);
+        Simple.setTextSizeDip(chView, Defines.FS_DETAIL_SUBHEAD);
         Simple.setSizeDip(chView, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(chView, Defines.PADDING_TINY);
 
@@ -88,7 +88,7 @@ public class CourseActivity extends ContentBaseActivity
         cdView.setTextColor(Color.BLACK);
         cdView.setMinLines(2);
         cdView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_LIGHT));
-        Simple.setTextSizeDip(cdView, Defines.FS_COURSE_DESC);
+        Simple.setTextSizeDip(cdView, Defines.FS_DETAIL_INFOS);
         Simple.setSizeDip(cdView, Simple.WC, Simple.MP, 1.0f);
         Simple.setMarginTopDip(cdView, Defines.PADDING_NORMAL);
 

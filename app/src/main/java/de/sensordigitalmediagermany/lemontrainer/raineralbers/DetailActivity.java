@@ -36,15 +36,29 @@ public class DetailActivity extends ContentBaseActivity
 
         assetGrid.setVisibility(View.GONE);
         naviFrame.setOrientation(LinearLayout.VERTICAL);
+        naviFrame.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.MP, 1.0f);
 
-        Simple.setPaddingDip(naviFrame,
-                Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
-                Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
+        if (Defines.isCompactDetails)
+        {
+            Simple.setPaddingDip(naviFrame, Defines.PADDING_LARGE, 0, 0, 0);
+        }
+        else
+        {
+            Simple.setPaddingDip(naviFrame,
+                    Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
+                    Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
+        }
 
         setBackButton(true);
 
         if (Globals.displayContent == null) return;
+
+        Typeface headerTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_HEADER);
+        Typeface subheadTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_SUBHEAD);
+        Typeface titleTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_TITLE);
+        Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_INFOS);
+        Typeface buttonsTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DIALOG_BUTTON);
 
         //
         // Derive data from JSON.
@@ -83,6 +97,13 @@ public class DetailActivity extends ContentBaseActivity
         Simple.setSizeDip(imageFrame, Simple.MP, Simple.pxToDip(imageHeight));
         Simple.setSizeDip(contentImage, Simple.MP, Simple.pxToDip(imageHeight));
 
+        if (Defines.isCompactDetails)
+        {
+            Simple.setPaddingDip(imageFrame,
+                    Defines.PADDING_LARGE, Defines.PADDING_TINY,
+                    Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+        }
+
         Log.d(LOGTAG, "onCreate: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         contentImage.setImageDrawable(
@@ -96,8 +117,9 @@ public class DetailActivity extends ContentBaseActivity
         int iconResid = 0;
 
         if (content_type == Defines.CONTENT_TYPE_PDF) iconResid = R.drawable.lem_t_iany_generic_type_pdf_gross;
-        if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_film_gross;
-        if (content_type == Defines.CONTENT_TYPE_ZIP) iconResid = R.drawable.lem_t_iany_generic_type_film_gross;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_video_gross;
+        if (content_type == Defines.CONTENT_TYPE_ZIP) iconResid = R.drawable.lem_t_iany_generic_type_html5_gross;
+        if (content_type == Defines.CONTENT_TYPE_AUDIO) iconResid = R.drawable.lem_t_iany_generic_type_audio_gross;
 
         if (iconResid > 0) typeIcon.setImageResource(iconResid);
 
@@ -108,21 +130,21 @@ public class DetailActivity extends ContentBaseActivity
         TextView ctView = new TextView(this);
         ctView.setText(contentTitle);
         ctView.setAllCaps(true);
-        ctView.setTextColor(Defines.COLOR_SENSOR_LTBLUE);
-        ctView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setTextSizeDip(ctView, Defines.FS_COURSE_TITLE);
+        ctView.setTextColor(Defines.COLOR_DETAIL_TITLE);
+        ctView.setTypeface(headerTF);
+        ctView.setAllCaps(Defines.isInfosAllCaps);
+        Simple.setTextSizeDip(ctView, Defines.FS_DETAIL_HEADER);
         Simple.setSizeDip(ctView, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(ctView, Defines.PADDING_SMALL);
 
         naviFrame.addView(ctView);
 
         TextView ciView = new TextView(this);
         ciView.setText(contentInfo);
         ciView.setTextColor(Color.BLACK);
-        ciView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
-        Simple.setTextSizeDip(ciView, Defines.FS_COURSE_HEADER);
+        ciView.setTypeface(subheadTF);
+        ciView.setAllCaps(Defines.isInfosAllCaps);
+        Simple.setTextSizeDip(ciView, Defines.FS_DETAIL_SUBHEAD);
         Simple.setSizeDip(ciView, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(ciView, Defines.PADDING_TINY);
 
         naviFrame.addView(ciView);
 
@@ -134,7 +156,11 @@ public class DetailActivity extends ContentBaseActivity
         infoArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(infoArea, Simple.MP, Simple.MP);
 
-        Simple.setMarginTopDip(infoArea, Defines.PADDING_LARGE);
+        if (! Defines.isCompactDetails)
+        {
+            Simple.setMarginTopDip(infoArea, Defines.PADDING_XLARGE);
+        }
+
         Simple.setMarginRightDip(infoArea, Defines.PADDING_LARGE);
         Simple.setMarginBottomDip(infoArea, Defines.PADDING_LARGE);
 
@@ -145,7 +171,7 @@ public class DetailActivity extends ContentBaseActivity
         ScrollView descScroll = new ScrollView(this);
         Simple.setSizeDip(descScroll, Simple.WC, Simple.MP, 1f);
         Simple.setPaddingDip(descScroll, Defines.PADDING_NORMAL);
-        Simple.setRoundedCorners(descScroll, Defines.CORNER_RADIUS_DIALOG, Color.WHITE, true);
+        Simple.setRoundedCorners(descScroll, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
         infoArea.addView(descScroll);
 
@@ -154,11 +180,21 @@ public class DetailActivity extends ContentBaseActivity
 
         descScroll.addView(descFrame);
 
+        if (Defines.isCompactDetails)
+        {
+            naviFrame.removeView(ctView);
+            naviFrame.removeView(ciView);
+
+            descFrame.addView(ctView);
+            descFrame.addView(ciView);
+        }
+
         TextView chView = new TextView(this);
         chView.setText(contentHeader);
         chView.setTextColor(Color.BLACK);
-        chView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
-        Simple.setTextSizeDip(chView, Defines.FS_COURSE_HEADER);
+        chView.setTypeface(titleTF);
+        chView.setAllCaps(Defines.isInfosAllCaps);
+        Simple.setTextSizeDip(chView, Defines.FS_DETAIL_TITLE);
         Simple.setSizeDip(chView, Simple.MP, Simple.WC);
 
         descFrame.addView(chView);
@@ -167,12 +203,24 @@ public class DetailActivity extends ContentBaseActivity
         cdView.setText(contentDescription);
         cdView.setTextColor(Color.BLACK);
         cdView.setMinLines(2);
-        cdView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_LIGHT));
-        Simple.setTextSizeDip(cdView, Defines.FS_COURSE_DESC);
+        cdView.setTypeface(infosTF);
+        cdView.setAllCaps(Defines.isInfosAllCaps);
+        Simple.setTextSizeDip(cdView, Defines.FS_DETAIL_INFOS);
         Simple.setSizeDip(cdView, Simple.WC, Simple.WC);
-        Simple.setMarginTopDip(cdView, Defines.PADDING_NORMAL);
 
         descFrame.addView(cdView);
+
+        if (Defines.isCompactDetails)
+        {
+            Simple.setMarginTopDip(ctView, Defines.PADDING_NORMAL);
+            Simple.setMarginTopDip(chView, Defines.PADDING_LARGE);
+        }
+        else
+        {
+            Simple.setMarginTopDip(ctView, Defines.PADDING_SMALL);
+            Simple.setMarginTopDip(ciView, Defines.PADDING_TINY);
+            Simple.setMarginTopDip(cdView, Defines.PADDING_NORMAL);
+        }
 
         //endregion Detail description area.
 
@@ -196,12 +244,18 @@ public class DetailActivity extends ContentBaseActivity
         LinearLayout specsArea = new LinearLayout(this);
         specsArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(specsArea, Simple.MP, Simple.WC, 1f);
-        Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
-        Simple.setRoundedCorners(specsArea, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
+        Simple.setRoundedCorners(specsArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+
+        if (Defines.isCompactDetails)
+        {
+            Simple.setPaddingDip(specsArea, Defines.PADDING_LARGE);
+        }
+        else
+        {
+            Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
+        }
 
         miscArea.addView(specsArea);
-
-        RelativeLayout separ;
 
         TableLikeLayout fileView = new TableLikeLayout(this);
         fileView.setLeftText(R.string.detail_specs_file);
@@ -218,12 +272,7 @@ public class DetailActivity extends ContentBaseActivity
 
         specsArea.addView(fileView);
 
-        separ = new RelativeLayout(this);
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         TableLikeLayout quantView = new TableLikeLayout(this);
         quantView.setLeftText(R.string.detail_specs_quantity);
@@ -247,38 +296,31 @@ public class DetailActivity extends ContentBaseActivity
 
         specsArea.addView(quantView);
 
-        separ = new RelativeLayout(this);
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+        specsArea.addView(createSeparator());
 
-        specsArea.addView(separ);
+        if (! Defines.isCompactDetails)
+        {
+            TableLikeLayout sizeView = new TableLikeLayout(this);
+            sizeView.setLeftText(R.string.detail_specs_size);
 
-        TableLikeLayout sizeView = new TableLikeLayout(this);
-        sizeView.setLeftText(R.string.detail_specs_size);
+            sizeView.setRightText(Simple.getTrans(this,
+                    R.string.detail_specs_size_mb,
+                    (mbytes < 1) ? "< 1" : Simple.formatDecimal(mbytes)));
 
-        sizeView.setRightText(Simple.getTrans(this,
-                R.string.detail_specs_size_mb,
-                (mbytes < 1) ? "< 1" : Simple.formatDecimal(mbytes)));
+            specsArea.addView(sizeView);
 
-        specsArea.addView(sizeView);
+            specsArea.addView(createSeparator());
 
-        separ = new RelativeLayout(this);
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+            TextView suitableView = new TextView(this);
+            suitableView.setText(suitable_for);
+            suitableView.setMinLines(2);
+            suitableView.setEllipsize(TextUtils.TruncateAt.END);
+            suitableView.setTextColor(Color.BLACK);
+            suitableView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+            Simple.setTextSizeDip(suitableView, Defines.FS_DETAIL_SPECS);
 
-        specsArea.addView(separ);
-
-        TextView suitableView = new TextView(this);
-        suitableView.setText(suitable_for);
-        suitableView.setMinLines(2);
-        suitableView.setEllipsize(TextUtils.TruncateAt.END);
-        suitableView.setTextColor(Color.BLACK);
-        suitableView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
-        Simple.setTextSizeDip(suitableView, Defines.FS_DETAIL_SPECS);
-
-        specsArea.addView(suitableView);
+            specsArea.addView(suitableView);
+        }
 
         //endregion Technical specs area.
 
@@ -288,6 +330,12 @@ public class DetailActivity extends ContentBaseActivity
         buyloadArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(buyloadArea, Simple.WC, Simple.WC, 0f);
         Simple.setMarginTopDip(buyloadArea, Defines.PADDING_LARGE);
+        Simple.setRoundedCorners(buyloadArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+
+        if (Defines.isCompactDetails)
+        {
+            Simple.setPaddingDip(buyloadArea, Defines.PADDING_LARGE);
+        }
 
         miscArea.addView(buyloadArea);
 
@@ -307,7 +355,7 @@ public class DetailActivity extends ContentBaseActivity
         buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BIGBUT, Color.BLACK, true);
+        Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
 
         Simple.setPaddingDip(buyButton,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
@@ -322,6 +370,16 @@ public class DetailActivity extends ContentBaseActivity
         //endregion Information area.
 
         updateContent();
+    }
+
+    private RelativeLayout createSeparator()
+    {
+        RelativeLayout separ = new RelativeLayout(this);
+        separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
+        Simple.setSizeDip(separ, Simple.MP, 1);
+        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+
+        return separ;
     }
 
     public void updateContent()
