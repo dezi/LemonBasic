@@ -30,6 +30,11 @@
     <string name="logoff_info2">Dabei gehen alle Ihre geladenen Inhalte verloren.</string>
     <string name="logoff_logoff">Abmelden</string>
 
+    <string name="ask_download_title">Diesen Inhalt jetzt laden?</string>
+    <string name="ask_download_info">Möchten Sie den Lerninhalt jetzt laden und direkt ansehen oder jetzt nur laden und zu einem späterm Zeitpunkt konsumieren?</string>
+    <string name="ask_download_load_and_view">Laden und\ndirekt ansehen</string>
+    <string name="ask_download_only_load">Laden und\nspäter ansehen</string>
+
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>
 

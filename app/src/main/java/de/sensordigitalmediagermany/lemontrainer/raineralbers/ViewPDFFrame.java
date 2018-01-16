@@ -257,7 +257,7 @@ public class ViewPDFFrame extends ViewZoomFrame
                     }
                 }
 
-                if (renderMe < 0)
+                if ((renderMe < 0) || (renderMe >= pageBitmaps.length))
                 {
                     //
                     // Nothing to do.

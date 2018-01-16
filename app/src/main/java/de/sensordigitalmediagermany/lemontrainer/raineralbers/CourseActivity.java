@@ -35,8 +35,15 @@ public class CourseActivity extends ContentBaseActivity
         if (Globals.displayContent == null) return;
 
         String courseTitle = Json.getString(Globals.displayContent, "title");
+        String courseInfo = Json.getString(Globals.displayContent, "sub_title");
         String courseHeader = Json.getString(Globals.displayContent, "description_header");
         String courseDescription = Json.getString(Globals.displayContent, "description");
+        String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
+
+        if ((courseHeader == null) || courseHeader.isEmpty())
+        {
+            courseHeader = "Hier fehlt der Text in der Datenbank. Gruss Dennis";
+        }
 
         //
         // Setup navigation path.
@@ -56,6 +63,43 @@ public class CourseActivity extends ContentBaseActivity
             navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
         }
 
+        //region Image and type area.
+
+        if (Defines.isCompactDetails)
+        {
+            int imageWidth = topFrame.getLayoutParams().width;
+            int imageHeight = Math.round(imageWidth / Defines.ASSET_COURSE_ASPECT);
+
+            Simple.setSizeDip(imageFrame, Simple.MP, Simple.pxToDip(imageHeight));
+            Simple.setSizeDip(contentImage, Simple.MP, Simple.pxToDip(imageHeight));
+
+            Simple.setPaddingDip(imageFrame,
+                    Defines.PADDING_LARGE, Defines.PADDING_TINY,
+                    Defines.PADDING_LARGE, 0);
+
+            Log.d(LOGTAG, "onCreate: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+
+            contentImage.setImageDrawable(
+                    AssetsImageManager.getDrawableOrFetch(
+                            this,
+                            contentImage, detailUrl,
+                            imageWidth, imageHeight, false));
+        }
+
+        //endregion Image and type area.
+
+        if (Defines.isCompactDetails)
+        {
+            naviFrame.setBackgroundColor(Defines.COLOR_FRAMES);
+
+            Simple.setMarginLeftDip(naviFrame, Defines.PADDING_LARGE);
+            Simple.setMarginRightDip(naviFrame, Defines.PADDING_LARGE);
+        }
+
+        LinearLayout titleArea = new LinearLayout(this);
+        titleArea.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(titleArea, Simple.MP, Simple.WC);
+
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
         ctView.setAllCaps(true);
@@ -65,23 +109,39 @@ public class CourseActivity extends ContentBaseActivity
         Simple.setSizeDip(ctView, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(ctView, Defines.PADDING_SMALL);
 
-        naviFrame.addView(ctView);
+        titleArea.addView(ctView);
+
+        TextView ciView = new TextView(this);
+        ciView.setText(courseInfo);
+        ciView.setTextColor(Color.BLACK);
+        ciView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
+        Simple.setTextSizeDip(ciView, Defines.FS_DETAIL_SUBHEAD);
+        Simple.setSizeDip(ciView, Simple.MP, Simple.WC);
+        Simple.setMarginTopDip(ciView, Defines.PADDING_TINY);
+
+        titleArea.addView(ciView);
+
+        LinearLayout infoAndButtonArea = new LinearLayout(this);
+        infoAndButtonArea.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(infoAndButtonArea, Simple.MP, Simple.WC);
+
+        naviFrame.addView(infoAndButtonArea);
+
+        LinearLayout infoArea = new LinearLayout(this);
+        infoArea.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(infoArea, Simple.MP, Simple.WC);
+
+        infoAndButtonArea.addView(infoArea);
 
         TextView chView = new TextView(this);
         chView.setText(courseHeader);
         chView.setTextColor(Color.BLACK);
-        chView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
-        Simple.setTextSizeDip(chView, Defines.FS_DETAIL_SUBHEAD);
-        Simple.setSizeDip(chView, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(chView, Defines.PADDING_TINY);
-
-        naviFrame.addView(chView);
-
-        LinearLayout infoArea = new LinearLayout(this);
-        infoArea.setOrientation(LinearLayout.HORIZONTAL);
+        chView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        chView.setAllCaps(Defines.isInfosAllCaps);
+        Simple.setTextSizeDip(chView, Defines.FS_DETAIL_TITLE);
         Simple.setSizeDip(chView, Simple.MP, Simple.WC);
 
-        naviFrame.addView(infoArea);
+        infoArea.addView(chView);
 
         TextView cdView = new TextView(this);
         cdView.setText(courseDescription);
@@ -94,6 +154,15 @@ public class CourseActivity extends ContentBaseActivity
 
         infoArea.addView(cdView);
 
+        if (Defines.isCompactDetails)
+        {
+            imageFrame.addView(titleArea);
+        }
+        else
+        {
+            naviFrame.addView(titleArea);
+        }
+
         buyButton = new TextView(this);
         buyButton.setTextColor(Color.WHITE);
         buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
@@ -105,8 +174,12 @@ public class CourseActivity extends ContentBaseActivity
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
 
+        infoAndButtonArea.addView(buyButton);
 
-        infoArea.addView(buyButton);
+        if (Defines.isGiveAway)
+        {
+            buyButton.setVisibility(View.GONE);
+        }
 
         JSONArray cc = Json.getArray(Globals.displayContent, "_cc");
 

@@ -248,7 +248,7 @@ public class DialogView extends RelativeLayout
 
         negativeButton = new TextView(context);
         negativeButton.setSingleLine(true);
-        negativeButton.setAllCaps(true);
+        negativeButton.setAllCaps(Defines.isButtonAllCaps);
         negativeButton.setMinEms(6);
         negativeButton.setVisibility(GONE);
         negativeButton.setTypeface(buttonFont);
@@ -294,7 +294,7 @@ public class DialogView extends RelativeLayout
 
         positiveButton = new TextView(context);
         positiveButton.setSingleLine(true);
-        positiveButton.setAllCaps(true);
+        positiveButton.setAllCaps(Defines.isButtonAllCaps);
         positiveButton.setVisibility(GONE);
         positiveButton.setMinEms(6);
         positiveButton.setTypeface(buttonFont);

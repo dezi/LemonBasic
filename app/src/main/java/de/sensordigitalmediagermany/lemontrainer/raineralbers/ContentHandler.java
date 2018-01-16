@@ -541,7 +541,7 @@ public class ContentHandler
                     }
                 }
 
-                return (numLoaded == cc.length());
+                return (numLoaded > 0) && (numLoaded == cc.length());
             }
         }
 

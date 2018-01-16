@@ -262,7 +262,8 @@ public class Defines
     // @formatter:off
     public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
     public static       float ASSET_SETTINGS_ASPECT  = 2.5f; // static!
-    public static final float ASSET_DETAIL_ASPECT    = 3.0f;
+    public static       float ASSET_DETAIL_ASPECT    = 3.0f; // static!
+    public static final float ASSET_COURSE_ASPECT    = 3.5f;
     public static final float ASSET_BANNER_ASPECT    = 3.2f;
     // @formatter:on
 
@@ -295,6 +296,7 @@ public class Defines
     public static final int SETTINGS_BACK_SIZE  = Simple.isTablet() ?  24 :  20;
     public static final int QUESTION_CHECK_SIZE = Simple.isTablet() ?  30 :  24;
     public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  25;
+    public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  40 :  30;
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
@@ -399,6 +401,7 @@ public class Defines
 
             ASSET_THUMBNAIL_ASPECT  = 1.30f;
             ASSET_SETTINGS_ASPECT   = 3.00f;
+            ASSET_DETAIL_ASPECT     = 3.20f;
 
             // @formatter:on
         }

@@ -23,6 +23,8 @@ public class DetailActivity extends ContentBaseActivity
 
     protected TextView buyButton;
     protected ImageView downloadButton;
+    protected ImageView statusIcon;
+    protected TableLikeLayout statusView;
     protected boolean shouldDisplay;
 
     @Override
@@ -300,15 +302,37 @@ public class DetailActivity extends ContentBaseActivity
 
         if (Defines.isCompactDetails)
         {
-            TableLikeLayout statusView = new TableLikeLayout(this, headerTF, infosTF, true);
+            boolean isCached = ContentHandler.isCachedContent(Globals.displayContent);
+
+            LinearLayout statusBox = new LinearLayout(this);
+            statusBox.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(statusBox, Simple.MP, Simple.WC);
+
+            specsArea.addView(statusBox);
+
+            statusIcon = new ImageView(this);
+            statusIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Simple.setSizeDip(statusIcon, Defines.STATUS_ICON_SIZE, Defines.STATUS_ICON_SIZE);
+            Simple.setPaddingDip(statusIcon, Defines.PADDING_TINY);
+            Simple.setMarginRightDip(statusIcon, Defines.PADDING_SMALL);
+
+            statusIcon.setImageResource(isCached
+                    ? R.drawable.lem_t_iany_generic_content_online
+                    : R.drawable.lem_t_iany_generic_content_offline
+            );
+
+            statusBox.addView(statusIcon);
+
+            statusView = new TableLikeLayout(this, headerTF, infosTF, true);
 
             statusView.setLeftText(R.string.detail_specs_status);
 
-            statusView.setRightText(ContentHandler.isCachedContent(Globals.displayContent)
-                ? R.string.detail_specs_status_online
-                : R.string.detail_specs_status_offline);
+            statusView.setRightText(isCached
+                    ? R.string.detail_specs_status_online
+                    : R.string.detail_specs_status_offline
+            );
 
-            specsArea.addView(statusView);
+            statusBox.addView(statusView);
         }
         else
         {
@@ -362,9 +386,15 @@ public class DetailActivity extends ContentBaseActivity
 
         buyloadArea.addView(downloadButton);
 
+        if (Defines.isCompactDetails)
+        {
+            downloadButton.setVisibility(View.GONE);
+        }
+
         buyButton = new TextView(this);
         buyButton.setTextColor(Color.WHITE);
         buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        buyButton.setAllCaps(Defines.isButtonAllCaps);
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
         Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
@@ -389,7 +419,7 @@ public class DetailActivity extends ContentBaseActivity
         RelativeLayout separ = new RelativeLayout(this);
         separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
         Simple.setSizeDip(separ, Simple.MP, 1);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+        Simple.setMarginDip(separ, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
 
         return separ;
     }
@@ -427,11 +457,14 @@ public class DetailActivity extends ContentBaseActivity
             }
             else
             {
-                downloadButton.setVisibility(View.VISIBLE);
-                downloadButton.setOnClickListener(startDownload);
+                if (! Defines.isCompactDetails)
+                {
+                    downloadButton.setVisibility(View.VISIBLE);
+                    downloadButton.setOnClickListener(startDownload);
+                }
 
-                typeIcon.setOnClickListener(startDownloadAndDisplay);
-                buyButton.setOnClickListener(startDownloadAndDisplay);
+                typeIcon.setOnClickListener(askAndDownload);
+                buyButton.setOnClickListener(askAndDownload);
             }
         }
         else
@@ -469,6 +502,37 @@ public class DetailActivity extends ContentBaseActivity
             downloadProgress.setProgress(0, 0);
 
             AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
+        }
+    };
+
+    private final View.OnClickListener askAndDownload = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            DialogView askdialog = new DialogView(DetailActivity.this);
+
+            askdialog.setCloseButton(true, null);
+            askdialog.setTitleText(R.string.ask_download_title);
+            askdialog.setInfoText(R.string.ask_download_info);
+
+            askdialog.setNegativeButton(R.string.ask_download_load_and_view, startDownloadAndDisplay);
+            askdialog.negativeButton.setSingleLine(false);
+            askdialog.negativeButton.setAllCaps(Defines.isButtonAllCaps);
+
+            Simple.setPaddingDip(askdialog.negativeButton,
+                    0, Defines.PADDING_LARGE,
+                    0, Defines.PADDING_LARGE);
+
+            askdialog.setPositiveButton(R.string.ask_download_only_load, startDownload);
+            askdialog.positiveButton.setSingleLine(false);
+            askdialog.positiveButton.setAllCaps(Defines.isButtonAllCaps);
+
+            Simple.setPaddingDip(askdialog.positiveButton,
+                    0, Defines.PADDING_LARGE,
+                    0, Defines.PADDING_LARGE);
+
+            topFrame.addView(askdialog);
         }
     };
 
@@ -534,6 +598,12 @@ public class DetailActivity extends ContentBaseActivity
                 buyButton.setOnClickListener(startDisplay);
 
                 if (doDisplay) startDisplay.onClick(typeIcon);
+
+                if ((statusIcon != null) && (statusView != null))
+                {
+                    statusIcon.setImageResource(R.drawable.lem_t_iany_generic_content_online);
+                    statusView.setRightText(R.string.detail_specs_status_online);
+                }
             }
 
             downloadCenter.setVisibility(View.GONE);
