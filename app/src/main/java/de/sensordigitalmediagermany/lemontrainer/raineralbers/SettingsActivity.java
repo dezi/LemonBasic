@@ -465,8 +465,16 @@ public class SettingsActivity extends ContentBaseActivity
         LinearLayout logoffArea = new LinearLayout(this);
         logoffArea.setOrientation(LinearLayout.VERTICAL);
         logoffArea.setGravity(Gravity.BOTTOM);
-        Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
         Simple.setMarginTopDip(logoffArea, Defines.PADDING_SMALL);
+
+        if (Defines.isCompactSettings)
+        {
+            Simple.setSizeDip(logoffArea, Simple.MP, Simple.WC);
+        }
+        else
+        {
+            Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
+        }
 
         leftArea.addView(logoffArea);
 

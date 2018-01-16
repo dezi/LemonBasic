@@ -244,7 +244,7 @@ public class SettingsDetail extends LinearLayout
 
         sizeView.setRightText(Simple.getTrans(getContext(),
                 R.string.settings_specs_size_mb,
-                Simple.formatDecimal(mbytes)));
+                (mbytes < 1) ? "<1" : Simple.formatDecimal(mbytes)));
 
         specsArea.addView(sizeView);
 
