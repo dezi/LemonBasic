@@ -257,7 +257,7 @@ public class DetailActivity extends ContentBaseActivity
 
         miscArea.addView(specsArea);
 
-        TableLikeLayout fileView = new TableLikeLayout(this);
+        TableLikeLayout fileView = new TableLikeLayout(this, headerTF, infosTF, true);
         fileView.setLeftText(R.string.detail_specs_file);
 
         Log.d(LOGTAG, "content_type=" + content_type);
@@ -274,7 +274,7 @@ public class DetailActivity extends ContentBaseActivity
 
         specsArea.addView(createSeparator());
 
-        TableLikeLayout quantView = new TableLikeLayout(this);
+        TableLikeLayout quantView = new TableLikeLayout(this, headerTF, infosTF, true);
         quantView.setLeftText(R.string.detail_specs_quantity);
         quantView.setRightText("-");
 
@@ -300,7 +300,7 @@ public class DetailActivity extends ContentBaseActivity
 
         if (! Defines.isCompactDetails)
         {
-            TableLikeLayout sizeView = new TableLikeLayout(this);
+            TableLikeLayout sizeView = new TableLikeLayout(this, headerTF, infosTF, true);
             sizeView.setLeftText(R.string.detail_specs_size);
 
             sizeView.setRightText(Simple.getTrans(this,

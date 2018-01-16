@@ -217,12 +217,11 @@ public class Defines
     public static       int FS_DETAIL_SUBHEAD     = Simple.isTablet() ? 24 : 22; // static!
     public static       int FS_DETAIL_TITLE       = Simple.isTablet() ? 16 : 14; // static!
     public static       int FS_DETAIL_INFOS       = Simple.isTablet() ? 15 : 12; // static!
+    public static       int FS_DETAIL_SPECS       = Simple.isTablet() ? 15 : 12; // static!
 
     public static final int FS_BUY_TITLE          = Simple.isTablet() ? 16 : 14;
     public static final int FS_BUY_HEADER         = Simple.isTablet() ? 24 : 22;
     public static final int FS_BUY_PRICE          = Simple.isTablet() ? 48 : 40;
-
-    public static final int FS_DETAIL_SPECS       = Simple.isTablet() ? 15 : 12;
 
     public static final int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
     public static final int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14;
@@ -387,13 +386,14 @@ public class Defines
             FS_SCALED_BUTTON        = Simple.isTablet() ? 14 : 13;
             FS_ASSET_TITLE          = Simple.isTablet() ? 14 : 13;
             FS_ASSET_INFO           = Simple.isTablet() ? 20 : 18;
-            FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  0;
+            FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  8;
             FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
             FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;
             FS_DETAIL_HEADER        = Simple.isTablet() ? 16 : 14;
             FS_DETAIL_SUBHEAD       = Simple.isTablet() ? 24 : 22;
-            FS_DETAIL_TITLE         = Simple.isTablet() ? 16 : 14;
+            FS_DETAIL_TITLE         = Simple.isTablet() ? 15 : 12;
             FS_DETAIL_INFOS         = Simple.isTablet() ? 15 : 12;
+            FS_DETAIL_SPECS         = Simple.isTablet() ? 15 : 12;
 
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
 

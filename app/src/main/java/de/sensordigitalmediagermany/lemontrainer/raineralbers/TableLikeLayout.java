@@ -15,16 +15,21 @@ public class TableLikeLayout extends LinearLayout
 
     public TableLikeLayout(Context context)
     {
-        this(context, null, null);
+        this(context, null, null, false);
     }
 
     public TableLikeLayout(Context context, Typeface leftFace, Typeface rightFace)
     {
+        this(context, leftFace, rightFace, false);
+    }
+
+    public TableLikeLayout(Context context, Typeface leftFace, Typeface rightFace, boolean vertical)
+    {
         super(context);
 
-        setOrientation(HORIZONTAL);
+        setOrientation(vertical ? VERTICAL : HORIZONTAL);
 
-        if (! Defines.isCompactSettings)
+        if (vertical || ! Defines.isCompactSettings)
         {
             leftText = new TextView(getContext());
             leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.7)));
@@ -35,7 +40,10 @@ public class TableLikeLayout extends LinearLayout
             Simple.setSizeDip(leftText, Simple.WC, Simple.WC);
 
             addView(leftText);
+        }
 
+        if ((! Defines.isCompactSettings) && ! vertical)
+        {
             TextView colonText = new TextView(getContext());
             colonText.setText(":");
             colonText.setMinEms(1);

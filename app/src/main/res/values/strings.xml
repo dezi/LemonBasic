@@ -126,9 +126,9 @@
     <string name="detail_download_complete">Download abgeschlossen.</string>
     <string name="detail_download_failed">Download fehlgeschlagen.</string>
 
-    <string name="detail_specs_file">Datei</string>
+    <string name="detail_specs_file">Dateiformat</string>
 
-    <string name="detail_specs_quantity">Umfang</string>
+    <string name="detail_specs_quantity">Länge/Umfang</string>
     <string name="detail_specs_quantity_duration">%1$s Min.</string>
     <string name="detail_specs_quantity_pages">%1$s Seiten</string>
 
