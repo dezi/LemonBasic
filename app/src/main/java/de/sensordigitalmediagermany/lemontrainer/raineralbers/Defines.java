@@ -253,8 +253,8 @@ public class Defines
 
     // @formatter:off
     public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
+    public static       float ASSET_SETTINGS_ASPECT  = 2.5f; // static!
     public static final float ASSET_DETAIL_ASPECT    = 3.0f;
-    public static final float ASSET_SETTINGS_ASPECT  = 2.5f;
     public static final float ASSET_BANNER_ASPECT    = 3.2f;
     // @formatter:on
 
@@ -379,6 +379,7 @@ public class Defines
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
 
             ASSET_THUMBNAIL_ASPECT  = 1.30f;
+            ASSET_SETTINGS_ASPECT   = 3.00f;
 
             // @formatter:on
         }

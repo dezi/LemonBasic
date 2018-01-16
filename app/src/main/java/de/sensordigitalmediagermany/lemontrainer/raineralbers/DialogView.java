@@ -63,6 +63,8 @@ public class DialogView extends RelativeLayout
     {
         final DialogView dialogView = new DialogView(rootView.getContext());
 
+        dialogView.setCloseButton(true, null);
+
         Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_ALERT_BACK, true);
 
         dialogView.setTitleText(titleres);
@@ -211,18 +213,23 @@ public class DialogView extends RelativeLayout
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
         Simple.setMarginTopDip(infoView, Defines.PADDING_SMALL);
-        Simple.setMarginBottomDip(infoView, Defines.PADDING_NORMAL);
 
         padView.addView(infoView);
 
         if (Defines.isDialogTextCenter)
         {
+            Simple.setMarginBottomDip(titleView, Defines.PADDING_TINY);
+            Simple.setMarginBottomDip(infoView, Defines.PADDING_NORMAL);
+
             titleView.setGravity(Gravity.CENTER_HORIZONTAL);
             infoView.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
             infoView.setAllCaps(false);
         }
         else
         {
+            Simple.setMarginBottomDip(titleView, Defines.PADDING_LARGE);
+            Simple.setMarginBottomDip(infoView, Defines.PADDING_XLARGE);
+
             titleView.setGravity(Gravity.START);
             infoView.setGravity(Gravity.START + Gravity.CENTER_VERTICAL);
             infoView.setAllCaps(true);

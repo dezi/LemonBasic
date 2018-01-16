@@ -49,6 +49,10 @@ public class SettingsDetail extends LinearLayout
                     Defines.PADDING_LARGE, Defines.PADDING_LARGE);
         }
 
+        Typeface headerTF = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SETTINGS_HEADER);
+        Typeface infosTF = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SETTINGS_INFOS);
+        Typeface buttonsTF = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_BUTTON);
+
         //region Top area.
 
         LinearLayout topArea = new LinearLayout(getContext());
@@ -106,7 +110,7 @@ public class SettingsDetail extends LinearLayout
             titleSection.setText(Json.getString(content, "category"));
             titleSection.setAllCaps(true);
             titleSection.setTextColor(Color.BLACK);
-            titleSection.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_MEDIUM));
+            titleSection.setTypeface(headerTF);
             Simple.setSizeDip(titleSection, Simple.MP, Simple.WC);
             Simple.setMarginTopDip(titleSection, Defines.PADDING_TINY);
             Simple.setMarginBottomDip(titleSection, Defines.PADDING_SMALL);
@@ -162,15 +166,17 @@ public class SettingsDetail extends LinearLayout
 
         LinearLayout specsArea = new LinearLayout(getContext());
         specsArea.setOrientation(LinearLayout.VERTICAL);
-        specsArea.setBackgroundColor(Color.WHITE);
         Simple.setSizeDip(specsArea, Simple.MP, Simple.MP);
-        Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
+
+        if (! Defines.isCompactSettings)
+        {
+            specsArea.setBackgroundColor(Color.WHITE);
+            Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
+        }
 
         miscArea.addView(specsArea);
 
-        TableLikeLayout titleView = new TableLikeLayout(getContext(),
-                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD),
-                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
+        TableLikeLayout titleView = new TableLikeLayout(getContext(), headerTF, headerTF);
 
         titleView.setLeftText(R.string.settings_specs_title);
 
@@ -180,16 +186,20 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(createSeparator());
 
-        TableLikeLayout themeView = new TableLikeLayout(getContext(), true);
-        themeView.setLeftText(R.string.settings_specs_theme);
+        if (! Defines.isCompactSettings)
+        {
+            TableLikeLayout themeView = new TableLikeLayout(getContext(), infosTF, infosTF);
 
-        themeView.setRightText(theme);
+            themeView.setLeftText(R.string.settings_specs_theme);
 
-        specsArea.addView(themeView);
+            themeView.setRightText(theme);
 
-        specsArea.addView(createSeparator());
+            specsArea.addView(themeView);
 
-        TableLikeLayout fileView = new TableLikeLayout(getContext(), true);
+            specsArea.addView(createSeparator());
+        }
+
+        TableLikeLayout fileView = new TableLikeLayout(getContext(), infosTF, infosTF);
         fileView.setLeftText(R.string.settings_specs_file);
 
         int typeResid = R.string.detail_specs_type_unknown;
@@ -204,7 +214,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(createSeparator());
 
-        TableLikeLayout quantView = new TableLikeLayout(getContext(), true);
+        TableLikeLayout quantView = new TableLikeLayout(getContext(), infosTF, infosTF);
         quantView.setLeftText(R.string.settings_specs_quantity);
 
         quantView.setRightText("-");
@@ -229,7 +239,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(createSeparator());
 
-        TableLikeLayout sizeView = new TableLikeLayout(getContext(), true);
+        TableLikeLayout sizeView = new TableLikeLayout(getContext(), infosTF, infosTF);
         sizeView.setLeftText(R.string.settings_specs_size);
 
         sizeView.setRightText(Simple.getTrans(getContext(),
@@ -240,21 +250,23 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(createSeparator());
 
-        TableLikeLayout seenView = new TableLikeLayout(getContext(), true);
-        seenView.setLeftText(R.string.settings_specs_seen);
+        if (! Defines.isCompactSettings)
+        {
+            TableLikeLayout seenView = new TableLikeLayout(getContext(), infosTF, infosTF);
+            seenView.setLeftText(R.string.settings_specs_seen);
 
-        seenView.setRightText(Simple.getTrans(getContext(),
-                R.string.settings_specs_seen_date,
-                "11.11.2011"));
+            seenView.setRightText(Simple.getTrans(getContext(),
+                    R.string.settings_specs_seen_date,
+                    "11.11.2011"));
 
-        specsArea.addView(seenView);
+            specsArea.addView(seenView);
 
-        specsArea.addView(createSeparator());
+            specsArea.addView(createSeparator());
+        }
 
         //region Delete button.
 
         RelativeLayout deleteArea = new RelativeLayout(getContext());
-        deleteArea.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setSizeDip(deleteArea, Simple.MP, Simple.MP);
         Simple.setMarginTopDip(deleteArea, Defines.PADDING_SMALL);
 
@@ -262,11 +274,22 @@ public class SettingsDetail extends LinearLayout
 
         TextView deleteButton = new TextView(getContext());
         deleteButton.setText(R.string.settings_detail_delete);
+        deleteButton.setAllCaps(Defines.isButtonAllCaps);
         deleteButton.setTextColor(Color.WHITE);
-        deleteButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
+        deleteButton.setTypeface(buttonsTF);
         Simple.setSizeDip(deleteButton, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(deleteButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(deleteButton, Defines.CORNER_RADIUS_BIGBUT, Color.RED, true);
+        Simple.setTextSizeDip(deleteButton, Defines.FS_SETTINGS_BUTTON);
+
+        if (Defines.isCompactSettings)
+        {
+            deleteArea.setGravity(Gravity.END + Gravity.TOP);
+            Simple.setRoundedCorners(deleteButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
+        }
+        else
+        {
+            deleteArea.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+            Simple.setRoundedCorners(deleteButton, Defines.CORNER_RADIUS_BUTTON, Color.RED, true);
+        }
 
         Simple.setPaddingDip(deleteButton,
                 Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
@@ -317,7 +340,7 @@ public class SettingsDetail extends LinearLayout
     private RelativeLayout createSeparator()
     {
         RelativeLayout separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
+        separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
         Simple.setSizeDip(separ, Simple.MP, 1);
         Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
 

@@ -15,19 +15,7 @@ public class TableLikeLayout extends LinearLayout
 
     public TableLikeLayout(Context context)
     {
-        this(context,
-                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAMNARROW_LIGHT),
-                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD)
-        );
-    }
-
-    public TableLikeLayout(Context context, boolean plain)
-    {
-        this(context,
-                Typeface.createFromAsset(context.getAssets(), Defines.GOTHAMNARROW_LIGHT), plain
-                        ? Typeface.createFromAsset(context.getAssets(), Defines.GOTHAMNARROW_LIGHT)
-                        : Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD)
-        );
+        this(context, null, null);
     }
 
     public TableLikeLayout(Context context, Typeface leftFace, Typeface rightFace)
@@ -42,6 +30,7 @@ public class TableLikeLayout extends LinearLayout
             leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.7)));
             leftText.setTextColor(Color.BLACK);
             leftText.setTypeface(leftFace);
+            leftText.setAllCaps(Defines.isInfosAllCaps);
             Simple.setTextSizeDip(leftText, Defines.FS_DETAIL_SPECS);
             Simple.setSizeDip(leftText, Simple.WC, Simple.WC);
 
@@ -62,6 +51,7 @@ public class TableLikeLayout extends LinearLayout
         rightText = new TextView(getContext());
         rightText.setTextColor(Color.BLACK);
         rightText.setTypeface(rightFace);
+        rightText.setAllCaps(Defines.isInfosAllCaps);
         Simple.setTextSizeDip(rightText, Defines.FS_DETAIL_SPECS);
         Simple.setSizeDip(rightText, Simple.WC, Simple.WC, 1f);
 

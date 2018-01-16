@@ -85,7 +85,7 @@
     <string name="settings_specs_quantity_duration">%1$s Min.</string>
 
     <string name="settings_specs_size">Daten</string>
-    <string name="settings_specs_size_mb">%1$s MB Daten</string>
+    <string name="settings_specs_size_mb">%1$s MB</string>
     <string name="settings_list_size_mb">%1$s MB</string>
 
     <string name="settings_specs_seen">Gesehen</string>
@@ -138,7 +138,7 @@
     <string name="detail_specs_type_unknown">Unbekannt</string>
     <string name="detail_specs_type_video">Video</string>
     <string name="detail_specs_type_audio">Audio</string>
-    <string name="detail_specs_type_pdf">PDF</string>
+    <string name="detail_specs_type_pdf">PDF-Datei</string>
     <string name="detail_specs_type_zip">WEB</string>
 
     <string name="redeem_coupon_title">Gutschein-Code eingeben:</string>
