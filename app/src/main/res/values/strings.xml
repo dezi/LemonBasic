@@ -1,6 +1,10 @@
 <resources>
 
-    <string name="app_name">LT Rainer Albers</string>
+    <string name="app_name_pier_cadin">Pier Cadin Sales Info</string>
+    <string name="app_name_rainer_albers">LT Rainer Albers</string>
+
+    <string name="logoff_info_pier_cadin">Wollen Sie sich wirklich abmelden vom Pier Cadin Sales Information System?</string>
+    <string name="logoff_info_rainer_albers">Wollen Sie sich wirklich vom Rainer Albers Trainer System abmelden?</string>
 
     <string name="no_category">Ohne Kategorie</string>
 
@@ -20,6 +24,11 @@
     <string name="login">Login</string>
     <string name="login_success">Login erfolgreich.</string>
     <string name="login_failed">Login nicht erfolgreich.</string>
+
+    <string name="logoff_title">Abmelden?</string>
+    <string name="logoff_info_neutral">Wollen Sie sich wirklich abmelden?</string>
+    <string name="logoff_info2">Dabei gehen alle Ihre geladenen Inhalte verloren.</string>
+    <string name="logoff_logoff">Abmelden</string>
 
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>

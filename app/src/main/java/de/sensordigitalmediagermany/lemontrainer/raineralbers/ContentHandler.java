@@ -165,6 +165,10 @@ public class ContentHandler
 
                     if (data != null)
                     {
+                        cont2courseMap.clear();
+                        courseId2objectMap.clear();
+                        contentId2objectMap.clear();
+
                         SparseArray<JSONObject> courseMap = new SparseArray<>();
 
                         Globals.courses = Json.getArray(data, "Courses");
@@ -324,6 +328,9 @@ public class ContentHandler
     {
         if (Globals.customerContents != null)
         {
+            coursesBought.clear();
+            contentsBought.clear();
+
             for (int inx = 0; inx < Globals.customerContents.length(); inx++)
             {
                 JSONObject item = Json.getObject(Globals.customerContents, inx);
@@ -576,5 +583,18 @@ public class ContentHandler
         }
 
         return false;
+    }
+
+    public static void deleteAllCachedFiles()
+    {
+        if (Globals.displayAllContents == null) return;
+
+        for (int inx = 0; inx < Globals.displayAllContents.length(); inx++)
+        {
+            JSONObject content = Json.getObject(Globals.displayAllContents, inx);
+            if (content == null) continue;
+
+            deleteCachedFile(content);
+        }
     }
 }

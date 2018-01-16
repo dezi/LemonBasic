@@ -9,8 +9,6 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-import java.util.Iterator;
-
 public class ContentActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = ContentActivity.class.getSimpleName();
@@ -32,7 +30,7 @@ public class ContentActivity extends ContentBaseActivity
         Simple.setTextSizeDip(naviLeftButton, Defines.FS_NAVI_MENU);
         Simple.setSizeDip(naviLeftButton, Simple.MP, Defines.NAVIGATION_HEIGHT, 0.5f);
         Simple.setPaddingDip(naviLeftButton, Defines.PADDING_LARGE, 0, 0, 0);
-        Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSSPACE);
 
         naviLeftButton.setOnClickListener(new View.OnClickListener()
         {
@@ -67,7 +65,7 @@ public class ContentActivity extends ContentBaseActivity
         Simple.setTextSizeDip(naviRightButton, Defines.FS_NAVI_MENU);
         Simple.setSizeDip(naviRightButton, Simple.MP, Defines.NAVIGATION_HEIGHT, 0.5f);
         Simple.setPaddingDip(naviRightButton, 0, 0, Defines.PADDING_LARGE, 0);
-        Simple.setLetterSpacing(naviRightButton, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(naviRightButton, Defines.FS_NAVIGATION_LSSPACE);
 
         naviRightButton.setOnClickListener(new View.OnClickListener()
         {

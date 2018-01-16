@@ -60,6 +60,12 @@ public class Defines
     // @formatter:on
 
     //
+    // Variable string ids.
+    //
+
+    public static int logoff_info = R.string.logoff_info_neutral; // static!
+
+    //
     // Fixed values.
     //
 
@@ -68,6 +74,9 @@ public class Defines
 
     public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
     public static final int RESULTS_NUM_COLUMNS = Simple.isTablet() ? 8 : 6;
+
+    public static final int MIN_EMS_DIALOGS = Simple.isTablet() ? 12 : 10;
+    public static final int MAX_EMS_DIALOGS = Simple.isTablet() ? 20 : 14;
 
     public static final int CONTENT_TYPE_PDF = 1;
     public static final int CONTENT_TYPE_VIDEO = 2;
@@ -230,9 +239,10 @@ public class Defines
     //
 
     // @formatter:off
+    public static final float FS_DIALOGS_LSMULT     = 1.30f;
     public static final float FS_CONFIRMED_LSMULT   = 1.50f;
     public static final float FS_ASSET_INFO_LSMULT  = 1.30f;
-    public static final float FS_NAVIGATION_LSPACE  = 0.08f;
+    public static final float FS_NAVIGATION_LSSPACE = 0.08f;
     // @formatter:on
 
     //
@@ -303,6 +313,8 @@ public class Defines
             SYSTEM_USER_NAME = "RAINERALBERS";
 
             APIURL = "https://lemon-mobile-learning.com/lemon-trainer/ws/";
+
+            logoff_info = R.string.logoff_info_rainer_albers;
         }
 
         if (isPierCardin)
@@ -310,6 +322,8 @@ public class Defines
             SYSTEM_USER_NAME = "PIERRECARDIN";
 
             APIURL = "https://lemon-mobile-learning.com/lemon-basic/ws/";
+
+            logoff_info = R.string.logoff_info_pier_cadin;
 
             //
             // Tuneups for Pier Cadin style.

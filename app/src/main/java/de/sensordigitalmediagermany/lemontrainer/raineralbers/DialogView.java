@@ -203,8 +203,10 @@ public class DialogView extends RelativeLayout
         infoView = new TextView(context);
         infoView.setVisibility(GONE);
         infoView.setMinLines(2);
-        infoView.setMaxEms(8);
+        infoView.setMinEms(Defines.MIN_EMS_DIALOGS);
+        infoView.setMaxEms(Defines.MAX_EMS_DIALOGS);
         infoView.setTextColor(Defines.COLOR_DIALOG_INFOS);
+        infoView.setLineSpacing(0, Defines.FS_DIALOGS_LSMULT);
         infoView.setTypeface(infosFont);
         Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);

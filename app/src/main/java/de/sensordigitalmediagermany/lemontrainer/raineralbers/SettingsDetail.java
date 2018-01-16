@@ -80,7 +80,7 @@ public class SettingsDetail extends LinearLayout
         contentTitle.setAllCaps(true);
         Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
         Simple.setSizeDip(contentTitle, Simple.MP, Simple.MP);
-        Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
 
         topArea.addView(contentTitle);
 
@@ -97,7 +97,7 @@ public class SettingsDetail extends LinearLayout
         Simple.setMarginTopDip(titleSection, Defines.PADDING_TINY);
         Simple.setMarginBottomDip(titleSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(titleSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(titleSection, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(titleSection, Defines.FS_NAVIGATION_LSSPACE);
 
         addView(titleSection);
 

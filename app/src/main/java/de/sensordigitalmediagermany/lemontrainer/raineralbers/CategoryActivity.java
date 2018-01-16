@@ -27,7 +27,7 @@ public class CategoryActivity extends ContentBaseActivity
         naviLeftButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.FONT_CATEGORY_TITLE));
         Simple.setTextSizeDip(naviLeftButton, Defines.FS_CATEGORY_TITLE);
         Simple.setSizeDip(naviLeftButton, Simple.WC, Simple.WC);
-        Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSSPACE);
 
         Simple.setPaddingDip(naviLeftButton,
                 Defines.PADDING_LARGE, Defines.PADDING_LARGE,

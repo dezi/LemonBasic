@@ -120,7 +120,7 @@ public class SettingsActivity extends ContentBaseActivity
         settingsTitle.setAllCaps(true);
         Simple.setTextSizeDip(settingsTitle, Defines.FS_SETTINGS_TITLE);
         Simple.setSizeDip(settingsTitle, Simple.MP, Simple.WC);
-        Simple.setLetterSpacing(settingsTitle, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(settingsTitle, Defines.FS_NAVIGATION_LSSPACE);
 
         leftTopArea.addView(settingsTitle);
 
@@ -198,7 +198,7 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setSizeDip(nameSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(nameSection, Defines.PADDING_TINY);
         Simple.setTextSizeDip(nameSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(nameSection, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(nameSection, Defines.FS_NAVIGATION_LSSPACE);
 
         leftArea.addView(nameSection);
 
@@ -240,7 +240,7 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setSizeDip(companySection, Simple.MP, Simple.WC);
             Simple.setMarginTopDip(companySection, Defines.PADDING_SMALL);
             Simple.setTextSizeDip(companySection, Defines.FS_SETTINGS_INFO);
-            Simple.setLetterSpacing(companySection, Defines.FS_NAVIGATION_LSPACE);
+            Simple.setLetterSpacing(companySection, Defines.FS_NAVIGATION_LSSPACE);
 
             leftArea.addView(companySection);
 
@@ -279,7 +279,7 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setSizeDip(emailSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(emailSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(emailSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(emailSection, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(emailSection, Defines.FS_NAVIGATION_LSSPACE);
 
         leftArea.addView(emailSection);
 
@@ -318,7 +318,7 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setSizeDip(passwordSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(passwordSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(passwordSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(passwordSection, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(passwordSection, Defines.FS_NAVIGATION_LSSPACE);
 
         leftArea.addView(passwordSection);
 
@@ -378,7 +378,7 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setSizeDip(soundSection, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(soundSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(soundSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(soundSection, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(soundSection, Defines.FS_NAVIGATION_LSSPACE);
 
         leftArea.addView(soundSection);
 
@@ -397,7 +397,7 @@ public class SettingsActivity extends ContentBaseActivity
         onoffText.setTypeface(headersTF);
         Simple.setSizeDip(onoffText, Simple.MP, Simple.WC, 1.0f);
         Simple.setTextSizeDip(onoffText, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSSPACE);
         Simple.setPaddingDip(onoffText, Defines.PADDING_SMALL);
 
         onoffArea.addView(onoffText);
@@ -439,7 +439,7 @@ public class SettingsActivity extends ContentBaseActivity
         volumeText.setTypeface(headersTF);
         Simple.setSizeDip(volumeText, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(volumeText, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(volumeText, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(volumeText, Defines.FS_NAVIGATION_LSSPACE);
         Simple.setPaddingDip(volumeText, Defines.PADDING_SMALL);
 
         volumeArea.addView(volumeText);
@@ -497,9 +497,7 @@ public class SettingsActivity extends ContentBaseActivity
             @Override
             public void onClick(View view)
             {
-                SettingsHandler.killSettings();
-
-                Simple.startActivityTop(SettingsActivity.this, MainActivity.class);
+                topFrame.addView(new LogoffDialog(SettingsActivity.this));
             }
         });
 
@@ -564,7 +562,7 @@ public class SettingsActivity extends ContentBaseActivity
         contentTitle.setAllCaps(true);
         Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
         Simple.setSizeDip(contentTitle, Simple.MP, Simple.WC, 0.58f);
-        Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSPACE);
+        Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
 
         rightTopArea.addView(contentTitle);
 
@@ -660,7 +658,7 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setMarginTopDip(contentSection, Defines.PADDING_SMALL);
             Simple.setMarginBottomDip(contentSection, Defines.PADDING_SMALL);
             Simple.setTextSizeDip(contentSection, Defines.FS_SETTINGS_INFO);
-            Simple.setLetterSpacing(contentSection, Defines.FS_NAVIGATION_LSPACE);
+            Simple.setLetterSpacing(contentSection, Defines.FS_NAVIGATION_LSSPACE);
 
             rightArea.addView(contentSection);
         }
@@ -741,7 +739,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB.setText(Simple.getTrans(this,
                 R.string.settings_used_storage_mb,
-                (total < 1) ? "< 1" : Simple.formatDecimal(total)));
+                ((0 < total) && (total < 1)) ? "< 1" : Simple.formatDecimal(total)));
 
         assetsAdapter.notifyDataSetChanged();
     }
