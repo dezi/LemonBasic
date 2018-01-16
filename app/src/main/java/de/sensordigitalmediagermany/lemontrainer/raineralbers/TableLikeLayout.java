@@ -36,25 +36,28 @@ public class TableLikeLayout extends LinearLayout
 
         setOrientation(HORIZONTAL);
 
-        leftText = new TextView(getContext());
-        leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.7)));
-        leftText.setTextColor(Color.BLACK);
-        leftText.setTypeface(leftFace);
-        Simple.setTextSizeDip(leftText, Defines.FS_DETAIL_SPECS);
-        Simple.setSizeDip(leftText, Simple.WC, Simple.WC);
+        if (! Defines.isCompactSettings)
+        {
+            leftText = new TextView(getContext());
+            leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.7)));
+            leftText.setTextColor(Color.BLACK);
+            leftText.setTypeface(leftFace);
+            Simple.setTextSizeDip(leftText, Defines.FS_DETAIL_SPECS);
+            Simple.setSizeDip(leftText, Simple.WC, Simple.WC);
 
-        addView(leftText);
+            addView(leftText);
 
-        TextView colonText = new TextView(getContext());
-        colonText.setText(":");
-        colonText.setMinEms(1);
-        colonText.setTextColor(Color.BLACK);
-        colonText.setGravity(Gravity.CENTER_HORIZONTAL);
-        colonText.setTypeface(leftFace);
-        Simple.setTextSizeDip(colonText, Defines.FS_DETAIL_SPECS);
-        Simple.setSizeDip(colonText, Simple.WC, Simple.WC);
+            TextView colonText = new TextView(getContext());
+            colonText.setText(":");
+            colonText.setMinEms(1);
+            colonText.setTextColor(Color.BLACK);
+            colonText.setGravity(Gravity.CENTER_HORIZONTAL);
+            colonText.setTypeface(leftFace);
+            Simple.setTextSizeDip(colonText, Defines.FS_DETAIL_SPECS);
+            Simple.setSizeDip(colonText, Simple.WC, Simple.WC);
 
-        addView(colonText);
+            addView(colonText);
+        }
 
         rightText = new TextView(getContext());
         rightText.setTextColor(Color.BLACK);
@@ -67,7 +70,7 @@ public class TableLikeLayout extends LinearLayout
 
     public void setLeftText(int textresid)
     {
-        leftText.setText(textresid);
+        if (leftText != null) leftText.setText(textresid);
     }
 
     public void setRightText(int textresid)

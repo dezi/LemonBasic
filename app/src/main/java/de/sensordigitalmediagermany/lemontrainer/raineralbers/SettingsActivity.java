@@ -715,8 +715,16 @@ public class SettingsActivity extends ContentBaseActivity
                 {
                     SettingsDetail detailView = new SettingsDetail(SettingsActivity.this, content);
 
-                    bodyHorz.removeView(rightArea);
-                    bodyHorz.addView(detailView);
+                    if (Defines.isCompactSettings)
+                    {
+                        rightArea.removeView(assetGrid);
+                        rightArea.addView(detailView);
+                    }
+                    else
+                    {
+                        bodyHorz.removeView(rightArea);
+                        bodyHorz.addView(detailView);
+                    }
 
                     Json.put(content, "_isSelected", false);
                 }
@@ -734,12 +742,14 @@ public class SettingsActivity extends ContentBaseActivity
             if (item == null) continue;
 
             long file_size = Json.getLong(item, "file_size");
-            total += file_size / (1000 * 1024);
+            total += file_size;
         }
+
+        long totalMB = total / (1000 * 1024);
 
         contentSizeMB.setText(Simple.getTrans(this,
                 R.string.settings_used_storage_mb,
-                ((0 < total) && (total < 1)) ? "< 1" : Simple.formatDecimal(total)));
+                ((0 < total) && (totalMB < 1)) ? "<1" : Simple.formatDecimal(totalMB)));
 
         assetsAdapter.notifyDataSetChanged();
     }
@@ -763,9 +773,19 @@ public class SettingsActivity extends ContentBaseActivity
 
     public void reAttachRightArea()
     {
-        if (rightArea.getParent() == null)
+        if (Defines.isCompactSettings)
         {
-            bodyHorz.addView(rightArea);
+            if (assetGrid.getParent() == null)
+            {
+                rightArea.addView(assetGrid);
+            }
+        }
+        else
+        {
+            if (rightArea.getParent() == null)
+            {
+                bodyHorz.addView(rightArea);
+            }
         }
     }
 }

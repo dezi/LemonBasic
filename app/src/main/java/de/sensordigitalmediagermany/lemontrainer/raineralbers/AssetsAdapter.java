@@ -231,7 +231,7 @@ public class AssetsAdapter extends BaseAdapter
 
         summaryView.setText(Simple.getTrans(parent.getContext(),
                 R.string.settings_list_size_mb,
-                (mbytes < 1) ? "< 1" : Simple.formatDecimal(mbytes)));
+                (mbytes < 1) ? "<1" : Simple.formatDecimal(mbytes)));
 
         if (isCourse)
         {

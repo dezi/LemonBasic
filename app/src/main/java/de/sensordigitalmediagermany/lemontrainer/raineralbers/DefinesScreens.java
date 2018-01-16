@@ -104,6 +104,14 @@ public class DefinesScreens extends Defines
 
     public static int getArrowWhiteLeftOnRes()
     {
+        if (isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_iany_piercadin_pfeillinks_weiss
+                    : R.drawable.lem_t_iany_piercadin_pfeillinks_weiss
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
                 : R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
@@ -112,6 +120,14 @@ public class DefinesScreens extends Defines
 
     public static int getArrowDarkLeftOnRes()
     {
+        if (isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_iany_piercadin_pfeillinks_dunkel
+                    : R.drawable.lem_t_iany_piercadin_pfeillinks_dunkel
+                    ;
+        }
+
         return Simple.isTablet()
                 ? R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel
                 : R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel

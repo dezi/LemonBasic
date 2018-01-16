@@ -38,12 +38,16 @@ public class SettingsDetail extends LinearLayout
         this.content = content;
 
         setOrientation(LinearLayout.VERTICAL);
-        setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(this, Simple.MP, Simple.MP, 0.4f);
 
-        Simple.setPaddingDip(this,
-                Defines.PADDING_LARGE, Defines.PADDING_SMALL,
-                Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+        if (! Defines.isCompactSettings)
+        {
+            setBackgroundColor(Defines.COLOR_CONTENT);
+
+            Simple.setPaddingDip(this,
+                    Defines.PADDING_LARGE, Defines.PADDING_SMALL,
+                    Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+        }
 
         //region Top area.
 
@@ -57,8 +61,12 @@ public class SettingsDetail extends LinearLayout
         ImageView backButtonImage = new ImageView(getContext());
         backButtonImage.setImageResource(DefinesScreens.getArrowDarkLeftOnRes());
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        Simple.setSizeDip(backButtonImage, Simple.WC, Simple.MP);
-        Simple.setMarginRightDip(backButtonImage, Defines.PADDING_NORMAL);
+        Simple.setSizeDip(backButtonImage, Defines.SETTINGS_BACK_SIZE, Simple.MP);
+
+        if (Defines.isCompactSettings)
+        {
+            Simple.setPaddingDip(backButtonImage, Defines.PADDING_TINY);
+        }
 
         backButtonImage.setOnClickListener(new OnClickListener()
         {
@@ -71,35 +79,42 @@ public class SettingsDetail extends LinearLayout
 
         topArea.addView(backButtonImage);
 
-        TextView contentTitle = new TextView(getContext());
-        contentTitle.setText(R.string.settings_detail_title);
-        contentTitle.setSingleLine();
-        contentTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        contentTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
-        contentTitle.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
-        contentTitle.setAllCaps(true);
-        Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
-        Simple.setSizeDip(contentTitle, Simple.MP, Simple.MP);
-        Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
+        if (! Defines.isCompactSettings)
+        {
+            TextView contentTitle = new TextView(getContext());
+            contentTitle.setText(R.string.settings_detail_title);
+            contentTitle.setSingleLine();
+            contentTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
+            contentTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
+            contentTitle.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
+            contentTitle.setAllCaps(true);
+            Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
+            Simple.setSizeDip(contentTitle, Simple.MP, Simple.MP);
+            Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
+            Simple.setMarginLeftDip(contentTitle, Defines.PADDING_NORMAL);
 
-        topArea.addView(contentTitle);
+            topArea.addView(contentTitle);
+        }
 
         //endregion Top area.
 
         //region Title.
 
-        TextView titleSection = new TextView(getContext());
-        titleSection.setText(Json.getString(content, "category"));
-        titleSection.setAllCaps(true);
-        titleSection.setTextColor(Color.BLACK);
-        titleSection.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_MEDIUM));
-        Simple.setSizeDip(titleSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(titleSection, Defines.PADDING_TINY);
-        Simple.setMarginBottomDip(titleSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(titleSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(titleSection, Defines.FS_NAVIGATION_LSSPACE);
+        if (! Defines.isCompactSettings)
+        {
+            TextView titleSection = new TextView(getContext());
+            titleSection.setText(Json.getString(content, "category"));
+            titleSection.setAllCaps(true);
+            titleSection.setTextColor(Color.BLACK);
+            titleSection.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_MEDIUM));
+            Simple.setSizeDip(titleSection, Simple.MP, Simple.WC);
+            Simple.setMarginTopDip(titleSection, Defines.PADDING_TINY);
+            Simple.setMarginBottomDip(titleSection, Defines.PADDING_SMALL);
+            Simple.setTextSizeDip(titleSection, Defines.FS_SETTINGS_INFO);
+            Simple.setLetterSpacing(titleSection, Defines.FS_NAVIGATION_LSSPACE);
 
-        addView(titleSection);
+            addView(titleSection);
+        }
 
         //endregion Title.
 
@@ -153,8 +168,6 @@ public class SettingsDetail extends LinearLayout
 
         miscArea.addView(specsArea);
 
-        RelativeLayout separ;
-
         TableLikeLayout titleView = new TableLikeLayout(getContext(),
                 Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD),
                 Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
@@ -165,12 +178,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(titleView);
 
-        separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         TableLikeLayout themeView = new TableLikeLayout(getContext(), true);
         themeView.setLeftText(R.string.settings_specs_theme);
@@ -179,12 +187,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(themeView);
 
-        separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         TableLikeLayout fileView = new TableLikeLayout(getContext(), true);
         fileView.setLeftText(R.string.settings_specs_file);
@@ -199,12 +202,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(fileView);
 
-        separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         TableLikeLayout quantView = new TableLikeLayout(getContext(), true);
         quantView.setLeftText(R.string.settings_specs_quantity);
@@ -229,12 +227,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(quantView);
 
-        separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         TableLikeLayout sizeView = new TableLikeLayout(getContext(), true);
         sizeView.setLeftText(R.string.settings_specs_size);
@@ -245,12 +238,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(sizeView);
 
-        separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         TableLikeLayout seenView = new TableLikeLayout(getContext(), true);
         seenView.setLeftText(R.string.settings_specs_seen);
@@ -261,12 +249,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(seenView);
 
-        separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 2);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-
-        specsArea.addView(separ);
+        specsArea.addView(createSeparator());
 
         //region Delete button.
 
@@ -329,6 +312,16 @@ public class SettingsDetail extends LinearLayout
         super.onLayout(changed, l, t, r, b);
 
         ApplicationBase.handler.post(displayImage);
+    }
+
+    private RelativeLayout createSeparator()
+    {
+        RelativeLayout separ = new RelativeLayout(getContext());
+        separ.setBackgroundColor(Color.LTGRAY);
+        Simple.setSizeDip(separ, Simple.MP, 1);
+        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+
+        return separ;
     }
 
     private final Runnable displayImage = new Runnable()
