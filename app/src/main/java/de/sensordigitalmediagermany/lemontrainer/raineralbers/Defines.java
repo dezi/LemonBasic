@@ -125,6 +125,8 @@ public class Defines
     public static       int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // static!
     public static       int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // static!
     public static       int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // static!
+    public static       int COLOR_PROGRESS_DONE     = Color.GREEN;             // static!
+    public static       int COLOR_PROGRESS_NEED     = Color.YELLOW;            // static!
     // @formatter:on
 
     //
@@ -365,6 +367,8 @@ public class Defines
             COLOR_SETTINGS_LIST     = Color.WHITE;
             COLOR_SETTINGS_LIST_SEL = Color.BLACK;
             COLOR_DETAIL_TITLE      = Color.BLACK;
+            COLOR_PROGRESS_DONE     = Color.BLACK;
+            COLOR_PROGRESS_NEED     = Color.WHITE;
 
             FONT_DIALOG_TITLE       = FUTURA_BOOK;
             FONT_DIALOG_INFOS       = FUTURA_LIGHT_REG;

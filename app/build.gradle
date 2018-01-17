@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "de.sensordigitalmediagermany.lemontrainer.raineralbers"
+        applicationId 'de.sensordigitalmediagermany.lemontrainer.piercadin'
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1

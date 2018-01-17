@@ -65,7 +65,7 @@ public class DownloadDialog extends DialogView
 
         downloadProgress = new ProgressBar(getContext());
         downloadProgress.setWidthDip(Defines.PROGRESS_DIALOG_WIDTH);
-        downloadProgress.setColors(Color.BLACK, Color.WHITE);
+        downloadProgress.setColors(Defines.COLOR_PROGRESS_DONE, Defines.COLOR_PROGRESS_NEED);
 
         dialogItems.addView(downloadProgress);
 

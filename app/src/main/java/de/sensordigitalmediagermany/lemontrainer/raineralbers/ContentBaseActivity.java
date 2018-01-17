@@ -165,7 +165,7 @@ public class ContentBaseActivity extends FullScreenActivity
 
         downloadProgress = new ProgressBar(this);
         downloadProgress.setWidthDip(Defines.PROGRESS_BAR_WIDTH);
-        downloadProgress.setColors(Color.GREEN, Color.YELLOW);
+        downloadProgress.setColors(Defines.COLOR_PROGRESS_DONE, Defines.COLOR_PROGRESS_NEED);
 
         downloadCenter.addView(downloadProgress);
 

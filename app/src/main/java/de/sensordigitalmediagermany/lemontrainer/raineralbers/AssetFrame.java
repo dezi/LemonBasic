@@ -138,7 +138,7 @@ public class AssetFrame extends LinearLayout
         downloadProgress = new ProgressBar(getContext());
         downloadProgress.setId(android.R.id.custom);
         downloadProgress.setWidthDip(Simple.MP);
-        downloadProgress.setColors(Color.GREEN, Color.YELLOW);
+        downloadProgress.setColors(Defines.COLOR_PROGRESS_DONE, Defines.COLOR_PROGRESS_NEED);
 
         downloadCenter.addView(downloadProgress);
 

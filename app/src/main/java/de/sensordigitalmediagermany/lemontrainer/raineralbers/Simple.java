@@ -639,6 +639,51 @@ public class Simple
     }
 
     @Nullable
+    public static Bitmap getBitmapFromFile(Context context, File file)
+    {
+        try
+        {
+            byte[] rawimage = getFileBytes(file);
+
+            if (rawimage != null)
+            {
+                return BitmapFactory.decodeByteArray(rawimage, 0, rawimage.length);
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.d(LOGTAG, ex.toString());
+        }
+
+        return null;
+    }
+
+    @Nullable
+    public static Drawable getDrawableFromFile(Context context, File file)
+    {
+        try
+        {
+            byte[] rawimage = getFileBytes(file);
+
+            if (rawimage != null)
+            {
+                Bitmap myBitmap = BitmapFactory.decodeByteArray(rawimage, 0, rawimage.length);
+
+                if (myBitmap != null)
+                {
+                    return new BitmapDrawable(context.getResources(), myBitmap);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.d(LOGTAG, ex.toString());
+        }
+
+        return null;
+    }
+
+    @Nullable
     public static Drawable getDrawableFromHTTP(Context context, String urlstr)
     {
         try

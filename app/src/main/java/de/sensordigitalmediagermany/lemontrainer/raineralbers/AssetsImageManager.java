@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -23,22 +24,26 @@ public class AssetsImageManager
 
     private static final ArrayList<QueueData> queue = new ArrayList<>();
     private static final Map<String, Drawable> cache = new HashMap<>();
+    private static final Map<String, Boolean> tried = new HashMap<>();
 
     private static Thread worker;
 
     public static Drawable getDrawableOrFetch(Context context, ImageView iv, String url,
                                               int ivwidth, int ivheight, boolean rounded)
     {
+        Boolean triedit;
+
         synchronized (cache)
         {
             String cacheTag = url + "|" + ivwidth + "|" + ivheight + "|" + rounded;
 
             Drawable image = cache.get(cacheTag);
+            triedit = tried.get(cacheTag);
 
             if (image != null) return image;
         }
 
-        fetchAssetImage(context, iv, url, ivwidth, ivheight, rounded);
+        if ((triedit == null) || ! triedit) fetchAssetImage(context, iv, url, ivwidth, ivheight, rounded);
 
         return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
     }
@@ -74,18 +79,24 @@ public class AssetsImageManager
                     qd = queue.remove(0);
                 }
 
-                final Drawable drawable = getDrawable(qd.cx, qd.url, qd.ivwidth, qd.ivheight, qd.rounded);
+                Drawable drawable = getDrawableFromFile(qd.cx, qd.url, qd.ivwidth, qd.ivheight, qd.rounded);
+
+                if (drawable == null)
+                {
+                    drawable = getDrawableFromHTTP(qd.cx, qd.url, qd.ivwidth, qd.ivheight, qd.rounded);
+                }
 
                 if (drawable != null)
                 {
                     final ImageView imageView = qd.iv;
+                    final Drawable drawableFinal = drawable;
 
                     ApplicationBase.handler.post(new Runnable()
                     {
                         @Override
                         public void run()
                         {
-                            imageView.setImageDrawable(drawable);
+                            imageView.setImageDrawable(drawableFinal);
                         }
                     });
                 }
@@ -96,7 +107,41 @@ public class AssetsImageManager
     };
 
     @Nullable
-    private static Drawable getDrawable(Context context, String urlstring,
+    private static Drawable getDrawableFromFile(Context context, String urlstring,
+                                                int ivwidth, int ivheight, boolean rounded)
+    {
+        File cacheFile = getCacheFile(context, urlstring);
+
+        if ((cacheFile != null) && cacheFile.exists())
+        {
+            Bitmap myBitmap = Simple.getBitmapFromFile(context, cacheFile);
+            if (myBitmap == null) return null;
+
+            int cornerRadius = rounded ? Defines.CORNER_RADIUS_ASSETS : 0;
+            Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, ivwidth, ivheight);
+
+            myBitmap.recycle();
+
+            Drawable drawable = new BitmapDrawable(context.getResources(), rcBitmap);
+
+            synchronized (cache)
+            {
+                String cacheTag = urlstring + "|" + ivwidth + "|" + ivheight + "|" + rounded;
+
+                cache.put(cacheTag, drawable);
+                tried.put(cacheTag, true);
+            }
+
+            Log.d(LOGTAG, "Asset Image file url=" + urlstring);
+
+            return drawable;
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private static Drawable getDrawableFromHTTP(Context context, String urlstring,
                                         int ivwidth, int ivheight, boolean rounded)
     {
         if (urlstring == null) return null;
@@ -115,8 +160,10 @@ public class AssetsImageManager
                 Bitmap myBitmap = BitmapFactory.decodeByteArray(rawimage, 0, rawimage.length);
                 if (myBitmap == null) return null;
 
-                int cornerRadius = rounded ? Defines.CORNER_RADIUS_ASSETS : 0;
+                File cacheFile = getCacheFile(context, urlstring);
+                Simple.putFileBytes(cacheFile, rawimage);
 
+                int cornerRadius = rounded ? Defines.CORNER_RADIUS_ASSETS : 0;
                 Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, ivwidth, ivheight);
 
                 myBitmap.recycle();
@@ -128,7 +175,10 @@ public class AssetsImageManager
                     String cacheTag = urlstring + "|" + ivwidth + "|" + ivheight + "|" + rounded;
 
                     cache.put(cacheTag, drawable);
+                    tried.put(cacheTag, true);
                 }
+
+                Log.d(LOGTAG, "Asset Image http url=" + urlstring);
 
                 return drawable;
             }
@@ -136,6 +186,29 @@ public class AssetsImageManager
         catch (Exception ex)
         {
             ex.printStackTrace();
+        }
+
+        synchronized (cache)
+        {
+            String cacheTag = urlstring + "|" + ivwidth + "|" + ivheight + "|" + rounded;
+
+            tried.put(cacheTag, true);
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private static File getCacheFile(Context context, String url)
+    {
+        try
+        {
+            String filename = url.substring(url.lastIndexOf('/') + 1, url.length());
+
+            return new File(context.getCacheDir(), filename);
+        }
+        catch (Exception ignore)
+        {
         }
 
         return null;
