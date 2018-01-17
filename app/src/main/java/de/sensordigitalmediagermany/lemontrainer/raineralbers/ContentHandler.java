@@ -18,7 +18,10 @@ public class ContentHandler
 
     private static final SparseBooleanArray coursesBought = new SparseBooleanArray();
     private static final SparseBooleanArray contentsBought = new SparseBooleanArray();
+
+    private static final SparseIntArray cont2sortMap = new SparseIntArray();
     private static final SparseIntArray cont2courseMap = new SparseIntArray();
+
     private static final SparseArray<JSONObject> courseId2objectMap = new SparseArray<>();
     private static final SparseArray<JSONObject> contentId2objectMap = new SparseArray<>();
 
@@ -141,7 +144,7 @@ public class ContentHandler
         Json.put(asset, "category", category);
         Json.put(asset, "category_id", categoryId);
 
-        Log.d(LOGTAG, "buildAndCountCategory: category_id=" + categoryId + " category=" + category);
+        //Log.d(LOGTAG, "buildAndCountCategory: category_id=" + categoryId + " category=" + category);
     }
 
     public static void getAllContent(final ViewGroup rootframe, final Runnable callback)
@@ -165,15 +168,19 @@ public class ContentHandler
 
                     if (data != null)
                     {
+                        cont2sortMap.clear();
                         cont2courseMap.clear();
                         courseId2objectMap.clear();
                         contentId2objectMap.clear();
 
-                        SparseArray<JSONObject> courseMap = new SparseArray<>();
+                        Globals.completeContents = new JSONArray();
+                        Globals.displayMyContents = new JSONArray();
+                        Globals.displayAllContents = new JSONArray();
 
                         Globals.courses = Json.getArray(data, "Courses");
-                        Globals.courseContents = Json.getArray(data, "CourseContents");
                         Globals.contents = Json.getArray(data, "Contents");
+                        Globals.ccontents = Json.getArray(data, "ContentsForCourses");
+                        Globals.courseContents = Json.getArray(data, "CourseContents");
 
                         //
                         // Display categories either com from data
@@ -208,105 +215,49 @@ public class ContentHandler
 
                                 int course_id = Json.getInt(cc, "course_id");
                                 int content_id = Json.getInt(cc, "content_id");
+                                int sort = Json.getInt(cc, "sort");
 
                                 cont2courseMap.put(content_id, course_id);
+                                cont2sortMap.put(content_id, sort);
                             }
                         }
 
-                        if (Globals.contents != null)
+                        if (Globals.courses != null)
                         {
-                            Globals.completeContents = new JSONArray();
-                            Globals.displayMyContents = new JSONArray();
-                            Globals.displayAllContents = new JSONArray();
-
-                            if (Globals.courses != null)
+                            for (int inx = 0; inx < Globals.courses.length(); inx++)
                             {
-                                for (int inx = 0; inx < Globals.courses.length(); inx++)
-                                {
-                                    JSONObject course = Json.getObject(Globals.courses, inx);
-                                    if (course == null) continue;
+                                JSONObject course = Json.getObject(Globals.courses, inx);
+                                if (course == null) continue;
 
-                                    int id = Json.getInt(course, "id");
+                                Globals.completeContents.put(course);
 
-                                    courseId2objectMap.put(id, course);
+                                int id = Json.getInt(course, "id");
 
-                                    Json.put(course, "_isCourse", true);
-                                    Json.put(course, "_cc", new JSONArray());
+                                courseId2objectMap.put(id, course);
 
-                                    Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
+                                Json.put(course, "_isCourse", true);
+                                Json.put(course, "_cc", new JSONArray());
 
-                                    //
-                                    // Make sure, a real or virtual category_id is present.
-                                    //
-
-                                    buildAndCountCategory(course);
-
-                                    Globals.displayAllContents.put(course);
-
-                                    courseMap.put(id, course);
-                                }
-                            }
-
-                            for (int inx = 0; inx < Globals.contents.length(); inx++)
-                            {
-                                JSONObject content = Json.getObject(Globals.contents, inx);
-                                if (content == null) continue;
-
-                                Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
+                                Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
 
                                 //
                                 // Make sure, a real or virtual category_id is present.
                                 //
 
-                                buildAndCountCategory(content);
+                                buildAndCountCategory(course);
 
-                                Globals.completeContents.put(content);
-
-                                int id = Json.getInt(content, "id");
-
-                                contentId2objectMap.put(id, content);
-
-                                Json.put(content, "_isCourse", false);
-
-                                if (cont2courseMap.get(id, 0) != 0)
-                                {
-                                    //
-                                    // Content belongs to course.
-                                    //
-
-                                    int courseId = cont2courseMap.get(id);
-
-                                    JSONObject course = courseMap.get(courseId);
-                                    if (course == null) continue;
-
-                                    JSONArray cc = Json.getArray(course, "_cc");
-                                    if (cc == null) continue;
-
-                                    Log.d(LOGTAG, "getAllContent: cc=" + Json.getString(content, "title"));
-
-                                    Json.put(content, "_courseId", courseId);
-                                    Json.put(cc, content);
-
-                                    if (Defines.isTrainer)
-                                    {
-                                        //
-                                        // Course content in Trainer version
-                                        // is not added to global content list.
-                                        //
-
-                                        continue;
-                                    }
-                                }
-
-                                Globals.displayAllContents.put(content);
+                                Globals.displayAllContents.put(course);
                             }
-
-                            Globals.contentsLoaded = true;
-
-                            ApplicationBase.handler.post(callback);
-
-                            return;
                         }
+
+                        addContent(Globals.contents, true);
+                        addContent(Globals.ccontents, false);
+
+                        Globals.contentsLoaded = true;
+
+                        ApplicationBase.handler.post(callback);
+
+                        return;
                     }
                 }
 
@@ -322,6 +273,64 @@ public class ContentHandler
                 });
             }
         });
+    }
+
+    private static void addContent(JSONArray contents, boolean addtop)
+    {
+        if (contents == null) return;
+
+        for (int inx = 0; inx < contents.length(); inx++)
+        {
+            JSONObject content = Json.getObject(contents, inx);
+            if (content == null) continue;
+
+            Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
+
+            //
+            // Make sure, a real or virtual category_id is present.
+            //
+
+            buildAndCountCategory(content);
+
+            Globals.completeContents.put(content);
+
+            int id = Json.getInt(content, "id");
+
+            contentId2objectMap.put(id, content);
+
+            Json.put(content, "_isCourse", false);
+
+            if (cont2courseMap.get(id, 0) != 0)
+            {
+                //
+                // Content belongs to course.
+                //
+
+                int courseId = cont2courseMap.get(id);
+
+                JSONObject course = courseId2objectMap.get(courseId);
+                if (course == null) continue;
+
+                JSONArray cc = Json.getArray(course, "_cc");
+                if (cc == null) continue;
+
+                Log.d(LOGTAG, "getAllContent: cc=" + Json.getString(content, "title"));
+
+                Json.put(content, "_courseId", courseId);
+                Json.put(cc, content);
+
+                if (! addtop)
+                {
+                    //
+                    // Course content is not added to global content list.
+                    //
+
+                    continue;
+                }
+            }
+
+            Globals.displayAllContents.put(content);
+        }
     }
 
     public static void registerOldPurchases()
@@ -458,7 +467,7 @@ public class ContentHandler
     public static JSONArray getBannerContent()
     {
         JSONArray result = new JSONArray();
-        JSONArray source = Globals.displayAllContents;
+        JSONArray source = Globals.completeContents;
 
         if (source != null)
         {

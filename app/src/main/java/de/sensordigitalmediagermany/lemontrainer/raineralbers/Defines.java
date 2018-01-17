@@ -42,6 +42,7 @@ public class Defines
     public static final boolean isBasic            = isPierCardin;
     public static final boolean isTrainer          = isRainerAlbers;
 
+    public static final boolean isPDFZoomable      = false;
     public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = isPierCardin;

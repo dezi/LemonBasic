@@ -243,6 +243,26 @@ public class ContentBaseActivity extends FullScreenActivity
         assetsAdapter.notifyDataSetChanged();
     }
 
+    protected void showNavigationPath(String category, String title)
+    {
+        if (navigationButton != null)
+        {
+            String navipath = "";
+
+            if (category != null)
+            {
+                navipath = category;
+            }
+
+            if ((title != null) && ! title.equals(navipath))
+            {
+                navipath += " | " + title;
+            }
+
+            navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
+        }
+    }
+
     private void showProfileMenu()
     {
         ProfileMenu profilePopup = new ProfileMenu(this);

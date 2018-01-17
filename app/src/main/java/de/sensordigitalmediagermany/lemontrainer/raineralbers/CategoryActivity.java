@@ -18,6 +18,8 @@ public class CategoryActivity extends ContentBaseActivity
     {
         super.onCreate(savedInstanceState);
 
+        setBackButton(true);
+
         Simple.setMarginDip(naviFrame, Defines.PADDING_NORMAL, 0, Defines.PADDING_NORMAL, 0);
 
         naviLeftButton = new TextView(this);

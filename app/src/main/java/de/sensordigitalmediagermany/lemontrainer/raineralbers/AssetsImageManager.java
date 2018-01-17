@@ -115,14 +115,9 @@ public class AssetsImageManager
                 Bitmap myBitmap = BitmapFactory.decodeByteArray(rawimage, 0, rawimage.length);
                 if (myBitmap == null) return null;
 
-                float aspectX = myBitmap.getWidth() / (float) ivwidth;
-                float aspectY = myBitmap.getHeight() / (float) ivheight;
+                int cornerRadius = rounded ? Defines.CORNER_RADIUS_ASSETS : 0;
 
-                int cornerRadius = rounded ? Math.round(Defines.CORNER_RADIUS_ASSETS * ((aspectX + aspectY) / 2)) : 0;
-
-                float displayAspect = ivwidth / (float) ivheight;
-
-                Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, displayAspect);
+                Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, ivwidth, ivheight);
 
                 myBitmap.recycle();
 

@@ -743,8 +743,10 @@ public class Simple
         return cbm;
     }
 
-    public static Bitmap makeRoundedTopCornersBitmap(Bitmap bitmap, int cornerradius, float aspect)
+    public static Bitmap makeRoundedTopCornersBitmap(Bitmap bitmap, int cornerradius, int ivwidth, int ivheight)
     {
+        float aspect = ivwidth / (float) ivheight;
+
         int bmwidth = bitmap.getWidth();
         int bmheight = bitmap.getHeight();
 
@@ -760,12 +762,12 @@ public class Simple
             width = Math.round(height * aspect);
         }
 
-        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(ivwidth, ivheight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         canvas.drawARGB(0, 0, 0, 0);
 
         Rect srcrect = new Rect(0, 0, width, height);
-        Rect dstrect = new Rect(0, 0, width, height);
+        Rect dstrect = new Rect(0, 0, ivwidth, ivheight);
         RectF rectF = new RectF(dstrect);
 
         Paint paint = new Paint();

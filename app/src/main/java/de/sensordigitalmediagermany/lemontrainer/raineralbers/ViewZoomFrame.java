@@ -122,6 +122,11 @@ public class ViewZoomFrame extends FrameLayout
         @Override
         public boolean onScale(ScaleGestureDetector detector)
         {
+            if (! Defines.isPDFZoomable)
+            {
+                return true;
+            }
+
             if (scaling == 0)
             {
                 initialZoom = zoomFactor;

@@ -6,6 +6,7 @@
     <string name="logoff_info_pier_cadin">Wollen Sie sich wirklich abmelden vom Pier Cadin Sales Information System?</string>
     <string name="logoff_info_rainer_albers">Wollen Sie sich wirklich vom Rainer Albers Trainer System abmelden?</string>
 
+    <string name="course">Lehrgang</string>
     <string name="no_category">Ohne Kategorie</string>
 
     <string name="button_ok">OK</string>

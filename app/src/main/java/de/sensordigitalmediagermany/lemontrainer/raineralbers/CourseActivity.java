@@ -26,13 +26,15 @@ public class CourseActivity extends ContentBaseActivity
         naviFrame.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.WC);
 
-        Simple.setPaddingDip(naviFrame,
-                Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
-                Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
-
         setBackButton(true);
 
         if (Globals.displayContent == null) return;
+
+        Typeface headerTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_HEADER);
+        Typeface subheadTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_SUBHEAD);
+        Typeface titleTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_TITLE);
+        Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_INFOS);
+        Typeface buttonsTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DIALOG_BUTTON);
 
         String courseTitle = Json.getString(Globals.displayContent, "title");
         String courseInfo = Json.getString(Globals.displayContent, "sub_title");
@@ -40,28 +42,11 @@ public class CourseActivity extends ContentBaseActivity
         String courseDescription = Json.getString(Globals.displayContent, "description");
         String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
 
-        if ((courseHeader == null) || courseHeader.isEmpty())
-        {
-            courseHeader = "Hier fehlt der Text in der Datenbank. Gruss Dennis";
-        }
-
         //
         // Setup navigation path.
         //
 
-        if (navigationButton != null)
-        {
-            String navipath = "";
-
-            if (Globals.category != null)
-            {
-                navipath = Globals.category + " | ";
-            }
-
-            navipath += courseTitle;
-
-            navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
-        }
+        showNavigationPath(courseTitle, Simple.getTrans(this, R.string.course));
 
         //region Image and type area.
 
@@ -102,9 +87,8 @@ public class CourseActivity extends ContentBaseActivity
 
         TextView ctView = new TextView(this);
         ctView.setText(courseTitle);
-        ctView.setAllCaps(true);
-        ctView.setTextColor(Defines.COLOR_SENSOR_LTBLUE);
-        ctView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
+        ctView.setAllCaps(Defines.isInfosAllCaps);
+        ctView.setTypeface(headerTF);
         Simple.setTextSizeDip(ctView, Defines.FS_DETAIL_HEADER);
         Simple.setSizeDip(ctView, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(ctView, Defines.PADDING_SMALL);
@@ -113,8 +97,8 @@ public class CourseActivity extends ContentBaseActivity
 
         TextView ciView = new TextView(this);
         ciView.setText(courseInfo);
-        ciView.setTextColor(Color.BLACK);
-        ciView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_REGULAR));
+        ciView.setAllCaps(Defines.isInfosAllCaps);
+        ciView.setTypeface(subheadTF);
         Simple.setTextSizeDip(ciView, Defines.FS_DETAIL_SUBHEAD);
         Simple.setSizeDip(ciView, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(ciView, Defines.PADDING_TINY);
@@ -133,39 +117,69 @@ public class CourseActivity extends ContentBaseActivity
 
         infoAndButtonArea.addView(infoArea);
 
-        TextView chView = new TextView(this);
-        chView.setText(courseHeader);
-        chView.setTextColor(Color.BLACK);
-        chView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_MEDIUM));
-        chView.setAllCaps(Defines.isInfosAllCaps);
-        Simple.setTextSizeDip(chView, Defines.FS_DETAIL_TITLE);
-        Simple.setSizeDip(chView, Simple.MP, Simple.WC);
+        if ((courseHeader != null) && ! courseHeader.isEmpty())
+        {
+            TextView chView = new TextView(this);
+            chView.setText(courseHeader);
+            chView.setTextColor(Color.BLACK);
+            chView.setTypeface(titleTF);
+            chView.setAllCaps(Defines.isInfosAllCaps);
+            Simple.setTextSizeDip(chView, Defines.FS_DETAIL_TITLE);
+            Simple.setSizeDip(chView, Simple.MP, Simple.WC);
 
-        infoArea.addView(chView);
+            infoArea.addView(chView);
+        }
 
         TextView cdView = new TextView(this);
         cdView.setText(courseDescription);
         cdView.setTextColor(Color.BLACK);
         cdView.setMinLines(2);
-        cdView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.ROONEY_LIGHT));
+        cdView.setTypeface(infosTF);
+        cdView.setAllCaps(Defines.isInfosAllCaps);
         Simple.setTextSizeDip(cdView, Defines.FS_DETAIL_INFOS);
-        Simple.setSizeDip(cdView, Simple.WC, Simple.MP, 1.0f);
-        Simple.setMarginTopDip(cdView, Defines.PADDING_NORMAL);
 
         infoArea.addView(cdView);
 
         if (Defines.isCompactDetails)
         {
+            Simple.setPaddingDip(naviFrame,
+                    Defines.PADDING_NORMAL, Defines.PADDING_NORMAL,
+                    Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
+
+            LinearLayout forceDown = new LinearLayout(this);
+            Simple.setSizeDip(forceDown, Simple.MP, Simple.MP, 1.0f);
+
+            titleArea.addView(forceDown, 0);
+
+            ctView.setTextColor(Color.WHITE);
+            ciView.setTextColor(Color.WHITE);
+
+            Simple.setSizeDip(titleArea, Simple.MP, Simple.MP);
+            Simple.setPaddingDip(titleArea, Defines.PADDING_LARGE);
+
             imageFrame.addView(titleArea);
+
+            Simple.setSizeDip(cdView, Simple.WC, Simple.WC);
+
         }
         else
         {
+            Simple.setPaddingDip(naviFrame,
+                    Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
+                    Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
+
+            ctView.setTextColor(Defines.COLOR_SENSOR_LTBLUE);
+            ciView.setTextColor(Color.BLACK);
+
             naviFrame.addView(titleArea);
+
+            Simple.setSizeDip(cdView, Simple.WC, Simple.MP, 1.0f);
+            Simple.setMarginTopDip(cdView, Defines.PADDING_NORMAL);
         }
 
         buyButton = new TextView(this);
         buyButton.setTextColor(Color.WHITE);
-        buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        buyButton.setTypeface(buttonsTF);
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
         Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BIGBUT, Color.BLACK, true);

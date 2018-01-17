@@ -23,7 +23,7 @@ public class AssetFrame extends LinearLayout
     private ImageView imageView;
     private TextView titleView;
     private TextView summaryView;
-    private ImageView courseView;
+    private ImageView iconView;
     private TextView ownedView;
     private ImageView loadedView;
     private ProgressBar downloadProgress;
@@ -74,17 +74,27 @@ public class AssetFrame extends LinearLayout
         imageBox.addView(imageView);
 
         RelativeLayout courseBar = new RelativeLayout(getContext());
-        courseBar.setGravity(Gravity.CENTER_VERTICAL + Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(courseBar, Simple.MP, Simple.MP);
         imageBox.addView(courseBar);
 
-        courseView = new ImageView(getContext());
-        courseView.setId(android.R.id.icon);
-        courseView.setImageResource(DefinesScreens.getCourseMarkerRes());
-        courseView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        Simple.setSizeDip(courseView, Simple.WC, Defines.COURSE_ICON_SIZE);
+        iconView = new ImageView(getContext());
+        iconView.setId(android.R.id.icon);
+        Simple.setSizeDip(iconView, Simple.WC, Defines.COURSE_ICON_SIZE);
 
-        courseBar.addView(courseView);
+        courseBar.addView(iconView);
+
+        if (Defines.isOverlayAsset)
+        {
+            courseBar.setGravity(Gravity.START + Gravity.TOP);
+            iconView.setScaleType(ImageView.ScaleType.FIT_START);
+
+            Simple.setPaddingDip(iconView, Defines.PADDING_NORMAL);
+        }
+        else
+        {
+            courseBar.setGravity(Gravity.CENTER_VERTICAL + Gravity.CENTER_HORIZONTAL);
+            iconView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
 
         RelativeLayout overlayBar = new RelativeLayout(getContext());
         overlayBar.setGravity(Gravity.END);
@@ -230,7 +240,8 @@ public class AssetFrame extends LinearLayout
 
         if (isCourse)
         {
-            courseView.setVisibility(View.VISIBLE);
+            iconView.setImageResource(DefinesScreens.getCourseMarkerRes());
+            iconView.setVisibility(View.VISIBLE);
 
             this.setOnClickListener(new View.OnClickListener()
             {
@@ -266,7 +277,24 @@ public class AssetFrame extends LinearLayout
         }
         else
         {
-            courseView.setVisibility(View.GONE);
+            int content_type = Json.getInt(asset, "content_type");
+
+            int iconResid = 0;
+
+            if (content_type == Defines.CONTENT_TYPE_PDF) iconResid = R.drawable.lem_t_iany_generic_type_pdf_mini;
+            if (content_type == Defines.CONTENT_TYPE_ZIP) iconResid = R.drawable.lem_t_iany_generic_type_html5_mini;
+            if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_video_mini;
+            if (content_type == Defines.CONTENT_TYPE_AUDIO) iconResid = R.drawable.lem_t_iany_generic_type_audio_mini;
+
+            if (iconResid > 0)
+            {
+                iconView.setImageResource(iconResid);
+                iconView.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                iconView.setVisibility(View.GONE);
+            }
 
             this.setOnClickListener(new View.OnClickListener()
             {

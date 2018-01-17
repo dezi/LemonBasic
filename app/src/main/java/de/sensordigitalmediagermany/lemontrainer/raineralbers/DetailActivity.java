@@ -77,19 +77,7 @@ public class DetailActivity extends ContentBaseActivity
         // Setup navigation path.
         //
 
-        if (navigationButton != null)
-        {
-            String navipath = "";
-
-            if (Globals.category != null)
-            {
-                navipath = Globals.category + " | ";
-            }
-
-            navipath += contentTitle;
-
-            navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
-        }
+        showNavigationPath(contentTitle, contentInfo);
 
         //region Image and type area.
 
@@ -119,8 +107,8 @@ public class DetailActivity extends ContentBaseActivity
         int iconResid = 0;
 
         if (content_type == Defines.CONTENT_TYPE_PDF) iconResid = R.drawable.lem_t_iany_generic_type_pdf_gross;
-        if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_video_gross;
         if (content_type == Defines.CONTENT_TYPE_ZIP) iconResid = R.drawable.lem_t_iany_generic_type_html5_gross;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) iconResid = R.drawable.lem_t_iany_generic_type_video_gross;
         if (content_type == Defines.CONTENT_TYPE_AUDIO) iconResid = R.drawable.lem_t_iany_generic_type_audio_gross;
 
         if (iconResid > 0) typeIcon.setImageResource(iconResid);
@@ -267,8 +255,9 @@ public class DetailActivity extends ContentBaseActivity
         int typeResid = R.string.detail_specs_type_unknown;
 
         if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
-        if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
         if (content_type == Defines.CONTENT_TYPE_ZIP) typeResid = R.string.detail_specs_type_zip;
+        if (content_type == Defines.CONTENT_TYPE_AUDIO) typeResid = R.string.detail_specs_type_audio;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
 
         fileView.setRightText(typeResid);
 
@@ -280,14 +269,14 @@ public class DetailActivity extends ContentBaseActivity
         quantView.setLeftText(R.string.detail_specs_quantity);
         quantView.setRightText("-");
 
-        if (content_type == 1)
+        if (content_type == Defines.CONTENT_TYPE_PDF)
         {
             quantView.setRightText(Simple.getTrans(this,
                     R.string.detail_specs_quantity_pages,
                     String.valueOf(file_duration)));
         }
 
-        if (content_type == 2)
+        if ((content_type == Defines.CONTENT_TYPE_AUDIO) || (content_type == Defines.CONTENT_TYPE_VIDEO))
         {
             int minutes = 1 + (file_duration / 60);
 
@@ -352,7 +341,7 @@ public class DetailActivity extends ContentBaseActivity
             suitableView.setMinLines(2);
             suitableView.setEllipsize(TextUtils.TruncateAt.END);
             suitableView.setTextColor(Color.BLACK);
-            suitableView.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+            suitableView.setTypeface(infosTF);
             Simple.setTextSizeDip(suitableView, Defines.FS_DETAIL_SPECS);
 
             specsArea.addView(suitableView);
@@ -393,7 +382,7 @@ public class DetailActivity extends ContentBaseActivity
 
         buyButton = new TextView(this);
         buyButton.setTextColor(Color.WHITE);
-        buyButton.setTypeface(Typeface.createFromAsset(getAssets(), Defines.GOTHAM_BOLD));
+        buyButton.setTypeface(buttonsTF);
         buyButton.setAllCaps(Defines.isButtonAllCaps);
         Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);

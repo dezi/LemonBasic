@@ -152,6 +152,8 @@ public class ViewPDFFrame extends ViewZoomFrame
 
             worker = null;
         }
+
+        unloadMedia();
     }
 
     private void loadMedia()
@@ -238,6 +240,37 @@ public class ViewPDFFrame extends ViewZoomFrame
         });
     }
 
+    private void unloadMedia()
+    {
+        if (imageViews != null)
+        {
+            for (int inx = 0; inx < imageViews.length; inx++)
+            {
+                if (imageViews[ inx ] != null)
+                {
+                    imageViews[inx].setImageBitmap(null);
+                    imageViews[inx] = null;
+                }
+            }
+
+            imageViews = null;
+        }
+
+        if (pageBitmaps != null)
+        {
+            for (int inx = 0; inx < pageBitmaps.length; inx++)
+            {
+                if (pageBitmaps[ inx ] != null)
+                {
+                    pageBitmaps[ inx ].recycle();
+                    pageBitmaps[ inx ] = null;
+                }
+            }
+
+            pageBitmaps = null;
+        }
+    }
+
     private final Runnable rendererThread = new Runnable()
     {
         @Override
@@ -287,26 +320,38 @@ public class ViewPDFFrame extends ViewZoomFrame
                     }
                 }
 
-                final Bitmap newBitmap = Bitmap.createBitmap(
-                        imageViews[inx].getWidth(),
-                        imageViews[inx].getHeight(),
-                        Bitmap.Config.ARGB_8888);
+                Log.d(LOGTAG, "rendererThread:"
+                        + " width=" + imageViews[inx].getWidth()
+                        + " height=" + imageViews[inx].getHeight()
+                );
 
-                PdfRenderer.Page page = renderer.openPage(inx);
-                page.render(newBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-                page.close();
-
-                getHandler().post(new Runnable()
+                try
                 {
-                    @Override
-                    public void run()
-                    {
-                        imageViews[inx].setImageBitmap(newBitmap);
-                        pageBitmaps[inx] = newBitmap;
+                    final Bitmap newBitmap = Bitmap.createBitmap(
+                            imageViews[inx].getWidth(),
+                            imageViews[inx].getHeight(),
+                            Bitmap.Config.ARGB_8888);
 
-                        if (oldBitmap != null) oldBitmap.recycle();
-                    }
-                });
+                    PdfRenderer.Page page = renderer.openPage(inx);
+                    page.render(newBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+                    page.close();
+
+                    getHandler().post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            imageViews[inx].setImageBitmap(newBitmap);
+                            pageBitmaps[inx] = newBitmap;
+
+                            if (oldBitmap != null) oldBitmap.recycle();
+                        }
+                    });
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
+                }
             }
 
             Log.d(LOGTAG, "rendererThread: done.");
