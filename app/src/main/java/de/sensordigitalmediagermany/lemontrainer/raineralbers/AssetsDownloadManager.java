@@ -193,6 +193,7 @@ public class AssetsDownloadManager
 
                 FileOutputStream outputStream = new FileOutputStream(tempfile);
 
+                boolean cancel = false;
                 byte[] chunk = new byte[8192];
                 int xfer;
 
@@ -203,22 +204,31 @@ public class AssetsDownloadManager
                     current += xfer;
 
                     OnDownloadProgressHandler qdph = qd.onDownloadProgressHandler;
-                    if (qdph != null) qdph.OnDownloadProgress(qd.content, current, total);
+
+                    if (qdph != null)
+                    {
+                        cancel = qdph.OnDownloadProgress(qd.content, current, total);
+                    }
+
+                    if (cancel) break;
                 }
 
                 outputStream.close();
                 inputStream.close();
 
-                if (tempfile.renameTo(realfile))
+                if (! cancel)
                 {
-                    synchronized (cache)
+                    if (tempfile.renameTo(realfile))
                     {
-                        cache.put(name, realfile);
+                        synchronized (cache)
+                        {
+                            cache.put(name, realfile);
+                        }
+
+                        Log.d(LOGTAG, "getFile: done url=" + urlstring);
+
+                        return realfile;
                     }
-
-                    Log.d(LOGTAG, "getFile: done url=" + urlstring);
-
-                    return realfile;
                 }
             }
         }
@@ -269,7 +279,7 @@ public class AssetsDownloadManager
 
     public interface OnDownloadProgressHandler
     {
-        void OnDownloadProgress(JSONObject content, long current, long total);
+        boolean OnDownloadProgress(JSONObject content, long current, long total);
     }
 
     public interface OnFileLoadedHandler

@@ -15,6 +15,8 @@ public class DownloadDialog extends DialogView
     private TextView percentView;
     private TextView sizeView;
 
+    private boolean cancel;
+
     public DownloadDialog(Context context)
     {
         super(context);
@@ -26,7 +28,7 @@ public class DownloadDialog extends DialogView
             @Override
             public void onClick(View view)
             {
-
+                cancel = true;
             }
         });
 
@@ -70,7 +72,7 @@ public class DownloadDialog extends DialogView
         setCustomView(dialogItems);
     }
 
-    public void setProgressLong(long current, long total)
+    public boolean setProgressLong(long current, long total)
     {
         if (total > 0)
         {
@@ -88,5 +90,7 @@ public class DownloadDialog extends DialogView
         }
 
         downloadProgress.setProgressLong(current, total);
+
+        return cancel;
     }
 }

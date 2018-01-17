@@ -339,7 +339,7 @@ public class AssetFrame extends LinearLayout
             AssetsDownloadManager.connectDownload(asset, new AssetsDownloadManager.OnDownloadProgressHandler()
             {
                 @Override
-                public void OnDownloadProgress(JSONObject content, final long current, final long total)
+                public boolean OnDownloadProgress(JSONObject content, final long current, final long total)
                 {
                     ApplicationBase.handler.post(new Runnable()
                     {
@@ -356,6 +356,8 @@ public class AssetFrame extends LinearLayout
                             }
                         }
                     });
+
+                    return false;
                 }
             });
         }

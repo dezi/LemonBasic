@@ -490,6 +490,7 @@ public class DetailActivity extends ContentBaseActivity
 
             downloadCenter.setVisibility(View.VISIBLE);
             downloadProgress.setProgress(0, 0);
+            downloadCancel = false;
 
             downloadDialog = new DownloadDialog(DetailActivity.this);
             topFrame.addView(downloadDialog);
@@ -540,6 +541,7 @@ public class DetailActivity extends ContentBaseActivity
 
             downloadCenter.setVisibility(View.VISIBLE);
             downloadProgress.setProgress(0, 0);
+            downloadCancel = false;
 
             downloadDialog = new DownloadDialog(DetailActivity.this);
             topFrame.addView(downloadDialog);
@@ -579,6 +581,8 @@ public class DetailActivity extends ContentBaseActivity
                             ? R.string.detail_download_failed
                             : R.string.detail_download_complete;
 
+                    if (downloadCancel) titleRes = R.string.detail_download_cancelled;
+
                     String text = Json.getString(content, "sub_title");
 
                     DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
@@ -611,21 +615,24 @@ public class DetailActivity extends ContentBaseActivity
         }
     };
 
+    private long downloadProgressRunCurrent;
+    private long downloadProgressRunTotal;
+    private boolean downloadCancel;
+
     private final AssetsDownloadManager.OnDownloadProgressHandler onDownloadProgressHandler
             = new AssetsDownloadManager.OnDownloadProgressHandler()
     {
         @Override
-        public void OnDownloadProgress(JSONObject content, long current, long total)
+        public boolean OnDownloadProgress(JSONObject content, long current, long total)
         {
             downloadProgressRunCurrent = current;
             downloadProgressRunTotal = total;
 
             ApplicationBase.handler.post(downloadProgressRun);
+
+            return downloadCancel;
         }
     };
-
-    private long downloadProgressRunCurrent;
-    private long downloadProgressRunTotal;
 
     private final Runnable downloadProgressRun = new Runnable()
     {
@@ -634,7 +641,7 @@ public class DetailActivity extends ContentBaseActivity
         {
             if (downloadDialog != null)
             {
-                downloadDialog.setProgressLong(downloadProgressRunCurrent, downloadProgressRunTotal);
+                downloadCancel = downloadDialog.setProgressLong(downloadProgressRunCurrent, downloadProgressRunTotal);
             }
 
             downloadProgress.setProgressLong(downloadProgressRunCurrent, downloadProgressRunTotal);
