@@ -416,10 +416,15 @@ public class DetailActivity extends ContentBaseActivity
 
     public void updateContent()
     {
-        if (AssetsDownloadManager.connectDownload(Globals.displayContent, onDownloadProgressHandler))
+        if (AssetsDownloadManager.connectDownload(Globals.displayContent,
+                onFileLoadedHandler, onDownloadProgressHandler))
         {
             downloadCenter.setVisibility(View.VISIBLE);
             downloadProgress.setProgress(0, 0);
+            downloadCancel = false;
+
+            downloadDialog = new DownloadDialog(DetailActivity.this);
+            topFrame.addView(downloadDialog);
         }
 
         int contentId = Json.getInt(Globals.displayContent, "id");
@@ -561,7 +566,10 @@ public class DetailActivity extends ContentBaseActivity
             if (downloadDialog != null)
             {
                 downloadDialog.dismissDialog();
+                downloadDialog = null;
             }
+
+            downloadCenter.setVisibility(View.GONE);
 
             int id_current = Json.getInt(Globals.displayContent, "id");
             int id_loaded = Json.getInt(content, "id");
@@ -610,8 +618,6 @@ public class DetailActivity extends ContentBaseActivity
                     statusView.setRightText(R.string.detail_specs_status_online);
                 }
             }
-
-            downloadCenter.setVisibility(View.GONE);
         }
     };
 

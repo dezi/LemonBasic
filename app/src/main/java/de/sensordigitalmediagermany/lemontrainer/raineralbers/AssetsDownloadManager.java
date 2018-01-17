@@ -45,6 +45,13 @@ public class AssetsDownloadManager
 
     public static boolean connectDownload(JSONObject content, OnDownloadProgressHandler onDownloadProgressHandler)
     {
+        return connectDownload(content, null, onDownloadProgressHandler);
+    }
+
+    public static boolean connectDownload(JSONObject content,
+                                          OnFileLoadedHandler onFileLoadedHandler,
+                                          OnDownloadProgressHandler onDownloadProgressHandler)
+    {
         String urlstring = Simple.urlEncodeFuckedUpDirty(Json.getString(content, "content_url"));
         String name = Json.getString(content, "content_file_name");
 
@@ -56,6 +63,7 @@ public class AssetsDownloadManager
 
                 if ((qd != null) && Simple.equals(name, Json.getString(qd.content, "content_file_name")))
                 {
+                    qd.onFileLoadedHandler = onFileLoadedHandler;
                     qd.onDownloadProgressHandler = onDownloadProgressHandler;
 
                     return true;
@@ -66,6 +74,7 @@ public class AssetsDownloadManager
                     {
                         if (Simple.equals(name, Json.getString(qdc.content, "content_file_name")))
                         {
+                            qdc.onFileLoadedHandler = onFileLoadedHandler;
                             qdc.onDownloadProgressHandler = onDownloadProgressHandler;
 
                             return true;
