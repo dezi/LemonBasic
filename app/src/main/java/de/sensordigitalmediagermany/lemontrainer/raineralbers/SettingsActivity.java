@@ -480,6 +480,49 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(logoffArea);
 
+        if (Defines.isDeleteCache)
+        {
+            TextView cacheButton = new TextView(this);
+            cacheButton.setText(R.string.settings_clearcache);
+            cacheButton.setTextColor(Color.WHITE);
+            cacheButton.setTypeface(buttonsTF);
+            cacheButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+            cacheButton.setAllCaps(Defines.isButtonAllCaps);
+            Simple.setSizeDip(cacheButton, Simple.MP, Simple.WC);
+            Simple.setTextSizeDip(cacheButton, Defines.FS_SETTINGS_BUTTON);
+            Simple.setPaddingDip(cacheButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
+            Simple.setMarginTopDip(cacheButton, Defines.PADDING_LARGE);
+
+            if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
+            {
+                cacheButton.setTextColor(Color.BLACK);
+                Simple.setRoundedCorners(cacheButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
+            }
+            else
+            {
+                cacheButton.setTextColor(Color.WHITE);
+                Simple.setRoundedCorners(cacheButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+            }
+
+            cacheButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    ContentHandler.deleteAllCachedFiles();
+
+                    while (actContent.length() > 0)
+                    {
+                        Json.remove(actContent, 0);
+                    }
+
+                    updateContent();
+                }
+            });
+
+            logoffArea.addView(cacheButton);
+        }
+
         TextView logoffButton = new TextView(this);
         logoffButton.setText(R.string.settings_logoff);
         logoffButton.setTextColor(Color.WHITE);

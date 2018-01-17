@@ -42,7 +42,6 @@ public class Defines
     public static final boolean isBasic            = isPierCardin;
     public static final boolean isTrainer          = isRainerAlbers;
 
-    public static final boolean isPDFZoomable      = false;
     public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = isPierCardin;
@@ -51,15 +50,18 @@ public class Defines
     public static final boolean isCategoryMenu     = isRainerAlbers;
     public static final boolean isRoundedAsset     = isRainerAlbers;
     public static final boolean isOverlayAsset     = isPierCardin;
-    public static final boolean isHintsAllCaps     = isPierCardin;
-    public static final boolean isButtonAllCaps    = isPierCardin;
-    public static final boolean isInfosAllCaps     = isPierCardin;
     public static final boolean isCompanyAvailable = isRainerAlbers;
     public static final boolean isSectionDividers  = isPierCardin;
     public static final boolean isFlatEdits        = isPierCardin;
     public static final boolean isDialogTextCenter = isRainerAlbers;
     public static final boolean isCompactDetails   = isPierCardin;
     public static final boolean isCompactSettings  = isPierCardin;
+    public static final boolean isHintsAllCaps     = isPierCardin;
+    public static final boolean isButtonAllCaps    = isPierCardin;
+    public static final boolean isInfosAllCaps     = isPierCardin;
+    public static final boolean isDeleteCache      = isDezi;
+
+    public static final boolean isPDFZoomable      = false;
     // @formatter:on
 
     //
@@ -308,12 +310,13 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static final int SLIDER_BARS_SIZE   = Simple.isTablet() ?   3 :   3;
-    public static final int SLIDER_KNOB_SIZE   = Simple.isTablet() ?  30 :  30;
-    public static final int ONOFF_WIDTH_SIZE   = Simple.isTablet() ?  60 :  60;
-    public static final int ONOFF_KNOB_SIZE    = Simple.isTablet() ?  30 :  30;
-    public static final int PROGRESS_BAR_SIZE  = Simple.isTablet() ?   6 :   6;
-    public static final int PROGRESS_BAR_WIDTH = Simple.isTablet() ? 300 : 200;
+    public static final int SLIDER_BARS_SIZE      = Simple.isTablet() ?   3 :   3;
+    public static final int SLIDER_KNOB_SIZE      = Simple.isTablet() ?  30 :  30;
+    public static final int ONOFF_WIDTH_SIZE      = Simple.isTablet() ?  60 :  60;
+    public static final int ONOFF_KNOB_SIZE       = Simple.isTablet() ?  30 :  30;
+    public static final int PROGRESS_BAR_SIZE     = Simple.isTablet() ?   6 :   6;
+    public static final int PROGRESS_BAR_WIDTH    = Simple.isTablet() ? 300 : 200;
+    public static final int PROGRESS_DIALOG_WIDTH = Simple.isTablet() ? 500 : 300;
     // @formatter:on
 
     static

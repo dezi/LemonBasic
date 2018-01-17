@@ -36,6 +36,12 @@
     <string name="ask_download_load_and_view">Laden und\ndirekt ansehen</string>
     <string name="ask_download_only_load">Laden und\nspäter ansehen</string>
 
+    <string name="download_title">Download läuft</string>
+    <string name="download_cancel">Download abbrechen</string>
+    <string name="download_from">von</string>
+    <string name="download_mb">Mb</string>
+    <string name="download_kb">Kb</string>
+
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>
 
@@ -73,6 +79,7 @@
     <string name="settings_sound">Sound</string>
     <string name="settings_sound_button">An/aus</string>
     <string name="settings_sound_volume">Lautstärke</string>
+    <string name="settings_clearcache">Cache löschen</string>
     <string name="settings_logoff">Abmelden</string>
     <string name="settings_contents">Inhalte verwalten</string>
     <string name="settings_your_contents">Ihre geladenen Lerninhalte</string>

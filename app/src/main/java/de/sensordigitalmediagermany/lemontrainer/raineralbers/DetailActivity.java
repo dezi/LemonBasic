@@ -25,6 +25,7 @@ public class DetailActivity extends ContentBaseActivity
     protected ImageView downloadButton;
     protected ImageView statusIcon;
     protected TableLikeLayout statusView;
+    protected DownloadDialog downloadDialog;
     protected boolean shouldDisplay;
 
     @Override
@@ -490,6 +491,9 @@ public class DetailActivity extends ContentBaseActivity
             downloadCenter.setVisibility(View.VISIBLE);
             downloadProgress.setProgress(0, 0);
 
+            downloadDialog = new DownloadDialog(DetailActivity.this);
+            topFrame.addView(downloadDialog);
+
             AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
         }
     };
@@ -537,6 +541,9 @@ public class DetailActivity extends ContentBaseActivity
             downloadCenter.setVisibility(View.VISIBLE);
             downloadProgress.setProgress(0, 0);
 
+            downloadDialog = new DownloadDialog(DetailActivity.this);
+            topFrame.addView(downloadDialog);
+
             AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
         }
     };
@@ -548,6 +555,11 @@ public class DetailActivity extends ContentBaseActivity
         public void OnFileLoaded(JSONObject content, File file)
         {
             AppCompatActivity activity = ApplicationBase.getCurrentActivity(DetailActivity.this);
+
+            if (downloadDialog != null)
+            {
+                downloadDialog.dismissDialog();
+            }
 
             int id_current = Json.getInt(Globals.displayContent, "id");
             int id_loaded = Json.getInt(content, "id");
@@ -620,6 +632,11 @@ public class DetailActivity extends ContentBaseActivity
         @Override
         public void run()
         {
+            if (downloadDialog != null)
+            {
+                downloadDialog.setProgressLong(downloadProgressRunCurrent, downloadProgressRunTotal);
+            }
+
             downloadProgress.setProgressLong(downloadProgressRunCurrent, downloadProgressRunTotal);
         }
     };

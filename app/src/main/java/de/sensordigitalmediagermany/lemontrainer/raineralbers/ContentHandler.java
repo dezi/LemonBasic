@@ -599,11 +599,11 @@ public class ContentHandler
 
     public static void deleteAllCachedFiles()
     {
-        if (Globals.displayAllContents == null) return;
+        if (Globals.completeContents == null) return;
 
-        for (int inx = 0; inx < Globals.displayAllContents.length(); inx++)
+        for (int inx = 0; inx < Globals.completeContents.length(); inx++)
         {
-            JSONObject content = Json.getObject(Globals.displayAllContents, inx);
+            JSONObject content = Json.getObject(Globals.completeContents, inx);
             if (content == null) continue;
 
             deleteCachedFile(content);

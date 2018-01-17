@@ -355,6 +355,7 @@ public class QuestionsActivity extends ContentBaseActivity
         }
 
         String correct = Json.getString(question, "answer_correct");
+
         if (Defines.isDezi) correct += "*";
 
         answertxtDisplay[ 0 ].setText(correct);
