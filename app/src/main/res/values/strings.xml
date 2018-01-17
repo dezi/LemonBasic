@@ -38,9 +38,7 @@
 
     <string name="download_title">Download läuft</string>
     <string name="download_cancel">Download abbrechen</string>
-    <string name="download_from">von</string>
-    <string name="download_mb">Mb</string>
-    <string name="download_kb">Kb</string>
+    <string name="download_size">%1$s Kb von %2$s Mb</string>
 
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>
