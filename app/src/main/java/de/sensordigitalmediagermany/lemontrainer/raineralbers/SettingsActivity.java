@@ -32,6 +32,8 @@ public class SettingsActivity extends ContentBaseActivity
 
         setBackButton(true);
 
+        showNavigationPath(Simple.getTrans(this, R.string.tabbar_profile));
+
         Typeface headerTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_HEADER);
         Typeface subheadTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_SUBHEAD);
         Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_INFOS);

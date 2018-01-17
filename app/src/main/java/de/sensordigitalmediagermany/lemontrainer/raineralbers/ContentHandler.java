@@ -426,12 +426,15 @@ public class ContentHandler
 
         for (int inx = 0; inx < source.length(); inx++)
         {
-            JSONObject item = Json.getObject(source, inx);
-            if (item == null) continue;
+            JSONObject content = Json.getObject(source, inx);
+            if (content == null) continue;
 
-            if (! isCachedContent(item)) continue;
+            boolean isCourse = Json.getBoolean(content, "_isCourse");
+            if (isCourse) continue;
 
-            Json.put(result, item);
+            if (! isCachedContent(content)) continue;
+
+            Json.put(result, content);
         }
 
         return result;

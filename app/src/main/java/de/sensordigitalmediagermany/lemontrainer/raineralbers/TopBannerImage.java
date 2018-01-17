@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -104,8 +105,10 @@ public class TopBannerImage extends FrameLayout
         infoContent.addView(moreButton);
     }
 
-    public void setAsset(JSONObject asset)
+    public void setAsset(final JSONObject asset)
     {
+        final boolean isCourse = Json.getBoolean(asset, "_isCourse");
+
         String contentTitle = Json.getString(asset, "title");
         String contentInfo = Json.getString(asset, "sub_title");
         String contentHeader = Json.getString(asset, "description_header");
@@ -122,5 +125,23 @@ public class TopBannerImage extends FrameLayout
                         getContext(),
                         contentImage, bannerUrl,
                         imageWidth, imageHeight, false));
+
+        moreButton.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Globals.displayContent = asset;
+
+                if (isCourse)
+                {
+                    Simple.startActivity(getContext(), CourseActivity.class);
+                }
+                else
+                {
+                    Simple.startActivity(getContext(), DetailActivity.class);
+                }
+            }
+        });
     }
 }

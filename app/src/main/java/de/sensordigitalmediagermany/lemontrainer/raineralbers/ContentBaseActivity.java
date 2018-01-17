@@ -243,6 +243,11 @@ public class ContentBaseActivity extends FullScreenActivity
         assetsAdapter.notifyDataSetChanged();
     }
 
+    protected void showNavigationPath(String category)
+    {
+        showNavigationPath(category, null);
+    }
+
     protected void showNavigationPath(String category, String title)
     {
         if (navigationButton != null)

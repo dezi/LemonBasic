@@ -21,6 +21,8 @@ public class ContentActivity extends ContentBaseActivity
     {
         super.onCreate(savedInstanceState);
 
+        showNavigationPath(Simple.getTrans(this, R.string.tabbar_home));
+
         naviLeftButton = new TextView(this);
         naviLeftButton.setText(R.string.content_navibar_left_show_all);
         naviLeftButton.setAllCaps(true);
