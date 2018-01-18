@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,6 +28,23 @@ public class AssetsImageManager
     private static final Map<String, Boolean> tried = new HashMap<>();
 
     private static Thread worker;
+
+    public static void nukeCache(Context context)
+    {
+        File[] nukes = context.getCacheDir().listFiles(new FileFilter()
+        {
+            @Override
+            public boolean accept(File file)
+            {
+                return file.toString().startsWith("cache_");
+            }
+        });
+
+        for (File nuke : nukes)
+        {
+            Log.d(LOGTAG, "nukeCache: file=" + nuke.toString() + " del=" + nuke.delete());
+        }
+    }
 
     public static Drawable getDrawableOrFetch(Context context, ImageView iv, String url,
                                               int ivwidth, int ivheight, boolean rounded)
@@ -203,7 +221,7 @@ public class AssetsImageManager
     {
         try
         {
-            String filename = url.substring(url.lastIndexOf('/') + 1, url.length());
+            String filename = "cache_" + url.substring(url.lastIndexOf('/') + 1, url.length());
 
             return new File(context.getCacheDir(), filename);
         }

@@ -516,6 +516,8 @@ public class SettingsActivity extends ContentBaseActivity
                         Json.remove(actContent, 0);
                     }
 
+                    AssetsImageManager.nukeCache(SettingsActivity.this);
+
                     updateContent();
                 }
             });

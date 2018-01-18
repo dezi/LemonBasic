@@ -2,7 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
 
-@SuppressWarnings({"WeakerAccess"})
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class Defines
 {
     //
@@ -177,7 +177,6 @@ public class Defines
     public static String FONT_SETTINGS_SUBHEAD = GOTHAM_MEDIUM;        // static!
     public static String FONT_SETTINGS_INFOS   = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SETTINGS_VERSION = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SETTINGS_ASSETS  = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SETTINGS_LIST    = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_DETAILS_HEADER   = GOTHAM_MEDIUM;        // static!
     public static String FONT_DETAILS_SUBHEAD  = ROONEY_REGULAR;       // static!
@@ -290,7 +289,6 @@ public class Defines
     public static final int PADDING_XLARGE   = Simple.isTablet() ? 40 : 30;
     public static final int PADDING_TRAINING = Simple.isTablet() ? 90 : 10;
 
-    public static final int MARGIN_BUTTON    = Simple.isTablet() ?  6 :  4;
     public static final int MARGIN_POPUP     = Simple.isTablet() ? 16 :  0;
     // @formatter:on
 
@@ -384,7 +382,6 @@ public class Defines
             FONT_SETTINGS_SUBHEAD   = FUTURA_BOOK;
             FONT_SETTINGS_INFOS     = FUTURA_LIGHT_REG;
             FONT_SETTINGS_VERSION   = FUTURA_LIGHT_REG;
-            FONT_SETTINGS_ASSETS    = FUTURA_LIGHT_REG;
             FONT_SETTINGS_LIST      = FUTURA_BOOK;
             FONT_DETAILS_HEADER     = FUTURA_BOOK;
             FONT_DETAILS_SUBHEAD    = FUTURA_LIGHT_REG;
