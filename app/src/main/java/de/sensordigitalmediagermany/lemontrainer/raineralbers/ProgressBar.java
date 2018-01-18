@@ -1,8 +1,8 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.graphics.Color;
-import android.widget.LinearLayout;
 import android.content.Context;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class ProgressBar extends LinearLayout

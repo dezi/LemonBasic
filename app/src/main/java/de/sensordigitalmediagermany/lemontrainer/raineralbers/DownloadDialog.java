@@ -1,11 +1,10 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.widget.LinearLayout;
-import android.graphics.Color;
-import android.view.View;
 import android.widget.TextView;
+import android.view.Gravity;
+import android.view.View;
 
 public class DownloadDialog extends DialogView
 {
