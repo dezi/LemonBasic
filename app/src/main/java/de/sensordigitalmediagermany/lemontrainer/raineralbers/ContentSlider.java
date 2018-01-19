@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -199,8 +200,10 @@ public class ContentSlider extends LinearLayout
         public void run()
         {
             int xoffset = scrollView.getScrollX();
-            int leftrest = xoffset % sliderWidth;
-            int rightrest = sliderWidth - leftrest;
+            int leftrest = xoffset % imageWidth;
+            int rightrest = imageWidth - leftrest;
+
+            Log.d(LOGTAG, "onTouchEventCustomEnded: xoffset=" + xoffset + " leftrest=" + leftrest + " rightrest" + rightrest);
 
             scrollView.smoothScrollBy((xDirTouch > 0) ? -leftrest : rightrest, 0);
         }
