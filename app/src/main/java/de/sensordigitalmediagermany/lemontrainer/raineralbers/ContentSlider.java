@@ -48,11 +48,11 @@ public class ContentSlider extends LinearLayout
         Typeface textFont = Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_SLIDER_ALL);
 
         int screenWidth = rootview.getLayoutParams().width;
-        sliderWidth = screenWidth - (Defines.PADDING_LARGE * 2);
+        sliderWidth = screenWidth - (Simple.dipToPx(Defines.PADDING_SMALL) * 4);
 
         setOrientation(VERTICAL);
 
-        Simple.setSizeDip(this, sliderWidth, Simple.WC);
+        Simple.setSizeDip(this, Simple.pxToDip(sliderWidth), Simple.WC);
         Simple.setMarginBottomDip(this, Defines.PADDING_LARGE);
         Simple.setMarginLeftDip(this, Defines.PADDING_SMALL);
         Simple.setMarginRightDip(this, Defines.PADDING_SMALL);
@@ -108,7 +108,7 @@ public class ContentSlider extends LinearLayout
 
         rightButtonBox.addView(rightButton);
 
-        imageWidth = sliderWidth - ((Defines.ASSETS_NUM_COLUMNS - 1) * Defines.PADDING_NORMAL);
+        imageWidth = sliderWidth - ((Defines.ASSETS_NUM_COLUMNS - 1) * Simple.dipToPx(Defines.PADDING_NORMAL));
         imageWidth = imageWidth / Defines.ASSETS_NUM_COLUMNS;
         imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 

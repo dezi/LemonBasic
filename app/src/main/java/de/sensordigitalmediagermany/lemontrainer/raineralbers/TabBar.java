@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -42,7 +43,10 @@ public class TabBar extends LinearLayout
             @Override
             public void onClick(View view)
             {
-                Simple.startActivity(getContext(), SettingsActivity.class);
+                if (! (ApplicationBase.getCurrentActivity(getContext()) instanceof SettingsActivity))
+                {
+                    Simple.startActivity(getContext(), SettingsActivity.class);
+                }
             }
         });
 

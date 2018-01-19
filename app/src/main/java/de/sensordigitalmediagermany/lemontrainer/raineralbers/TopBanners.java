@@ -50,12 +50,13 @@ public class TopBanners extends FrameLayout
 
         int screenWidth = rootview.getLayoutParams().width;
 
-        bannerWidth = screenWidth - (Defines.PADDING_LARGE * 2);
+        bannerWidth = screenWidth - (Simple.dipToPx(Defines.PADDING_SMALL) * 4);
         bannerHeight = Math.round(bannerWidth / Defines.ASSET_BANNER_ASPECT);
 
-        Simple.setSizeDip(this, bannerWidth, bannerHeight);
-        Simple.setMarginLeftDip(this, Defines.PADDING_LARGE);
-        Simple.setMarginRightDip(this, Defines.PADDING_LARGE);
+        Simple.setSizeDip(this, Simple.pxToDip(bannerWidth), Simple.pxToDip(bannerHeight));
+        Simple.setMarginLeftDip(this, Defines.PADDING_SMALL);
+        Simple.setMarginRightDip(this, Defines.PADDING_SMALL);
+        Simple.setMarginBottomDip(this, Defines.PADDING_LARGE);
 
         //
         // Add scroll views.
@@ -107,7 +108,7 @@ public class TopBanners extends FrameLayout
             }
         });
 
-        addView(arrowLeftIcon, new LayoutParams(arrowWidth, Simple.MP, Gravity.LEFT));
+        addView(arrowLeftIcon, new LayoutParams(Simple.dipToPx(arrowWidth), Simple.MP, Gravity.LEFT));
 
         arrowRightIcon = new ImageView(getContext());
         arrowRightIcon.setVisibility(INVISIBLE);
@@ -125,7 +126,7 @@ public class TopBanners extends FrameLayout
             }
         });
 
-        addView(arrowRightIcon, new LayoutParams(arrowWidth, Simple.MP, Gravity.RIGHT));
+        addView(arrowRightIcon, new LayoutParams(Simple.dipToPx(arrowWidth), Simple.MP, Gravity.RIGHT));
 
         for (int inx = 0; inx < assets.length(); inx++)
         {

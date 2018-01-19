@@ -48,6 +48,14 @@ public class DefinesScreens extends Defines
 
     public static int getSplashScreenRes()
     {
+        if (isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? -1
+                    : -1
+                    ;
+        }
+
         return Simple.isTablet()
                 ? -1
                 : R.drawable.lem_t_ipho_ralbers_splashscreen

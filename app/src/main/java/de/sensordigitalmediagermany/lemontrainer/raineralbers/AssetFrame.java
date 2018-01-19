@@ -56,7 +56,7 @@ public class AssetFrame extends LinearLayout
 
     private void createGenericStyle()
     {
-        Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_ASSET_TITLE);
+        Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_ASSET_TITLE);
         Typeface summaryFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_ASSET_SUMMARY);
 
         this.setOrientation(LinearLayout.VERTICAL);

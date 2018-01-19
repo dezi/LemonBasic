@@ -180,14 +180,6 @@ public class ContentBaseActivity extends FullScreenActivity
         contentFrame.addView(naviFrame);
 
         //
-        // Banner area.
-        //
-
-        topBanners = new TopBanners(this);
-
-        contentFrame.addView(topBanners);
-
-        //
         // Category sliders scrollview.
         //
 
@@ -203,6 +195,14 @@ public class ContentBaseActivity extends FullScreenActivity
         Simple.setSizeDip(categoryContent, Simple.MP, Simple.WC);
 
         categoryScroll.addView(categoryContent);
+
+        //
+        // Banner area.
+        //
+
+        topBanners = new TopBanners(this);
+
+        categoryContent.addView(topBanners);
 
         //
         // Asset grid.

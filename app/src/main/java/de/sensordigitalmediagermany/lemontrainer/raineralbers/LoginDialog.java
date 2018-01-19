@@ -39,8 +39,9 @@ public class LoginDialog extends DialogView
         if (Defines.isSimpleLogin)
         {
             marginView.setBackground(null);
+            Simple.setPaddingDip(marginView, 0);
 
-            dialogItems.setOrientation(LinearLayout.HORIZONTAL);
+            dialogItems.setOrientation(Simple.isTablet() ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         }
 
         if (! Defines.isSimpleLogin)
@@ -70,11 +71,19 @@ public class LoginDialog extends DialogView
 
         if (Defines.isSimpleLogin)
         {
-            userEmail.setMinEms(12);
+            userEmail.setMinEms(Simple.isTablet() ? 12 : 9);
             userEmail.setHint(getHint(R.string.login_hint_emailpc));
             Simple.setSizeDip(userEmail, Simple.WC, Simple.WC);
-            Simple.setMarginRightDip(userEmail, Defines.PADDING_NORMAL);
             Simple.setPaddingDip(userEmail, Defines.PADDING_NORMAL);
+
+            if (Simple.isTablet())
+            {
+                Simple.setMarginRightDip(userEmail, Defines.PADDING_NORMAL);
+            }
+            else
+            {
+                Simple.setMarginRightDip(userEmail, Defines.PADDING_NORMAL * 5);
+            }
         }
         else
         {
@@ -86,6 +95,12 @@ public class LoginDialog extends DialogView
 
         dialogItems.addView(userEmail);
 
+        LinearLayout passAndButtonBox = new LinearLayout(getContext());
+        passAndButtonBox.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(passAndButtonBox, Simple.MP, Simple.WC);
+
+        dialogItems.addView(passAndButtonBox);
+
         passWord = new EditText(getContext());
         passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         passWord.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
@@ -94,11 +109,27 @@ public class LoginDialog extends DialogView
 
         if (Defines.isSimpleLogin)
         {
-            passWord.setMinEms(6);
+            if (! Simple.isTablet())
+            {
+                //
+                // User and password edit ist arranged vertical.
+                //
+
+                Simple.setMarginTopDip(passAndButtonBox, Defines.PADDING_LARGE);
+
+                //
+                // Shift login to upper part of screen.
+                //
+
+                Simple.setMarginBottomDip(passAndButtonBox, Defines.PADDING_XLARGE * 9);
+            }
+
+            passWord.setMinEms(Simple.isTablet() ? 6 : 9);
             passWord.setHint(getHint(R.string.login_hint_password));
             Simple.setSizeDip(passWord, Simple.WC, Simple.WC);
-            Simple.setMarginRightDip(passWord, Defines.PADDING_NORMAL);
             Simple.setPaddingDip(passWord, Defines.PADDING_NORMAL);
+
+            Simple.setMarginRightDip(passWord, Defines.PADDING_NORMAL);
         }
         else
         {
@@ -108,18 +139,19 @@ public class LoginDialog extends DialogView
             Simple.setSizeDip(passWord, Simple.MP, Simple.WC);
         }
 
-        dialogItems.addView(passWord);
+        passAndButtonBox.addView(passWord);
 
         if (Defines.isSimpleLogin)
         {
             ImageView loginButton = new ImageView(getContext());
             loginButton.setImageResource(R.drawable.lem_t_iany_generic_login_pfeil);
             loginButton.setScaleType(ImageView.ScaleType.FIT_START);
+
             Simple.setSizeDip(loginButton, Simple.WC, Simple.MP);
 
             loginButton.setOnClickListener(loginClick);
 
-            dialogItems.addView(loginButton);
+            passAndButtonBox.addView(loginButton);
         }
         else
         {
