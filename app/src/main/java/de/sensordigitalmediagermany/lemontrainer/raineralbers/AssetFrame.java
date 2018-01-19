@@ -240,8 +240,11 @@ public class AssetFrame extends LinearLayout
 
         if (isCourse)
         {
-            iconView.setImageResource(DefinesScreens.getCourseMarkerRes());
-            iconView.setVisibility(View.VISIBLE);
+            if (Defines.isCourseIcon)
+            {
+                iconView.setImageResource(DefinesScreens.getCourseMarkerRes());
+                iconView.setVisibility(View.VISIBLE);
+            }
 
             this.setOnClickListener(new View.OnClickListener()
             {

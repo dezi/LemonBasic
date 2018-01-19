@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.0 (2) 19.01.2018 15:00 ";
+    public static final String DEBUG_VERSION = "1.0 (3) 19.01.2018 17:00 ";
 
     //
     // Rest API database access selectors.
@@ -58,6 +58,7 @@ public class Defines
     public static final boolean isHintsAllCaps     = isPierCardin;
     public static final boolean isButtonAllCaps    = isPierCardin;
     public static final boolean isInfosAllCaps     = isPierCardin;
+    public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isDeleteCache      = isDezi;
 
     public static final boolean isPDFZoomable      = false;
@@ -155,6 +156,8 @@ public class Defines
     public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
     public static final String FUTURA_LIGHT_REG     = "fonts/Futura-Light-Regular.otf";
     public static final String FUTURA_BOOK          = "fonts/Futura-Book.otf";
+    public static final String SOURCE_PRO_LIGHT     = "fonts/SourceSerifPro-Light.otf";
+    public static final String SOURCE_PRO_BOLD      = "fonts/SourceSerifPro-Bold.otf";
     // @formatter:on
 
     //
@@ -266,7 +269,7 @@ public class Defines
     public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
     public static       float ASSET_SETTINGS_ASPECT  = 2.5f; // static!
     public static       float ASSET_DETAIL_ASPECT    = 3.0f; // static!
-    public static final float ASSET_COURSE_ASPECT    = 3.5f;
+    public static       float ASSET_COURSE_ASPECT    = 3.5f; // static!
     public static final float ASSET_BANNER_ASPECT    = 3.2f;
     // @formatter:on
 
@@ -384,8 +387,8 @@ public class Defines
             FONT_SETTINGS_LIST      = FUTURA_BOOK;
             FONT_DETAILS_HEADER     = FUTURA_BOOK;
             FONT_DETAILS_SUBHEAD    = FUTURA_LIGHT_REG;
-            FONT_DETAILS_TITLE      = FUTURA_BOOK;
-            FONT_DETAILS_INFOS      = FUTURA_LIGHT_REG;
+            FONT_DETAILS_TITLE      = SOURCE_PRO_BOLD;
+            FONT_DETAILS_INFOS      = SOURCE_PRO_LIGHT;
 
             FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 18;
             FS_BANNER_INFO          = Simple.isTablet() ? 26 : 22;
@@ -406,6 +409,7 @@ public class Defines
             ASSET_THUMBNAIL_ASPECT  = 1.30f;
             ASSET_SETTINGS_ASPECT   = 3.00f;
             ASSET_DETAIL_ASPECT     = 3.20f;
+            ASSET_COURSE_ASPECT     = 6.00f;
 
             // @formatter:on
         }

@@ -26,6 +26,7 @@ public class ContentSlider extends LinearLayout
     private TextView leftButton;
 
     private int sliderWidth;
+    private int cellwidth;
     private int imageWidth;
     private int imageHeight;
 
@@ -108,9 +109,11 @@ public class ContentSlider extends LinearLayout
 
         rightButtonBox.addView(rightButton);
 
-        imageWidth = sliderWidth - ((Defines.ASSETS_NUM_COLUMNS - 1) * Simple.dipToPx(Defines.PADDING_NORMAL));
+        imageWidth = sliderWidth - ((Defines.ASSETS_NUM_COLUMNS - 1) * Simple.dipToPx(Defines.PADDING_LARGE));
         imageWidth = imageWidth / Defines.ASSETS_NUM_COLUMNS;
         imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
+
+        cellwidth = imageWidth + Simple.dipToPx(Defines.PADDING_LARGE);
 
         //
         // Add scroll views.
@@ -159,7 +162,7 @@ public class ContentSlider extends LinearLayout
 
             FrameLayout imageCell = new FrameLayout(getContext());
             Simple.setSizeDip(imageCell, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
-            if (inx > 0) Simple.setMarginLeftDip(imageCell, Defines.PADDING_NORMAL);
+            if (inx > 0) Simple.setMarginLeftDip(imageCell, Defines.PADDING_LARGE);
 
             scrollContent.addView(imageCell);
 
@@ -200,8 +203,8 @@ public class ContentSlider extends LinearLayout
         public void run()
         {
             int xoffset = scrollView.getScrollX();
-            int leftrest = xoffset % imageWidth;
-            int rightrest = imageWidth - leftrest;
+            int leftrest = xoffset % cellwidth;
+            int rightrest = cellwidth - leftrest;
 
             Log.d(LOGTAG, "onTouchEventCustomEnded: xoffset=" + xoffset + " leftrest=" + leftrest + " rightrest" + rightrest);
 
