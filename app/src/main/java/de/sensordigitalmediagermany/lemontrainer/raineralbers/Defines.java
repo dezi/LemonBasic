@@ -198,7 +198,7 @@ public class Defines
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
-    public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 22;
+    public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 18;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
     public static       int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12; // static!
 
@@ -254,9 +254,9 @@ public class Defines
     //
 
     // @formatter:off
-    public static final float FS_DIALOGS_LSMULT     = 1.30f;
-    public static final float FS_CONFIRMED_LSMULT   = 1.50f;
-    public static final float FS_ASSET_INFO_LSMULT  = 1.30f;
+    public static final float FS_ASSET_INFO_LSMULT  = Simple.isTablet() ? 1.20f : 1.10f;
+    public static final float FS_DIALOGS_LSMULT     = Simple.isTablet() ? 1.20f : 1.10f;
+    public static final float FS_CONFIRMED_LSMULT   = Simple.isTablet() ? 1.50f : 1.30f;
     public static final float FS_NAVIGATION_LSSPACE = 0.08f;
     // @formatter:on
 
@@ -270,7 +270,7 @@ public class Defines
     public static       float ASSET_SETTINGS_ASPECT  = 2.5f; // static!
     public static       float ASSET_DETAIL_ASPECT    = 3.0f; // static!
     public static       float ASSET_COURSE_ASPECT    = 3.5f; // static!
-    public static final float ASSET_BANNER_ASPECT    = 3.2f;
+    public static       float ASSET_BANNER_ASPECT    = 3.2f; // static!
     // @formatter:on
 
     //
@@ -283,7 +283,8 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static final int PADDING_TINY     = Simple.isTablet() ?  4 :  4;
+    public static final int PADDING_ZERO     = Simple.isTablet() ?  0 :  0;
+    public static final int PADDING_TINY     = Simple.isTablet() ?  4 :  2;
     public static final int PADDING_SMALL    = Simple.isTablet() ? 10 :  8;
     public static final int PADDING_MEDIUM   = Simple.isTablet() ? 14 : 12;
     public static final int PADDING_NORMAL   = Simple.isTablet() ? 16 : 14;
@@ -300,13 +301,13 @@ public class Defines
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  24 :  20;
     public static final int SETTINGS_BACK_SIZE  = Simple.isTablet() ?  24 :  20;
     public static final int QUESTION_CHECK_SIZE = Simple.isTablet() ?  30 :  24;
-    public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  25;
+    public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  16;
     public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  40 :  30;
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
-    public static final int TABBAR_HEIGHT       = Simple.isTablet() ?  60 :  60;
-    public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 : 100;
+    public static final int TABBAR_HEIGHT       = Simple.isTablet() ?  60 :  48;
+    public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 :  48;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
     // @formatter:on
@@ -390,8 +391,8 @@ public class Defines
             FONT_DETAILS_TITLE      = SOURCE_PRO_BOLD;
             FONT_DETAILS_INFOS      = SOURCE_PRO_LIGHT;
 
-            FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 18;
-            FS_BANNER_INFO          = Simple.isTablet() ? 26 : 22;
+            FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 16;
+            FS_BANNER_INFO          = Simple.isTablet() ? 26 : 18;
             FS_SCALED_BUTTON        = Simple.isTablet() ? 14 : 13;
             FS_ASSET_TITLE          = Simple.isTablet() ? 14 : 13;
             FS_ASSET_INFO           = Simple.isTablet() ? 20 : 18;
@@ -406,10 +407,11 @@ public class Defines
 
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
 
-            ASSET_THUMBNAIL_ASPECT  = 1.30f;
-            ASSET_SETTINGS_ASPECT   = 3.00f;
-            ASSET_DETAIL_ASPECT     = 3.20f;
-            ASSET_COURSE_ASPECT     = 6.00f;
+            ASSET_THUMBNAIL_ASPECT  = Simple.isTablet() ? 1.30f : 1.00f;
+            ASSET_SETTINGS_ASPECT   = Simple.isTablet() ? 3.00f : 3.00f;
+            ASSET_DETAIL_ASPECT     = Simple.isTablet() ? 3.20f : 3.20f;
+            ASSET_COURSE_ASPECT     = Simple.isTablet() ? 6.00f : 3.40f;
+            ASSET_BANNER_ASPECT     = Simple.isTablet() ? 3.20f : 2.20f;
 
             // @formatter:on
         }

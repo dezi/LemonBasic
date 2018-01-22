@@ -61,7 +61,14 @@ public class AssetFrame extends LinearLayout
 
         this.setOrientation(LinearLayout.VERTICAL);
         this.setBackgroundColor(Defines.COLOR_CONTENT);
-        Simple.setSizeDip(this, Simple.MP, Simple.WC);
+
+        //
+        // Do NOT set layout params in top view
+        // as this would yield an illegal cast
+        // execption on older buggy Android versions.
+        //
+
+        //Simple.setSizeDip(this, Simple.MP, Simple.WC);
 
         imageBox = new FrameLayout(getContext());
 
@@ -191,7 +198,6 @@ public class AssetFrame extends LinearLayout
         summaryView = new TextView(getContext());
         summaryView.setId(android.R.id.summary);
         summaryView.setAllCaps(Defines.isInfosAllCaps);
-        summaryView.setMinLines(2);
         summaryView.setMaxLines(2);
         summaryView.setEllipsize(TextUtils.TruncateAt.END);
         summaryView.setLineSpacing(0.0f, Defines.FS_ASSET_INFO_LSMULT);

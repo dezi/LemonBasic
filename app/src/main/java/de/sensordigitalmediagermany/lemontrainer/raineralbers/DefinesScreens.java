@@ -100,7 +100,7 @@ public class DefinesScreens extends Defines
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_menuoben
-                    : R.drawable.lem_t_ipad_piercadin_menuoben
+                    : R.drawable.lem_t_ipho_piercadin_menuoben
                     ;
         }
 
@@ -196,7 +196,7 @@ public class DefinesScreens extends Defines
         {
             return Simple.isTablet()
                     ? new Rect(30, 39, 90, 99)
-                    : new Rect(30, 39, 90, 99)
+                    : new Rect(20, 25, 70, 75)
                     ;
         }
 
@@ -212,7 +212,7 @@ public class DefinesScreens extends Defines
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_profile
-                    : R.drawable.lem_t_ipad_piercadin_profile
+                    : -1
                     ;
         }
 
@@ -222,13 +222,14 @@ public class DefinesScreens extends Defines
                 ;
     }
 
+    @Nullable
     public static Rect getContentScreenButtonProfileRect()
     {
         if (isPierCardin)
         {
             return Simple.isTablet()
                     ? new Rect(1100, 39, 1500, 99)
-                    : new Rect(300, 22, 360, 82)
+                    : null
                     ;
         }
 
@@ -245,7 +246,7 @@ public class DefinesScreens extends Defines
         {
             return Simple.isTablet()
                     ? new Rect(100, 39, 800, 99)
-                    : new Rect(100, 39, 280, 99)
+                    : new Rect(70, 25, 300, 75)
                     ;
         }
 

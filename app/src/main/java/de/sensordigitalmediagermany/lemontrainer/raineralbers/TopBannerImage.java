@@ -49,10 +49,13 @@ public class TopBannerImage extends FrameLayout
 
         addView(contentImage);
 
+        int wid = Simple.isTablet() ? Simple.pxToDip(imageWidth / 2) : Simple.pxToDip(imageWidth * 3 / 4);
+        int pad = Simple.isTablet() ? Defines.PADDING_XLARGE * 2 : Defines.PADDING_XLARGE;
+
         RelativeLayout infoCenter = new RelativeLayout(context);
         infoCenter.setGravity(Gravity.CENTER_VERTICAL);
-        Simple.setSizeDip(infoCenter, Simple.pxToDip(imageWidth / 2), Simple.MP);
-        Simple.setMarginLeftDip(infoCenter, Defines.PADDING_XLARGE * 2);
+        Simple.setSizeDip(infoCenter, wid, Simple.MP);
+        Simple.setPaddingDip(infoCenter, pad, 0, 0, 0);
 
         addView(infoCenter);
 

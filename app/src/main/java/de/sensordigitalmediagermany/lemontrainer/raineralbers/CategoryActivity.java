@@ -31,9 +31,22 @@ public class CategoryActivity extends ContentBaseActivity
         Simple.setSizeDip(naviLeftButton, Simple.WC, Simple.WC);
         Simple.setLetterSpacing(naviLeftButton, Defines.FS_NAVIGATION_LSSPACE);
 
-        Simple.setPaddingDip(naviLeftButton,
-                Defines.PADDING_LARGE, Defines.PADDING_LARGE,
-                Defines.PADDING_LARGE, Defines.PADDING_TINY);
+        if (Simple.isTablet())
+        {
+            Simple.setPaddingDip(naviLeftButton,
+                    Defines.PADDING_LARGE, Defines.PADDING_LARGE,
+                    Defines.PADDING_LARGE, Defines.PADDING_TINY);
+        }
+        else
+        {
+            //
+            // Compressed layout on phones.
+            //
+
+            Simple.setPaddingDip(naviLeftButton,
+                    Defines.PADDING_LARGE, Defines.PADDING_NORMAL,
+                    Defines.PADDING_LARGE, Defines.PADDING_NORMAL);
+        }
 
         naviFrame.addView(naviLeftButton);
 

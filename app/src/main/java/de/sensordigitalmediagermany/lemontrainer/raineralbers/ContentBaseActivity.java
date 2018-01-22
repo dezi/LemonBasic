@@ -1,18 +1,17 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.graphics.Rect;
+import android.view.Gravity;
+import android.view.View;
+import android.os.Bundle;
+import android.util.Log;
 
 @SuppressLint("Registered")
 public class ContentBaseActivity extends FullScreenActivity
@@ -24,8 +23,6 @@ public class ContentBaseActivity extends FullScreenActivity
     protected ImageView headerImage;
     protected ImageView backButtonImage;
     protected ScaledButton backButton;
-    protected ImageView profileButtonImage;
-    protected ScaledButton profileButton;
     protected ScaledButton navigationButton;
     protected FrameLayout imageFrame;
     protected ImageView contentImage;
@@ -90,32 +87,35 @@ public class ContentBaseActivity extends FullScreenActivity
 
         int pfresid = DefinesScreens.getContentScreenButtonProfileRes();
 
-        profileButtonImage = new ImageView(this);
-        profileButtonImage.setImageResource(pfresid);
-        profileButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        profileButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid));
-
-        headerFrame.addView(profileButtonImage);
-
-        profileButton = new ScaledButton(this);
-        profileButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid);
-
-        if (Globals.accountId > 0)
+        if (pfresid > 0)
         {
-            String username = Globals.firstName + " " + Globals.lastName;
-            profileButton.setButtonText(Defines.PADDING_XLARGE, username);
+            ImageView profileButtonImage = new ImageView(this);
+            profileButtonImage.setImageResource(pfresid);
+            profileButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            profileButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid));
 
-            profileButton.setOnButtonClicked(new Runnable()
+            headerFrame.addView(profileButtonImage);
+
+            ScaledButton profileButton = new ScaledButton(this);
+            profileButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid);
+
+            if (Globals.accountId > 0)
             {
-                @Override
-                public void run()
-                {
-                    showProfileMenu();
-                }
-            });
-        }
+                String username = Globals.firstName + " " + Globals.lastName;
+                profileButton.setButtonText(Defines.PADDING_XLARGE, username);
 
-        headerFrame.addView(profileButton);
+                profileButton.setOnButtonClicked(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        showProfileMenu();
+                    }
+                });
+            }
+
+            headerFrame.addView(profileButton);
+        }
 
         //
         // Non mandatory navigation.
@@ -185,8 +185,22 @@ public class ContentBaseActivity extends FullScreenActivity
 
         categoryScroll = new ScrollView(this);
         categoryScroll.setVisibility(View.GONE);
-        Simple.setPaddingDip(categoryScroll, Defines.PADDING_SMALL);
         Simple.setSizeDip(categoryScroll, Simple.MP, Simple.MP, 1.0f);
+
+        if (Simple.isTablet())
+        {
+            Simple.setPaddingDip(categoryScroll, Defines.PADDING_SMALL);
+        }
+        else
+        {
+            //
+            // Less spacy layout on phones.
+            //
+
+            Simple.setPaddingDip(categoryScroll,
+                    Defines.PADDING_SMALL, Defines.PADDING_ZERO,
+                    Defines.PADDING_SMALL, Defines.PADDING_SMALL);
+        }
 
         contentFrame.addView(categoryScroll);
 

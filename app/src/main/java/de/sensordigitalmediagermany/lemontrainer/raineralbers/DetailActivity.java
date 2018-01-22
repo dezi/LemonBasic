@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,6 +17,8 @@ import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.File;
+
+import static android.view.View.GONE;
 
 public class DetailActivity extends ContentBaseActivity
 {
@@ -37,7 +40,7 @@ public class DetailActivity extends ContentBaseActivity
         // Extend navigation frame to fill screen.
         //
 
-        assetGrid.setVisibility(View.GONE);
+        assetGrid.setVisibility(GONE);
         naviFrame.setOrientation(LinearLayout.VERTICAL);
         naviFrame.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.MP, 1.0f);
@@ -143,28 +146,42 @@ public class DetailActivity extends ContentBaseActivity
 
         //region Information area.
 
-        LinearLayout infoArea = new LinearLayout(this);
-        infoArea.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(infoArea, Simple.MP, Simple.MP);
+        LinearLayout infoAreaVert = new LinearLayout(this);
+        infoAreaVert.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(infoAreaVert, Simple.MP, Simple.MP);
 
         if (! Defines.isCompactDetails)
         {
-            Simple.setMarginTopDip(infoArea, Defines.PADDING_XLARGE);
+            Simple.setMarginTopDip(infoAreaVert, Defines.PADDING_XLARGE);
         }
 
-        Simple.setMarginRightDip(infoArea, Defines.PADDING_LARGE);
-        Simple.setMarginBottomDip(infoArea, Defines.PADDING_LARGE);
+        Simple.setMarginRightDip(infoAreaVert, Defines.PADDING_LARGE);
+        Simple.setMarginBottomDip(infoAreaVert, Defines.PADDING_LARGE);
 
-        naviFrame.addView(infoArea);
+        naviFrame.addView(infoAreaVert);
+
+        LinearLayout infoAreaHorz = new LinearLayout(this);
+        infoAreaHorz.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(infoAreaHorz, Simple.MP, Simple.MP);
+
+        infoAreaVert.addView(infoAreaHorz);
 
         //region Detail description area.
 
         ScrollView descScroll = new ScrollView(this);
-        Simple.setSizeDip(descScroll, Simple.WC, Simple.MP, 1f);
         Simple.setPaddingDip(descScroll, Defines.PADDING_NORMAL);
         Simple.setRoundedCorners(descScroll, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
-        infoArea.addView(descScroll);
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(descScroll, Simple.MP, Simple.MP, 0.3f);
+            infoAreaHorz.addView(descScroll);
+        }
+        else
+        {
+            Simple.setSizeDip(descScroll, Simple.MP, Simple.WC);
+            infoAreaVert.addView(descScroll, 0);
+        }
 
         LinearLayout descFrame = new LinearLayout(this);
         descFrame.setOrientation(LinearLayout.VERTICAL);
@@ -217,12 +234,24 @@ public class DetailActivity extends ContentBaseActivity
 
         //region Misc area with specs and buy.
 
-        LinearLayout miscArea = new LinearLayout(this);
-        miscArea.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(miscArea, Simple.WC, Simple.MP);
-        Simple.setMarginLeftDip(miscArea, Defines.PADDING_NORMAL);
+        LinearLayout miscAreaVert = new LinearLayout(this);
+        miscAreaVert.setOrientation(LinearLayout.VERTICAL);
 
-        infoArea.addView(miscArea);
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(miscAreaVert, Simple.MP, Simple.MP, 0.7f);
+            infoAreaHorz.addView(miscAreaVert);
+        }
+        else
+        {
+            Simple.setSizeDip(miscAreaVert, Simple.MP, Simple.MP);
+            infoAreaHorz.addView(miscAreaVert);
+        }
+
+        LinearLayout miscAreaHorz = new LinearLayout(this);
+        miscAreaHorz.setOrientation(LinearLayout.HORIZONTAL);
+
+        miscAreaVert.addView(miscAreaHorz);
 
         //region Technical specs area.
 
@@ -234,7 +263,6 @@ public class DetailActivity extends ContentBaseActivity
 
         LinearLayout specsArea = new LinearLayout(this);
         specsArea.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(specsArea, Simple.MP, Simple.WC, 1f);
         Simple.setRoundedCorners(specsArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
         if (Defines.isCompactDetails)
@@ -246,7 +274,22 @@ public class DetailActivity extends ContentBaseActivity
             Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
         }
 
-        miscArea.addView(specsArea);
+        if (Simple.isTablet())
+        {
+            Simple.setMarginLeftDip(miscAreaVert, Defines.PADDING_NORMAL);
+            Simple.setSizeDip(specsArea, Simple.MP, Simple.MP, 1f);
+
+            miscAreaHorz.setVisibility(GONE);
+            miscAreaVert.addView(specsArea);
+        }
+        else
+        {
+            Simple.setMarginTopDip(miscAreaVert, Defines.PADDING_NORMAL);
+            Simple.setSizeDip(specsArea, Simple.MP, Simple.MP, 1f);
+
+            Simple.setSizeDip(miscAreaHorz, Simple.MP, Simple.MP);
+            miscAreaHorz.addView(specsArea);
+        }
 
         TableLikeLayout fileView = new TableLikeLayout(this, headerTF, infosTF, true);
         fileView.setLeftText(R.string.detail_specs_file);
@@ -337,38 +380,101 @@ public class DetailActivity extends ContentBaseActivity
 
             specsArea.addView(createSeparator());
 
-            TextView suitableView = new TextView(this);
-            suitableView.setText(suitable_for);
-            suitableView.setMinLines(2);
-            suitableView.setEllipsize(TextUtils.TruncateAt.END);
-            suitableView.setTextColor(Color.BLACK);
-            suitableView.setTypeface(infosTF);
-            Simple.setTextSizeDip(suitableView, Defines.FS_DETAIL_SPECS);
+            if (Simple.isTablet())
+            {
+                TextView suitableView = new TextView(this);
+                suitableView.setText(suitable_for);
+                suitableView.setMinLines(2);
+                suitableView.setEllipsize(TextUtils.TruncateAt.END);
+                suitableView.setTextColor(Color.BLACK);
+                suitableView.setTypeface(infosTF);
+                Simple.setTextSizeDip(suitableView, Defines.FS_DETAIL_SPECS);
 
-            specsArea.addView(suitableView);
+                specsArea.addView(suitableView);
+            }
         }
 
         //endregion Technical specs area.
 
         //region Download and buy area.
 
-        LinearLayout buyloadArea = new LinearLayout(this);
-        buyloadArea.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(buyloadArea, Simple.WC, Simple.WC, 0f);
-        Simple.setMarginTopDip(buyloadArea, Defines.PADDING_LARGE);
-        Simple.setRoundedCorners(buyloadArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+        LinearLayout buyloadAreaVert = new LinearLayout(this);
+        buyloadAreaVert.setOrientation(LinearLayout.VERTICAL);
+
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.WC);
+
+            miscAreaVert.addView(buyloadAreaVert);
+        }
+        else
+        {
+            Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.MP, 1f);
+            Simple.setMarginLeftDip(buyloadAreaVert, Defines.PADDING_LARGE);
+
+            miscAreaHorz.addView(buyloadAreaVert);
+        }
+
+        //region Suitable for area.
 
         if (Defines.isCompactDetails)
         {
+            if (!Simple.isTablet())
+            {
+                //
+                // Only shows up in phone version here.
+                // Even if empty, make it eat all remaining
+                // space to force down button.
+                //
+
+                RelativeLayout suitableArea = new RelativeLayout(this);
+                Simple.setSizeDip(suitableArea, Simple.MP, Simple.MP, 1.0f);
+                Simple.setPaddingDip(suitableArea, Defines.PADDING_LARGE);
+
+                buyloadAreaVert.addView(suitableArea);
+
+                if ((suitable_for != null) && ! suitable_for.isEmpty())
+                {
+                    Simple.setRoundedCorners(suitableArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+
+                    TableLikeLayout suitableView = new TableLikeLayout(this, headerTF, infosTF, true);
+
+                    suitableView.setLeftText(R.string.detail_specs_suitablefor);
+                    suitableView.setRightText(suitable_for);
+
+                    suitableArea.addView(suitableView);
+                }
+            }
+        }
+
+        //endregion Suitable for area.
+
+        LinearLayout buyloadArea = new LinearLayout(this);
+        buyloadArea.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(buyloadArea, Simple.MP, Simple.WC);
+        Simple.setMarginTopDip(buyloadArea, Defines.PADDING_LARGE);
+
+        if (Defines.isCompactDetails)
+        {
+            if (! Simple.isTablet())
+            {
+                //
+                // For some reason the frame is
+                // transparent in phone version.
+                //
+
+                Simple.setRoundedCorners(buyloadArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+            }
+
             Simple.setPaddingDip(buyloadArea, Defines.PADDING_LARGE);
         }
 
-        miscArea.addView(buyloadArea);
+        buyloadAreaVert.addView(buyloadArea);
 
         downloadButton = new ImageView(this);
         downloadButton.setImageResource(R.drawable.lem_t_iany_ralbers_cloud_download);
         downloadButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        downloadButton.setVisibility(View.GONE);
+        downloadButton.setVisibility(GONE);
         Simple.setSizeDip(downloadButton, Defines.CLOUD_ICON_SIZE, Simple.MP);
         Simple.setPaddingDip(downloadButton, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Color.WHITE, true);
@@ -378,20 +484,34 @@ public class DetailActivity extends ContentBaseActivity
 
         if (Defines.isCompactDetails)
         {
-            downloadButton.setVisibility(View.GONE);
+            downloadButton.setVisibility(GONE);
         }
 
         buyButton = new TextView(this);
         buyButton.setTextColor(Color.WHITE);
+        buyButton.setGravity(Gravity.CENTER_HORIZONTAL);
         buyButton.setTypeface(buttonsTF);
         buyButton.setAllCaps(Defines.isButtonAllCaps);
-        Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
         Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
 
-        Simple.setPaddingDip(buyButton,
-                Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
-                Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(buyButton, Simple.MP, Simple.WC, 1.0f);
+
+            Simple.setPaddingDip(buyButton,
+                    Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
+                    Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+        }
+        else
+        {
+            Simple.setSizeDip(buyButton, Simple.MP, Simple.WC);
+
+            Simple.setPaddingDip(buyButton,
+                    Defines.PADDING_XLARGE, Defines.PADDING_SMALL,
+                    Defines.PADDING_XLARGE, Defines.PADDING_SMALL);
+        }
+
 
         buyloadArea.addView(buyButton);
 
@@ -407,8 +527,17 @@ public class DetailActivity extends ContentBaseActivity
     private RelativeLayout createSeparator()
     {
         RelativeLayout separ = new RelativeLayout(this);
-        separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 1);
+
+        if (Simple.isTablet())
+        {
+            //
+            // Separator only visible in tablet version.
+            //
+
+            separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
+            Simple.setSizeDip(separ, Simple.MP, 1);
+        }
+
         Simple.setMarginDip(separ, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
 
         return separ;
@@ -569,7 +698,7 @@ public class DetailActivity extends ContentBaseActivity
                 downloadDialog = null;
             }
 
-            downloadCenter.setVisibility(View.GONE);
+            downloadCenter.setVisibility(GONE);
 
             int id_current = Json.getInt(Globals.displayContent, "id");
             int id_loaded = Json.getInt(content, "id");
@@ -603,7 +732,7 @@ public class DetailActivity extends ContentBaseActivity
             }
             else
             {
-                downloadButton.setVisibility(View.GONE);
+                downloadButton.setVisibility(GONE);
 
                 buyButton.setText(Simple.getTrans(DetailActivity.this, R.string.detail_buy_display));
 

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +47,14 @@ public class CourseActivity extends ContentBaseActivity
         // Setup navigation path.
         //
 
-        showNavigationPath(courseTitle, Simple.getTrans(this, R.string.course));
+        if (Simple.isTablet())
+        {
+            showNavigationPath(courseTitle, Simple.getTrans(this, R.string.course));
+        }
+        else
+        {
+            showNavigationPath(Simple.getTrans(this, R.string.course));
+        }
 
         //region Image and type area.
 
@@ -133,7 +141,6 @@ public class CourseActivity extends ContentBaseActivity
         TextView cdView = new TextView(this);
         cdView.setText(courseDescription);
         cdView.setTextColor(Color.BLACK);
-        cdView.setMinLines(2);
         cdView.setTypeface(infosTF);
         cdView.setAllCaps(Defines.isInfosAllCaps);
         Simple.setTextSizeDip(cdView, Defines.FS_DETAIL_INFOS);
