@@ -103,7 +103,9 @@ public class AssetsDownloadManager
                 if (file != null)
                 {
                     if (onFileLoadedHandler != null)
+                    {
                         onFileLoadedHandler.OnFileLoaded(content, file);
+                    }
 
                     return;
                 }
@@ -111,7 +113,10 @@ public class AssetsDownloadManager
         }
         else
         {
-            if (onFileLoadedHandler != null) onFileLoadedHandler.OnFileLoaded(content, null);
+            if (onFileLoadedHandler != null)
+            {
+                onFileLoadedHandler.OnFileLoaded(content, null);
+            }
 
             return;
         }

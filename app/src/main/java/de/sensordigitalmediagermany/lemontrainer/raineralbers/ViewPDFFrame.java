@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
+import android.os.Build;
 import android.widget.ImageView;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -31,6 +32,7 @@ public class ViewPDFFrame extends ViewZoomFrame
     private boolean attached;
 
     private float scaleFactor = -1f;
+    private boolean isAvailable;
 
     public ViewPDFFrame(Context context)
     {
@@ -47,6 +49,8 @@ public class ViewPDFFrame extends ViewZoomFrame
                 + " b=" + display.bottom);
 
         renderDat = new ArrayList<>();
+
+        isAvailable = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
     }
 
     @Override
@@ -127,10 +131,13 @@ public class ViewPDFFrame extends ViewZoomFrame
 
         attached = true;
 
-        loadMedia();
+        if (isAvailable)
+        {
+            loadMedia();
 
-        worker = new Thread(rendererThread);
-        worker.start();
+            worker = new Thread(rendererThread);
+            worker.start();
+        }
     }
 
     @Override
@@ -140,24 +147,29 @@ public class ViewPDFFrame extends ViewZoomFrame
 
         attached = false;
 
-        if (worker != null)
+        if (isAvailable)
         {
-            try
+            if (worker != null)
             {
-                worker.join();
-            }
-            catch (Exception ignore)
-            {
+                try
+                {
+                    worker.join();
+                }
+                catch (Exception ignore)
+                {
+                }
+
+                worker = null;
             }
 
-            worker = null;
+            unloadMedia();
         }
-
-        unloadMedia();
     }
 
     private void loadMedia()
     {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return;
+
         try
         {
             File cacheFile = ContentHandler.getCachedFile(Globals.displayContent);
@@ -184,12 +196,12 @@ public class ViewPDFFrame extends ViewZoomFrame
                 {
                     PdfRenderer.Page page = renderer.openPage(inx);
 
-                    pageWidths[ inx ] = page.getWidth();
-                    pageHeights[ inx ] = page.getHeight();
+                    pageWidths[inx] = page.getWidth();
+                    pageHeights[inx] = page.getHeight();
 
                     page.close();
 
-                    float pscale = screenWidth / (float) pageWidths[ inx ];
+                    float pscale = screenWidth / (float) pageWidths[inx];
 
                     if ((scaleFactor < 0.0) || (pscale < scaleFactor)) scaleFactor = pscale;
 
@@ -325,32 +337,35 @@ public class ViewPDFFrame extends ViewZoomFrame
                         + " height=" + imageViews[inx].getHeight()
                 );
 
-                try
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
                 {
-                    final Bitmap newBitmap = Bitmap.createBitmap(
-                            imageViews[inx].getWidth(),
-                            imageViews[inx].getHeight(),
-                            Bitmap.Config.ARGB_8888);
-
-                    PdfRenderer.Page page = renderer.openPage(inx);
-                    page.render(newBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-                    page.close();
-
-                    getHandler().post(new Runnable()
+                    try
                     {
-                        @Override
-                        public void run()
-                        {
-                            imageViews[inx].setImageBitmap(newBitmap);
-                            pageBitmaps[inx] = newBitmap;
+                        final Bitmap newBitmap = Bitmap.createBitmap(
+                                imageViews[inx].getWidth(),
+                                imageViews[inx].getHeight(),
+                                Bitmap.Config.ARGB_8888);
 
-                            if (oldBitmap != null) oldBitmap.recycle();
-                        }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    ex.printStackTrace();
+                        PdfRenderer.Page page = renderer.openPage(inx);
+                        page.render(newBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+                        page.close();
+
+                        getHandler().post(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                imageViews[inx].setImageBitmap(newBitmap);
+                                pageBitmaps[inx] = newBitmap;
+
+                                if (oldBitmap != null) oldBitmap.recycle();
+                            }
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        ex.printStackTrace();
+                    }
                 }
             }
 

@@ -256,4 +256,7 @@
     <string name="alert_not_implemented_title">Falscher Fehler</string>
     <string name="alert_not_implemented_info">Funktion ist noch nicht implementiert.</string>
 
+    <string name="alert_no_pdf_title">PDF Anzeige</string>
+    <string name="alert_no_pdf_info">Die PDF-Anzeige ist nicht verfügbar, da ihr Android System zu alt ist.</string>
+
 </resources>

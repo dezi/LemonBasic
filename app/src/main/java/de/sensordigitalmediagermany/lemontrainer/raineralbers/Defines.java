@@ -58,6 +58,7 @@ public class Defines
     public static final boolean isHintsAllCaps     = isPierCardin;
     public static final boolean isButtonAllCaps    = isPierCardin;
     public static final boolean isInfosAllCaps     = isPierCardin;
+    public static final boolean isAskDownload      = isPierCardin;
     public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isDeleteCache      = isDezi;
 
@@ -80,8 +81,8 @@ public class Defines
     public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
     public static final int RESULTS_NUM_COLUMNS = Simple.isTablet() ? 8 : 6;
 
-    public static final int MIN_EMS_DIALOGS = Simple.isTablet() ? 12 : 10;
-    public static final int MAX_EMS_DIALOGS = Simple.isTablet() ? 20 : 14;
+    public static final int MIN_EMS_DIALOGS = Simple.isTablet() ? 12 :  8;
+    public static final int MAX_EMS_DIALOGS = Simple.isTablet() ? 20 : 12;
 
     public static final int CONTENT_TYPE_PDF = 1;
     public static final int CONTENT_TYPE_VIDEO = 2;
@@ -156,6 +157,7 @@ public class Defines
     public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
     public static final String FUTURA_LIGHT_REG     = "fonts/Futura-Light-Regular.otf";
     public static final String FUTURA_BOOK          = "fonts/Futura-Book.otf";
+    public static final String FUTURA_BOLD          = "fonts/Futura-Bold.otf";
     public static final String SOURCE_PRO_LIGHT     = "fonts/SourceSerifPro-Light.otf";
     public static final String SOURCE_PRO_BOLD      = "fonts/SourceSerifPro-Bold.otf";
     // @formatter:on
@@ -191,7 +193,7 @@ public class Defines
     //
 
     // @formatter:off
-    public static final int FS_DIALOG_TITLE       = Simple.isTablet() ? 20 : 16;
+    public static final int FS_DIALOG_TITLE       = Simple.isTablet() ? 20 : 18;
     public static final int FS_DIALOG_EDIT        = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 18 : 16;
@@ -372,7 +374,7 @@ public class Defines
             COLOR_PROGRESS_NEED     = Color.WHITE;
 
             FONT_DIALOG_TITLE       = FUTURA_BOOK;
-            FONT_DIALOG_INFOS       = FUTURA_LIGHT_REG;
+            FONT_DIALOG_INFOS       = SOURCE_PRO_LIGHT;
             FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
             FONT_DIALOG_BUTTON      = FUTURA_BOOK;
             FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;

@@ -16,6 +16,8 @@ public class DialogView extends RelativeLayout
 {
     private static final String LOGTAG = DialogView.class.getSimpleName();
 
+    protected final static int padSize = Simple.isTablet() ? Defines.PADDING_XLARGE : Defines.PADDING_NORMAL;
+
     public static void errorAlert(final ViewGroup rootView, int titleres, int msgres)
     {
         errorAlert(rootView, titleres, msgres, null);
@@ -188,7 +190,7 @@ public class DialogView extends RelativeLayout
         padView = new LinearLayout(context);
         padView.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(padView, Simple.WC, Simple.WC);
-        Simple.setPaddingDip(padView, Defines.PADDING_XLARGE);
+        Simple.setPaddingDip(padView, padSize);
 
         boxView.addView(padView);
 
@@ -405,11 +407,11 @@ public class DialogView extends RelativeLayout
     {
         if (enable)
         {
-            Simple.setPaddingDip(padView, Defines.PADDING_XLARGE, 0, Defines.PADDING_XLARGE, Defines.PADDING_XLARGE);
+            Simple.setPaddingDip(padView, padSize, 0, padSize, padSize);
         }
         else
         {
-            Simple.setPaddingDip(padView, Defines.PADDING_XLARGE);
+            Simple.setPaddingDip(padView, padSize);
         }
 
         closeButton.setVisibility(enable ? VISIBLE : GONE);

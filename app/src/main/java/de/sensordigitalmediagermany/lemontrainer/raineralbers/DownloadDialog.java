@@ -34,7 +34,8 @@ public class DownloadDialog extends DialogView
         LinearLayout dialogItems = new LinearLayout(getContext());
         dialogItems.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(dialogItems, Simple.WC, Simple.WC);
-        Simple.setMarginBottomDip(dialogItems, Defines.PADDING_LARGE);
+
+        Simple.setPaddingDip(dialogItems, 0, 0, 0, Defines.PADDING_LARGE);
 
         LinearLayout progressItems = new LinearLayout(getContext());
         progressItems.setOrientation(LinearLayout.HORIZONTAL);

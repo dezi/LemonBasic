@@ -1,6 +1,8 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 public class ViewActivity extends FullScreenActivity
 {
@@ -16,8 +18,25 @@ public class ViewActivity extends FullScreenActivity
 
         if (content_type == Defines.CONTENT_TYPE_PDF)
         {
-            ViewPDFFrame pdfFrame = new ViewPDFFrame(this);
-            topFrame.addView(pdfFrame);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            {
+                ViewPDFFrame pdfFrame = new ViewPDFFrame(this);
+                topFrame.addView(pdfFrame);
+            }
+            else
+            {
+                DialogView.errorAlert(topFrame,
+                        R.string.alert_no_pdf_title,
+                        Simple.getTrans(this, R.string.alert_no_pdf_info),
+                        new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                onBackPressed();
+                            }
+                        });
+            }
         }
 
         if (content_type == Defines.CONTENT_TYPE_VIDEO)

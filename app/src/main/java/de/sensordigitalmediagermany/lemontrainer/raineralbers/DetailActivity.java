@@ -456,11 +456,11 @@ public class DetailActivity extends ContentBaseActivity
 
         if (Defines.isCompactDetails)
         {
-            if (! Simple.isTablet())
+            if (Simple.isTablet())
             {
                 //
                 // For some reason the frame is
-                // transparent in phone version.
+                // only colored in table version.
                 //
 
                 Simple.setRoundedCorners(buyloadArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
@@ -548,12 +548,18 @@ public class DetailActivity extends ContentBaseActivity
         if (AssetsDownloadManager.connectDownload(Globals.displayContent,
                 onFileLoadedHandler, onDownloadProgressHandler))
         {
-            downloadCenter.setVisibility(View.VISIBLE);
-            downloadProgress.setProgress(0, 0);
             downloadCancel = false;
+            downloadProgress.setProgress(0, 0);
 
-            downloadDialog = new DownloadDialog(DetailActivity.this);
-            topFrame.addView(downloadDialog);
+            if (Defines.isAskDownload)
+            {
+                downloadDialog = new DownloadDialog(DetailActivity.this);
+                topFrame.addView(downloadDialog);
+            }
+            else
+            {
+                downloadCenter.setVisibility(View.VISIBLE);
+            }
         }
 
         int contentId = Json.getInt(Globals.displayContent, "id");
@@ -622,12 +628,18 @@ public class DetailActivity extends ContentBaseActivity
 
             Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
-            downloadCenter.setVisibility(View.VISIBLE);
-            downloadProgress.setProgress(0, 0);
             downloadCancel = false;
+            downloadProgress.setProgress(0, 0);
 
-            downloadDialog = new DownloadDialog(DetailActivity.this);
-            topFrame.addView(downloadDialog);
+            if (Defines.isAskDownload)
+            {
+                downloadDialog = new DownloadDialog(DetailActivity.this);
+                topFrame.addView(downloadDialog);
+            }
+            else
+            {
+                downloadCenter.setVisibility(View.VISIBLE);
+            }
 
             AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
         }
@@ -641,6 +653,7 @@ public class DetailActivity extends ContentBaseActivity
             DialogView askdialog = new DialogView(DetailActivity.this);
 
             askdialog.setCloseButton(true, null);
+
             askdialog.setTitleText(R.string.ask_download_title);
             askdialog.setInfoText(R.string.ask_download_info);
 
@@ -648,13 +661,24 @@ public class DetailActivity extends ContentBaseActivity
             askdialog.negativeButton.setSingleLine(false);
             askdialog.negativeButton.setAllCaps(Defines.isButtonAllCaps);
 
-            Simple.setPaddingDip(askdialog.negativeButton,
-                    0, Defines.PADDING_LARGE,
-                    0, Defines.PADDING_LARGE);
-
             askdialog.setPositiveButton(R.string.ask_download_only_load, startDownload);
             askdialog.positiveButton.setSingleLine(false);
             askdialog.positiveButton.setAllCaps(Defines.isButtonAllCaps);
+
+            if (! Simple.isTablet())
+            {
+                //
+                // Layout is too fucked up for button
+                // text to fit into this dialog.
+                //
+
+                Simple.setTextSizeDip(askdialog.positiveButton, Defines.FS_DIALOG_BUTTON - 4);
+                Simple.setTextSizeDip(askdialog.negativeButton, Defines.FS_DIALOG_BUTTON - 4);
+            }
+
+            Simple.setPaddingDip(askdialog.negativeButton,
+                    0, Defines.PADDING_LARGE,
+                    0, Defines.PADDING_LARGE);
 
             Simple.setPaddingDip(askdialog.positiveButton,
                     0, Defines.PADDING_LARGE,
@@ -673,12 +697,18 @@ public class DetailActivity extends ContentBaseActivity
 
             Simple.setRoundedCorners(downloadButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);
 
-            downloadCenter.setVisibility(View.VISIBLE);
-            downloadProgress.setProgress(0, 0);
             downloadCancel = false;
+            downloadProgress.setProgress(0, 0);
 
-            downloadDialog = new DownloadDialog(DetailActivity.this);
-            topFrame.addView(downloadDialog);
+            if (Defines.isAskDownload)
+            {
+                downloadDialog = new DownloadDialog(DetailActivity.this);
+                topFrame.addView(downloadDialog);
+            }
+            else
+            {
+                downloadCenter.setVisibility(View.VISIBLE);
+            }
 
             AssetsDownloadManager.getContentOrFetch(Globals.displayContent, onFileLoadedHandler, onDownloadProgressHandler);
         }
