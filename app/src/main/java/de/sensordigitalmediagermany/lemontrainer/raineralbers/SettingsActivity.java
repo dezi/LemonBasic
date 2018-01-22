@@ -20,6 +20,7 @@ public class SettingsActivity extends ContentBaseActivity
     private static final String LOGTAG = SettingsActivity.class.getSimpleName();
 
     protected LinearLayout bodyHorz;
+    protected LinearLayout leftArea;
     protected LinearLayout rightArea;
     protected TextView contentSizeMB;
 
@@ -84,32 +85,63 @@ public class SettingsActivity extends ContentBaseActivity
         //region Body frames.
 
         bodyHorz = new LinearLayout(this);
-        bodyHorz.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(bodyHorz, Simple.MP, Simple.MP, 1.0f);
+
+        if (Simple.isTablet())
+        {
+            bodyHorz.setOrientation(LinearLayout.HORIZONTAL);
+        }
+        else
+        {
+            bodyHorz.setOrientation(LinearLayout.VERTICAL);
+
+        }
 
         contentFrame.addView(bodyHorz);
 
         //region Left area.
 
-        LinearLayout leftArea = new LinearLayout(this);
+        leftArea = new LinearLayout(this);
         leftArea.setOrientation(LinearLayout.VERTICAL);
         leftArea.setBackgroundColor(Defines.COLOR_FRAMES);
-        Simple.setSizeDip(leftArea, Simple.MP, Simple.MP, 0.6f);
         Simple.setPaddingDip(leftArea, Defines.PADDING_NORMAL);
 
-        Simple.setMarginDip(leftArea,
-                Defines.PADDING_LARGE, Defines.PADDING_SMALL,
-                Defines.PADDING_LARGE / 2, Defines.PADDING_LARGE);
+        if (Simple.isTablet())
+        {
+            Simple.setMarginDip(leftArea,
+                    Defines.PADDING_LARGE, Defines.PADDING_SMALL,
+                    Defines.PADDING_LARGE / 2, Defines.PADDING_LARGE);
 
+            Simple.setSizeDip(leftArea, Simple.MP, Simple.MP, 0.6f);
+        }
+        else
+        {
+            Simple.setMarginDip(leftArea,
+                    Defines.PADDING_NORMAL, 0,
+                    Defines.PADDING_NORMAL, 0);
+
+            Simple.setSizeDip(leftArea, Simple.MP, Simple.WC);
+        }
 
         bodyHorz.addView(leftArea);
 
         //region Left top area.
 
         LinearLayout leftTopArea = new LinearLayout(this);
-        leftTopArea.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(leftTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
-        Simple.setMarginTopDip(leftTopArea, Defines.PADDING_SMALL);
+
+        if (Simple.isTablet())
+        {
+            leftTopArea.setOrientation(LinearLayout.VERTICAL);
+
+            Simple.setMarginTopDip(leftTopArea, Defines.PADDING_SMALL);
+            Simple.setSizeDip(leftTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
+        }
+        else
+        {
+            leftTopArea.setOrientation(LinearLayout.HORIZONTAL);
+
+            Simple.setSizeDip(leftTopArea, Simple.MP, Simple.WC);
+        }
 
         leftArea.addView(leftTopArea);
 
@@ -121,8 +153,16 @@ public class SettingsActivity extends ContentBaseActivity
         settingsTitle.setTypeface(headerTF);
         settingsTitle.setAllCaps(true);
         Simple.setTextSizeDip(settingsTitle, Defines.FS_SETTINGS_TITLE);
-        Simple.setSizeDip(settingsTitle, Simple.MP, Simple.WC);
         Simple.setLetterSpacing(settingsTitle, Defines.FS_NAVIGATION_LSSPACE);
+
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(settingsTitle, Simple.MP, Simple.WC);
+        }
+        else
+        {
+            Simple.setSizeDip(settingsTitle, Simple.WC, Simple.WC);
+        }
 
         leftTopArea.addView(settingsTitle);
 
@@ -137,8 +177,16 @@ public class SettingsActivity extends ContentBaseActivity
             systemVersion.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
             systemVersion.setTypeface(versionTF);
             Simple.setTextSizeDip(systemVersion, Defines.FS_DEBUG_VERSION);
-            Simple.setSizeDip(systemVersion, Simple.WC, Simple.WC);
-            Simple.setMarginTopDip(systemVersion, Defines.PADDING_NORMAL);
+
+            if (Simple.isTablet())
+            {
+                Simple.setSizeDip(systemVersion, Simple.WC, Simple.WC);
+                Simple.setMarginTopDip(systemVersion, Defines.PADDING_NORMAL);
+            }
+            else
+            {
+                Simple.setSizeDip(systemVersion, Simple.MP, Simple.MP);
+            }
 
             leftTopArea.addView(systemVersion);
         }
@@ -182,15 +230,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left personal data.
 
-        if (Defines.isSectionDividers)
-        {
-            FrameLayout divider = new FrameLayout(this);
-            divider.setBackgroundColor(Color.BLACK);
-            Simple.setSizeDip(divider, Simple.MP, 1);
-            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-            leftArea.addView(divider);
-        }
+        if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
         TextView nameSection = new TextView(this);
         nameSection.setText(R.string.settings_name);
@@ -224,15 +264,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Defines.isCompanyAvailable)
         {
-            if (Defines.isSectionDividers)
-            {
-                FrameLayout divider = new FrameLayout(this);
-                divider.setBackgroundColor(Color.BLACK);
-                Simple.setSizeDip(divider, Simple.MP, 1);
-                Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-                Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-                leftArea.addView(divider);
-            }
+            if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
             TextView companySection = new TextView(this);
             companySection.setText(R.string.settings_company);
@@ -263,15 +295,7 @@ public class SettingsActivity extends ContentBaseActivity
             leftArea.addView(companyEdit);
         }
 
-        if (Defines.isSectionDividers)
-        {
-            FrameLayout divider = new FrameLayout(this);
-            divider.setBackgroundColor(Color.BLACK);
-            Simple.setSizeDip(divider, Simple.MP, 1);
-            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-            leftArea.addView(divider);
-        }
+        if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
         TextView emailSection = new TextView(this);
         emailSection.setText(R.string.settings_email);
@@ -301,15 +325,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(emailEdit);
 
-        if (Defines.isSectionDividers)
-        {
-            FrameLayout divider = new FrameLayout(this);
-            divider.setBackgroundColor(Color.BLACK);
-            Simple.setSizeDip(divider, Simple.MP, 1);
-            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-            leftArea.addView(divider);
-        }
+        if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
         /*
         TextView passwordSection = new TextView(this);
@@ -465,8 +481,6 @@ public class SettingsActivity extends ContentBaseActivity
         //region Left logoff button.
 
         LinearLayout logoffArea = new LinearLayout(this);
-        logoffArea.setOrientation(LinearLayout.VERTICAL);
-        logoffArea.setGravity(Gravity.BOTTOM);
         Simple.setMarginTopDip(logoffArea, Defines.PADDING_SMALL);
 
         if (Defines.isCompactSettings)
@@ -478,9 +492,19 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
         }
 
+        if (Simple.isTablet())
+        {
+            logoffArea.setGravity(Gravity.BOTTOM);
+            logoffArea.setOrientation(LinearLayout.VERTICAL);
+        }
+        else
+        {
+            logoffArea.setOrientation(LinearLayout.HORIZONTAL);
+        }
+
         leftArea.addView(logoffArea);
 
-        if (Defines.isDeleteCache)
+        if (Defines.isDeleteCache && Simple.isTablet())
         {
             TextView cacheButton = new TextView(this);
             cacheButton.setText(R.string.settings_clearcache);
@@ -531,10 +555,8 @@ public class SettingsActivity extends ContentBaseActivity
         logoffButton.setTypeface(buttonsTF);
         logoffButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         logoffButton.setAllCaps(Defines.isButtonAllCaps);
-        Simple.setSizeDip(logoffButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(logoffButton, Defines.FS_SETTINGS_BUTTON);
         Simple.setPaddingDip(logoffButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
-        Simple.setMarginTopDip(logoffButton, Defines.PADDING_LARGE);
 
         if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
         {
@@ -564,11 +586,9 @@ public class SettingsActivity extends ContentBaseActivity
         passwordButton.setTypeface(buttonsTF);
         passwordButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         passwordButton.setAllCaps(Defines.isButtonAllCaps);
-        Simple.setSizeDip(passwordButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(passwordButton, Defines.FS_SETTINGS_BUTTON);
         Simple.setPaddingDip(passwordButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(passwordButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-        Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
 
         passwordButton.setOnClickListener(new View.OnClickListener()
         {
@@ -581,6 +601,22 @@ public class SettingsActivity extends ContentBaseActivity
 
         logoffArea.addView(passwordButton);
 
+        if (Simple.isTablet())
+        {
+            Simple.setMarginTopDip(logoffButton, Defines.PADDING_LARGE);
+            Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
+
+            Simple.setSizeDip(logoffButton, Simple.MP, Simple.WC);
+            Simple.setSizeDip(passwordButton, Simple.MP, Simple.WC);
+        }
+        else
+        {
+            Simple.setMarginLeftDip(passwordButton, Defines.PADDING_LARGE);
+
+            Simple.setSizeDip(logoffButton, Simple.MP, Simple.WC, 0.5f);
+            Simple.setSizeDip(passwordButton, Simple.MP, Simple.WC, 0.5f);
+        }
+
         //endregion Left logoff button.
 
         //endregion Left area.
@@ -590,12 +626,22 @@ public class SettingsActivity extends ContentBaseActivity
         rightArea = new LinearLayout(this);
         rightArea.setOrientation(LinearLayout.VERTICAL);
         rightArea.setBackgroundColor(Defines.COLOR_FRAMES);
-        Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.4f);
         Simple.setPaddingDip(rightArea, Defines.PADDING_NORMAL);
 
-        Simple.setMarginDip(rightArea,
-                Defines.PADDING_LARGE / 2, Defines.PADDING_SMALL,
-                Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+        if (Simple.isTablet())
+        {
+            Simple.setMarginDip(rightArea,
+                    Defines.PADDING_LARGE / 2, Defines.PADDING_SMALL,
+                    Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+
+            Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.4f);
+        }
+        else
+        {
+            Simple.setMarginDip(rightArea, Defines.PADDING_NORMAL);
+
+            Simple.setSizeDip(rightArea, Simple.MP, Simple.WC);
+        }
 
         bodyHorz.addView(rightArea);
 
@@ -603,8 +649,16 @@ public class SettingsActivity extends ContentBaseActivity
 
         LinearLayout rightTopArea = new LinearLayout(this);
         rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(rightTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
-        Simple.setMarginTopDip(rightTopArea, Defines.PADDING_SMALL);
+
+        if (Simple.isTablet())
+        {
+            Simple.setMarginTopDip(rightTopArea, Defines.PADDING_SMALL);
+            Simple.setSizeDip(rightTopArea, Simple.MP, Defines.FS_SETTINGS_TITLE * 3);
+        }
+        else
+        {
+            Simple.setSizeDip(rightTopArea, Simple.MP, Simple.WC);
+        }
 
         rightArea.addView(rightTopArea);
 
@@ -644,15 +698,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeFrame.addView(contentSizeMB);
 
-        if (Defines.isSectionDividers)
-        {
-            FrameLayout divider = new FrameLayout(this);
-            divider.setBackgroundColor(Color.BLACK);
-            Simple.setSizeDip(divider, Simple.MP, 1);
-            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-            rightArea.addView(divider);
-        }
+        if (Defines.isSectionDividers) rightArea.addView(createSeparator());
 
         if (Defines.isSectionDividers)
         {
@@ -680,15 +726,7 @@ public class SettingsActivity extends ContentBaseActivity
             rightTopArea.addView(contentSizeFrame);
         }
 
-        if (Defines.isSectionDividers)
-        {
-            FrameLayout divider = new FrameLayout(this);
-            divider.setBackgroundColor(Color.BLACK);
-            Simple.setSizeDip(divider, Simple.MP, 1);
-            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-            rightArea.addView(divider);
-        }
+        if (Defines.isSectionDividers) rightArea.addView(createSeparator());
 
         //endregion Right top area.
 
@@ -748,6 +786,26 @@ public class SettingsActivity extends ContentBaseActivity
         updateContent();
     }
 
+    private FrameLayout createSeparator()
+    {
+        FrameLayout divider = new FrameLayout(this);
+        divider.setBackgroundColor(Color.BLACK);
+        Simple.setSizeDip(divider, Simple.MP, 1);
+
+        if (Simple.isTablet())
+        {
+            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+        }
+        else
+        {
+            Simple.setMarginTopDip(divider, Defines.PADDING_SMALL);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_TINY);
+        }
+
+        return divider;
+    }
+
     private final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler = new AssetsAdapter.OnAssetClickedHandler()
     {
         @Override
@@ -772,8 +830,17 @@ public class SettingsActivity extends ContentBaseActivity
 
                     if (Defines.isCompactSettings)
                     {
-                        rightArea.removeView(assetGrid);
-                        rightArea.addView(detailView);
+                        if (Simple.isTablet())
+                        {
+                            rightArea.removeView(assetGrid);
+                            rightArea.addView(detailView);
+                        }
+                        else
+                        {
+                            bodyHorz.removeView(leftArea);
+                            bodyHorz.removeView(rightArea);
+                            bodyHorz.addView(detailView);
+                        }
                     }
                     else
                     {
@@ -830,9 +897,17 @@ public class SettingsActivity extends ContentBaseActivity
     {
         if (Defines.isCompactSettings)
         {
-            if (assetGrid.getParent() == null)
+            if (Simple.isTablet())
             {
-                rightArea.addView(assetGrid);
+                if (assetGrid.getParent() == null)
+                {
+                    rightArea.addView(assetGrid);
+                }
+            }
+            else
+            {
+                bodyHorz.addView(leftArea);
+                bodyHorz.addView(rightArea);
             }
         }
         else

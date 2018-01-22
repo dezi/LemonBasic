@@ -40,7 +40,22 @@ public class SettingsDetail extends LinearLayout
         setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(this, Simple.MP, Simple.MP, 0.4f);
 
-        if (! Defines.isCompactSettings)
+        if (Defines.isCompactSettings)
+        {
+            if (! Simple.isTablet())
+            {
+                setBackgroundColor(Defines.COLOR_FRAMES);
+
+                Simple.setSizeDip(this, Simple.MP, Simple.WC);
+
+                Simple.setMarginDip(this, Defines.PADDING_LARGE);
+
+                Simple.setPaddingDip(this,
+                        Defines.PADDING_LARGE, Defines.PADDING_SMALL,
+                        Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+            }
+        }
+        else
         {
             setBackgroundColor(Defines.COLOR_CONTENT);
 
@@ -83,7 +98,7 @@ public class SettingsDetail extends LinearLayout
 
         topArea.addView(backButtonImage);
 
-        if (! Defines.isCompactSettings)
+        if ((! Simple.isTablet()) || ! Defines.isCompactSettings)
         {
             TextView contentTitle = new TextView(getContext());
             contentTitle.setText(R.string.settings_detail_title);
@@ -125,7 +140,6 @@ public class SettingsDetail extends LinearLayout
         //region Image and image type icon.
 
         imageFrame = new FrameLayout(getContext());
-
         addView(imageFrame);
 
         contentImage = new ImageView(getContext());
@@ -146,12 +160,21 @@ public class SettingsDetail extends LinearLayout
 
         //endregion Image and image type icon.
 
-        //region Misc area with specs and buy.
+        //region Misc area with specs and delete.
 
         LinearLayout miscArea = new LinearLayout(getContext());
         miscArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(miscArea, Simple.MP, Simple.MP);
         Simple.setMarginTopDip(miscArea, Defines.PADDING_NORMAL);
+
+        if (Defines.isCompactDetails && ! Simple.isTablet())
+        {
+            miscArea.setBackgroundColor(Color.WHITE);
+
+            Simple.setSizeDip(miscArea, Simple.MP, Simple.WC);
+            Simple.setMarginTopDip(miscArea, Defines.PADDING_ZERO);
+            Simple.setPaddingDip(miscArea, Defines.PADDING_NORMAL);
+        }
 
         addView(miscArea);
 
@@ -267,6 +290,7 @@ public class SettingsDetail extends LinearLayout
         //region Delete button.
 
         RelativeLayout deleteArea = new RelativeLayout(getContext());
+        deleteArea.setGravity(Gravity.END + Gravity.TOP);
         Simple.setSizeDip(deleteArea, Simple.MP, Simple.MP);
         Simple.setMarginTopDip(deleteArea, Defines.PADDING_SMALL);
 
@@ -282,7 +306,15 @@ public class SettingsDetail extends LinearLayout
 
         if (Defines.isCompactSettings)
         {
-            deleteArea.setGravity(Gravity.END + Gravity.TOP);
+            if (Simple.isTablet())
+            {
+            }
+            else
+            {
+                Simple.setSizeDip(deleteButton, Simple.MP, Simple.WC);
+                deleteButton.setGravity(Gravity.CENTER_HORIZONTAL);
+            }
+
             Simple.setRoundedCorners(deleteButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
         }
         else
@@ -342,7 +374,15 @@ public class SettingsDetail extends LinearLayout
         RelativeLayout separ = new RelativeLayout(getContext());
         separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
         Simple.setSizeDip(separ, Simple.MP, 1);
-        Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+
+        if (Simple.isTablet())
+        {
+            Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
+        }
+        else
+        {
+            Simple.setMarginDip(separ, 0, Defines.PADDING_NORMAL, 0, Defines.PADDING_NORMAL);
+        }
 
         return separ;
     }

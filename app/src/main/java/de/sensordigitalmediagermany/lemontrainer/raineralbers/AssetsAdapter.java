@@ -105,7 +105,14 @@ public class AssetsAdapter extends BaseAdapter
         {
             assetFrame = new LinearLayout(parent.getContext());
             assetFrame.setOrientation(LinearLayout.HORIZONTAL);
-            Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
+
+            //
+            // Do NOT set layout params in top view
+            // as this would yield an illegal cast
+            // execption on older buggy Android versions.
+            //
+
+            //Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
 
             FrameLayout imageBox = new FrameLayout(parent.getContext());
             Simple.setSizeDip(imageBox, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
