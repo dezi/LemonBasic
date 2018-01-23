@@ -212,7 +212,7 @@ public class DefinesScreens extends Defines
         {
             return Simple.isTablet()
                     ? new Rect(10, 10, 90, 90)
-                    : new Rect(5, 5, 45, 45)
+                    : new Rect(10, 10, 90, 90)
                     ;
         }
 

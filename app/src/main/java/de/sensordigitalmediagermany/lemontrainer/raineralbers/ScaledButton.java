@@ -26,6 +26,7 @@ public class ScaledButton extends RelativeLayout
         buttonText.setSingleLine(true);
         buttonText.setAllCaps(Defines.isButtonAllCaps);
         buttonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SCALED_BUTTON));
+
         Simple.setSizeDip(buttonText, Simple.MP, Simple.MP);
         Simple.setTextSizeDip(buttonText, Defines.FS_SCALED_BUTTON);
 

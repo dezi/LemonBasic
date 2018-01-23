@@ -23,9 +23,9 @@ public class TopBannerImage extends FrameLayout
     private int imageHeight;
 
     private ImageView contentImage;
+    private LinearLayout infoContent;
     private TextView infoTitle;
     private TextView infoSummary;
-    private TextView moreButton;
 
     public TopBannerImage(Context context)
     {
@@ -59,7 +59,7 @@ public class TopBannerImage extends FrameLayout
 
         addView(infoCenter);
 
-        LinearLayout infoContent = new LinearLayout(context);
+        infoContent = new LinearLayout(context);
         infoContent.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(infoContent, Simple.MP, Simple.WC);
 
@@ -93,7 +93,7 @@ public class TopBannerImage extends FrameLayout
 
         infoContent.addView(infoSummary);
 
-        moreButton = new TextView(context);
+        TextView moreButton = new TextView(context);
         moreButton.setAllCaps(true);
         moreButton.setBackgroundColor(Color.BLACK);
         moreButton.setTextColor(Color.WHITE);
@@ -129,7 +129,7 @@ public class TopBannerImage extends FrameLayout
                         contentImage, bannerUrl,
                         imageWidth, imageHeight, false));
 
-        moreButton.setOnClickListener(new OnClickListener()
+        infoContent.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View view)

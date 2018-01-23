@@ -205,10 +205,10 @@ public class Defines
     //
 
     // @formatter:off
-    public static final int FS_DIALOG_TITLE       = Simple.isTablet() ? 20 : 18;
-    public static final int FS_DIALOG_EDIT        = Simple.isTablet() ? 20 : 16;
-    public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 20 : 16;
-    public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 18 : 16;
+    public static final int FS_DIALOG_TITLE       = Simple.isTablet() ? 18 : 16;
+    public static final int FS_DIALOG_EDIT        = Simple.isTablet() ? 18 : 16;
+    public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 16 : 14;
+    public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
 
     public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
 
@@ -316,7 +316,7 @@ public class Defines
     // @formatter:off
     public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // static!
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
-    public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  24 :  20;
+    public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;
     public static final int SETTINGS_BACK_SIZE  = Simple.isTablet() ?  24 :  20;
     public static final int QUESTION_CHECK_SIZE = Simple.isTablet() ?  30 :  24;
     public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  16;
@@ -393,7 +393,7 @@ public class Defines
             FONT_DIALOG_INFOS       = SOURCE_SERIF_LIGHT;
             FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
             FONT_DIALOG_BUTTON      = FUTURA_BOOK;
-            FONT_GENERIC_BUTTON     = SOURCE_SANS_SEMIBOLD;
+            FONT_GENERIC_BUTTON     = FUTURA_BOOK;
             FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;
             FONT_ASSET_SUMMARY      = FUTURA_LIGHT_REG;
             FONT_SLIDER_ALL         = FUTURA_LIGHT_REG;
