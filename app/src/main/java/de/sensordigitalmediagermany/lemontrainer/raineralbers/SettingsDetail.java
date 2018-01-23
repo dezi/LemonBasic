@@ -242,14 +242,16 @@ public class SettingsDetail extends LinearLayout
 
         quantView.setRightText("-");
 
-        if (content_type == 1)
+        if (content_type == Defines.CONTENT_TYPE_PDF)
         {
             quantView.setRightText(Simple.getTrans(getContext(),
-                    R.string.detail_specs_quantity_pages,
+                    (file_duration == 1)
+                            ? R.string.detail_specs_quantity_onepage
+                            : R.string.detail_specs_quantity_pages,
                     String.valueOf(file_duration)));
         }
 
-        if (content_type == 2)
+        if ((content_type == Defines.CONTENT_TYPE_AUDIO) || (content_type == Defines.CONTENT_TYPE_VIDEO))
         {
             int minutes = 1 + (file_duration / 60);
 

@@ -274,13 +274,19 @@ public class AssetFrame extends LinearLayout
 
             if (ContentHandler.isCachedContent(asset))
             {
-                loadedView.setVisibility(View.VISIBLE);
+                if (Defines.isLoadedIcon)
+                {
+                    loadedView.setVisibility(View.VISIBLE);
+                }
             }
             else
             {
                 if (ContentHandler.isCourseBought(id))
                 {
-                    ownedView.setVisibility(View.VISIBLE);
+                    if (! Defines.isGiveAway)
+                    {
+                        ownedView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }
@@ -327,13 +333,19 @@ public class AssetFrame extends LinearLayout
 
             if (ContentHandler.isCachedContent(asset))
             {
-                loadedView.setVisibility(View.VISIBLE);
+                if (Defines.isLoadedIcon)
+                {
+                    loadedView.setVisibility(View.VISIBLE);
+                }
             }
             else
             {
                 if (ContentHandler.isContentBought(id))
                 {
-                    ownedView.setVisibility(View.VISIBLE);
+                    if (! Defines.isGiveAway)
+                    {
+                        ownedView.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }

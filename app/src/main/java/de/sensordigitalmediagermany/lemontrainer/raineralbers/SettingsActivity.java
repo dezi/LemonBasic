@@ -238,7 +238,7 @@ public class SettingsActivity extends ContentBaseActivity
         nameSection.setTextColor(Color.BLACK);
         nameSection.setTypeface(headerTF);
         Simple.setSizeDip(nameSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(nameSection, Defines.PADDING_TINY);
+        Simple.setMarginTopDip(nameSection, Defines.PADDING_SMALL);
         Simple.setTextSizeDip(nameSection, Defines.FS_SETTINGS_INFO);
         Simple.setLetterSpacing(nameSection, Defines.FS_NAVIGATION_LSSPACE);
 
@@ -326,62 +326,6 @@ public class SettingsActivity extends ContentBaseActivity
         leftArea.addView(emailEdit);
 
         if (Defines.isSectionDividers) leftArea.addView(createSeparator());
-
-        /*
-        TextView passwordSection = new TextView(this);
-        passwordSection.setText(R.string.settings_password);
-        passwordSection.setAllCaps(true);
-        passwordSection.setTextColor(Color.BLACK);
-        passwordSection.setTypeface(headersTF);
-        Simple.setSizeDip(passwordSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(passwordSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(passwordSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(passwordSection, Defines.FS_NAVIGATION_LSSPACE);
-
-        leftArea.addView(passwordSection);
-
-        LinearLayout passwordArea = new LinearLayout(this);
-        passwordArea.setOrientation(LinearLayout.HORIZONTAL);
-        passwordArea.setBackgroundColor(Defines.COLOR_NAVIBAR);
-        Simple.setSizeDip(passwordArea, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(passwordArea, Defines.PADDING_TINY);
-
-        leftArea.addView(passwordArea);
-
-        EditText passwordEdit = new EditText(this);
-        passwordEdit.setText("????????");
-        passwordEdit.setFocusable(false);
-        passwordEdit.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        passwordEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
-        passwordEdit.setTypeface(infosTF);
-        Simple.setTextSizeDip(passwordEdit, Defines.FS_SETTINGS_EDIT);
-        Simple.setSizeDip(passwordEdit, Simple.WC, Simple.WC, 1.0f);
-        Simple.setPaddingDip(passwordEdit,Defines.PADDING_SMALL);
-
-        passwordArea.addView(passwordEdit);
-
-        TextView changePasswordButton = new TextView(this);
-        changePasswordButton.setText(R.string.settings_change_password);
-        changePasswordButton.setTextColor(Color.WHITE);
-        changePasswordButton.setTypeface(buttonsTF);
-        changePasswordButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        Simple.setSizeDip(changePasswordButton, Simple.WC, Simple.MP);
-        Simple.setMarginDip(changePasswordButton, Defines.MARGIN_BUTTON);
-        Simple.setTextSizeDip(changePasswordButton, Defines.FS_SETTINGS_BUTTON);
-        Simple.setPaddingDip(changePasswordButton, Defines.PADDING_NORMAL, 0, Defines.PADDING_NORMAL, 0);
-        Simple.setRoundedCorners(changePasswordButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
-
-        passwordArea.addView(changePasswordButton);
-
-        changePasswordButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                topFrame.addView(new PasswordChangeDialog(SettingsActivity.this));
-            }
-        });
-        */
 
         //endregion Left personal data.
 
@@ -478,55 +422,13 @@ public class SettingsActivity extends ContentBaseActivity
 
         //endregion Left sound section.
 
-        //region Left logoff button.
+        //region Left clear cache button.
 
-        LinearLayout logoffArea = new LinearLayout(this);
-        Simple.setMarginTopDip(logoffArea, Defines.PADDING_SMALL);
-
-        if (Defines.isCompactSettings)
+        if (Defines.isDeleteCache)
         {
-            Simple.setSizeDip(logoffArea, Simple.MP, Simple.WC);
-        }
-        else
-        {
-            Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
-        }
-
-        if (Simple.isTablet())
-        {
-            logoffArea.setGravity(Gravity.BOTTOM);
-            logoffArea.setOrientation(LinearLayout.VERTICAL);
-        }
-        else
-        {
-            logoffArea.setOrientation(LinearLayout.HORIZONTAL);
-        }
-
-        leftArea.addView(logoffArea);
-
-        if (Defines.isDeleteCache && Simple.isTablet())
-        {
-            TextView cacheButton = new TextView(this);
+            GenericButton cacheButton = new GenericButton(this);
             cacheButton.setText(R.string.settings_clearcache);
-            cacheButton.setTextColor(Color.WHITE);
-            cacheButton.setTypeface(buttonsTF);
-            cacheButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-            cacheButton.setAllCaps(Defines.isButtonAllCaps);
-            Simple.setSizeDip(cacheButton, Simple.MP, Simple.WC);
-            Simple.setTextSizeDip(cacheButton, Defines.FS_SETTINGS_BUTTON);
-            Simple.setPaddingDip(cacheButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
-            Simple.setMarginTopDip(cacheButton, Defines.PADDING_LARGE);
-
-            if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
-            {
-                cacheButton.setTextColor(Color.BLACK);
-                Simple.setRoundedCorners(cacheButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
-            }
-            else
-            {
-                cacheButton.setTextColor(Color.WHITE);
-                Simple.setRoundedCorners(cacheButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-            }
+            cacheButton.setMarginTopDip(Defines.PADDING_LARGE);
 
             cacheButton.setOnClickListener(new View.OnClickListener()
             {
@@ -546,27 +448,47 @@ public class SettingsActivity extends ContentBaseActivity
                 }
             });
 
-            logoffArea.addView(cacheButton);
+            leftArea.addView(cacheButton);
         }
 
-        TextView logoffButton = new TextView(this);
-        logoffButton.setText(R.string.settings_logoff);
-        logoffButton.setTextColor(Color.WHITE);
-        logoffButton.setTypeface(buttonsTF);
-        logoffButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        logoffButton.setAllCaps(Defines.isButtonAllCaps);
-        Simple.setTextSizeDip(logoffButton, Defines.FS_SETTINGS_BUTTON);
-        Simple.setPaddingDip(logoffButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
+        //endregion Left clear cache button.
 
-        if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
+        //region Left logoff button.
+
+        LinearLayout logoffArea = new LinearLayout(this);
+
+        if (Defines.isCompactSettings)
         {
-            logoffButton.setTextColor(Color.BLACK);
-            Simple.setRoundedCorners(logoffButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
+            Simple.setSizeDip(logoffArea, Simple.MP, Simple.WC);
         }
         else
         {
-            logoffButton.setTextColor(Color.WHITE);
-            Simple.setRoundedCorners(logoffButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+            Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
+        }
+
+        if (Simple.isTablet())
+        {
+            logoffArea.setOrientation(LinearLayout.VERTICAL);
+        }
+        else
+        {
+            logoffArea.setGravity(Gravity.BOTTOM);
+            logoffArea.setOrientation(LinearLayout.HORIZONTAL);
+        }
+
+        leftArea.addView(logoffArea);
+
+        GenericButton logoffButton = new GenericButton(this);
+        logoffButton.setText(R.string.settings_logoff);
+        logoffButton.setMarginTopDip(Defines.PADDING_LARGE);
+
+        if (Simple.isTablet())
+        {
+            logoffButton.setMatchParent(true);
+        }
+        else
+        {
+            logoffButton.setWeight(0.5f);
         }
 
         logoffButton.setOnClickListener(new View.OnClickListener()
@@ -580,15 +502,10 @@ public class SettingsActivity extends ContentBaseActivity
 
         logoffArea.addView(logoffButton);
 
-        TextView passwordButton = new TextView(this);
+        GenericButton passwordButton = new GenericButton(this);
         passwordButton.setText(R.string.settings_change_password);
-        passwordButton.setTextColor(Color.WHITE);
-        passwordButton.setTypeface(buttonsTF);
-        passwordButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        passwordButton.setAllCaps(Defines.isButtonAllCaps);
-        Simple.setTextSizeDip(passwordButton, Defines.FS_SETTINGS_BUTTON);
-        Simple.setPaddingDip(passwordButton, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
-        Simple.setRoundedCorners(passwordButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+        passwordButton.setInvers(true);
+        passwordButton.setMarginTopDip(Defines.PADDING_LARGE);
 
         passwordButton.setOnClickListener(new View.OnClickListener()
         {
@@ -599,23 +516,17 @@ public class SettingsActivity extends ContentBaseActivity
             }
         });
 
-        logoffArea.addView(passwordButton);
-
         if (Simple.isTablet())
         {
-            Simple.setMarginTopDip(logoffButton, Defines.PADDING_LARGE);
-            Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
-
-            Simple.setSizeDip(logoffButton, Simple.MP, Simple.WC);
-            Simple.setSizeDip(passwordButton, Simple.MP, Simple.WC);
+            passwordButton.setMatchParent(true);
         }
         else
         {
-            Simple.setMarginLeftDip(passwordButton, Defines.PADDING_LARGE);
-
-            Simple.setSizeDip(logoffButton, Simple.MP, Simple.WC, 0.5f);
-            Simple.setSizeDip(passwordButton, Simple.MP, Simple.WC, 0.5f);
+            passwordButton.setWeight(0.5f);
+            passwordButton.setMarginLeftDip(Defines.PADDING_LARGE);
         }
+
+        logoffArea.addView(passwordButton);
 
         //endregion Left logoff button.
 
@@ -906,8 +817,15 @@ public class SettingsActivity extends ContentBaseActivity
             }
             else
             {
-                bodyHorz.addView(leftArea);
-                bodyHorz.addView(rightArea);
+                if (leftArea.getParent() == null)
+                {
+                    bodyHorz.addView(leftArea);
+                }
+
+                if (rightArea.getParent() == null)
+                {
+                    bodyHorz.addView(rightArea);
+                }
             }
         }
         else

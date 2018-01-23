@@ -60,6 +60,7 @@ public class Defines
     public static final boolean isInfosAllCaps     = isPierCardin;
     public static final boolean isAskDownload      = isPierCardin;
     public static final boolean isCourseIcon       = isRainerAlbers;
+    public static final boolean isLoadedIcon       = isRainerAlbers;
     public static final boolean isDeleteCache      = isDezi;
 
     public static final boolean isPDFZoomable      = false;
@@ -157,9 +158,10 @@ public class Defines
     public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
     public static final String FUTURA_LIGHT_REG     = "fonts/Futura-Light-Regular.otf";
     public static final String FUTURA_BOOK          = "fonts/Futura-Book.otf";
-    public static final String FUTURA_BOLD          = "fonts/Futura-Bold.otf";
-    public static final String SOURCE_PRO_LIGHT     = "fonts/SourceSerifPro-Light.otf";
-    public static final String SOURCE_PRO_BOLD      = "fonts/SourceSerifPro-Bold.otf";
+    public static final String SOURCE_SERIF_LIGHT   = "fonts/SourceSerifPro-Light.otf";
+    public static final String SOURCE_SERIF_BOLD    = "fonts/SourceSerifPro-Bold.otf";
+    public static final String SOURCE_SANS_BOLD     = "fonts/SourceSansPro-Bold.otf";
+    public static final String SOURCE_SANS_SEMIBOLD = "fonts/SourceSansPro-Semibold.otf";
     // @formatter:on
 
     //
@@ -171,6 +173,9 @@ public class Defines
     public static String FONT_DIALOG_INFOS     = GOTHAM_LIGHT;         // static!
     public static String FONT_DIALOG_EDITS     = GOTHAM_LIGHT;         // static!
     public static String FONT_DIALOG_BUTTON    = GOTHAM_BOLD;          // static!
+
+    public static String FONT_GENERIC_BUTTON   = GOTHAM_BOLD;          // static!
+
     public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // static!
     public static String FONT_SLIDER_ALL       = GOTHAMNARROW_LIGHT;   // static!
@@ -189,6 +194,13 @@ public class Defines
     // @formatter:on
 
     //
+    // Elements.
+    //
+
+    // @formatter:off
+    // @formatter:on
+
+    //
     // Fontsizes.
     //
 
@@ -197,6 +209,8 @@ public class Defines
     public static final int FS_DIALOG_EDIT        = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 20 : 16;
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 18 : 16;
+
+    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
@@ -259,6 +273,8 @@ public class Defines
     public static final float FS_ASSET_INFO_LSMULT  = Simple.isTablet() ? 1.20f : 1.10f;
     public static final float FS_DIALOGS_LSMULT     = Simple.isTablet() ? 1.20f : 1.10f;
     public static final float FS_CONFIRMED_LSMULT   = Simple.isTablet() ? 1.50f : 1.30f;
+
+    public static final float LETTERSPACE_GENERIC_BUTTON = 0.12f;
     public static final float FS_NAVIGATION_LSSPACE = 0.08f;
     // @formatter:on
 
@@ -374,9 +390,10 @@ public class Defines
             COLOR_PROGRESS_NEED     = Color.WHITE;
 
             FONT_DIALOG_TITLE       = FUTURA_BOOK;
-            FONT_DIALOG_INFOS       = SOURCE_PRO_LIGHT;
+            FONT_DIALOG_INFOS       = SOURCE_SERIF_LIGHT;
             FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
             FONT_DIALOG_BUTTON      = FUTURA_BOOK;
+            FONT_GENERIC_BUTTON     = SOURCE_SANS_SEMIBOLD;
             FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;
             FONT_ASSET_SUMMARY      = FUTURA_LIGHT_REG;
             FONT_SLIDER_ALL         = FUTURA_LIGHT_REG;
@@ -390,8 +407,8 @@ public class Defines
             FONT_SETTINGS_LIST      = FUTURA_BOOK;
             FONT_DETAILS_HEADER     = FUTURA_BOOK;
             FONT_DETAILS_SUBHEAD    = FUTURA_LIGHT_REG;
-            FONT_DETAILS_TITLE      = SOURCE_PRO_BOLD;
-            FONT_DETAILS_INFOS      = SOURCE_PRO_LIGHT;
+            FONT_DETAILS_TITLE      = SOURCE_SERIF_BOLD;
+            FONT_DETAILS_INFOS      = SOURCE_SERIF_LIGHT;
 
             FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 16;
             FS_BANNER_INFO          = Simple.isTablet() ? 26 : 18;

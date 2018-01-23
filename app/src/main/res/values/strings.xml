@@ -143,6 +143,7 @@
     <string name="detail_specs_quantity">Länge/Umfang</string>
     <string name="detail_specs_quantity_duration">%1$s Min.</string>
     <string name="detail_specs_quantity_pages">%1$s Seiten</string>
+    <string name="detail_specs_quantity_onepage">%1$s Seite</string>
 
     <string name="detail_specs_size">Größe</string>
     <string name="detail_specs_size_mb">%1$s MB Daten</string>
@@ -155,7 +156,7 @@
 
     <string name="detail_specs_status">Status</string>
     <string name="detail_specs_status_online">Geladen</string>
-    <string name="detail_specs_status_offline">Offline</string>
+    <string name="detail_specs_status_offline">Nicht geladen</string>
 
     <string name="detail_specs_suitablefor">Geeignet für</string>
 

@@ -316,7 +316,9 @@ public class DetailActivity extends ContentBaseActivity
         if (content_type == Defines.CONTENT_TYPE_PDF)
         {
             quantView.setRightText(Simple.getTrans(this,
-                    R.string.detail_specs_quantity_pages,
+                    (file_duration == 1)
+                            ? R.string.detail_specs_quantity_onepage
+                            : R.string.detail_specs_quantity_pages,
                     String.valueOf(file_duration)));
         }
 
