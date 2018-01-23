@@ -72,12 +72,14 @@ public class ContentBaseActivity extends FullScreenActivity
         backButtonImage = new ImageView(this);
         backButtonImage.setImageResource(bbresid);
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        backButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, DefinesScreens.getContentScreenButtonBackRect(), hdresid));
+        backButtonImage.setLayoutParams(Simple.getScaledHorzLayout(headerImage, DefinesScreens.getContentScreenBackIconRect(), hdresid));
+        backButtonImage.setVisibility(View.GONE);
 
         headerFrame.addView(backButtonImage);
 
         backButton = new ScaledButton(this);
-        backButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonBackRect(), hdresid);
+        backButton.setContentHorz(headerImage, DefinesScreens.getContentScreenBackButtonRect(), hdresid);
+        backButton.setVisibility(View.GONE);
 
         headerFrame.addView(backButton);
 
@@ -295,6 +297,7 @@ public class ContentBaseActivity extends FullScreenActivity
         if (enable)
         {
             backButtonImage.setImageResource(DefinesScreens.getContentScreenButtonBackOnRes());
+            backButtonImage.setVisibility(View.VISIBLE);
 
             backButton.setOnButtonClicked(new Runnable()
             {
@@ -304,12 +307,15 @@ public class ContentBaseActivity extends FullScreenActivity
                     onBackPressed();
                 }
             });
+            backButton.setVisibility(View.VISIBLE);
         }
         else
         {
             backButtonImage.setImageResource(DefinesScreens.getContentScreenButtonBackOffRes());
+            backButtonImage.setVisibility(View.GONE);
 
             backButton.setOnButtonClicked(null);
+            backButton.setVisibility(View.GONE);
         }
     }
 }

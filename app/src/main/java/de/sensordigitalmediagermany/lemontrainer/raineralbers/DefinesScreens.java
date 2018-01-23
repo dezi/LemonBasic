@@ -190,7 +190,7 @@ public class DefinesScreens extends Defines
                 ;
     }
 
-    public static Rect getContentScreenButtonBackRect()
+    public static Rect getContentScreenBackIconRect()
     {
         if (isPierCardin)
         {
@@ -203,6 +203,22 @@ public class DefinesScreens extends Defines
         return Simple.isTablet()
                 ? new Rect(30, 22, 90, 82)
                 : new Rect(30, 22, 90, 82)
+                ;
+    }
+
+    public static Rect getContentScreenBackButtonRect()
+    {
+        if (isPierCardin)
+        {
+            return Simple.isTablet()
+                    ? new Rect(10, 10, 90, 90)
+                    : new Rect(5, 5, 45, 45)
+                    ;
+        }
+
+        return Simple.isTablet()
+                ? new Rect(10, 10, 90, 90)
+                : new Rect(10, 10, 90, 90)
                 ;
     }
 
@@ -244,10 +260,14 @@ public class DefinesScreens extends Defines
     {
         if (isPierCardin)
         {
+            /*
             return Simple.isTablet()
                     ? new Rect(100, 39, 800, 99)
                     : new Rect(70, 25, 300, 75)
                     ;
+            */
+
+            return null;
         }
 
         return null;
