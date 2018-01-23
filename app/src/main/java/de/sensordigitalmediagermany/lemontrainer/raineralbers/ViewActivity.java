@@ -15,7 +15,6 @@ public class ViewActivity extends FullScreenActivity
 
         int content_type = Json.getInt(Globals.displayContent, "content_type");
 
-
         if (content_type == Defines.CONTENT_TYPE_PDF)
         {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

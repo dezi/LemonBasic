@@ -260,4 +260,7 @@
     <string name="alert_no_pdf_title">PDF Anzeige</string>
     <string name="alert_no_pdf_info">Die PDF-Anzeige ist nicht verfügbar, da ihr Android System zu alt ist.</string>
 
+    <string name="alert_no_pdfapp_title">PDF Anzeige</string>
+    <string name="alert_no_pdfapp_info">Ihr System verfügt über keinen PDF-Reader. Bitte installieren Sie einen PDF-Reader aus dem PlayStore.</string>
+
 </resources>

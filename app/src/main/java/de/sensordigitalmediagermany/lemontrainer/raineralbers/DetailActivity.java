@@ -1,7 +1,11 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -617,7 +621,42 @@ public class DetailActivity extends ContentBaseActivity
         @Override
         public void onClick(View view)
         {
-            Simple.startActivity(DetailActivity.this, ViewActivity.class);
+            int content_type = Json.getInt(Globals.displayContent, "content_type");
+
+            if ((content_type == Defines.CONTENT_TYPE_PDF) && Defines.isPDFExternal)
+            {
+                File file = ContentHandler.getCachedFile(Globals.displayContent);
+
+                if (file != null)
+                {
+                    Uri uri = FileProvider.getUriForFile(DetailActivity.this, BuildConfig.APPLICATION_ID, file);
+
+                    Log.d(LOGTAG, "startDisplay: file=" + file.toString());
+                    Log.d(LOGTAG, "startDisplay: uri=" + uri.toString());
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(uri, "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                    if (intent.resolveActivity(getPackageManager()) != null)
+                    {
+                        Intent chooser = Intent.createChooser(intent, null);
+
+                        startActivity(chooser);
+                    }
+                    else
+                    {
+                        DialogView.errorAlert(DetailActivity.this.topFrame,
+                                R.string.alert_no_pdfapp_title,
+                                R.string.alert_no_pdfapp_info);
+                    }
+                }
+            }
+            else
+            {
+                Simple.startActivity(DetailActivity.this, ViewActivity.class);
+            }
         }
     };
 
