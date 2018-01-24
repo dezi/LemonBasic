@@ -456,6 +456,7 @@ public class SettingsActivity extends ContentBaseActivity
         //region Left logoff button.
 
         LinearLayout logoffArea = new LinearLayout(this);
+        Simple.setMarginTopDip(logoffArea, Defines.PADDING_LARGE);
 
         if (Defines.isCompactSettings)
         {
@@ -480,7 +481,6 @@ public class SettingsActivity extends ContentBaseActivity
 
         GenericButton logoffButton = new GenericButton(this);
         logoffButton.setText(R.string.settings_logoff);
-        logoffButton.setMarginTopDip(Defines.PADDING_LARGE);
 
         if (Simple.isTablet())
         {
@@ -505,7 +505,6 @@ public class SettingsActivity extends ContentBaseActivity
         GenericButton passwordButton = new GenericButton(this);
         passwordButton.setText(R.string.settings_change_password);
         passwordButton.setInvers(true);
-        passwordButton.setMarginTopDip(Defines.PADDING_LARGE);
 
         passwordButton.setOnClickListener(new View.OnClickListener()
         {
@@ -523,7 +522,7 @@ public class SettingsActivity extends ContentBaseActivity
         else
         {
             passwordButton.setWeight(0.5f);
-            passwordButton.setMarginLeftDip(Defines.PADDING_LARGE);
+            passwordButton.setMarginLeftDip(Defines.PADDING_NORMAL);
         }
 
         logoffArea.addView(passwordButton);

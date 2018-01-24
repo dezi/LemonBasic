@@ -185,7 +185,6 @@ public class SettingsDetail extends LinearLayout
         int content_type = Json.getInt(content, "content_type");
         int file_duration = Json.getInt(content, "file_duration");
         long file_size = Json.getLong(content, "file_size");
-        long mbytes = file_size / (1000 * 1024);
 
         LinearLayout specsArea = new LinearLayout(getContext());
         specsArea.setOrientation(LinearLayout.VERTICAL);
@@ -267,9 +266,7 @@ public class SettingsDetail extends LinearLayout
         TableLikeLayout sizeView = new TableLikeLayout(getContext(), infosTF, infosTF);
         sizeView.setLeftText(R.string.settings_specs_size);
 
-        sizeView.setRightText(Simple.getTrans(getContext(),
-                R.string.settings_specs_size_mb,
-                (mbytes < 1) ? "<1" : Simple.formatDecimal(mbytes)));
+        sizeView.setRightText(Simple.formatBytes(file_size));
 
         specsArea.addView(sizeView);
 

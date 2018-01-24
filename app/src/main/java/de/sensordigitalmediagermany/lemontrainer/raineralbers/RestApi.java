@@ -91,8 +91,8 @@ public class RestApi
 
             URL url = new URL(src);
 
-            Log.d(LOGTAG, "src=" + src);
-            Log.d(LOGTAG, "dat=" + dat);
+            Log.d(LOGTAG, "getPost: src=" + src);
+            Log.d(LOGTAG, "getPost: dat=" + dat);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 

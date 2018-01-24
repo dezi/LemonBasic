@@ -20,6 +20,7 @@ public class TopBanners extends FrameLayout
     private static final String LOGTAG = TopBanners.class.getSimpleName();
 
     private HorizontalScrollView scrollView;
+    private LinearLayout scrollContent;
     private ImageView arrowLeftIcon;
     private ImageView arrowRightIcon;
 
@@ -33,14 +34,6 @@ public class TopBanners extends FrameLayout
     public TopBanners(Context context)
     {
         super(context);
-    }
-
-    @SuppressLint("RtlHardcoded")
-    public void setAssets(View rootview, JSONArray assets)
-    {
-        this.assets = assets;
-
-        if ((assets == null) || (assets.length() == 0)) return;
 
         setBackgroundColor(0xcccccccc);
 
@@ -48,7 +41,7 @@ public class TopBanners extends FrameLayout
         // Adjust view to aspect height.
         //
 
-        int screenWidth = rootview.getLayoutParams().width;
+        int screenWidth = Simple.getDeviceWidth(context);
 
         bannerWidth = screenWidth - (Simple.dipToPx(Defines.PADDING_SMALL) * 4);
         bannerHeight = Math.round(bannerWidth / Defines.ASSET_BANNER_ASPECT);
@@ -79,7 +72,7 @@ public class TopBanners extends FrameLayout
         scrollView.setBackgroundColor(0x88880000);
         addView(scrollView);
 
-        LinearLayout scrollContent = new LinearLayout(getContext());
+        scrollContent = new LinearLayout(getContext());
         scrollContent.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
 
@@ -127,6 +120,16 @@ public class TopBanners extends FrameLayout
         });
 
         addView(arrowRightIcon, new LayoutParams(Simple.dipToPx(arrowWidth), Simple.MP, Gravity.RIGHT));
+    }
+
+    @SuppressLint("RtlHardcoded")
+    public void setAssets(JSONArray assets)
+    {
+        this.assets = assets;
+
+        scrollContent.removeAllViews();
+
+        if ((assets == null) || (assets.length() == 0)) return;
 
         for (int inx = 0; inx < assets.length(); inx++)
         {

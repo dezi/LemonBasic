@@ -87,7 +87,7 @@ public class ContentActivity extends ContentBaseActivity
 
         if (Defines.isTopBanner)
         {
-            topBanners.setAssets(topFrame, ContentHandler.getBannerContent());
+            topBanners.setAssets(ContentHandler.getBannerContent());
         }
 
         if (Defines.isCategoryMenu)
@@ -120,6 +120,14 @@ public class ContentActivity extends ContentBaseActivity
                 }
             }
         }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+
+        Log.d(LOGTAG, "onResume...");
     }
 
     private void showCategoryMenu()

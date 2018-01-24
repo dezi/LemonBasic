@@ -27,6 +27,7 @@ public class GenericButton extends TextView
         letterSpacing = Defines.LETTERSPACE_GENERIC_BUTTON;
 
         setInvers(false);
+        setSingleLine(true);
         setMatchParent(true);
         setTypeface(getDefaultTypeface());
         setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
