@@ -37,8 +37,11 @@ public class LogoffDialog extends DialogView
             public void onClick(View view)
             {
                 ContentHandler.deleteAllCachedFiles();
+                RestApi.nukeSavedQueries(getContext());
 
                 SettingsHandler.killSettings();
+
+                AssetsImageManager.nukeCache(getContext());
 
                 Simple.startActivityTop(getContext(), MainActivity.class);
             }

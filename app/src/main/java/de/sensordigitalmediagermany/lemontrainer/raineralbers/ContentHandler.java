@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.ViewGroup;
 import android.util.SparseBooleanArray;
@@ -171,6 +172,8 @@ public class ContentHandler
 
     public static void getAllContent(final ViewGroup rootframe, final Runnable callback)
     {
+        final Context context = rootframe.getContext();
+
         Log.d(LOGTAG, "getAllContent: start...");
 
         lastDateFetched = System.currentTimeMillis();
@@ -190,6 +193,11 @@ public class ContentHandler
             @Override
             public void OnRestApiResult(String what, JSONObject params, JSONObject result)
             {
+                if ((result == null) && ! Simple.isOnline(context))
+                {
+                    result = RestApi.loadQuery(context, what, params);
+                }
+
                 if ((result != null) && Json.equals(result, "Status", "OK"))
                 {
                     JSONObject data = Json.getObject(result, "Data");
@@ -291,6 +299,11 @@ public class ContentHandler
 
                             addContent(Globals.contents, true);
                             addContent(Globals.ccontents, false);
+
+                            if (Simple.isOnline(context))
+                            {
+                                RestApi.saveQuery(context, what, params, result);
+                            }
                         }
                         else
                         {

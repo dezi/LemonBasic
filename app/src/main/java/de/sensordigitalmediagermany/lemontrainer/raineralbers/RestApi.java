@@ -1,9 +1,12 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.CookieHandler;
@@ -223,6 +226,44 @@ public class RestApi
         }
 
         return postData;
+    }
+
+    public static void saveQuery(Context context, String what, JSONObject params, JSONObject result)
+    {
+        Log.d(LOGTAG, "saveQuery: what=" + what);
+
+        String filename = "restapi_" + what + ".json";
+        File file = new File(context.getCacheDir(), filename);
+
+        Simple.putFileJSON(file, result);
+    }
+
+    @Nullable
+    public static JSONObject loadQuery(Context context, String what, JSONObject params)
+    {
+        Log.d(LOGTAG, "loadQuery: what=" + what);
+
+        String filename = "restapi_" + what + ".json";
+        File file = new File(context.getCacheDir(), filename);
+
+        return Simple.getFileJSONObject(file);
+    }
+
+    public static void nukeSavedQueries(Context context)
+    {
+        File[] nukes = context.getCacheDir().listFiles(new FileFilter()
+        {
+            @Override
+            public boolean accept(File file)
+            {
+                return file.toString().startsWith("restapi_");
+            }
+        });
+
+        for (File nuke : nukes)
+        {
+            Log.d(LOGTAG, "nukeSavedQueries: file=" + nuke.toString() + " del=" + nuke.delete());
+        }
     }
 
     public interface RestApiResultListener

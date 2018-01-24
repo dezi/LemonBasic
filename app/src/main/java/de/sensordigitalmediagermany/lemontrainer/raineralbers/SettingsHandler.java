@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import android.view.ViewGroup;
@@ -122,6 +123,8 @@ public class SettingsHandler
 
     public static void realLoginAction(final ViewGroup rootView, final Runnable loginSuccess, final Runnable loginFailure)
     {
+        final Context context = rootView.getContext();
+
         JSONObject params = new JSONObject();
 
         Json.put(params, "UDID", Globals.UDID);
@@ -141,6 +144,11 @@ public class SettingsHandler
             @Override
             public void OnRestApiResult(String what, JSONObject params, JSONObject result)
             {
+                if ((result == null) && ! Simple.isOnline(context))
+                {
+                    result = RestApi.loadQuery(context, what, params);
+                }
+
                 if ((result != null) && Json.equals(result, "Status", "OK"))
                 {
                     int accountId = Json.getInt(result, "accountId");
@@ -163,6 +171,11 @@ public class SettingsHandler
                         ContentHandler.registerOldPurchases();
 
                         SettingsHandler.saveSettings();
+
+                        if (Simple.isOnline(context))
+                        {
+                            RestApi.saveQuery(context, what, params, result);
+                        }
 
                         loginSuccess.run();
 

@@ -267,4 +267,7 @@
     <string name="alert_no_pdfapp_title">PDF Anzeige</string>
     <string name="alert_no_pdfapp_info">Ihr System verfügt über keinen PDF-Reader. Bitte installieren Sie einen PDF-Reader aus dem PlayStore.</string>
 
+    <string name="alert_no_internet_title">Internet-Verbindung</string>
+    <string name="alert_no_internet_info">Zur Zeit besteht keine Internet-Verbindung. Bitte wiederholen Sie den Vorgang zu einem späteren Zeitpunkt.</string>
+
 </resources>

@@ -444,6 +444,8 @@ public class SettingsActivity extends ContentBaseActivity
 
                     AssetsImageManager.nukeCache(SettingsActivity.this);
 
+                    RestApi.nukeSavedQueries(SettingsActivity.this);
+
                     updateContent();
                 }
             });

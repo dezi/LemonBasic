@@ -691,41 +691,50 @@ public class DetailActivity extends ContentBaseActivity
         @Override
         public void onClick(View view)
         {
-            DialogView askdialog = new DialogView(DetailActivity.this);
-
-            askdialog.setCloseButton(true, null);
-
-            askdialog.setTitleText(R.string.ask_download_title);
-            askdialog.setInfoText(R.string.ask_download_info);
-
-            askdialog.setNegativeButton(R.string.ask_download_load_and_view, startDownloadAndDisplay);
-            askdialog.negativeButton.setSingleLine(false);
-            askdialog.negativeButton.setAllCaps(Defines.isButtonAllCaps);
-
-            askdialog.setPositiveButton(R.string.ask_download_only_load, startDownload);
-            askdialog.positiveButton.setSingleLine(false);
-            askdialog.positiveButton.setAllCaps(Defines.isButtonAllCaps);
-
-            if (! Simple.isTablet())
+            if (Simple.isOnline(DetailActivity.this))
             {
-                //
-                // Layout is too fucked up for button
-                // text to fit into this dialog.
-                //
+                DialogView askdialog = new DialogView(DetailActivity.this);
 
-                Simple.setTextSizeDip(askdialog.positiveButton, Defines.FS_DIALOG_BUTTON - 4);
-                Simple.setTextSizeDip(askdialog.negativeButton, Defines.FS_DIALOG_BUTTON - 4);
+                askdialog.setCloseButton(true, null);
+
+                askdialog.setTitleText(R.string.ask_download_title);
+                askdialog.setInfoText(R.string.ask_download_info);
+
+                askdialog.setNegativeButton(R.string.ask_download_load_and_view, startDownloadAndDisplay);
+                askdialog.negativeButton.setSingleLine(false);
+                askdialog.negativeButton.setAllCaps(Defines.isButtonAllCaps);
+
+                askdialog.setPositiveButton(R.string.ask_download_only_load, startDownload);
+                askdialog.positiveButton.setSingleLine(false);
+                askdialog.positiveButton.setAllCaps(Defines.isButtonAllCaps);
+
+                if (!Simple.isTablet())
+                {
+                    //
+                    // Layout is too fucked up for button
+                    // text to fit into this dialog.
+                    //
+
+                    Simple.setTextSizeDip(askdialog.positiveButton, Defines.FS_DIALOG_BUTTON - 4);
+                    Simple.setTextSizeDip(askdialog.negativeButton, Defines.FS_DIALOG_BUTTON - 4);
+                }
+
+                Simple.setPaddingDip(askdialog.negativeButton,
+                        0, Defines.PADDING_LARGE,
+                        0, Defines.PADDING_LARGE);
+
+                Simple.setPaddingDip(askdialog.positiveButton,
+                        0, Defines.PADDING_LARGE,
+                        0, Defines.PADDING_LARGE);
+
+                topFrame.addView(askdialog);
             }
-
-            Simple.setPaddingDip(askdialog.negativeButton,
-                    0, Defines.PADDING_LARGE,
-                    0, Defines.PADDING_LARGE);
-
-            Simple.setPaddingDip(askdialog.positiveButton,
-                    0, Defines.PADDING_LARGE,
-                    0, Defines.PADDING_LARGE);
-
-            topFrame.addView(askdialog);
+            else
+            {
+                DialogView.errorAlert(topFrame,
+                        R.string.alert_no_internet_title,
+                        R.string.alert_no_internet_info);
+            }
         }
     };
 
