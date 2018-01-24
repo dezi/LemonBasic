@@ -137,6 +137,7 @@
     <string name="detail_download_complete">Download abgeschlossen.</string>
     <string name="detail_download_failed">Download fehlgeschlagen.</string>
     <string name="detail_download_cancelled">Download abgebrochen.</string>
+    <string name="detail_download_offline">Ihre Internet-Verbindung besteht nicht mehr.</string>
 
     <string name="detail_specs_file">Dateiformat</string>
 

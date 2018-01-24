@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.Nullable;
@@ -88,6 +90,16 @@ public class Simple
         return ((Resources.getSystem().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE);
+    }
+
+    public static boolean isOnline(Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm == null) return false;
+
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        return (netInfo != null) && netInfo.isConnectedOrConnecting();
     }
 
     public static int getDeviceWidth(Context context)

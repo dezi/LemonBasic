@@ -785,13 +785,20 @@ public class DetailActivity extends ContentBaseActivity
             {
                 if ((file == null) || ! doDisplay)
                 {
-                    int titleRes = (file == null)
-                            ? R.string.detail_download_failed
-                            : R.string.detail_download_complete;
-
-                    if (downloadCancel) titleRes = R.string.detail_download_cancelled;
-
+                    int titleRes = R.string.detail_download_complete;
                     String text = Json.getString(content, "sub_title");
+
+                    if (file == null)
+                    {
+                        titleRes = downloadCancel
+                                ? R.string.detail_download_cancelled
+                                : R.string.detail_download_failed;
+
+                        if (! Simple.isOnline(DetailActivity.this))
+                        {
+                            text = Simple.getTrans(DetailActivity.this, R.string.detail_download_offline);
+                        }
+                    }
 
                     DialogView.errorAlert(((FullScreenActivity) activity).topFrame, titleRes, text);
                 }

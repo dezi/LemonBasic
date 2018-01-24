@@ -4,9 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.android.vending.BILLING"/>
 
-    <application
+x    <application
         android:name=".ApplicationBase"
         android:allowBackup="true"
         android:icon="@mipmap/lem_t_pier_cadin"
