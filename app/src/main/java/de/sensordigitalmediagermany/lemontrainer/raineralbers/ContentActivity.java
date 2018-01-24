@@ -39,7 +39,7 @@ public class ContentActivity extends ContentBaseActivity
             @Override
             public void onClick(View view)
             {
-                Globals.showMyContent = ! Globals.showMyContent;
+                Globals.showMyContent = !Globals.showMyContent;
 
                 if (Globals.showMyContent)
                 {
@@ -84,6 +84,14 @@ public class ContentActivity extends ContentBaseActivity
         naviRightButton.setVisibility(Defines.isCategoryMenu ? View.VISIBLE : View.GONE);
 
         Globals.showMyContent = false;
+
+        updateContent();
+    }
+
+    public void updateContent()
+    {
+        categoryContent.removeAllViews();
+        categoryContent.addView(topBanners);
 
         if (Defines.isTopBanner)
         {
