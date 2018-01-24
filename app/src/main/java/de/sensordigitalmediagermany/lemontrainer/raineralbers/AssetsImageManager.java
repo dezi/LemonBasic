@@ -210,7 +210,10 @@ public class AssetsImageManager
         {
             String cacheTag = urlstring + "|" + ivwidth + "|" + ivheight + "|" + rounded;
 
-            tried.put(cacheTag, true);
+            if (Simple.isOnline(context))
+            {
+                tried.put(cacheTag, true);
+            }
         }
 
         return null;
