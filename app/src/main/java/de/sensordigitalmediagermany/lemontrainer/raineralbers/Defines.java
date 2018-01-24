@@ -79,6 +79,8 @@ public class Defines
     // Fixed values.
     //
 
+    public static final int AUTO_REFRESH_SECONDS = 5 * 60;
+
     public static final int TRAINING_NUM_QUESTIONS = 4;
     public static final int SLIDER_MAX_COLUMNS = 6;
 
@@ -92,8 +94,6 @@ public class Defines
     public static final int CONTENT_TYPE_VIDEO = 2;
     public static final int CONTENT_TYPE_AUDIO = 3;
     public static final int CONTENT_TYPE_ZIP = 4;
-
-    public static final int AUTO_REFRESH_SECONDS = 5 * 60;
 
     //
     // Colors.
