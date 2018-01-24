@@ -518,6 +518,8 @@ public class SettingsActivity extends ContentBaseActivity
         if (Simple.isTablet())
         {
             passwordButton.setMatchParent(true);
+
+            Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
         }
         else
         {
