@@ -42,11 +42,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.File;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -1160,5 +1163,30 @@ public class Simple
                 + " Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna."
                 + " Sed consequat, leo eget bibendum sodales, augue velit cursus nunc."
                 ;
+    }
+
+    @Nullable
+    public static String getStringChecksum(String str)
+    {
+        try
+        {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+
+            digest.reset();
+
+            byte[] chkbytes = digest.digest(str.getBytes());
+
+            String chksum = String.format("%0" + (chkbytes.length * 2) + "X", new BigInteger(1, chkbytes));
+
+            Log.d(LOGTAG, "getStringChecksum: chksum=" + chksum);
+
+            return chksum;
+        }
+        catch (NoSuchAlgorithmException ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return null;
     }
 }

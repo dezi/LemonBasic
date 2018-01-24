@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 
+@SuppressWarnings("WeakerAccess")
 public class ContentHandler
 {
     private static final String LOGTAG = ContentHandler.class.getSimpleName();
@@ -24,6 +25,10 @@ public class ContentHandler
 
     private static final SparseArray<JSONObject> courseId2objectMap = new SparseArray<>();
     private static final SparseArray<JSONObject> contentId2objectMap = new SparseArray<>();
+
+    private static String lastChecksum;
+    private static long lastDateFetched;
+    private static boolean dataChanged;
 
     public static void getUserContentAndStart(final ViewGroup rootframe)
     {
@@ -147,8 +152,31 @@ public class ContentHandler
         //Log.d(LOGTAG, "buildAndCountCategory: category_id=" + categoryId + " category=" + category);
     }
 
+    public static boolean wasDataChanged()
+    {
+        return dataChanged;
+    }
+
+    public static void refreshAllContent(final ViewGroup rootframe, final Runnable callback)
+    {
+        if (! Defines.isAutoRefresh) return;
+
+        long seconds = (System.currentTimeMillis() - lastDateFetched) / 1000;
+        if (seconds < Defines.AUTO_REFRESH_SECONDS) return;
+
+        Log.d(LOGTAG, "refreshAllContent: start...");
+
+        getAllContent(rootframe, callback);
+    }
+
     public static void getAllContent(final ViewGroup rootframe, final Runnable callback)
     {
+        Log.d(LOGTAG, "getAllContent: start...");
+
+        lastDateFetched = System.currentTimeMillis();
+
+        dataChanged = false;
+
         JSONObject params = new JSONObject();
 
         Json.put(params, "language", Globals.language);
@@ -168,90 +196,106 @@ public class ContentHandler
 
                     if (data != null)
                     {
-                        cont2sortMap.clear();
-                        cont2courseMap.clear();
-                        courseId2objectMap.clear();
-                        contentId2objectMap.clear();
+                        Log.d(LOGTAG, "getAllContent: data...");
 
-                        Globals.completeContents = new JSONArray();
-                        Globals.displayMyContents = new JSONArray();
-                        Globals.displayAllContents = new JSONArray();
+                        String nextChecksum = Simple.getStringChecksum(data.toString());
 
-                        Globals.courses = Json.getArray(data, "Courses");
-                        Globals.contents = Json.getArray(data, "Contents");
-                        Globals.ccontents = Json.getArray(data, "ContentsForCourses");
-                        Globals.courseContents = Json.getArray(data, "CourseContents");
-
-                        //
-                        // Display categories either com from data
-                        // or are created on the fly from contents.
-                        //
-
-                        Globals.displayCategories = Json.getArray(data, "Categories");
-
-                        if (Globals.displayCategories != null)
+                        if ((lastChecksum == null) || (nextChecksum == null) || ! lastChecksum.equals(nextChecksum))
                         {
+                            Log.d(LOGTAG, "getAllContent: data changed...");
+
+                            lastChecksum = nextChecksum;
+                            dataChanged = true;
+
+                            cont2sortMap.clear();
+                            cont2courseMap.clear();
+                            courseId2objectMap.clear();
+                            contentId2objectMap.clear();
+
+                            Globals.completeContents = new JSONArray();
+                            Globals.displayMyContents = new JSONArray();
+                            Globals.displayAllContents = new JSONArray();
+
+                            Globals.courses = Json.getArray(data, "Courses");
+                            Globals.contents = Json.getArray(data, "Contents");
+                            Globals.ccontents = Json.getArray(data, "ContentsForCourses");
+                            Globals.courseContents = Json.getArray(data, "CourseContents");
+
                             //
-                            // This version contains a category list. Sort it.
+                            // Display categories either com from data
+                            // or are created on the fly from contents.
                             //
 
-                            Globals.displayCategories = Json.sortInteger(Globals.displayCategories, "sort", false);
+                            Globals.displayCategories = Json.getArray(data, "Categories");
+
+                            if (Globals.displayCategories != null)
+                            {
+                                //
+                                // This version contains a category list. Sort it.
+                                //
+
+                                Globals.displayCategories = Json.sortInteger(Globals.displayCategories, "sort", false);
+                            }
+                            else
+                            {
+                                //
+                                // This version does not contain a category list. Build it.
+                                //
+
+                                Globals.displayCategories = new JSONArray();
+                            }
+
+                            if (Globals.courseContents != null)
+                            {
+                                for (int inx = 0; inx < Globals.courseContents.length(); inx++)
+                                {
+                                    JSONObject cc = Json.getObject(Globals.courseContents, inx);
+                                    if (cc == null) continue;
+
+                                    int course_id = Json.getInt(cc, "course_id");
+                                    int content_id = Json.getInt(cc, "content_id");
+                                    int sort = Json.getInt(cc, "sort");
+
+                                    cont2courseMap.put(content_id, course_id);
+                                    cont2sortMap.put(content_id, sort);
+                                }
+                            }
+
+                            if (Globals.courses != null)
+                            {
+                                for (int inx = 0; inx < Globals.courses.length(); inx++)
+                                {
+                                    JSONObject course = Json.getObject(Globals.courses, inx);
+                                    if (course == null) continue;
+
+                                    Globals.completeContents.put(course);
+
+                                    int id = Json.getInt(course, "id");
+
+                                    courseId2objectMap.put(id, course);
+
+                                    Json.put(course, "_isCourse", true);
+                                    Json.put(course, "_cc", new JSONArray());
+
+                                    Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
+
+                                    //
+                                    // Make sure, a real or virtual category_id is present.
+                                    //
+
+                                    buildAndCountCategory(course);
+
+                                    Globals.displayAllContents.put(course);
+                                }
+                            }
+
+                            addContent(Globals.contents, true);
+                            addContent(Globals.ccontents, false);
                         }
                         else
                         {
-                            //
-                            // This version does not contain a category list. Build it.
-                            //
-
-                            Globals.displayCategories = new JSONArray();
+                            Log.d(LOGTAG, "getAllContent: data unchanged...");
                         }
-
-                        if (Globals.courseContents != null)
-                        {
-                            for (int inx = 0; inx < Globals.courseContents.length(); inx++)
-                            {
-                                JSONObject cc = Json.getObject(Globals.courseContents, inx);
-                                if (cc == null) continue;
-
-                                int course_id = Json.getInt(cc, "course_id");
-                                int content_id = Json.getInt(cc, "content_id");
-                                int sort = Json.getInt(cc, "sort");
-
-                                cont2courseMap.put(content_id, course_id);
-                                cont2sortMap.put(content_id, sort);
-                            }
-                        }
-
-                        if (Globals.courses != null)
-                        {
-                            for (int inx = 0; inx < Globals.courses.length(); inx++)
-                            {
-                                JSONObject course = Json.getObject(Globals.courses, inx);
-                                if (course == null) continue;
-
-                                Globals.completeContents.put(course);
-
-                                int id = Json.getInt(course, "id");
-
-                                courseId2objectMap.put(id, course);
-
-                                Json.put(course, "_isCourse", true);
-                                Json.put(course, "_cc", new JSONArray());
-
-                                Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
-
-                                //
-                                // Make sure, a real or virtual category_id is present.
-                                //
-
-                                buildAndCountCategory(course);
-
-                                Globals.displayAllContents.put(course);
-                            }
-                        }
-
-                        addContent(Globals.contents, true);
-                        addContent(Globals.ccontents, false);
 
                         Globals.contentsLoaded = true;
 
@@ -510,7 +554,10 @@ public class ContentHandler
     {
         File storageDir = new File(ApplicationBase.cacheDir, "download");
 
-        if (! storageDir.exists()) storageDir.mkdirs();
+        if (! storageDir.exists())
+        {
+            Log.d(LOGTAG, "getStorageDir: create=" + storageDir.mkdirs());
+        }
 
         return storageDir;
     }

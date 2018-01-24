@@ -86,10 +86,44 @@ public class ContentActivity extends ContentBaseActivity
         Globals.showMyContent = false;
 
         updateContent();
+
+        ApplicationBase.handler.postDelayed(doAutomaticRefresh, Defines.AUTO_REFRESH_SECONDS * 1000);
     }
+
+    private final Runnable doAutomaticRefresh = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            ApplicationBase.handler.removeCallbacks(doAutomaticRefresh);
+
+            ContentHandler.refreshAllContent(topFrame, new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    if (ContentHandler.wasDataChanged())
+                    {
+                        updateContent();
+
+                        if (Defines.isAutoRefreshInfo)
+                        {
+                            DialogView.errorAlert(topFrame,
+                                    R.string.alert_data_changed_title,
+                                    R.string.alert_data_changed_info);
+                        }
+                    }
+                }
+            });
+
+            ApplicationBase.handler.postDelayed(doAutomaticRefresh, Defines.AUTO_REFRESH_SECONDS * 1000);
+        }
+    };
 
     public void updateContent()
     {
+        Log.d(LOGTAG, "updateContent: start...");
+
         categoryContent.removeAllViews();
         categoryContent.addView(topBanners);
 
@@ -136,6 +170,8 @@ public class ContentActivity extends ContentBaseActivity
         super.onResume();
 
         Log.d(LOGTAG, "onResume...");
+
+        doAutomaticRefresh.run();
     }
 
     private void showCategoryMenu()

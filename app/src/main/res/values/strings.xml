@@ -230,6 +230,9 @@
     <string name="alert_redeem_coupon_title">Gutschein Einlösen</string>
     <string name="alert_redeem_coupon_fail">Der Gutschein konnte nicht eingelöst werden.</string>
 
+    <string name="alert_data_changed_title">Inhaltsaktualisierung</string>
+    <string name="alert_data_changed_info">Der Inhalt wurde aktualisiert.</string>
+
     <string name="alert_buy_confirm_password_title">Kaufbestätigung</string>
     <string name="alert_buy_confirm_password_fail">Passwort ist nicht korrekt.</string>
 

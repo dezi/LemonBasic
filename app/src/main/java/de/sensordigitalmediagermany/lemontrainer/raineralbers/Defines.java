@@ -62,6 +62,8 @@ public class Defines
     public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isLoadedIcon       = isRainerAlbers;
     public static final boolean isKaysNumbers      = isPierCardin || isRainerAlbers;
+    public static final boolean isAutoRefresh      = isPierCardin;
+    public static final boolean isAutoRefreshInfo  = false;
     public static final boolean isPDFExternal      = isPierCardin;
     public static final boolean isPDFZoomable      = false;
     public static final boolean isDeleteCache      = isDezi;
@@ -90,6 +92,8 @@ public class Defines
     public static final int CONTENT_TYPE_VIDEO = 2;
     public static final int CONTENT_TYPE_AUDIO = 3;
     public static final int CONTENT_TYPE_ZIP = 4;
+
+    public static final int AUTO_REFRESH_SECONDS = 5 * 60;
 
     //
     // Colors.
