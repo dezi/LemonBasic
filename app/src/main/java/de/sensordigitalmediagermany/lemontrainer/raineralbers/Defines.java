@@ -61,6 +61,7 @@ public class Defines
     public static final boolean isAskDownload      = isPierCardin;
     public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isLoadedIcon       = isRainerAlbers;
+    public static final boolean isKaysNumbers      = isPierCardin || isRainerAlbers;
     public static final boolean isPDFExternal      = isPierCardin;
     public static final boolean isPDFZoomable      = false;
     public static final boolean isDeleteCache      = isDezi;
@@ -419,9 +420,9 @@ public class Defines
             FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
             FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;
             FS_DETAIL_HEADER        = Simple.isTablet() ? 16 : 14;
-            FS_DETAIL_SUBHEAD       = Simple.isTablet() ? 24 : 22;
+            FS_DETAIL_SUBHEAD       = Simple.isTablet() ? 30 : 20;
             FS_DETAIL_TITLE         = Simple.isTablet() ? 15 : 12;
-            FS_DETAIL_INFOS         = Simple.isTablet() ? 15 : 12;
+            FS_DETAIL_INFOS         = Simple.isTablet() ? 13 : 11;
             FS_DETAIL_SPECS         = Simple.isTablet() ? 15 : 12;
 
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;

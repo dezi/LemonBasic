@@ -48,6 +48,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -369,6 +370,56 @@ public class Simple
         }
 
         return res;
+    }
+
+    public static String formatThreeDigits(float value)
+    {
+        DecimalFormat numberFormat;
+
+        if (value < 10f)
+        {
+            numberFormat = new DecimalFormat("#.00");
+        }
+        else
+        {
+            if (value < 100f)
+            {
+                numberFormat = new DecimalFormat("#.0");
+            }
+            else
+            {
+                numberFormat = new DecimalFormat("#");
+            }
+        }
+
+        return  numberFormat.format(value);
+    }
+
+    public static String formatBytes(long bytes)
+    {
+        if (Defines.isKaysNumbers)
+        {
+            if (bytes < 1000)
+            {
+                return bytes + " " + "B";
+            }
+
+            if (bytes < 1000000)
+            {
+                return formatThreeDigits(bytes / 1000f) + " " + "KB";
+            }
+
+            if (bytes < 1000000000)
+            {
+                return formatThreeDigits(bytes / 1000000f) + " " + "MB";
+            }
+
+            return formatThreeDigits(bytes / 1000000000f) + " " + "GB";
+        }
+
+        long totalMB = bytes / 1000000;
+
+        return (((0 < bytes) && (totalMB < 1)) ? "<1" : Simple.formatDecimal(totalMB)) + " " + "MB";
     }
 
     public static boolean isUIThread()

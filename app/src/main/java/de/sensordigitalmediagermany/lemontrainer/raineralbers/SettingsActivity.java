@@ -778,11 +778,7 @@ public class SettingsActivity extends ContentBaseActivity
             total += file_size;
         }
 
-        long totalMB = total / (1000 * 1024);
-
-        contentSizeMB.setText(Simple.getTrans(this,
-                R.string.settings_used_storage_mb,
-                ((0 < total) && (totalMB < 1)) ? "<1" : Simple.formatDecimal(totalMB)));
+        contentSizeMB.setText(Simple.formatBytes(total));
 
         assetsAdapter.notifyDataSetChanged();
     }

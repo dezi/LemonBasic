@@ -196,7 +196,6 @@ public class AssetsAdapter extends BaseAdapter
         if (! Defines.isSectionDividers) displayTitle = title + " | " + displayTitle;
 
         long file_size = Json.getLong(asset, "file_size");
-        long mbytes = file_size / (1000 * 1024);
 
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
         boolean isSelected = Json.getBoolean(asset, "_isSelected");
@@ -236,9 +235,7 @@ public class AssetsAdapter extends BaseAdapter
 
         titleView.setText(displayTitle);
 
-        summaryView.setText(Simple.getTrans(parent.getContext(),
-                R.string.settings_list_size_mb,
-                (mbytes < 1) ? "<1" : Simple.formatDecimal(mbytes)));
+        summaryView.setText(Simple.formatBytes(file_size));
 
         if (isCourse)
         {
