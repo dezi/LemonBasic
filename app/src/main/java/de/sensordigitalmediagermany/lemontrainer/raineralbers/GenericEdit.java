@@ -2,10 +2,10 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
 
+import android.widget.EditText;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.widget.EditText;
 
 @SuppressLint("AppCompatCustomView")
 public class GenericEdit extends EditText
@@ -14,8 +14,10 @@ public class GenericEdit extends EditText
     {
         super(context);
 
+        setMatchParent(true);
         setTypeface(getDefaultTypeface());
 
+        Simple.setPaddingDip(this,Defines.PADDING_SMALL);
         Simple.setTextSizeDip(this, getFontSize());
         Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
     }
@@ -41,6 +43,11 @@ public class GenericEdit extends EditText
         if (Defines.isHintsAllCaps) hint = hint.toUpperCase();
 
         setHint(hint);
+    }
+
+    public void setMatchParent(boolean set)
+    {
+        Simple.setSizeDip(this, set ? Simple.MP : Simple.WC, Simple.WC);
     }
 
     @Override

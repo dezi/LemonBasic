@@ -70,30 +70,32 @@ public class LoginDialog extends DialogView
             }
             else
             {
+                //
+                // Yield space in upper view for the login button
+                // following the password edit.
+                //
+
                 Simple.setMarginRightDip(userEmail, Defines.PADDING_NORMAL * 5);
             }
 
-            Simple.setSizeDip(userEmail, Simple.WC, Simple.WC);
+            userEmail.setMatchParent(false);
             Simple.setPaddingDip(userEmail, Defines.PADDING_NORMAL);
         }
         else
         {
-            Simple.setSizeDip(userEmail, Simple.MP, Simple.WC);
             Simple.setMarginTopDip(userEmail, Defines.PADDING_LARGE);
-            Simple.setPaddingDip(userEmail,Defines.PADDING_SMALL);
         }
 
         dialogItems.addView(userEmail);
+
+        //
+        // In simple login the login button follows the passwort edit.
+        //
 
         LinearLayout passAndButtonBox = new LinearLayout(getContext());
         passAndButtonBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(passAndButtonBox, Simple.MP, Simple.WC);
         dialogItems.addView(passAndButtonBox);
-
-        passWord = new DialogEdit(getContext());
-        passWord.setMinEms(Simple.isTablet() ? 6 : 9);
-        passWord.setHintSpecial(R.string.login_hint_password);
-        passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         if (Defines.isSimpleLogin)
         {
@@ -111,15 +113,21 @@ public class LoginDialog extends DialogView
 
                 Simple.setMarginBottomDip(passAndButtonBox, Defines.PADDING_XLARGE * 9);
             }
+        }
 
-            Simple.setSizeDip(passWord, Simple.WC, Simple.WC);
+        passWord = new DialogEdit(getContext());
+        passWord.setMinEms(Simple.isTablet() ? 6 : 9);
+        passWord.setHintSpecial(R.string.login_hint_password);
+        passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        if (Defines.isSimpleLogin)
+        {
+            passWord.setMatchParent(false);
             Simple.setPaddingDip(passWord, Defines.PADDING_NORMAL);
         }
         else
         {
-            Simple.setSizeDip(passWord, Simple.MP, Simple.WC);
-            Simple.setPaddingDip(passWord,Defines.PADDING_SMALL);
-            Simple.setMarginTopDip(passWord, Defines.PADDING_SMALL);
+            Simple.setMarginTopDip(passWord, Defines.PADDING_LARGE);
         }
 
         passAndButtonBox.addView(passWord);
