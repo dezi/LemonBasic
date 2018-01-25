@@ -95,7 +95,6 @@ public class DialogView extends RelativeLayout
     protected static Typeface titleFont;
     protected static Typeface infosFont;
     protected static Typeface editsFont;
-    protected static Typeface buttonFont;
 
     protected RelativeLayout marginView;
     protected ImageView closeButton;
@@ -248,30 +247,8 @@ public class DialogView extends RelativeLayout
 
         padView.addView(buttonFrame);
 
-        negativeButton = new TextView(context);
-        negativeButton.setSingleLine(true);
-        negativeButton.setAllCaps(Defines.isButtonAllCaps);
-        negativeButton.setMinEms(6);
+        negativeButton = new DialogButton(context);
         negativeButton.setVisibility(GONE);
-        negativeButton.setTypeface(buttonFont);
-        negativeButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        Simple.setSizeDip(negativeButton, Simple.WC, Simple.WC, 0.5f);
-        Simple.setTextSizeDip(negativeButton, Defines.FS_DIALOG_BUTTON);
-
-        if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
-        {
-            negativeButton.setTextColor(Color.BLACK);
-            Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
-        }
-        else
-        {
-            negativeButton.setTextColor(Color.WHITE);
-            Simple.setRoundedCorners(negativeButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-        }
-
-        Simple.setPaddingDip(negativeButton,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
         negativeButton.setOnClickListener(new OnClickListener()
         {
@@ -294,21 +271,8 @@ public class DialogView extends RelativeLayout
 
         buttonFrame.addView(negativeButton);
 
-        positiveButton = new TextView(context);
-        positiveButton.setSingleLine(true);
-        positiveButton.setAllCaps(Defines.isButtonAllCaps);
+        positiveButton = new DialogButton(context);
         positiveButton.setVisibility(GONE);
-        positiveButton.setMinEms(6);
-        positiveButton.setTypeface(buttonFont);
-        positiveButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        positiveButton.setTextColor(Color.WHITE);
-        Simple.setSizeDip(positiveButton, Simple.WC, Simple.WC, 0.5f);
-        Simple.setTextSizeDip(positiveButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(positiveButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-
-        Simple.setPaddingDip(positiveButton,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
-                Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
         positiveButton.setOnClickListener(new OnClickListener()
         {
@@ -339,7 +303,6 @@ public class DialogView extends RelativeLayout
             titleFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_TITLE);
             infosFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_INFOS);
             editsFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_EDITS);
-            buttonFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_BUTTON);
         }
     }
 
@@ -428,14 +391,6 @@ public class DialogView extends RelativeLayout
         }
 
         return parent;
-    }
-
-    protected String getButtonText(int resid)
-    {
-        String text = Simple.getTrans(getContext(), resid);
-        if (Defines.isButtonAllCaps) text = text.toUpperCase();
-
-        return text;
     }
 
     protected String getHint(int resid)

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,8 +16,8 @@ public class LoginDialog extends DialogView
 {
     private static final String LOGTAG = LoginDialog.class.getSimpleName();
 
-    protected EditText userEmail;
-    protected EditText passWord;
+    protected DialogEdit userEmail;
+    protected DialogEdit passWord;
 
     public LoginDialog(Context context)
     {
@@ -31,51 +30,40 @@ public class LoginDialog extends DialogView
 
         setCloseButton(Defines.isLoginButton, null);
 
+        if (Defines.isSimpleLogin)
+        {
+            //
+            // Transparent dialog with no title.
+            //
+
+            marginView.setBackground(null);
+            Simple.setPaddingDip(marginView, 0);
+        }
+        else
+        {
+            setTitleText(R.string.login_title);
+        }
+
         LinearLayout dialogItems = new LinearLayout(getContext());
         dialogItems.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(dialogItems, Simple.WC, Simple.WC);
-        Simple.setMarginBottomDip(dialogItems, Defines.PADDING_LARGE);
 
         if (Defines.isSimpleLogin)
         {
-            marginView.setBackground(null);
-            Simple.setPaddingDip(marginView, 0);
+            //
+            // Horizontal layout on tablets, vertical on phones.
+            //
 
             dialogItems.setOrientation(Simple.isTablet() ? LinearLayout.HORIZONTAL : LinearLayout.VERTICAL);
         }
 
-        if (! Defines.isSimpleLogin)
-        {
-            TextView titleView = new TextView(getContext());
-            titleView.setText(R.string.login_title);
-            titleView.setAllCaps(true);
-            titleView.setTextColor(Color.WHITE);
-            titleView.setGravity(Gravity.CENTER_HORIZONTAL);
-            titleView.setTypeface(Typeface.createFromAsset(context.getAssets(), Defines.GOTHAM_BOLD));
-            Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
-            Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
-
-            Simple.setPaddingDip(titleView,
-                    Defines.PADDING_LARGE, Defines.PADDING_TINY,
-                    Defines.PADDING_LARGE, Defines.PADDING_TINY
-            );
-
-            dialogItems.addView(titleView);
-        }
-
-        userEmail = new EditText(getContext());
-        userEmail.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        userEmail.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
-        Simple.setTextSizeDip(userEmail, Defines.FS_DIALOG_EDIT);
-        Simple.setRoundedCorners(userEmail, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
+        userEmail = new DialogEdit(getContext());
+        userEmail.setMinEms(Simple.isTablet() ? 12 : 9);
+        userEmail.setHintSpecial(R.string.login_hint_email);
+        userEmail.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
         if (Defines.isSimpleLogin)
         {
-            userEmail.setMinEms(Simple.isTablet() ? 12 : 9);
-            userEmail.setHint(getHint(R.string.login_hint_emailpc));
-            Simple.setSizeDip(userEmail, Simple.WC, Simple.WC);
-            Simple.setPaddingDip(userEmail, Defines.PADDING_NORMAL);
-
             if (Simple.isTablet())
             {
                 Simple.setMarginRightDip(userEmail, Defines.PADDING_NORMAL);
@@ -84,10 +72,12 @@ public class LoginDialog extends DialogView
             {
                 Simple.setMarginRightDip(userEmail, Defines.PADDING_NORMAL * 5);
             }
+
+            Simple.setSizeDip(userEmail, Simple.WC, Simple.WC);
+            Simple.setPaddingDip(userEmail, Defines.PADDING_NORMAL);
         }
         else
         {
-            userEmail.setHint(getHint(R.string.login_hint_email));
             Simple.setSizeDip(userEmail, Simple.MP, Simple.WC);
             Simple.setMarginTopDip(userEmail, Defines.PADDING_LARGE);
             Simple.setPaddingDip(userEmail,Defines.PADDING_SMALL);
@@ -98,14 +88,12 @@ public class LoginDialog extends DialogView
         LinearLayout passAndButtonBox = new LinearLayout(getContext());
         passAndButtonBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(passAndButtonBox, Simple.MP, Simple.WC);
-
         dialogItems.addView(passAndButtonBox);
 
-        passWord = new EditText(getContext());
+        passWord = new DialogEdit(getContext());
+        passWord.setMinEms(Simple.isTablet() ? 6 : 9);
+        passWord.setHintSpecial(R.string.login_hint_password);
         passWord.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        passWord.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
-        Simple.setTextSizeDip(passWord, Defines.FS_DIALOG_EDIT);
-        Simple.setRoundedCorners(passWord, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
 
         if (Defines.isSimpleLogin)
         {
@@ -124,19 +112,14 @@ public class LoginDialog extends DialogView
                 Simple.setMarginBottomDip(passAndButtonBox, Defines.PADDING_XLARGE * 9);
             }
 
-            passWord.setMinEms(Simple.isTablet() ? 6 : 9);
-            passWord.setHint(getHint(R.string.login_hint_password));
             Simple.setSizeDip(passWord, Simple.WC, Simple.WC);
             Simple.setPaddingDip(passWord, Defines.PADDING_NORMAL);
-
-            Simple.setMarginRightDip(passWord, Defines.PADDING_NORMAL);
         }
         else
         {
-            passWord.setHint(getHint(R.string.login_hint_password));
-            Simple.setMarginTopDip(passWord, Defines.PADDING_SMALL);
-            Simple.setPaddingDip(passWord,Defines.PADDING_SMALL);
             Simple.setSizeDip(passWord, Simple.MP, Simple.WC);
+            Simple.setPaddingDip(passWord,Defines.PADDING_SMALL);
+            Simple.setMarginTopDip(passWord, Defines.PADDING_SMALL);
         }
 
         passAndButtonBox.addView(passWord);
@@ -148,6 +131,7 @@ public class LoginDialog extends DialogView
             loginButton.setScaleType(ImageView.ScaleType.FIT_START);
 
             Simple.setSizeDip(loginButton, Simple.WC, Simple.MP);
+            Simple.setMarginLeftDip(loginButton, Defines.PADDING_NORMAL);
 
             loginButton.setOnClickListener(loginClick);
 
@@ -155,25 +139,15 @@ public class LoginDialog extends DialogView
         }
         else
         {
-            TextView loginButton = new TextView(getContext());
-            loginButton.setText(getButtonText(R.string.login_login));
-            loginButton.setTextColor(Color.WHITE);
-            loginButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
-            loginButton.setGravity(Gravity.CENTER_HORIZONTAL);
-            Simple.setSizeDip(loginButton, Simple.MP, Simple.WC);
-            Simple.setTextSizeDip(loginButton, Defines.FS_DIALOG_BUTTON);
-            Simple.setPaddingDip(loginButton, Defines.PADDING_SMALL);
-            Simple.setMarginTopDip(loginButton, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(loginButton, Defines.PADDING_NORMAL);
-            Simple.setRoundedCorners(loginButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+            DialogButton loginButton = new DialogButton(getContext());
+            loginButton.setInvers(true);
+            loginButton.setText(R.string.login_login);
+            loginButton.setMarginTopDip(Defines.PADDING_NORMAL);
 
             loginButton.setOnClickListener(loginClick);
 
             dialogItems.addView(loginButton);
-        }
 
-        if (! Defines.isSimpleLogin)
-        {
             TextView alreadyRegistered = new TextView(getContext());
             alreadyRegistered.setText(R.string.login_already_registered);
             alreadyRegistered.setTextColor(Color.WHITE);
@@ -181,6 +155,7 @@ public class LoginDialog extends DialogView
             alreadyRegistered.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
             Simple.setSizeDip(alreadyRegistered, Simple.MP, Simple.WC);
             Simple.setTextSizeDip(alreadyRegistered, Defines.FS_DIALOG_INFO);
+            Simple.setMarginTopDip(alreadyRegistered, Defines.PADDING_NORMAL);
 
             dialogItems.addView(alreadyRegistered);
 
@@ -192,6 +167,7 @@ public class LoginDialog extends DialogView
             passForgotten.setPaintFlags(passForgotten.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             Simple.setSizeDip(passForgotten, Simple.MP, Simple.WC);
             Simple.setTextSizeDip(passForgotten, Defines.FS_DIALOG_INFO);
+            Simple.setMarginTopDip(passForgotten, Defines.PADDING_NORMAL);
 
             passForgotten.setOnClickListener(new View.OnClickListener()
             {
@@ -208,16 +184,9 @@ public class LoginDialog extends DialogView
 
             dialogItems.addView(passForgotten);
 
-            TextView registerButton = new TextView(getContext());
+            DialogButton registerButton = new DialogButton(getContext());
             registerButton.setText(R.string.login_register);
-            registerButton.setTextColor(Color.WHITE);
-            registerButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
-            registerButton.setGravity(Gravity.CENTER_HORIZONTAL);
-            Simple.setSizeDip(registerButton, Simple.MP, Simple.WC);
-            Simple.setTextSizeDip(registerButton, Defines.FS_DIALOG_BUTTON);
-            Simple.setMarginTopDip(registerButton, Defines.PADDING_NORMAL);
-            Simple.setPaddingDip(registerButton, Defines.PADDING_SMALL);
-            Simple.setRoundedCorners(registerButton, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+            registerButton.setMarginTopDip(Defines.PADDING_NORMAL);
 
             registerButton.setOnClickListener(new View.OnClickListener()
             {

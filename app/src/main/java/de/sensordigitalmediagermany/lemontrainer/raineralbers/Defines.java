@@ -43,7 +43,7 @@ public class Defines
 
     public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
-    public static final boolean isSimpleLogin      = isPierCardin;
+    public static final boolean isSimpleLogin      = true; //isPierCardin;
     public static final boolean isTabBar           = isPierCardin;
     public static final boolean isTopBanner        = isPierCardin;
     public static final boolean isCategoryMenu     = isRainerAlbers;
@@ -180,6 +180,7 @@ public class Defines
     public static String FONT_DIALOG_BUTTON    = GOTHAM_BOLD;          // static!
 
     public static String FONT_GENERIC_BUTTON   = GOTHAM_BOLD;          // static!
+    public static String FONT_GENERIC_EDIT     = GOTHAM_LIGHT;         // static!
 
     public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // static!
     public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // static!
@@ -216,6 +217,7 @@ public class Defines
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
 
     public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
+    public static final int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
@@ -252,7 +254,6 @@ public class Defines
 
     public static final int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
     public static final int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14;
-    public static final int FS_SETTINGS_EDIT      = Simple.isTablet() ? 20 : 18;
     public static final int FS_SETTINGS_BUTTON    = Simple.isTablet() ? 14 : 12;
     public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // static!
     public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // static!
@@ -399,6 +400,7 @@ public class Defines
             FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
             FONT_DIALOG_BUTTON      = FUTURA_BOOK;
             FONT_GENERIC_BUTTON     = FUTURA_BOOK;
+            FONT_GENERIC_EDIT      = FUTURA_LIGHT_REG;
             FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;
             FONT_ASSET_SUMMARY      = FUTURA_LIGHT_REG;
             FONT_SLIDER_ALL         = FUTURA_LIGHT_REG;

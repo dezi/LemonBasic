@@ -12,19 +12,9 @@ import android.os.Build;
 @SuppressLint("AppCompatCustomView")
 public class GenericButton extends TextView
 {
-    private static Typeface defaultTypeface;
-
-    protected final int fontSize;
-    protected final String fontName;
-    protected final float letterSpacing;
-
     public GenericButton(Context context)
     {
         super(context);
-
-        fontSize = Defines.FS_GENERIC_BUTTON;
-        fontName = Defines.FONT_GENERIC_BUTTON;
-        letterSpacing = Defines.LETTERSPACE_GENERIC_BUTTON;
 
         setInvers(false);
         setSingleLine(true);
@@ -35,11 +25,39 @@ public class GenericButton extends TextView
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
         {
-            setLetterSpacing(letterSpacing);
+            setLetterSpacing(getLetterSpacing());
         }
 
-        Simple.setPaddingDip(this, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(this, fontSize);
+        Simple.setTextSizeDip(this, getFontSize());
+        Simple.setPaddingDip(this, Defines.PADDING_SMALL);
+    }
+
+    public int getFontSize()
+    {
+        return Defines.FS_GENERIC_BUTTON;
+    }
+
+    public String getFontName()
+    {
+        return Defines.FONT_GENERIC_BUTTON;
+    }
+
+    public float getLetterSpacing()
+    {
+        return Defines.LETTERSPACE_GENERIC_BUTTON;
+    }
+
+    @Override
+    public void setSingleLine(boolean singleLine)
+    {
+        super.setSingleLine(singleLine);
+
+        //
+        // For some reason setSingleLine fucks up
+        // the setAllCaps setting. Damm it.
+        //
+
+        setAllCaps(Defines.isButtonAllCaps);
     }
 
     @Override
@@ -59,12 +77,7 @@ public class GenericButton extends TextView
 
     public Typeface getDefaultTypeface()
     {
-        if (defaultTypeface == null)
-        {
-            defaultTypeface = TypeFaces.getTypeface(getContext(), fontName);
-        }
-
-        return defaultTypeface;
+        return TypeFaces.getTypeface(getContext(), getFontName());
     }
 
     public void setInvers(boolean set)

@@ -250,7 +250,7 @@ public class SettingsActivity extends ContentBaseActivity
         nameEdit.setText(userName);
         nameEdit.setAllCaps(Defines.isInfosAllCaps);
         nameEdit.setTypeface(infosTF);
-        Simple.setTextSizeDip(nameEdit, Defines.FS_SETTINGS_EDIT);
+        Simple.setTextSizeDip(nameEdit, Defines.FS_GENERIC_EDIT);
         Simple.setSizeDip(nameEdit, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(nameEdit, Defines.PADDING_TINY);
 
@@ -282,7 +282,7 @@ public class SettingsActivity extends ContentBaseActivity
             companyEdit.setText(Globals.company);
             companyEdit.setAllCaps(Defines.isInfosAllCaps);
             companyEdit.setTypeface(infosTF);
-            Simple.setTextSizeDip(companyEdit, Defines.FS_SETTINGS_EDIT);
+            Simple.setTextSizeDip(companyEdit, Defines.FS_GENERIC_EDIT);
             Simple.setSizeDip(companyEdit, Simple.MP, Simple.WC);
             Simple.setMarginTopDip(companyEdit, Defines.PADDING_TINY);
 
@@ -313,7 +313,7 @@ public class SettingsActivity extends ContentBaseActivity
         emailEdit.setText(Globals.emailAddress);
         emailEdit.setAllCaps(Defines.isInfosAllCaps);
         emailEdit.setTypeface(infosTF);
-        Simple.setTextSizeDip(emailEdit, Defines.FS_SETTINGS_EDIT);
+        Simple.setTextSizeDip(emailEdit, Defines.FS_GENERIC_EDIT);
         Simple.setSizeDip(emailEdit, Simple.MP, Simple.WC);
         Simple.setMarginTopDip(emailEdit, Defines.PADDING_TINY);
 

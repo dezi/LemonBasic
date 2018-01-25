@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -92,7 +93,7 @@ public class PasswordChangeDialog extends DialogView
         TextView requestButton = new TextView(getContext());
         requestButton.setText(getHint(R.string.password_change_request));
         requestButton.setTextColor(Color.WHITE);
-        requestButton.setTypeface(buttonFont);
+        requestButton.setTypeface(TypeFaces.getTypeface(getContext(), Defines.FONT_DIALOG_BUTTON));
         requestButton.setGravity(Gravity.CENTER_HORIZONTAL);
         Simple.setSizeDip(requestButton, Simple.MP, Simple.WC);
         Simple.setTextSizeDip(requestButton, Defines.FS_DIALOG_BUTTON);

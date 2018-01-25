@@ -1,21 +1,20 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.view.Gravity;
+import android.view.View;
 import android.text.TextUtils;
 import android.os.Bundle;
+import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -702,11 +701,9 @@ public class DetailActivity extends ContentBaseActivity
 
                 askdialog.setNegativeButton(R.string.ask_download_load_and_view, startDownloadAndDisplay);
                 askdialog.negativeButton.setSingleLine(false);
-                askdialog.negativeButton.setAllCaps(Defines.isButtonAllCaps);
 
                 askdialog.setPositiveButton(R.string.ask_download_only_load, startDownload);
                 askdialog.positiveButton.setSingleLine(false);
-                askdialog.positiveButton.setAllCaps(Defines.isButtonAllCaps);
 
                 if (!Simple.isTablet())
                 {
