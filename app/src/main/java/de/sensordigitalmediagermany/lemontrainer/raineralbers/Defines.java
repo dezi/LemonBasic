@@ -43,13 +43,13 @@ public class Defines
 
     public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
-    public static final boolean isSimpleLogin      = true; //isPierCardin;
+    public static final boolean isSimpleLogin      = isPierCardin;
     public static final boolean isTabBar           = isPierCardin;
     public static final boolean isTopBanner        = isPierCardin;
     public static final boolean isCategoryMenu     = isRainerAlbers;
     public static final boolean isRoundedAsset     = isRainerAlbers;
     public static final boolean isOverlayAsset     = isPierCardin;
-    public static final boolean isCompanyAvailable = isRainerAlbers;
+    public static final boolean isCompanyAvailable = isDezi || isRainerAlbers;
     public static final boolean isSectionDividers  = isPierCardin;
     public static final boolean isFlatEdits        = isPierCardin;
     public static final boolean isDialogTextCenter = isRainerAlbers;
@@ -64,11 +64,11 @@ public class Defines
     public static final boolean isKaysNumbers      = isPierCardin || isRainerAlbers;
     public static final boolean isKaysHorzScroll   = isPierCardin;
     public static final boolean isAutoRefresh      = isPierCardin;
-    public static final boolean isAutoRefreshInfo  = false;
+    public static final boolean isAutoRefreshInfo  = isDezi;
     public static final boolean isPDFExternal      = isPierCardin;
-    public static final boolean isPDFZoomable      = false;
+    public static final boolean isPDFZoomable      = isDezi;
     public static final boolean isDeleteCache      = isDezi;
-    public static final boolean isSoundSettings    = false;
+    public static final boolean isSoundSettings    = isDezi;
     // @formatter:on
 
     //
@@ -283,6 +283,8 @@ public class Defines
     public static final float FS_CONFIRMED_LSMULT   = Simple.isTablet() ? 1.50f : 1.30f;
 
     public static final float LETTERSPACE_GENERIC_BUTTON = 0.12f;
+    public static final float LETTERSPACE_GENERIC_HEADER = 0.12f;
+
     public static final float FS_NAVIGATION_LSSPACE = 0.08f;
     // @formatter:on
 
@@ -402,7 +404,7 @@ public class Defines
             FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
             FONT_DIALOG_BUTTON      = FUTURA_BOOK;
             FONT_GENERIC_BUTTON     = FUTURA_BOOK;
-            FONT_GENERIC_EDIT      = FUTURA_LIGHT_REG;
+            FONT_GENERIC_EDIT       = FUTURA_LIGHT_REG;
             FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;
             FONT_ASSET_SUMMARY      = FUTURA_LIGHT_REG;
             FONT_SLIDER_ALL         = FUTURA_LIGHT_REG;

@@ -31,7 +31,7 @@ public class SliderControl extends FrameLayout
     {
         super(context);
 
-        Simple.setSizeDip(this, Simple.MP, Simple.MP);
+        Simple.setSizeDip(this, Simple.MP, Simple.WC);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL, 0);
 
         int radiusdipse[] = new int[4];
@@ -42,7 +42,7 @@ public class SliderControl extends FrameLayout
 
         RelativeLayout sliderCenter = new RelativeLayout(getContext());
         sliderCenter.setGravity(Gravity.CENTER_VERTICAL);
-        Simple.setSizeDip(sliderCenter, Simple.MP, Simple.MP);
+        Simple.setSizeDip(sliderCenter, Simple.MP, Defines.SLIDER_KNOB_SIZE);
         addView(sliderCenter);
 
         sliderBox = new LinearLayout(getContext());

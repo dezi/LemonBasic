@@ -19,15 +19,8 @@ public class SettingsSound extends LinearLayout
 
         Simple.setSizeDip(this, Simple.MP, Simple.WC);
 
-        TextView soundSection = new TextView(context);
+        SettingsInfoHeader soundSection = new SettingsInfoHeader(context);
         soundSection.setText(R.string.settings_sound);
-        soundSection.setAllCaps(true);
-        soundSection.setTextColor(Color.BLACK);
-        soundSection.setTypeface(TypeFaces.getTypeface(context, Defines.FONT_SETTINGS_HEADER));
-        Simple.setSizeDip(soundSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(soundSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(soundSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(soundSection, Defines.FS_NAVIGATION_LSSPACE);
 
         addView(soundSection);
 
@@ -35,19 +28,16 @@ public class SettingsSound extends LinearLayout
         onoffArea.setOrientation(LinearLayout.HORIZONTAL);
         onoffArea.setBackgroundColor(Color.LTGRAY);
         Simple.setSizeDip(onoffArea, Simple.MP, Simple.WC);
+        Simple.setPaddingDip(onoffArea, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(onoffArea, Defines.PADDING_TINY);
 
         addView(onoffArea);
 
-        TextView onoffText = new TextView(context);
+        SettingsInfoHeader onoffText = new SettingsInfoHeader(context);
         onoffText.setText(R.string.settings_sound_button);
-        onoffText.setAllCaps(true);
-        onoffText.setTextColor(Color.BLACK);
-        onoffText.setTypeface(TypeFaces.getTypeface(context, Defines.FONT_SETTINGS_HEADER));
-        Simple.setSizeDip(onoffText, Simple.MP, Simple.WC, 1.0f);
-        Simple.setTextSizeDip(onoffText, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSSPACE);
-        Simple.setPaddingDip(onoffText, Defines.PADDING_SMALL);
+        onoffText.setMarginTopDip(Defines.PADDING_ZERO);
+        onoffText.setFullHeight(true);
+        onoffText.setWeight(1.0f);
 
         onoffArea.addView(onoffText);
 
@@ -77,19 +67,16 @@ public class SettingsSound extends LinearLayout
         volumeArea.setOrientation(LinearLayout.HORIZONTAL);
         volumeArea.setBackgroundColor(Color.LTGRAY);
         Simple.setSizeDip(volumeArea, Simple.MP, Simple.WC);
+        Simple.setPaddingDip(volumeArea, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(volumeArea, Defines.PADDING_TINY);
 
         addView(volumeArea);
 
-        TextView volumeText = new TextView(context);
+        SettingsInfoHeader volumeText = new SettingsInfoHeader(context);
         volumeText.setText(R.string.settings_sound_volume);
-        volumeText.setAllCaps(true);
-        volumeText.setTextColor(Color.BLACK);
-        volumeText.setTypeface(TypeFaces.getTypeface(context, Defines.FONT_SETTINGS_HEADER));
-        Simple.setSizeDip(volumeText, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(volumeText, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(volumeText, Defines.FS_NAVIGATION_LSSPACE);
-        Simple.setPaddingDip(volumeText, Defines.PADDING_SMALL);
+        volumeText.setMarginTopDip(Defines.PADDING_ZERO);
+        volumeText.setFullWidth(false);
+        volumeText.setFullHeight(true);
 
         volumeArea.addView(volumeText);
 

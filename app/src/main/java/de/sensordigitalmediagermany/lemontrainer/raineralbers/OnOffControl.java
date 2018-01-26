@@ -30,7 +30,7 @@ public class OnOffControl extends FrameLayout
     {
         super(context);
 
-        Simple.setSizeDip(this, Simple.WC, Simple.MP);
+        Simple.setSizeDip(this, Simple.WC, Simple.WC);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL, 0);
 
         int radiusdipse[] = new int[4];
@@ -39,16 +39,11 @@ public class OnOffControl extends FrameLayout
         // Slider.
         //
 
-        RelativeLayout sliderCenter = new RelativeLayout(getContext());
-        sliderCenter.setGravity(Gravity.CENTER_VERTICAL);
-        Simple.setSizeDip(sliderCenter, Simple.MP, Simple.MP);
-        addView(sliderCenter);
-
         sliderBox = new LinearLayout(getContext());
         sliderBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(sliderBox, Defines.ONOFF_WIDTH_SIZE, Defines.ONOFF_KNOB_SIZE);
 
-        sliderCenter.addView(sliderBox);
+        addView(sliderBox);
 
         sliderLeft = new RelativeLayout(getContext());
         Simple.setSizeDip(sliderLeft, Simple.WC, Simple.MP, 0f);
@@ -78,16 +73,11 @@ public class OnOffControl extends FrameLayout
         // Knob.
         //
 
-        RelativeLayout knobCenter = new RelativeLayout(getContext());
-        knobCenter.setGravity(Gravity.CENTER_VERTICAL);
-        Simple.setSizeDip(knobCenter, Simple.MP, Simple.MP);
-        addView(knobCenter);
-
         knobBox = new LinearLayout(getContext());
         knobBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(knobBox, Defines.ONOFF_WIDTH_SIZE, Defines.ONOFF_KNOB_SIZE);
 
-        knobCenter.addView(knobBox);
+        addView(knobBox);
 
         knobLeft = new RelativeLayout(getContext());
         Simple.setSizeDip(knobLeft, Simple.WC, Simple.MP, 0f);

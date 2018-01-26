@@ -193,135 +193,48 @@ public class SettingsActivity extends ContentBaseActivity
 
         //endregion Left top area.
 
-        //region Left profile image.
-
-        /*
-        RelativeLayout profileFrame = new RelativeLayout(this);
-        profileFrame.setGravity(Gravity.CENTER_HORIZONTAL);
-        Simple.setSizeDip(profileFrame, Simple.MP, Simple.WC);
-
-        leftArea.addView(profileFrame);
-
-        FrameLayout profileImageHolder = new FrameLayout(this);
-        Simple.setSizeDip(profileImageHolder, Defines.PROFILE_IMAGE_SIZE, Defines.PROFILE_IMAGE_SIZE);
-
-        profileFrame.addView(profileImageHolder);
-
-        ImageView profileImage = new ImageView(this);
-        profileImage.setImageResource(R.drawable.lem_t_iany_generic_profil_platzhalter_225_2x);
-        profileImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        Simple.setSizeDip(profileImage, Simple.MP, Simple.MP);
-
-        profileImageHolder.addView(profileImage);
-
-        TextView profileEditButton = new TextView(this);
-        profileEditButton.setText(R.string.settings_edit_image);
-        profileEditButton.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.BOTTOM);
-        profileEditButton.setTextColor(Color.WHITE);
-        profileEditButton.setTypeface(buttonsTF);
-        Simple.setSizeDip(profileEditButton, Simple.MP, Simple.MP);
-        Simple.setTextSizeDip(profileEditButton, Defines.FS_SETTINGS_UPLOAD);
-        Simple.setPaddingDip(profileEditButton, Defines.PADDING_SMALL);
-
-        profileImageHolder.addView(profileEditButton);
-        */
-
-        //endregion Left profile image.
-
         //region Left personal data.
 
         if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
-        TextView nameSection = new TextView(this);
+        SettingsInfoHeader nameSection = new SettingsInfoHeader(this);
         nameSection.setText(R.string.settings_name);
-        nameSection.setAllCaps(true);
-        nameSection.setTextColor(Color.BLACK);
-        nameSection.setTypeface(headerTF);
-        Simple.setSizeDip(nameSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(nameSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(nameSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(nameSection, Defines.FS_NAVIGATION_LSSPACE);
 
         leftArea.addView(nameSection);
 
         String userName = Globals.firstName + " " + Globals.lastName;
 
-        TextView nameEdit = new TextView(this);
+        SettingsInfoText nameEdit = new SettingsInfoText(this);
         nameEdit.setText(userName);
-        nameEdit.setAllCaps(Defines.isInfosAllCaps);
-        nameEdit.setTypeface(infosTF);
-        Simple.setTextSizeDip(nameEdit, Defines.FS_GENERIC_EDIT);
-        Simple.setSizeDip(nameEdit, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(nameEdit, Defines.PADDING_TINY);
-
-        if (! Defines.isFlatEdits)
-        {
-            nameEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
-            Simple.setPaddingDip(nameEdit,Defines.PADDING_SMALL);
-        }
 
         leftArea.addView(nameEdit);
 
-        if (Defines.isCompanyAvailable)
+        Globals.company = "Kappa Motion Media GmbH";
+
+        if (Defines.isCompanyAvailable && (Globals.company != null) && ! Globals.company.isEmpty())
         {
             if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
-            TextView companySection = new TextView(this);
+            SettingsInfoHeader companySection = new SettingsInfoHeader(this);
             companySection.setText(R.string.settings_company);
-            companySection.setAllCaps(true);
-            companySection.setTextColor(Color.BLACK);
-            companySection.setTypeface(headerTF);
-            Simple.setSizeDip(companySection, Simple.MP, Simple.WC);
-            Simple.setMarginTopDip(companySection, Defines.PADDING_SMALL);
-            Simple.setTextSizeDip(companySection, Defines.FS_SETTINGS_INFO);
-            Simple.setLetterSpacing(companySection, Defines.FS_NAVIGATION_LSSPACE);
 
             leftArea.addView(companySection);
 
-            TextView companyEdit = new TextView(this);
+            SettingsInfoText companyEdit = new SettingsInfoText(this);
             companyEdit.setText(Globals.company);
-            companyEdit.setAllCaps(Defines.isInfosAllCaps);
-            companyEdit.setTypeface(infosTF);
-            Simple.setTextSizeDip(companyEdit, Defines.FS_GENERIC_EDIT);
-            Simple.setSizeDip(companyEdit, Simple.MP, Simple.WC);
-            Simple.setMarginTopDip(companyEdit, Defines.PADDING_TINY);
-
-            if (! Defines.isFlatEdits)
-            {
-                companyEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
-                Simple.setPaddingDip(companyEdit, Defines.PADDING_SMALL);
-            }
 
             leftArea.addView(companyEdit);
         }
 
         if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
-        TextView emailSection = new TextView(this);
+        SettingsInfoHeader emailSection = new SettingsInfoHeader(this);
         emailSection.setText(R.string.settings_email);
-        emailSection.setAllCaps(true);
-        emailSection.setTextColor(Color.BLACK);
-        emailSection.setTypeface(headerTF);
-        Simple.setSizeDip(emailSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(emailSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(emailSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(emailSection, Defines.FS_NAVIGATION_LSSPACE);
 
         leftArea.addView(emailSection);
 
-        TextView emailEdit = new TextView(this);
+        SettingsInfoText emailEdit = new SettingsInfoText(this);
         emailEdit.setText(Globals.emailAddress);
-        emailEdit.setAllCaps(Defines.isInfosAllCaps);
-        emailEdit.setTypeface(infosTF);
-        Simple.setTextSizeDip(emailEdit, Defines.FS_GENERIC_EDIT);
-        Simple.setSizeDip(emailEdit, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(emailEdit, Defines.PADDING_TINY);
-
-        if (! Defines.isFlatEdits)
-        {
-            emailEdit.setBackgroundColor(Defines.COLOR_NAVIBAR);
-            Simple.setPaddingDip(emailEdit,Defines.PADDING_SMALL);
-        }
 
         leftArea.addView(emailEdit);
 
@@ -402,7 +315,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Simple.isTablet())
         {
-            logoffButton.setMatchParent(true);
+            logoffButton.setFullWidth(true);
         }
         else
         {
@@ -435,7 +348,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Simple.isTablet())
         {
-            passwordButton.setMatchParent(true);
+            passwordButton.setFullWidth(true);
 
             Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
         }

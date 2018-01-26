@@ -3,11 +3,11 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 import android.annotation.SuppressLint;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.graphics.Typeface;
 import android.graphics.Color;
 import android.view.Gravity;
-import android.os.Build;
 
 @SuppressLint("AppCompatCustomView")
 public class GenericButton extends TextView
@@ -18,17 +18,13 @@ public class GenericButton extends TextView
 
         setInvers(false);
         setSingleLine(true);
-        setMatchParent(true);
+        setFullWidth(true);
         setTypeface(getDefaultTypeface());
         setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         setAllCaps(Defines.isButtonAllCaps);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-        {
-            setLetterSpacing(getLetterSpacing());
-        }
-
         Simple.setTextSizeDip(this, getFontSize());
+        Simple.setLetterSpacing(this, getLetterSpacing());
         Simple.setPaddingDip(this, Defines.PADDING_SMALL);
     }
 
@@ -110,9 +106,10 @@ public class GenericButton extends TextView
         }
     }
 
-    public void setMatchParent(boolean set)
+    public void setFullWidth(boolean set)
     {
-        Simple.setSizeDip(this, set ? Simple.MP : Simple.WC, Simple.WC);
+        ViewGroup.LayoutParams lp = getLayoutParams();
+        Simple.setSizeDip(this, set ? Simple.MP : Simple.WC, (lp == null) ? Simple.WC : lp.height);
     }
 
     public void setWeight(float weight)
