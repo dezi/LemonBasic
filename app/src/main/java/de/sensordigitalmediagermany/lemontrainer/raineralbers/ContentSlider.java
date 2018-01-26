@@ -111,6 +111,17 @@ public class ContentSlider extends LinearLayout
 
         imageWidth = sliderWidth - ((Defines.ASSETS_NUM_COLUMNS - 1) * Simple.dipToPx(Defines.PADDING_LARGE));
         imageWidth = imageWidth / Defines.ASSETS_NUM_COLUMNS;
+
+        if (Defines.isKaysHorzScroll && ! Simple.isTablet())
+        {
+            //
+            // Reduce width of slider image so that a fractional
+            // images becomes visible at right edge.
+            //
+
+            imageWidth = imageWidth * 90 / 100;
+        }
+
         imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 
         cellwidth = imageWidth + Simple.dipToPx(Defines.PADDING_LARGE);

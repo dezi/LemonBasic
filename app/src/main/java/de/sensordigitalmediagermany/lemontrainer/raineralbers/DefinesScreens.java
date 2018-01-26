@@ -195,8 +195,8 @@ public class DefinesScreens extends Defines
         if (isPierCardin)
         {
             return Simple.isTablet()
-                    ? new Rect(30, 39, 90, 99)
-                    : new Rect(20, 25, 70, 75)
+                    ? new Rect(40, 24, 96, 80)
+                    : new Rect(30, 24, 70, 64)
                     ;
         }
 

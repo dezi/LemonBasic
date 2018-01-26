@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.0 (6) 24.01.2018 18:00";
+    public static final String DEBUG_VERSION = "1.0 (7) 26.01.2018 11:00";
 
     //
     // Rest API database access selectors.
@@ -62,6 +62,7 @@ public class Defines
     public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isLoadedIcon       = isRainerAlbers;
     public static final boolean isKaysNumbers      = isPierCardin || isRainerAlbers;
+    public static final boolean isKaysHorzScroll   = isPierCardin;
     public static final boolean isAutoRefresh      = isPierCardin;
     public static final boolean isAutoRefreshInfo  = false;
     public static final boolean isPDFExternal      = isPierCardin;
