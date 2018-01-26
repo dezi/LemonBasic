@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
 import android.annotation.SuppressLint;
 
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -57,6 +58,10 @@ public abstract class GenericText extends TextView
         int height = (lp == null) ? Simple.WC : lp.height;
 
         Simple.setSizeDip(this, width, height, weight);
+    }
+    public void setTextSizeDip(int size)
+    {
+        Simple.setTextSizeDip(this, size);
     }
 
     public void setPaddingDip(int pad)

@@ -145,24 +145,9 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(leftTopArea);
 
-        TextView settingsTitle = new TextView(this);
+        SettingsTitle settingsTitle = new SettingsTitle(this);
         settingsTitle.setText(R.string.settings_data);
-        settingsTitle.setSingleLine();
-        settingsTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        settingsTitle.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
-        settingsTitle.setTypeface(headerTF);
-        settingsTitle.setAllCaps(true);
-        Simple.setTextSizeDip(settingsTitle, Defines.FS_SETTINGS_TITLE);
-        Simple.setLetterSpacing(settingsTitle, Defines.FS_NAVIGATION_LSSPACE);
-
-        if (Simple.isTablet())
-        {
-            Simple.setSizeDip(settingsTitle, Simple.MP, Simple.WC);
-        }
-        else
-        {
-            Simple.setSizeDip(settingsTitle, Simple.WC, Simple.WC);
-        }
+        settingsTitle.setFullWidth(Simple.isTablet());
 
         leftTopArea.addView(settingsTitle);
 
@@ -170,23 +155,13 @@ public class SettingsActivity extends ContentBaseActivity
         {
             String version = Simple.getTrans(this, R.string.settings_version) + " " + Defines.DEBUG_VERSION;
 
-            TextView systemVersion = new TextView(this);
+            SettingsInfoText systemVersion = new SettingsInfoText(this);
             systemVersion.setText(version);
-            systemVersion.setAllCaps(true);
+            systemVersion.setTextSizeDip(Defines.FS_DEBUG_VERSION);
+            systemVersion.setMarginTopDip(Defines.PADDING_ZERO);
             systemVersion.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-            systemVersion.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
-            systemVersion.setTypeface(versionTF);
-            Simple.setTextSizeDip(systemVersion, Defines.FS_DEBUG_VERSION);
-
-            if (Simple.isTablet())
-            {
-                Simple.setSizeDip(systemVersion, Simple.WC, Simple.WC);
-                Simple.setMarginTopDip(systemVersion, Defines.PADDING_NORMAL);
-            }
-            else
-            {
-                Simple.setSizeDip(systemVersion, Simple.MP, Simple.MP);
-            }
+            systemVersion.setFullWidth(! Simple.isTablet());
+            systemVersion.setFullHeight(true);
 
             leftTopArea.addView(systemVersion);
         }
@@ -405,8 +380,11 @@ public class SettingsActivity extends ContentBaseActivity
 
         rightArea.addView(rightTopArea);
 
-        TextView contentTitle = new TextView(this);
+        SettingsTitle contentTitle = new SettingsTitle(this);
         contentTitle.setText(R.string.settings_contents);
+        contentTitle.setWeight(0.58f);
+
+        /*
         contentTitle.setSingleLine();
         contentTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
         contentTitle.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
@@ -415,6 +393,7 @@ public class SettingsActivity extends ContentBaseActivity
         Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
         Simple.setSizeDip(contentTitle, Simple.MP, Simple.WC, 0.58f);
         Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
+        */
 
         rightTopArea.addView(contentTitle);
 

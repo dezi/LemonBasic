@@ -29,7 +29,7 @@ public class Defines
     //
 
     // @formatter:off
-    protected static final boolean isPierCardin   = true;
+    protected static final boolean isPierreCardin = true;
     protected static final boolean isRainerAlbers = false;
     // @formatter:on
 
@@ -38,34 +38,34 @@ public class Defines
     //
 
     // @formatter:off
-    public static final boolean isBasic            = isPierCardin;
+    public static final boolean isBasic            = isPierreCardin;
     public static final boolean isTrainer          = isRainerAlbers;
 
-    public static final boolean isGiveAway         = isPierCardin || isRainerAlbers;
+    public static final boolean isGiveAway         = isPierreCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
-    public static final boolean isSimpleLogin      = isPierCardin;
-    public static final boolean isTabBar           = isPierCardin;
-    public static final boolean isTopBanner        = isPierCardin;
+    public static final boolean isSimpleLogin      = isPierreCardin;
+    public static final boolean isTabBar           = isPierreCardin;
+    public static final boolean isTopBanner        = isPierreCardin;
     public static final boolean isCategoryMenu     = isRainerAlbers;
     public static final boolean isRoundedAsset     = isRainerAlbers;
-    public static final boolean isOverlayAsset     = isPierCardin;
+    public static final boolean isOverlayAsset     = isPierreCardin;
     public static final boolean isCompanyAvailable = isDezi || isRainerAlbers;
-    public static final boolean isSectionDividers  = isPierCardin;
-    public static final boolean isFlatEdits        = isPierCardin;
+    public static final boolean isSectionDividers  = isPierreCardin;
+    public static final boolean isFlatEdits        = isPierreCardin;
     public static final boolean isDialogTextCenter = isRainerAlbers;
-    public static final boolean isCompactDetails   = isPierCardin;
-    public static final boolean isCompactSettings  = isPierCardin;
-    public static final boolean isHintsAllCaps     = isPierCardin;
-    public static final boolean isButtonAllCaps    = isPierCardin;
-    public static final boolean isInfosAllCaps     = isPierCardin;
-    public static final boolean isAskDownload      = isPierCardin;
+    public static final boolean isCompactDetails   = isPierreCardin;
+    public static final boolean isCompactSettings  = isPierreCardin;
+    public static final boolean isHintsAllCaps     = isPierreCardin;
+    public static final boolean isButtonAllCaps    = isPierreCardin;
+    public static final boolean isInfosAllCaps     = isPierreCardin;
+    public static final boolean isAskDownload      = isPierreCardin;
     public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isLoadedIcon       = isRainerAlbers;
-    public static final boolean isKaysNumbers      = isPierCardin || isRainerAlbers;
-    public static final boolean isKaysHorzScroll   = isPierCardin;
-    public static final boolean isAutoRefresh      = isPierCardin;
+    public static final boolean isKaysNumbers      = isPierreCardin || isRainerAlbers;
+    public static final boolean isKaysHorzScroll   = isPierreCardin;
+    public static final boolean isAutoRefresh      = isPierreCardin;
     public static final boolean isAutoRefreshInfo  = isDezi;
-    public static final boolean isPDFExternal      = isPierCardin;
+    public static final boolean isPDFExternal      = isPierreCardin;
     public static final boolean isPDFZoomable      = isDezi;
     public static final boolean isDeleteCache      = isDezi;
     public static final boolean isSoundSettings    = isDezi;
@@ -364,7 +364,7 @@ public class Defines
             logoff_info = R.string.logoff_info_rainer_albers;
         }
 
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             SYSTEM_USER_NAME = "PIERRECARDIN";
 

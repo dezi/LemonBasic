@@ -8,7 +8,7 @@ public class DefinesScreens extends Defines
 {
     public static int getCloseButtonRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_kreuz
@@ -48,7 +48,7 @@ public class DefinesScreens extends Defines
 
     public static int getSplashScreenRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? -1
@@ -64,7 +64,7 @@ public class DefinesScreens extends Defines
 
     public static int getMainScreenRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_startscreen
@@ -96,7 +96,7 @@ public class DefinesScreens extends Defines
 
     public static int getContentScreenHeaderRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_menuoben
@@ -112,7 +112,7 @@ public class DefinesScreens extends Defines
 
     public static int getArrowWhiteLeftOnRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_pfeillinks_weiss
@@ -128,7 +128,7 @@ public class DefinesScreens extends Defines
 
     public static int getArrowDarkLeftOnRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_pfeillinks_dunkel
@@ -160,7 +160,7 @@ public class DefinesScreens extends Defines
 
     public static int getContentScreenButtonBackOnRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_back_on
@@ -176,7 +176,7 @@ public class DefinesScreens extends Defines
 
     public static int getContentScreenButtonBackOffRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_iany_piercadin_back_off
@@ -192,7 +192,7 @@ public class DefinesScreens extends Defines
 
     public static Rect getContentScreenBackIconRect()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? new Rect(40, 24, 96, 80)
@@ -208,7 +208,7 @@ public class DefinesScreens extends Defines
 
     public static Rect getContentScreenBackButtonRect()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? new Rect(10, 10, 90, 90)
@@ -224,7 +224,7 @@ public class DefinesScreens extends Defines
 
     public static int getContentScreenButtonProfileRes()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? R.drawable.lem_t_ipad_piercadin_profile
@@ -241,7 +241,7 @@ public class DefinesScreens extends Defines
     @Nullable
     public static Rect getContentScreenButtonProfileRect()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             return Simple.isTablet()
                     ? new Rect(1100, 39, 1500, 99)
@@ -258,7 +258,7 @@ public class DefinesScreens extends Defines
     @Nullable
     public static Rect getContentScreenNavigationRect()
     {
-        if (isPierCardin)
+        if (isPierreCardin)
         {
             /*
             return Simple.isTablet()
