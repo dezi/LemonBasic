@@ -68,6 +68,7 @@ public class Defines
     public static final boolean isPDFExternal      = isPierCardin;
     public static final boolean isPDFZoomable      = false;
     public static final boolean isDeleteCache      = isDezi;
+    public static final boolean isSoundSettings    = false;
     // @formatter:on
 
     //

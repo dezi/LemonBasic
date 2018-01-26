@@ -331,94 +331,10 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left sound section.
 
-        /*
-        TextView soundSection = new TextView(this);
-        soundSection.setText(R.string.settings_sound);
-        soundSection.setAllCaps(true);
-        soundSection.setTextColor(Color.BLACK);
-        soundSection.setTypeface(headersTF);
-        Simple.setSizeDip(soundSection, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(soundSection, Defines.PADDING_SMALL);
-        Simple.setTextSizeDip(soundSection, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(soundSection, Defines.FS_NAVIGATION_LSSPACE);
-
-        leftArea.addView(soundSection);
-
-        LinearLayout onoffArea = new LinearLayout(this);
-        onoffArea.setOrientation(LinearLayout.HORIZONTAL);
-        onoffArea.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(onoffArea, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(onoffArea, Defines.PADDING_TINY);
-
-        leftArea.addView(onoffArea);
-
-        TextView onoffText = new TextView(this);
-        onoffText.setText(R.string.settings_sound_button);
-        onoffText.setAllCaps(true);
-        onoffText.setTextColor(Color.BLACK);
-        onoffText.setTypeface(headersTF);
-        Simple.setSizeDip(onoffText, Simple.MP, Simple.WC, 1.0f);
-        Simple.setTextSizeDip(onoffText, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(onoffText, Defines.FS_NAVIGATION_LSSPACE);
-        Simple.setPaddingDip(onoffText, Defines.PADDING_SMALL);
-
-        onoffArea.addView(onoffText);
-
-        OnOffControl onoffControl = new OnOffControl(this);
-
-        onoffControl.setOnChangedListener(new OnOffControl.OnChangedListener()
+        if (Defines.isSoundSettings)
         {
-            @Override
-            public void OnChanged(View view, boolean on)
-            {
-                Log.d(LOGTAG, "onoffControl: OnChanged: on=" + on);
-            }
-        });
-
-        onoffArea.addView(onoffControl);
-
-        onoffArea.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                onoffControl.setOn(! onoffControl.getOn());
-            }
-        });
-
-        LinearLayout volumeArea = new LinearLayout(this);
-        volumeArea.setOrientation(LinearLayout.HORIZONTAL);
-        volumeArea.setBackgroundColor(Color.LTGRAY);
-        Simple.setSizeDip(volumeArea, Simple.MP, Simple.WC);
-        Simple.setMarginTopDip(volumeArea, Defines.PADDING_TINY);
-
-        leftArea.addView(volumeArea);
-
-        TextView volumeText = new TextView(this);
-        volumeText.setText(R.string.settings_sound_volume);
-        volumeText.setAllCaps(true);
-        volumeText.setTextColor(Color.BLACK);
-        volumeText.setTypeface(headersTF);
-        Simple.setSizeDip(volumeText, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(volumeText, Defines.FS_SETTINGS_INFO);
-        Simple.setLetterSpacing(volumeText, Defines.FS_NAVIGATION_LSSPACE);
-        Simple.setPaddingDip(volumeText, Defines.PADDING_SMALL);
-
-        volumeArea.addView(volumeText);
-
-        SliderControl volumeControl = new SliderControl(this);
-
-        volumeControl.setOnChangedListener(new SliderControl.OnChangedListener()
-        {
-            @Override
-            public void OnChanged(View view, float currentPosition)
-            {
-                Log.d(LOGTAG, "volumeControl: OnChanged: current=" + currentPosition);
-            }
-        });
-
-        volumeArea.addView(volumeControl);
-        */
+            leftArea.addView(new SettingsSound(this));
+        }
 
         //endregion Left sound section.
 

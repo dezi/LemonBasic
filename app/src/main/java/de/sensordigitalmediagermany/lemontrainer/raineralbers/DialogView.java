@@ -102,8 +102,8 @@ public class DialogView extends RelativeLayout
     protected TextView titleView;
     protected TextView infoView;
     protected RelativeLayout customView;
-    protected TextView positiveButton;
-    protected TextView negativeButton;
+    protected DialogButton positiveButton;
+    protected DialogButton negativeButton;
 
     protected OnClickListener positiveButtonOnClick;
     protected OnClickListener negativeButtonOnClick;
@@ -272,6 +272,7 @@ public class DialogView extends RelativeLayout
         buttonFrame.addView(negativeButton);
 
         positiveButton = new DialogButton(context);
+        positiveButton.setInvers(true);
         positiveButton.setVisibility(GONE);
 
         positiveButton.setOnClickListener(new OnClickListener()
@@ -354,6 +355,11 @@ public class DialogView extends RelativeLayout
         }
     }
 
+    public void setNegativeButton(int resid)
+    {
+        setNegativeButton(resid, null);
+    }
+
     public void setNegativeButton(int resid, OnClickListener onClickListener)
     {
         negativeButton.setText(resid);
@@ -364,6 +370,11 @@ public class DialogView extends RelativeLayout
         {
             Simple.setMarginLeftDip(positiveButton, Defines.PADDING_NORMAL);
         }
+    }
+
+    public void setCloseButton(boolean enable)
+    {
+        setCloseButton(enable, null);
     }
 
     public void setCloseButton(boolean enable, OnClickListener onClickListener)
