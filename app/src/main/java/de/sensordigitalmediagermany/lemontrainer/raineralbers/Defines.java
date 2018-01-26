@@ -49,7 +49,6 @@ public class Defines
     public static final boolean isCategoryMenu     = isRainerAlbers;
     public static final boolean isRoundedAsset     = isRainerAlbers;
     public static final boolean isOverlayAsset     = isPierreCardin;
-    public static final boolean isCompanyAvailable = isDezi || isRainerAlbers;
     public static final boolean isSectionDividers  = isPierreCardin;
     public static final boolean isFlatEdits        = isPierreCardin;
     public static final boolean isDialogTextCenter = isRainerAlbers;
@@ -64,11 +63,11 @@ public class Defines
     public static final boolean isKaysNumbers      = isPierreCardin || isRainerAlbers;
     public static final boolean isKaysHorzScroll   = isPierreCardin;
     public static final boolean isAutoRefresh      = isPierreCardin;
-    public static final boolean isAutoRefreshInfo  = isDezi;
+    public static final boolean isAutoRefreshInfo  = false;
     public static final boolean isPDFExternal      = isPierreCardin;
-    public static final boolean isPDFZoomable      = isDezi;
+    public static final boolean isPDFZoomable      = false;
     public static final boolean isDeleteCache      = isDezi;
-    public static final boolean isSoundSettings    = isDezi;
+    public static final boolean isSoundSettings    = false;
     // @formatter:on
 
     //

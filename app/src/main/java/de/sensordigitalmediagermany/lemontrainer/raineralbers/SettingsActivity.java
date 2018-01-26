@@ -22,7 +22,7 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout bodyHorz;
     protected LinearLayout leftArea;
     protected LinearLayout rightArea;
-    protected TextView contentSizeMB;
+    protected SettingsInfoHeader contentSizeMB;
 
     protected JSONArray actContent;
 
@@ -184,9 +184,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(nameEdit);
 
-        Globals.company = "Kappa Motion Media GmbH";
-
-        if (Defines.isCompanyAvailable && (Globals.company != null) && ! Globals.company.isEmpty())
+        if ((Globals.company != null) && ! Globals.company.isEmpty())
         {
             if (Defines.isSectionDividers) leftArea.addView(createSeparator());
 
@@ -384,39 +382,21 @@ public class SettingsActivity extends ContentBaseActivity
         contentTitle.setText(R.string.settings_contents);
         contentTitle.setWeight(0.58f);
 
-        /*
-        contentTitle.setSingleLine();
-        contentTitle.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        contentTitle.setTextColor(Defines.COLOR_SETTINGS_HEADERS);
-        contentTitle.setTypeface(headerTF);
-        contentTitle.setAllCaps(true);
-        Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
-        Simple.setSizeDip(contentTitle, Simple.MP, Simple.WC, 0.58f);
-        Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
-        */
-
         rightTopArea.addView(contentTitle);
 
         LinearLayout contentSizeFrame = new LinearLayout(this);
         contentSizeFrame.setOrientation(LinearLayout.HORIZONTAL);
 
-        TextView contentSizeText = new TextView(this);
+        SettingsInfoHeader contentSizeText = new SettingsInfoHeader(this);
         contentSizeText.setText(R.string.settings_used_storage);
-        contentSizeText.setSingleLine();
-        contentSizeText.setAllCaps(Defines.isInfosAllCaps);
-        contentSizeText.setGravity(Gravity.CENTER_VERTICAL + Gravity.START);
-        contentSizeText.setTypeface(headerTF);
-        Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(contentSizeText, Defines.FS_SETTINGS_TITLE);
+        contentSizeText.setMarginTopDip(Defines.PADDING_ZERO);
+        contentSizeText.setWeight(1.0f);
 
         contentSizeFrame.addView(contentSizeText);
 
-        contentSizeMB = new TextView(this);
-        contentSizeMB.setSingleLine();
-        contentSizeMB.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-        contentSizeMB.setTypeface(headerTF);
-        Simple.setSizeDip(contentSizeMB, Simple.MP, Simple.WC, 1.0f);
-        Simple.setTextSizeDip(contentSizeMB, Defines.FS_SETTINGS_TITLE);
+        contentSizeMB = new SettingsInfoHeader(this);
+        contentSizeMB.setMarginTopDip(Defines.PADDING_ZERO);
+        contentSizeMB.setFullWidth(false);
 
         contentSizeFrame.addView(contentSizeMB);
 
@@ -424,9 +404,6 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Defines.isSectionDividers)
         {
-            contentSizeText.setTextColor(Color.BLACK);
-            contentSizeMB.setTextColor(Color.BLACK);
-
             Simple.setPaddingDip(contentSizeFrame, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_TINY);
 
             Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC);
