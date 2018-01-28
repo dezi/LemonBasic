@@ -37,9 +37,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         Typeface headerTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_HEADER);
         Typeface subheadTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_SUBHEAD);
-        Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_INFOS);
         Typeface versionTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_VERSION);
-        Typeface buttonsTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DIALOG_BUTTON);
 
         //
         // Remove asset grid and tab bar for re-arrangement.

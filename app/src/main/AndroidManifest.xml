@@ -10,9 +10,8 @@
 x    <application
         android:name=".ApplicationBase"
         android:allowBackup="true"
-        android:icon="@mipmap/lem_t_pier_cadin"
-        android:label="@string/app_name_pier_cadin"
-        android:roundIcon="@mipmap/lem_t_pier_cadin_round"
+        android:icon="@mipmap/lem_t_pierre_cardin"
+        android:label="@string/app_name_pierre_cardin"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
