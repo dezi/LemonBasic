@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.0 (7) 26.01.2018 11:00";
+    public static final String DEBUG_VERSION = "1.0 (8) 28.01.2018 11:00";
 
     //
     // Rest API database access selectors.

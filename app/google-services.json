@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "959078043390",
+    "firebase_url": "https://lemon-basic-pierre-cardin.firebaseio.com",
+    "project_id": "lemon-basic-pierre-cardin",
+    "storage_bucket": "lemon-basic-pierre-cardin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959078043390:android:6a167388cb4ba49e",
+        "android_client_info": {
+          "package_name": "de.sensordigitalmediagermany.lemonbasic.pierrecardin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959078043390-hu4n9riv2vfs0tarm92c5hb5i11sqeou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMgvPWKYocRlwn-wx9EnKcLvw8utsGLHg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

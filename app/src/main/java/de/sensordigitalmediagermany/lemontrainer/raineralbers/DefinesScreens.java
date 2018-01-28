@@ -6,6 +6,22 @@ import android.graphics.Rect;
 @SuppressWarnings({"WeakerAccess"})
 public class DefinesScreens extends Defines
 {
+    public static int getNotifyIconRes()
+    {
+        if (isPierreCardin)
+        {
+            return Simple.isTablet()
+                    ? R.drawable.lem_t_iany_pierrecardin_notification
+                    : R.drawable.lem_t_iany_pierrecardin_notification
+                    ;
+        }
+
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_generic_notification
+                : R.drawable.lem_t_iany_generic_notification
+                ;
+    }
+
     public static int getCloseButtonRes()
     {
         if (isPierreCardin)

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.util.Log;
 import android.os.Build;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.Locale;
 
 import org.json.JSONObject;
@@ -172,6 +174,8 @@ public class SettingsHandler
 
                         SettingsHandler.saveSettings();
 
+                        SettingsHandler.updateSessionGCMToken();
+
                         if (Simple.isOnline(context))
                         {
                             RestApi.saveQuery(context, what, params, result);
@@ -194,5 +198,25 @@ public class SettingsHandler
         //return ! SettingsHandler.getSharedPrefBoolean(pwchanged);
 
         return (Globals.fnpw == 1);
+    }
+
+    public static void updateSessionGCMToken()
+    {
+        Log.d(LOGTAG, "updateSessionGCMToken: UDID=" + Globals.UDID);
+
+        if ((Globals.UDID != null) && ! Globals.UDID.isEmpty())
+        {
+            String gcm_token = FirebaseInstanceId.getInstance().getToken();
+            Log.d(LOGTAG, "updateSessionGCMToken: Firebase message token=" + gcm_token);
+
+            JSONObject  params = new JSONObject();
+
+            Json.put(params, "UDID", Globals.UDID);
+            Json.put(params, "token", gcm_token);
+
+            Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
+
+            RestApi.getPostThreaded("addPushToken", params, null);
+        }
     }
 }
