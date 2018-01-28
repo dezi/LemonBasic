@@ -66,13 +66,13 @@ public class ContentSlider extends LinearLayout
 
         RelativeLayout leftButtonBox = new RelativeLayout(context);
         leftButtonBox.setGravity(Gravity.LEFT);
-        Simple.setSizeDip(leftButtonBox, Simple.MP, Simple.WC, 0.5f);
+        Simple.setSizeDip(leftButtonBox, Simple.WC, Simple.WC, 1.0f);
 
         buttonLayout.addView(leftButtonBox);
 
         RelativeLayout rightButtonBox = new RelativeLayout(context);
         rightButtonBox.setGravity(Gravity.RIGHT + Gravity.CENTER_VERTICAL);
-        Simple.setSizeDip(rightButtonBox, Simple.MP, Simple.MP, 0.5f);
+        Simple.setSizeDip(rightButtonBox, Simple.WC, Simple.MP);
 
         buttonLayout.addView(rightButtonBox);
 
@@ -94,6 +94,7 @@ public class ContentSlider extends LinearLayout
         rightButton.setText(R.string.slider_more_button);
         Simple.setTextSizeDip(rightButton, Defines.FS_SLIDER_SHOWMORE);
         Simple.setPaddingDip(rightButton, 0,0,0, Defines.PADDING_TINY);
+
 
         rightButton.setOnClickListener(new OnClickListener()
         {
