@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.0 (8) 28.01.2018 11:00";
+    public static final String DEBUG_VERSION = "1.0 (9) 28.01.2018 12:00";
 
     //
     // Rest API database access selectors.
@@ -217,7 +217,7 @@ public class Defines
     public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 16 : 14;
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
 
-    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
+    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 12;
     public static final int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!

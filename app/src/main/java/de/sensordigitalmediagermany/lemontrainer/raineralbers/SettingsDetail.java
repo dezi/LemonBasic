@@ -201,25 +201,18 @@ public class SettingsDetail extends LinearLayout
         TableLikeLayout titleView = new TableLikeLayout(getContext(), headerTF, headerTF);
 
         titleView.setLeftText(R.string.settings_specs_title);
-
         titleView.setRightText(title);
 
         specsArea.addView(titleView);
 
+        TableLikeLayout themeView = new TableLikeLayout(getContext(), headerTF, headerTF);
+
+        themeView.setLeftText(R.string.settings_specs_theme);
+        themeView.setRightText(theme);
+
+        specsArea.addView(themeView);
+
         specsArea.addView(createSeparator());
-
-        if (! Defines.isCompactSettings)
-        {
-            TableLikeLayout themeView = new TableLikeLayout(getContext(), infosTF, infosTF);
-
-            themeView.setLeftText(R.string.settings_specs_theme);
-
-            themeView.setRightText(theme);
-
-            specsArea.addView(themeView);
-
-            specsArea.addView(createSeparator());
-        }
 
         TableLikeLayout fileView = new TableLikeLayout(getContext(), infosTF, infosTF);
         fileView.setLeftText(R.string.settings_specs_file);

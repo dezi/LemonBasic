@@ -50,7 +50,7 @@ public class ContentHandler
         Simple.startActivityFinish(rootframe.getContext(), ContentActivity.class);
     }
 
-    private static void buildAndCountCategory(JSONObject asset)
+    private static void buildAndCountCategory(JSONObject asset, boolean addtop)
     {
         String category = Json.getString(asset, "category");
         int categoryId = Json.getInt(asset, "category_id");
@@ -132,8 +132,11 @@ public class ContentHandler
         // Now the category json is defined. Increment asset count.
         //
 
-        if (! Json.has(catjson, "_count")) Json.put(catjson, "_count", 0);
-        Json.put(catjson, "_count", Json.getInt(catjson, "_count") + 1);
+        if (addtop)
+        {
+            if (!Json.has(catjson, "_count")) Json.put(catjson, "_count", 0);
+            Json.put(catjson, "_count", Json.getInt(catjson, "_count") + 1);
+        }
 
         //
         // Get correct category name from category
@@ -291,7 +294,7 @@ public class ContentHandler
                                     // Make sure, a real or virtual category_id is present.
                                     //
 
-                                    buildAndCountCategory(course);
+                                    buildAndCountCategory(course, true);
 
                                     Globals.displayAllContents.put(course);
                                 }
@@ -347,7 +350,7 @@ public class ContentHandler
             // Make sure, a real or virtual category_id is present.
             //
 
-            buildAndCountCategory(content);
+            buildAndCountCategory(content, addtop);
 
             Globals.completeContents.put(content);
 
