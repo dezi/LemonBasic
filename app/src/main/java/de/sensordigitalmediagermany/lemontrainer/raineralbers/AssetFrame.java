@@ -198,7 +198,7 @@ public class AssetFrame extends LinearLayout
         summaryView = new TextView(getContext());
         summaryView.setId(android.R.id.summary);
         summaryView.setAllCaps(Defines.isInfosAllCaps);
-        summaryView.setMaxLines(2);
+        summaryView.setMaxLines(3);
         summaryView.setEllipsize(TextUtils.TruncateAt.END);
         summaryView.setLineSpacing(0.0f, Defines.FS_ASSET_INFO_LSMULT);
         summaryView.setTextColor(Defines.isOverlayAsset ? Color.WHITE : Color.BLACK);
