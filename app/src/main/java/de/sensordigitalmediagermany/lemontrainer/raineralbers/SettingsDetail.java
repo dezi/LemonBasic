@@ -107,7 +107,7 @@ public class SettingsDetail extends LinearLayout
             contentTitle.setTextColor(Defines.COLOR_SENSOR_DKBLUE);
             contentTitle.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
             contentTitle.setAllCaps(true);
-            Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_TITLE);
+            Simple.setTextSizeDip(contentTitle, Defines.FS_SETTINGS_BACK);
             Simple.setSizeDip(contentTitle, Simple.MP, Simple.MP);
             Simple.setLetterSpacing(contentTitle, Defines.FS_NAVIGATION_LSSPACE);
             Simple.setMarginLeftDip(contentTitle, Defines.PADDING_NORMAL);

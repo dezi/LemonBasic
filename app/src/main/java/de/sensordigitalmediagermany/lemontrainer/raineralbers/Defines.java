@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = false;
 
-    public static final String DEBUG_VERSION = "1.0 (11) 28.01.2018 14:00";
+    public static final String DEBUG_VERSION = "1.0 (12) 28.01.2018 20:30";
 
     //
     // Rest API database access selectors.
@@ -217,7 +217,7 @@ public class Defines
     public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 16 : 14;
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
 
-    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 11;
+    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 :  9;
     public static final int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
@@ -228,8 +228,8 @@ public class Defines
 
     public static final int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
 
-    public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 20 : 18;
-    public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 13;
+    public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 18 : 14;
+    public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 12;
 
     public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // static!
     public static       int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // static!
@@ -255,6 +255,7 @@ public class Defines
 
     public static final int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
     public static final int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14;
+    public static final int FS_SETTINGS_BACK      = Simple.isTablet() ? 15 : 12;
     public static final int FS_SETTINGS_BUTTON    = Simple.isTablet() ? 14 : 12;
     public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // static!
     public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // static!
