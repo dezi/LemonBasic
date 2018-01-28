@@ -9,7 +9,7 @@ public class Defines
     // Debug stuff.
     //
 
-    public static final boolean isDezi = true;
+    public static final boolean isDezi = false;
 
     public static final String DEBUG_VERSION = "1.0 (11) 28.01.2018 14:00";
 
