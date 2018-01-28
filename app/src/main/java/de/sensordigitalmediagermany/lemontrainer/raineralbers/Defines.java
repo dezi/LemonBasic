@@ -369,7 +369,7 @@ public class Defines
 
             APIURL = "https://lemon-mobile-learning.com/lemon-basic/ws/";
 
-            logoff_info = R.string.logoff_info_pier_cadin;
+            logoff_info = R.string.logoff_info_pierre_cardin;
 
             //
             // Tuneups for Pier Cadin style.
