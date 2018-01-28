@@ -11,8 +11,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_piercadin_kreuz
-                    : R.drawable.lem_t_iany_piercadin_kreuz
+                    ? R.drawable.lem_t_iany_pierrecardin_kreuz
+                    : R.drawable.lem_t_iany_pierrecardin_kreuz
                     ;
         }
 
@@ -67,8 +67,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_ipad_piercadin_startscreen
-                    : R.drawable.lem_t_ipho_piercadin_startscreen
+                    ? R.drawable.lem_t_ipad_pierrecardin_startscreen
+                    : R.drawable.lem_t_ipho_pierrecardin_startscreen
                     ;
         }
 
@@ -99,8 +99,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_ipad_piercadin_menuoben
-                    : R.drawable.lem_t_ipho_piercadin_menuoben
+                    ? R.drawable.lem_t_ipad_pierrecardin_menuoben
+                    : R.drawable.lem_t_ipho_pierrecardin_menuoben
                     ;
         }
 
@@ -115,8 +115,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_piercadin_pfeillinks_weiss
-                    : R.drawable.lem_t_iany_piercadin_pfeillinks_weiss
+                    ? R.drawable.lem_t_iany_pierrecardin_pfeillinks_weiss
+                    : R.drawable.lem_t_iany_pierrecardin_pfeillinks_weiss
                     ;
         }
 
@@ -131,8 +131,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_piercadin_pfeillinks_dunkel
-                    : R.drawable.lem_t_iany_piercadin_pfeillinks_dunkel
+                    ? R.drawable.lem_t_iany_pierrecardin_pfeillinks_dunkel
+                    : R.drawable.lem_t_iany_pierrecardin_pfeillinks_dunkel
                     ;
         }
 
@@ -163,8 +163,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_piercadin_back_on
-                    : R.drawable.lem_t_iany_piercadin_back_on
+                    ? R.drawable.lem_t_iany_pierrecardin_back_on
+                    : R.drawable.lem_t_iany_pierrecardin_back_on
                     ;
         }
 
@@ -179,8 +179,8 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_piercadin_back_off
-                    : R.drawable.lem_t_iany_piercadin_back_off
+                    ? R.drawable.lem_t_iany_pierrecardin_back_off
+                    : R.drawable.lem_t_iany_pierrecardin_back_off
                     ;
         }
 
@@ -227,7 +227,7 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? R.drawable.lem_t_ipad_piercadin_profile
+                    ? R.drawable.lem_t_ipad_pierrecardin_profile
                     : -1
                     ;
         }
