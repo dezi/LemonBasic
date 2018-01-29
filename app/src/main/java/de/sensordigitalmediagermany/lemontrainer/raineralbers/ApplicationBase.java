@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.os.Handler;
@@ -34,6 +35,10 @@ public class ApplicationBase extends Application
         cacheDir = getCacheDir();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        Configuration configuration = getResources().getConfiguration();
+
+        Log.d(LOGTAG, "onCreate: fontScale=" + configuration.fontScale);
     }
 
     public static void setCurrentActivity(AppCompatActivity currentActivity)

@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = false;
 
-    public static final String DEBUG_VERSION = "1.0 (12) 28.01.2018 20:30";
+    public static final String DEBUG_VERSION = "1.0 (13) 29.01.2018 11:00";
 
     //
     // Rest API database access selectors.
@@ -158,10 +158,10 @@ public class Defines
     public static final String GOTHAM_BOLD          = "fonts/Gotham-Bold.otf";
     public static final String GOTHAM_LIGHT         = "fonts/Gotham-Light.otf";
     public static final String GOTHAM_MEDIUM        = "fonts/Gotham-Medium.otf";
+    public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
     public static final String ROONEY_LIGHT         = "fonts/Rooney-Light.otf";
     public static final String ROONEY_MEDIUM        = "fonts/Rooney-Medium.otf";
     public static final String ROONEY_REGULAR       = "fonts/Rooney-Regular.otf";
-    public static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
     public static final String FUTURA_LIGHT_REG     = "fonts/Futura-Light-Regular.otf";
     public static final String FUTURA_BOOK          = "fonts/Futura-Book.otf";
     public static final String SOURCE_SERIF_LIGHT   = "fonts/SourceSerifPro-Light.otf";
@@ -217,7 +217,7 @@ public class Defines
     public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 16 : 14;
     public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
 
-    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 :  9;
+    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 12;
     public static final int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
 
     public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
@@ -228,7 +228,7 @@ public class Defines
 
     public static final int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
 
-    public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 18 : 14;
+    public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 18 : 16;
     public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 12;
 
     public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // static!
@@ -422,10 +422,10 @@ public class Defines
             FONT_DETAILS_INFOS      = SOURCE_SERIF_LIGHT;
 
             FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 16;
-            FS_BANNER_INFO          = Simple.isTablet() ? 26 : 18;
+            FS_BANNER_INFO          = Simple.isTablet() ? 26 : 20;
             FS_SCALED_BUTTON        = Simple.isTablet() ? 14 : 13;
             FS_ASSET_TITLE          = Simple.isTablet() ? 13 : 11;
-            FS_ASSET_INFO           = Simple.isTablet() ? 18 : 14;
+            FS_ASSET_INFO           = Simple.isTablet() ? 18 : 16;
             FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  8;
             FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
             FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;

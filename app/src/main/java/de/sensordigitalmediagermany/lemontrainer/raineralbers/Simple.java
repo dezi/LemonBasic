@@ -137,7 +137,9 @@ public class Simple
 
     public static void setTextSizeDip(TextView textView, int size)
     {
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
+        float real = size / textView.getContext().getResources().getConfiguration().fontScale;
+
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, real);
     }
 
     public static void setLetterSpacing(TextView view, float factor)
