@@ -1,11 +1,11 @@
 package de.sensordigitalmediagermany.lemontrainer.raineralbers;
 
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.media.RingtoneManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
@@ -73,8 +73,8 @@ public class FirebaseMessageService extends FirebaseMessagingService
         nb.setContentText(body);
         nb.setSound(soundUri);
 
-        nb.setSmallIcon(DefinesScreens.getNotifyIconRes());
-        nb.setLargeIcon(Simple.getBitmap(context, R.mipmap.lem_t_pierre_cardin));
+        nb.setSmallIcon(DefinesScreens.getNotifyIconSmallRes());
+        nb.setLargeIcon(Simple.getBitmap(context, DefinesScreens.getNotifyIconLargeRes()));
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (nm != null) nm.notify(0, nb.build());
