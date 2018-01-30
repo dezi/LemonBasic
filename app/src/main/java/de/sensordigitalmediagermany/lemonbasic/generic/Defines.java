@@ -18,10 +18,10 @@ public class Defines
     //
 
     // @formatter:off
-    public static String APIURL = "undefinied!";
+    public static String APIURL = "undefined!";
 
-    public static String SYSTEM_USER_NAME  = "undefinied!";
-    public static String SYSTEM_USER_PARAM = "undefinied!";
+    public static String SYSTEM_USER_NAME  = "undefined!";
+    public static String SYSTEM_USER_PARAM = "undefined!";
     // @formatter:on
 
     //
