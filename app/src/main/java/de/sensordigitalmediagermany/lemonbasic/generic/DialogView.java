@@ -112,12 +112,11 @@ public class DialogView extends RelativeLayout
     {
         super(context);
 
-        setFocusable(false);
-
         initFonts();
 
         ApplicationBase.hideActionBar(context);
 
+        setFocusable(false);
         setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         setBackgroundColor(Defines.COLOR_BACKGROUND_DIM);
         Simple.setSizeDip(this, Simple.MP, Simple.MP);

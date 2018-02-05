@@ -15,23 +15,31 @@ public class FocusableImageView extends ImageView
     public FocusableImageView(Context context)
     {
         super(context);
-        setPadding(1,1,1,1);
 
-        setOnFocusChangeListener(new OnFocusChangeListener()
+        if (Simple.isTV())
         {
-            @Override
-            public void onFocusChange(View view, boolean hasfocus)
+            //
+            // Image needs to be able to display the focus.
+            //
+
+            setPadding(1, 1, 1, 1);
+
+            setOnFocusChangeListener(new OnFocusChangeListener()
             {
-                if (hasfocus)
+                @Override
+                public void onFocusChange(View view, boolean hasfocus)
                 {
-                    Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Color.YELLOW);
+                    if (hasfocus)
+                    {
+                        Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Color.YELLOW);
+                    }
+                    else
+                    {
+                        setBackgroundColor(Color.TRANSPARENT);
+                    }
                 }
-                else
-                {
-                    setBackgroundColor(Color.TRANSPARENT);
-                }
-            }
-        });
+            });
+        }
     }
 
     @Override

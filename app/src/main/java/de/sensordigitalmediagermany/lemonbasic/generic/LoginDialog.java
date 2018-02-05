@@ -214,6 +214,7 @@ public class LoginDialog extends DialogView
 
         setCustomView(dialogItems);
 
+        userEmail.requestFocus();
     }
 
     private final OnClickListener loginClick = new OnClickListener()
