@@ -112,6 +112,8 @@ public class DialogView extends RelativeLayout
     {
         super(context);
 
+        setFocusable(false);
+
         initFonts();
 
         ApplicationBase.hideActionBar(context);

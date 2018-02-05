@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.app.UiModeManager;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
@@ -92,17 +93,26 @@ public class Simple
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
-    public static boolean isTouch(Context context)
-    {
-        return context.getPackageManager().hasSystemFeature("android.hardware.touchscreen");
-    }
+    private static boolean istv;
+    private static boolean istouch;
 
-    public static boolean isTV(Context context)
+    public static void checkFeatures(Context context)
     {
         UiModeManager uiModeManager = (UiModeManager) context.getSystemService(UI_MODE_SERVICE);
-        if (uiModeManager == null) return false;
+        PackageManager pmManager = context.getPackageManager();
 
-        return (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
+        istv = (uiModeManager != null) && (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
+        istouch = pmManager.hasSystemFeature("android.hardware.touchscreen");
+    }
+
+    public static boolean isTV()
+    {
+        return istv;
+    }
+
+    public static boolean isTouch()
+    {
+        return istouch;
     }
 
     public static boolean isOnline(Context context)

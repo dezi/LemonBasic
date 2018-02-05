@@ -134,7 +134,7 @@ public class LoginDialog extends DialogView
 
         if (Defines.isSimpleLogin)
         {
-            ImageView loginButton = new ImageView(getContext());
+            ImageView loginButton = new FocusableImageView(getContext());
             loginButton.setImageResource(R.drawable.lem_t_iany_generic_login_pfeil);
             loginButton.setScaleType(ImageView.ScaleType.FIT_START);
 
@@ -213,6 +213,7 @@ public class LoginDialog extends DialogView
         }
 
         setCustomView(dialogItems);
+
     }
 
     private final OnClickListener loginClick = new OnClickListener()

@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.annotation.SuppressLint;
 
+import android.view.View;
 import android.widget.EditText;
 import android.content.Context;
 import android.graphics.Color;
@@ -20,6 +21,24 @@ public class GenericEdit extends EditText
         Simple.setPaddingDip(this,Defines.PADDING_SMALL);
         Simple.setTextSizeDip(this, getFontSize());
         Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
+
+        setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasfocus)
+            {
+                if (Simple.isTV())
+                {
+                    if (hasfocus)
+                    {
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, Color.YELLOW);
+                    } else
+                    {
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
+                    }
+                }
+            }
+        });
     }
 
     public int getFontSize()

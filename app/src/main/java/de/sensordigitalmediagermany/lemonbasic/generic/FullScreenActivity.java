@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
 import android.content.Context;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -69,6 +70,8 @@ public class FullScreenActivity extends AppCompatActivity
         setUiFlags();
 
         ApplicationBase.setCurrentActivity(this);
+
+        ApplicationBase.handler.postDelayed(focusDump, 2000);
     }
 
     @Override
@@ -77,6 +80,8 @@ public class FullScreenActivity extends AppCompatActivity
         super.onPause();
 
         ApplicationBase.clearCurrentActivity(this);
+
+        ApplicationBase.handler.removeCallbacks(focusDump);
     }
 
     @Override
@@ -100,4 +105,15 @@ public class FullScreenActivity extends AppCompatActivity
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(uiOptions);
     }
+
+    private final Runnable focusDump = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            Log.d(LOGTAG, "focusDump: view=" + FullScreenActivity.this.getCurrentFocus());
+
+            ApplicationBase.handler.postDelayed(focusDump, 2000);
+        }
+    };
 }

@@ -39,16 +39,7 @@ public class ApplicationBase extends Application
 
         Log.d(LOGTAG, "onCreate: fontScale=" + configuration.fontScale);
 
-        UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
-
-        if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION)
-        {
-            Log.d(LOGTAG, "Running on a TV Device");
-        }
-        else
-        {
-            Log.d(LOGTAG, "Running on a non-TV Device");
-        }
+        Simple.checkFeatures(this);
     }
 
     public static void setCurrentActivity(AppCompatActivity currentActivity)
