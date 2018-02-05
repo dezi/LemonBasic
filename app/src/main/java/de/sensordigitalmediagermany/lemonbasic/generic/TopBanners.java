@@ -120,6 +120,27 @@ public class TopBanners extends FrameLayout
         });
 
         addView(arrowRightIcon, new LayoutParams(Simple.dipToPx(arrowWidth), Simple.MP, Gravity.RIGHT));
+
+
+        arrowLeftIcon.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus)
+            {
+                Log.d(LOGTAG, "onFocusChange: hasFocus=" + hasFocus + " view=" + view);
+            }
+        });
+
+        arrowRightIcon.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus)
+            {
+                Log.d(LOGTAG, "onFocusChange: hasFocus=" + hasFocus + " view=" + view);
+            }
+        });
+
+
     }
 
     @SuppressLint("RtlHardcoded")

@@ -146,5 +146,14 @@ public class TopBannerImage extends FrameLayout
                 }
             }
         });
+
+        infoContent.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus)
+            {
+                Log.d(LOGTAG, "onFocusChange: hasFocus=" + hasFocus + " view=" + view);
+            }
+        });
     }
 }

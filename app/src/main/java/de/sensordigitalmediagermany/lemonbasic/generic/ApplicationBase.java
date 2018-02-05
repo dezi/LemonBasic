@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.app.Application;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -10,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.File;
+
+import static android.content.ContentValues.TAG;
 
 public class ApplicationBase extends Application
 {
@@ -35,6 +38,17 @@ public class ApplicationBase extends Application
         Configuration configuration = getResources().getConfiguration();
 
         Log.d(LOGTAG, "onCreate: fontScale=" + configuration.fontScale);
+
+        UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+
+        if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION)
+        {
+            Log.d(LOGTAG, "Running on a TV Device");
+        }
+        else
+        {
+            Log.d(LOGTAG, "Running on a non-TV Device");
+        }
     }
 
     public static void setCurrentActivity(AppCompatActivity currentActivity)

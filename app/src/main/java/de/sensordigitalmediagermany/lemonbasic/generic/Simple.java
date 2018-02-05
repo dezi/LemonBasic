@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.app.UiModeManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.Nullable;
@@ -65,6 +66,8 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static android.content.Context.UI_MODE_SERVICE;
+
 @SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public class Simple
 {
@@ -87,6 +90,19 @@ public class Simple
         return ((Resources.getSystem().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE);
+    }
+
+    public static boolean isTouch(Context context)
+    {
+        return context.getPackageManager().hasSystemFeature("android.hardware.touchscreen");
+    }
+
+    public static boolean isTV(Context context)
+    {
+        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(UI_MODE_SERVICE);
+        if (uiModeManager == null) return false;
+
+        return (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
     }
 
     public static boolean isOnline(Context context)
