@@ -74,7 +74,7 @@ public class AssetFrame extends LinearLayout
 
         this.addView(imageBox);
 
-        imageView = new ImageView(getContext());
+        imageView = new GenericImage(getContext());
         imageView.setId(android.R.id.content);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 

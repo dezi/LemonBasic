@@ -489,7 +489,7 @@ public class SettingsActivity extends ContentBaseActivity
         divider.setBackgroundColor(Color.BLACK);
         Simple.setSizeDip(divider, Simple.MP, 1);
 
-        if (Simple.isTablet())
+        if (Simple.isTablet() && ! Simple.isWideScreen())
         {
             Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
             Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);

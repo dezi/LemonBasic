@@ -96,6 +96,7 @@ public class Simple
     }
 
     private static boolean istv;
+    private static boolean iswide;
     private static boolean istouch;
 
     public static void checkFeatures(Context context)
@@ -105,6 +106,16 @@ public class Simple
 
         istv = (uiModeManager != null) && (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION);
         istouch = pmManager.hasSystemFeature("android.hardware.touchscreen");
+
+        int width = getDeviceWidth(context);
+        int height = getDeviceHeight(context);
+
+        iswide = (width / height) >= (16 / 9);
+    }
+
+    public static boolean isWideScreen()
+    {
+        return iswide;
     }
 
     public static boolean isTV()
@@ -135,7 +146,6 @@ public class Simple
 
     public static int getDeviceHeight(Context context)
     {
-
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         return metrics.heightPixels;
     }

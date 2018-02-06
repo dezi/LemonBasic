@@ -1,8 +1,10 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -29,7 +31,28 @@ public class TabBarItem extends RelativeLayout
 
         itemBox = new LinearLayout(context);
         itemBox.setOrientation(LinearLayout.HORIZONTAL);
+        itemBox.setFocusable(true);
+
         Simple.setSizeDip(itemBox, Simple.WC, Simple.MP);
+
+        itemBox.setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasfocus)
+            {
+                if (Simple.isTV())
+                {
+                    if (hasfocus)
+                    {
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
+                    }
+                    else
+                    {
+                        view.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+            }
+        });
 
         addView(itemBox);
 
@@ -48,6 +71,7 @@ public class TabBarItem extends RelativeLayout
         textView.setTypeface(Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_TABBAR_ENTRY));
         Simple.setSizeDip(textView, Simple.WC, Simple.MP);
         Simple.setTextSizeDip(textView, Defines.FS_TABBAR_ENTRY);
+        Simple.setPaddingDip(textView, 0, 0, Defines.PADDING_SMALL, 0);
 
         itemBox.addView(textView);
     }

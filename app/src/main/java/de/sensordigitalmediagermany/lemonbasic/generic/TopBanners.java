@@ -69,7 +69,9 @@ public class TopBanners extends FrameLayout
 
         Simple.setSizeDip(scrollView, Simple.MP, Simple.MP);
 
+        scrollView.setFocusable(false);
         scrollView.setBackgroundColor(0x88880000);
+
         addView(scrollView);
 
         scrollContent = new LinearLayout(getContext());
@@ -85,7 +87,7 @@ public class TopBanners extends FrameLayout
         int arrowPadding = Defines.PADDING_SMALL;
         int arrowWidth = Defines.BANNER_ARROW_WIDTH + (arrowPadding * 2);
 
-        arrowLeftIcon = new ImageView(getContext());
+        arrowLeftIcon = new GenericImage(getContext());
         arrowLeftIcon.setVisibility(INVISIBLE);
         arrowLeftIcon.setImageResource(DefinesScreens.getArrowBannerLeftRes());
         arrowLeftIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -103,7 +105,7 @@ public class TopBanners extends FrameLayout
 
         addView(arrowLeftIcon, new LayoutParams(Simple.dipToPx(arrowWidth), Simple.MP, Gravity.LEFT));
 
-        arrowRightIcon = new ImageView(getContext());
+        arrowRightIcon = new GenericImage(getContext());
         arrowRightIcon.setVisibility(INVISIBLE);
         arrowRightIcon.setImageResource(DefinesScreens.getArrowBannerRightRes());
         arrowRightIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -120,27 +122,6 @@ public class TopBanners extends FrameLayout
         });
 
         addView(arrowRightIcon, new LayoutParams(Simple.dipToPx(arrowWidth), Simple.MP, Gravity.RIGHT));
-
-
-        arrowLeftIcon.setOnFocusChangeListener(new OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus)
-            {
-                Log.d(LOGTAG, "onFocusChange: hasFocus=" + hasFocus + " view=" + view);
-            }
-        });
-
-        arrowRightIcon.setOnFocusChangeListener(new OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus)
-            {
-                Log.d(LOGTAG, "onFocusChange: hasFocus=" + hasFocus + " view=" + view);
-            }
-        });
-
-
     }
 
     @SuppressLint("RtlHardcoded")

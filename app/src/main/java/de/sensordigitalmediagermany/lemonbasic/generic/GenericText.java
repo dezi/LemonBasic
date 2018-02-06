@@ -45,7 +45,7 @@ public abstract class GenericText extends TextView
                     }
                     else
                     {
-                        setBackgroundColor(Color.TRANSPARENT);
+                        view.setBackgroundColor(Color.TRANSPARENT);
                     }
                 }
             }

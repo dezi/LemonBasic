@@ -3,12 +3,15 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 @SuppressLint("AppCompatCustomView")
 public class GenericImage extends ImageView
 {
+    private static final String LOGTAG = GenericImage.class.getSimpleName();
+
     public GenericImage(Context context)
     {
         super(context);
@@ -28,6 +31,8 @@ public class GenericImage extends ImageView
                 @Override
                 public void onFocusChange(View view, boolean hasfocus)
                 {
+                    Log.d(LOGTAG, "onFocusChange: hasfocus=" + hasfocus);
+
                     if (hasfocus)
                     {
                         //
@@ -48,7 +53,7 @@ public class GenericImage extends ImageView
                         // Make neutral again.
                         //
 
-                        setBackgroundColor(Color.TRANSPARENT);
+                        view.setBackgroundColor(Color.TRANSPARENT);
                     }
                 }
             });

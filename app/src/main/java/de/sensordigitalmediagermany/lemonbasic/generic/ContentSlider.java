@@ -78,23 +78,35 @@ public class ContentSlider extends LinearLayout
 
         leftButton = new TextView(context);
         leftButton.setSingleLine(true);
-        leftButton.setAllCaps(true);
+        leftButton.setAllCaps(Defines.isInfosAllCaps);
         leftButton.setTypeface(textFont);
         leftButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
         Simple.setTextSizeDip(leftButton, Defines.FS_SLIDER_CATEGORY);
-        Simple.setPaddingDip(leftButton, 0,0,0, Defines.PADDING_TINY);
+        Simple.setPaddingDip(leftButton, Defines.PADDING_TINY);
 
         leftButtonBox.addView(leftButton);
 
-        TextView rightButton = new TextView(context);
-        rightButton.setSingleLine(true);
-        rightButton.setAllCaps(true);
-        rightButton.setTypeface(textFont);
-        rightButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
-        rightButton.setText(R.string.slider_more_button);
-        Simple.setTextSizeDip(rightButton, Defines.FS_SLIDER_SHOWMORE);
-        Simple.setPaddingDip(rightButton, 0,0,0, Defines.PADDING_TINY);
+        GenericText rightButton = new GenericText(context)
+        {
+            @Override
+            public int getFontSize()
+            {
+                return Defines.FS_SLIDER_SHOWMORE;
+            }
 
+            @Override
+            public String getFontName()
+            {
+                return Defines.FONT_SLIDER_ALL;
+            }
+        };
+
+        rightButton.setText(R.string.slider_more_button);
+        rightButton.setFullWidth(false);
+        rightButton.setSingleLine(true);
+        rightButton.setAllCaps(Defines.isInfosAllCaps);
+        rightButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
+        Simple.setPaddingDip(rightButton, Defines.PADDING_TINY);
 
         rightButton.setOnClickListener(new OnClickListener()
         {
@@ -143,6 +155,7 @@ public class ContentSlider extends LinearLayout
             }
         };
 
+        scrollView.setFocusable(false);
         Simple.setSizeDip(scrollView, Simple.MP, Simple.pxToDip(imageHeight));
 
         addView(scrollView);
