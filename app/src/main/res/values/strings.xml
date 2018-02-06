@@ -56,6 +56,8 @@
     <string name="password_forgot_title">Forgot password:</string>
     <string name="password_forgot_hint_email">Email address</string>
     <string name="password_forgot_request">Send</string>
+    <string name="password_forgot_success">The password has been send.</string>
+    <string name="password_forgot_fail">The password could not be send.</string>
 
     <string name="password_change_title">Enter new password:</string>
     <string name="password_change_title_forced">Change password</string>

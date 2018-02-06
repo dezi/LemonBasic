@@ -42,6 +42,7 @@ public class DialogView extends RelativeLayout
         dialogView.setInfoText(msgstr);
 
         dialogView.setPositiveButton(R.string.button_ok, onokclick);
+        dialogView.positiveButton.requestFocus();
 
         if (Simple.isUIThread())
         {
@@ -158,11 +159,19 @@ public class DialogView extends RelativeLayout
 
         marginView.addView(boxView);
 
-        closeButton = new ImageView(context);
+        RelativeLayout closeButtonBox = new RelativeLayout(context);
+        closeButtonBox.setGravity(Gravity.END);
+        Simple.setSizeDip(closeButtonBox, Simple.MP, Simple.WC);
+
+        boxView.addView(closeButtonBox);
+
+        int size = Defines.CLOSE_ICON_SIZE + (Defines.PADDING_MEDIUM * 2);
+
+        closeButton = new GenericImage(context);
         closeButton.setVisibility(GONE);
         closeButton.setImageResource(DefinesScreens.getCloseButtonRes());
         closeButton.setScaleType(ImageView.ScaleType.FIT_END);
-        Simple.setSizeDip(closeButton, Simple.MP, Defines.CLOSE_ICON_SIZE + (Defines.PADDING_MEDIUM * 2));
+        Simple.setSizeDip(closeButton, size, size);
         Simple.setPaddingDip(closeButton, Defines.PADDING_MEDIUM);
 
         closeButton.setOnClickListener(new OnClickListener()
@@ -184,7 +193,7 @@ public class DialogView extends RelativeLayout
             }
         });
 
-        boxView.addView(closeButton);
+        closeButtonBox.addView(closeButton);
 
         padView = new LinearLayout(context);
         padView.setOrientation(LinearLayout.VERTICAL);
@@ -194,11 +203,12 @@ public class DialogView extends RelativeLayout
         boxView.addView(padView);
 
         titleView = new TextView(context);
-        titleView.setAllCaps(true);
+        titleView.setSingleLine(true);
         titleView.setVisibility(GONE);
+        titleView.setAllCaps(Defines.isInfosAllCaps);
         titleView.setTypeface(titleFont);
         titleView.setTextColor(Defines.COLOR_DIALOG_TITLE);
-        Simple.setSizeDip(titleView, Simple.MP, Simple.WC);
+        Simple.setSizeDip(titleView, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
 
         padView.addView(titleView);
@@ -211,7 +221,7 @@ public class DialogView extends RelativeLayout
         infoView.setTextColor(Defines.COLOR_DIALOG_INFOS);
         infoView.setLineSpacing(0, Defines.FS_DIALOGS_LSMULT);
         infoView.setTypeface(infosFont);
-        Simple.setSizeDip(infoView, Simple.MP, Simple.WC);
+        Simple.setSizeDip(infoView, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
         Simple.setMarginTopDip(infoView, Defines.PADDING_SMALL);
 
@@ -238,6 +248,8 @@ public class DialogView extends RelativeLayout
 
         customView = new RelativeLayout(context);
         customView.setVisibility(GONE);
+        Simple.setMarginBottomDip(customView, Defines.PADDING_NORMAL);
+        Simple.setSizeDip(customView, Simple.WC, Simple.WC, 1.0f);
 
         padView.addView(customView);
 

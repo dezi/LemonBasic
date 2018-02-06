@@ -31,7 +31,7 @@ public class GenericEdit extends EditText
                 {
                     if (hasfocus)
                     {
-                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, Color.YELLOW);
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, Defines.COLOR_TV_FOCUS);
                     } else
                     {
                         Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);

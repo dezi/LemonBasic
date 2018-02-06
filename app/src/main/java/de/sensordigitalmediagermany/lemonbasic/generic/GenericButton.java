@@ -13,6 +13,8 @@ import android.view.Gravity;
 @SuppressLint("AppCompatCustomView")
 public class GenericButton extends TextView
 {
+    private boolean isDefaultButton;
+
     public GenericButton(Context context)
     {
         super(context);
@@ -50,18 +52,31 @@ public class GenericButton extends TextView
                         Simple.hideSoftKeyBoard(view);
 
                         //
-                        // Display yellow frame around image.
+                        // Display yellow frame.
                         //
 
-                        Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Color.YELLOW);
-                    }
+                        if (isDefaultButton)
+                        {
+                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, Defines.COLOR_TV_FOCUS);
+                        }
+                        else
+                        {
+                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_TV_FOCUS, false);
+                        }                    }
                     else
                     {
                         //
                         // Make neutral again.
                         //
 
-                        setBackgroundColor(Color.TRANSPARENT);
+                        if (isDefaultButton)
+                        {
+                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
+                        }
+                        else
+                        {
+                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
+                        }
                     }
                 }
             });
@@ -96,21 +111,6 @@ public class GenericButton extends TextView
         setAllCaps(Defines.isButtonAllCaps);
     }
 
-    @Override
-    public void setTextColor(int color)
-    {
-        if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
-        {
-            super.setTextColor(Color.BLACK);
-            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
-        }
-        else
-        {
-            super.setTextColor(Color.WHITE);
-            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-        }
-    }
-
     public Typeface getDefaultTypeface()
     {
         return TypeFaces.getTypeface(getContext(), getFontName());
@@ -118,31 +118,17 @@ public class GenericButton extends TextView
 
     public void setDefaultButton(boolean set)
     {
-        if (set)
+        isDefaultButton = set;
+
+        if (isDefaultButton)
         {
-            if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
-            {
-                super.setTextColor(Color.WHITE);
-                Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-            }
-            else
-            {
-                super.setTextColor(Color.BLACK);
-                Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-            }
+            super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.WHITE : Color.BLACK);
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
         }
         else
         {
-            if (Defines.COLOR_BUTTON_BACK == Color.BLACK)
-            {
-                super.setTextColor(Color.BLACK);
-                Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
-            }
-            else
-            {
-                super.setTextColor(Color.WHITE);
-                Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
-            }
+            super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.BLACK : Color.WHITE);
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
         }
     }
 

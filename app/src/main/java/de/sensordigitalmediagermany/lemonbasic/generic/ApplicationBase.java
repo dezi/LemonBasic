@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import java.io.File;
 
@@ -57,9 +59,23 @@ public class ApplicationBase extends Application
         }
     }
 
+    @Nullable
     public static AppCompatActivity getCurrentActivity(Context context)
     {
         return ((ApplicationBase) context.getApplicationContext()).currentActivity;
+    }
+
+    @Nullable
+    public static ViewGroup getCurrentTopframe(Context context)
+    {
+        AppCompatActivity activity = getCurrentActivity(context);
+
+        if (activity instanceof FullScreenActivity)
+        {
+            return ((FullScreenActivity) activity).topFrame;
+        }
+
+        return null;
     }
 
     public static void hideActionBar(Context context)

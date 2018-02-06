@@ -2,7 +2,9 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.annotation.SuppressLint;
 
+import android.graphics.Color;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.content.Context;
@@ -21,6 +23,33 @@ public abstract class GenericText extends TextView
 
         Simple.setLetterSpacing(this, getLetterSpacing());
         Simple.setTextSizeDip(this, getFontSize());
+    }
+
+    @Override
+    public void setOnClickListener(View.OnClickListener onClickListener)
+    {
+        super.setOnClickListener(onClickListener);
+
+        setFocusable(true);
+
+        setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasfocus)
+            {
+                if (Simple.isTV())
+                {
+                    if (hasfocus)
+                    {
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
+                    }
+                    else
+                    {
+                        setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+            }
+        });
     }
 
     public abstract int getFontSize();

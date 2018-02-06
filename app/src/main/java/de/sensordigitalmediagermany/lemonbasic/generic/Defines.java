@@ -44,6 +44,7 @@ public class Defines
     public static final boolean isGiveAway         = isPierreCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = false; //isPierreCardin;
+    public static final boolean isRegistration     = false; //isRainerAlbers;
     public static final boolean isTabBar           = isPierreCardin;
     public static final boolean isTopBanner        = isPierreCardin;
     public static final boolean isCategoryMenu     = isRainerAlbers;
@@ -118,6 +119,7 @@ public class Defines
     public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
+    public static final int COLOR_TV_FOCUS           = 0xffffcc00;
 
     public static       int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // static!
     public static       int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // static!

@@ -7,6 +7,8 @@ public class DialogEdit extends GenericEdit
     public DialogEdit(Context context)
     {
         super(context);
+
+        setMinEms(Simple.isTablet() ? 12 : 9);
     }
 
     @Override

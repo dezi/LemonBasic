@@ -58,7 +58,6 @@ public class LoginDialog extends DialogView
         }
 
         userEmail = new DialogEdit(getContext());
-        userEmail.setMinEms(Simple.isTablet() ? 12 : 9);
         userEmail.setHintSpecial(R.string.login_hint_email);
         userEmail.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
@@ -172,25 +171,25 @@ public class LoginDialog extends DialogView
 
             dialogItems.addView(loginButton);
 
-            TextView alreadyRegistered = new TextView(getContext());
-            alreadyRegistered.setText(R.string.login_already_registered);
-            alreadyRegistered.setTextColor(Defines.COLOR_DIALOG_INFOS);
-            alreadyRegistered.setGravity(Gravity.CENTER_HORIZONTAL);
-            alreadyRegistered.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
-            Simple.setSizeDip(alreadyRegistered, Simple.MP, Simple.WC);
-            Simple.setTextSizeDip(alreadyRegistered, Defines.FS_DIALOG_INFO);
-            Simple.setMarginTopDip(alreadyRegistered, Defines.PADDING_NORMAL);
+            if (Defines.isRegistration)
+            {
+                TextView alreadyRegistered = new TextView(getContext());
+                alreadyRegistered.setText(R.string.login_already_registered);
+                alreadyRegistered.setTextColor(Defines.COLOR_DIALOG_INFOS);
+                alreadyRegistered.setGravity(Gravity.CENTER_HORIZONTAL);
+                alreadyRegistered.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
+                Simple.setSizeDip(alreadyRegistered, Simple.MP, Simple.WC);
+                Simple.setTextSizeDip(alreadyRegistered, Defines.FS_DIALOG_INFO);
+                Simple.setMarginTopDip(alreadyRegistered, Defines.PADDING_NORMAL);
 
-            dialogItems.addView(alreadyRegistered);
+                dialogItems.addView(alreadyRegistered);
+            }
 
-            TextView passForgotten = new TextView(getContext());
+            DialogInfo passForgotten = new DialogInfo(getContext());
+
             passForgotten.setText(R.string.login_password_forgotten);
-            passForgotten.setTextColor(Defines.COLOR_DIALOG_INFOS);
             passForgotten.setGravity(Gravity.CENTER_HORIZONTAL);
-            passForgotten.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
             passForgotten.setPaintFlags(passForgotten.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            Simple.setSizeDip(passForgotten, Simple.MP, Simple.WC);
-            Simple.setTextSizeDip(passForgotten, Defines.FS_DIALOG_INFO);
             Simple.setMarginTopDip(passForgotten, Defines.PADDING_NORMAL);
 
             passForgotten.setOnClickListener(new View.OnClickListener()
@@ -208,24 +207,27 @@ public class LoginDialog extends DialogView
 
             dialogItems.addView(passForgotten);
 
-            DialogButton registerButton = new DialogButton(getContext());
-            registerButton.setText(R.string.login_register);
-            registerButton.setMarginTopDip(Defines.PADDING_NORMAL);
-
-            registerButton.setOnClickListener(new View.OnClickListener()
+            if (Defines.isRegistration)
             {
-                @Override
-                public void onClick(View view)
+                DialogButton registerButton = new DialogButton(getContext());
+                registerButton.setText(R.string.login_register);
+                registerButton.setMarginTopDip(Defines.PADDING_NORMAL);
+
+                registerButton.setOnClickListener(new View.OnClickListener()
                 {
-                    ViewGroup topFrame = (ViewGroup) LoginDialog.this.getParent();
+                    @Override
+                    public void onClick(View view)
+                    {
+                        ViewGroup topFrame = (ViewGroup) LoginDialog.this.getParent();
 
-                    dismissDialog();
+                        dismissDialog();
 
-                    topFrame.addView(new RegisterDialog(LoginDialog.this.getContext()));
-                }
-            });
+                        topFrame.addView(new RegisterDialog(LoginDialog.this.getContext()));
+                    }
+                });
 
-            dialogItems.addView(registerButton);
+                dialogItems.addView(registerButton);
+            }
         }
 
         setCustomView(dialogItems);

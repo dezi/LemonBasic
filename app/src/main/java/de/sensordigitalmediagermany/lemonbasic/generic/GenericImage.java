@@ -9,8 +9,6 @@ import android.widget.ImageView;
 @SuppressLint("AppCompatCustomView")
 public class GenericImage extends ImageView
 {
-    private static final String LOGTAG = GenericImage.class.getSimpleName();
-
     public GenericImage(Context context)
     {
         super(context);
@@ -39,10 +37,10 @@ public class GenericImage extends ImageView
                         Simple.hideSoftKeyBoard(view);
 
                         //
-                        // Display yellow frame around image.
+                        // Display focus frame around image.
                         //
 
-                        Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Color.YELLOW);
+                        Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
                     }
                     else
                     {
