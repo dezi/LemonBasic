@@ -25,6 +25,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -67,6 +68,7 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.content.Context.UI_MODE_SERVICE;
 
 @SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
@@ -301,7 +303,7 @@ public class Simple
         shape.setCornerRadius(dipToPx(radiusdip));
 
         shape.setColor(innerColor);
-        shape.setStroke(dipToPx(1), strokeColor);
+        shape.setStroke(dipToPx(2), strokeColor);
 
         view.setBackground(shape);
     }
@@ -324,7 +326,7 @@ public class Simple
         }
         else
         {
-            shape.setStroke(2, color);
+            shape.setStroke(dipToPx(2), color);
         }
 
         view.setBackground(shape);
@@ -1225,5 +1227,15 @@ public class Simple
         }
 
         return null;
+    }
+
+    public static void hideSoftKeyBoard(View view)
+    {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(INPUT_METHOD_SERVICE);
+
+        if (imm != null)
+        {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

@@ -272,7 +272,7 @@ public class DialogView extends RelativeLayout
         buttonFrame.addView(negativeButton);
 
         positiveButton = new DialogButton(context);
-        positiveButton.setInvers(true);
+        positiveButton.setDefaultButton(true);
         positiveButton.setVisibility(GONE);
 
         positiveButton.setOnClickListener(new OnClickListener()

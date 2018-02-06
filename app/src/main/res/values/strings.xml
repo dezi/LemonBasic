@@ -30,7 +30,7 @@
     <string name="logoff_info2">All loaded contents will be deleted.</string>
     <string name="logoff_logoff">Log out</string>
 
-    <string name="ask_download_title">Load this contnt now?</string>
+    <string name="ask_download_title">Load this content now?</string>
     <string name="ask_download_info">Do you want to download and view the content or just load and view at a different time?</string>
     <string name="ask_download_load_and_view">Load\nand view</string>
     <string name="ask_download_only_load">Load and\nview later</string>

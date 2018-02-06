@@ -134,7 +134,23 @@ public class LoginDialog extends DialogView
 
         if (Defines.isSimpleLogin)
         {
-            ImageView loginButton = new FocusableImageView(getContext());
+            GenericImage loginButton = new GenericImage(getContext())
+            {
+                @Override
+                protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+                {
+                    //
+                    // This image needs to be square after scaling
+                    // to make the focus rectangle display nicely.
+                    //
+
+                    //noinspection SuspiciousNameCombination
+                    widthMeasureSpec = heightMeasureSpec;
+
+                    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+                }
+            };
+
             loginButton.setImageResource(R.drawable.lem_t_iany_generic_login_pfeil);
             loginButton.setScaleType(ImageView.ScaleType.FIT_START);
 
@@ -148,7 +164,7 @@ public class LoginDialog extends DialogView
         else
         {
             DialogButton loginButton = new DialogButton(getContext());
-            loginButton.setInvers(true);
+            loginButton.setDefaultButton(true);
             loginButton.setText(R.string.login_login);
             loginButton.setMarginTopDip(Defines.PADDING_NORMAL);
 
@@ -158,7 +174,7 @@ public class LoginDialog extends DialogView
 
             TextView alreadyRegistered = new TextView(getContext());
             alreadyRegistered.setText(R.string.login_already_registered);
-            alreadyRegistered.setTextColor(Color.WHITE);
+            alreadyRegistered.setTextColor(Defines.COLOR_DIALOG_INFOS);
             alreadyRegistered.setGravity(Gravity.CENTER_HORIZONTAL);
             alreadyRegistered.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
             Simple.setSizeDip(alreadyRegistered, Simple.MP, Simple.WC);
@@ -169,7 +185,7 @@ public class LoginDialog extends DialogView
 
             TextView passForgotten = new TextView(getContext());
             passForgotten.setText(R.string.login_password_forgotten);
-            passForgotten.setTextColor(Color.WHITE);
+            passForgotten.setTextColor(Defines.COLOR_DIALOG_INFOS);
             passForgotten.setGravity(Gravity.CENTER_HORIZONTAL);
             passForgotten.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_LIGHT));
             passForgotten.setPaintFlags(passForgotten.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);

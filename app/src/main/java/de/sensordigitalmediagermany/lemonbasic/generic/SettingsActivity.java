@@ -306,7 +306,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         GenericButton passwordButton = new GenericButton(this);
         passwordButton.setText(R.string.settings_change_password);
-        passwordButton.setInvers(true);
+        passwordButton.setDefaultButton(true);
 
         passwordButton.setOnClickListener(new View.OnClickListener()
         {

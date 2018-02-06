@@ -3,16 +3,15 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 @SuppressLint("AppCompatCustomView")
-public class FocusableImageView extends ImageView
+public class GenericImage extends ImageView
 {
-    private static final String LOGTAG = FocusableImageView.class.getSimpleName();
+    private static final String LOGTAG = GenericImage.class.getSimpleName();
 
-    public FocusableImageView(Context context)
+    public GenericImage(Context context)
     {
         super(context);
 
@@ -22,7 +21,9 @@ public class FocusableImageView extends ImageView
             // Image needs to be able to display the focus.
             //
 
-            setPadding(1, 1, 1, 1);
+            setFocusable(true);
+
+            Simple.setPaddingDip(this,2);
 
             setOnFocusChangeListener(new OnFocusChangeListener()
             {
@@ -31,28 +32,28 @@ public class FocusableImageView extends ImageView
                 {
                     if (hasfocus)
                     {
+                        //
+                        // Dismiss any keyboard.
+                        //
+
+                        Simple.hideSoftKeyBoard(view);
+
+                        //
+                        // Display yellow frame around image.
+                        //
+
                         Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Color.YELLOW);
                     }
                     else
                     {
+                        //
+                        // Make neutral again.
+                        //
+
                         setBackgroundColor(Color.TRANSPARENT);
                     }
                 }
             });
         }
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        Log.d(LOGTAG, "onMeasure:"
-                + " width=" + MeasureSpec.getSize(widthMeasureSpec)
-                + " height=" + MeasureSpec.getSize(heightMeasureSpec)
-        );
-
-        //noinspection SuspiciousNameCombination
-        widthMeasureSpec = heightMeasureSpec;
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

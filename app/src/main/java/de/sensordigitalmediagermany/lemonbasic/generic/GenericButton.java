@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.annotation.SuppressLint;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.graphics.Typeface;
@@ -16,7 +17,7 @@ public class GenericButton extends TextView
     {
         super(context);
 
-        setInvers(false);
+        setDefaultButton(false);
         setSingleLine(true);
         setFullWidth(true);
         setTypeface(getDefaultTypeface());
@@ -26,6 +27,45 @@ public class GenericButton extends TextView
         Simple.setTextSizeDip(this, getFontSize());
         Simple.setLetterSpacing(this, getLetterSpacing());
         Simple.setPaddingDip(this, Defines.PADDING_SMALL);
+
+        if (Simple.isTV())
+        {
+            //
+            // Image needs to be able to display the focus.
+            //
+
+            setFocusable(true);
+
+            setOnFocusChangeListener(new OnFocusChangeListener()
+            {
+                @Override
+                public void onFocusChange(View view, boolean hasfocus)
+                {
+                    if (hasfocus)
+                    {
+                        //
+                        // Dismiss any keyboard.
+                        //
+
+                        Simple.hideSoftKeyBoard(view);
+
+                        //
+                        // Display yellow frame around image.
+                        //
+
+                        Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Color.YELLOW);
+                    }
+                    else
+                    {
+                        //
+                        // Make neutral again.
+                        //
+
+                        setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
+            });
+        }
     }
 
     public int getFontSize()
@@ -76,7 +116,7 @@ public class GenericButton extends TextView
         return TypeFaces.getTypeface(getContext(), getFontName());
     }
 
-    public void setInvers(boolean set)
+    public void setDefaultButton(boolean set)
     {
         if (set)
         {
