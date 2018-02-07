@@ -43,6 +43,7 @@ public class ContentBaseActivity extends FullScreenActivity
         super.onCreate(savedInstanceState);
 
         contentFrame = new LinearLayout(this);
+        contentFrame.setFocusable(false);
         contentFrame.setOrientation(LinearLayout.VERTICAL);
         contentFrame.setBackgroundColor(Defines.COLOR_CONTENT);
         Simple.setSizeDip(contentFrame, Simple.MP, Simple.MP);
@@ -101,7 +102,6 @@ public class ContentBaseActivity extends FullScreenActivity
 
             ScaledButton profileButton = new ScaledButton(this);
 
-            profileButton.setFocusable(! Defines.isTabBar);
             profileButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid);
 
             if (Globals.accountId > 0)
@@ -109,14 +109,17 @@ public class ContentBaseActivity extends FullScreenActivity
                 String username = Globals.firstName + " " + Globals.lastName;
                 profileButton.setButtonText(Defines.PADDING_XLARGE, username);
 
-                profileButton.setOnButtonClicked(new Runnable()
+                if (Defines.isUserMenu)
                 {
-                    @Override
-                    public void run()
+                    profileButton.setOnButtonClicked(new Runnable()
                     {
-                        showProfileMenu();
-                    }
-                });
+                        @Override
+                        public void run()
+                        {
+                            showProfileMenu();
+                        }
+                    });
+                }
             }
 
             headerFrame.addView(profileButton);
@@ -180,6 +183,7 @@ public class ContentBaseActivity extends FullScreenActivity
         //
 
         naviFrame = new LinearLayout(this);
+        naviFrame.setFocusable(false);
         naviFrame.setOrientation(LinearLayout.HORIZONTAL);
         naviFrame.setBackgroundColor(Defines.COLOR_NAVIBAR);
 
@@ -231,7 +235,6 @@ public class ContentBaseActivity extends FullScreenActivity
 
         assetGrid = new GridView(this);
 
-        assetGrid.setFocusable(false);
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
         assetGrid.setColumnWidth(GridView.AUTO_FIT);
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);

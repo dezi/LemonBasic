@@ -110,7 +110,7 @@ public class Simple
         int width = getDeviceWidth(context);
         int height = getDeviceHeight(context);
 
-        iswide = (width / height) >= (16 / 9);
+        iswide = (width / (float) height) > (4 / 3f);
     }
 
     public static boolean isWideScreen()
@@ -308,11 +308,18 @@ public class Simple
 
         if (solid)
         {
+            //
+            // Make focusable views remember
+            // their background color.
+            //
+
+            view.setBackgroundColor(color);
+
             shape.setColor(color);
         }
         else
         {
-            shape.setStroke(2, color);
+            shape.setStroke(dipToPx(2), color);
         }
 
         view.setBackground(shape);
@@ -324,8 +331,14 @@ public class Simple
         shape.setCornerRadius(dipToPx(radiusdip));
 
         shape.setColor(innerColor);
-        shape.setStroke(2, strokeColor);
+        shape.setStroke(dipToPx(2), strokeColor);
 
+        //
+        // Make focusable views remember
+        // their background color.
+        //
+
+        view.setBackgroundColor(innerColor);
         view.setBackground(shape);
     }
 
@@ -343,11 +356,18 @@ public class Simple
 
         if (solid)
         {
+            //
+            // Make focusable views remember
+            // their background color.
+            //
+
+            view.setBackgroundColor(color);
+
             shape.setColor(color);
         }
         else
         {
-            shape.setStroke(2, color);
+            shape.setStroke(dipToPx(2), color);
         }
 
         view.setBackground(shape);

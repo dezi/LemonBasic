@@ -11,14 +11,18 @@ import android.graphics.Color;
 import android.view.Gravity;
 
 @SuppressLint("AppCompatCustomView")
-public class GenericButton extends TextView
+public class GenericButton extends TextView implements GenericFocus
 {
+    private boolean focusable = false;
+    private int backgroundColor = Color.TRANSPARENT;
+
     private boolean isDefaultButton;
 
     public GenericButton(Context context)
     {
         super(context);
 
+        setFocusable(true);
         setDefaultButton(false);
         setSingleLine(true);
         setFullWidth(true);
@@ -29,58 +33,6 @@ public class GenericButton extends TextView
         Simple.setTextSizeDip(this, getFontSize());
         Simple.setLetterSpacing(this, getLetterSpacing());
         Simple.setPaddingDip(this, Defines.PADDING_SMALL);
-
-        if (Simple.isTV())
-        {
-            //
-            // Image needs to be able to display the focus.
-            //
-
-            setFocusable(true);
-
-            setOnFocusChangeListener(new OnFocusChangeListener()
-            {
-                @Override
-                public void onFocusChange(View view, boolean hasfocus)
-                {
-                    if (hasfocus)
-                    {
-                        //
-                        // Dismiss any keyboard.
-                        //
-
-                        Simple.hideSoftKeyBoard(view);
-
-                        //
-                        // Display yellow frame.
-                        //
-
-                        if (isDefaultButton)
-                        {
-                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, Defines.COLOR_TV_FOCUS);
-                        }
-                        else
-                        {
-                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_TV_FOCUS, false);
-                        }                    }
-                    else
-                    {
-                        //
-                        // Make neutral again.
-                        //
-
-                        if (isDefaultButton)
-                        {
-                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
-                        }
-                        else
-                        {
-                            Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
-                        }
-                    }
-                }
-            });
-        }
     }
 
     public int getFontSize()
@@ -151,5 +103,35 @@ public class GenericButton extends TextView
     public void setMarginTopDip(int margin)
     {
         Simple.setMarginTopDip(this, margin);
+    }
+
+    @Override
+    public int getBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        backgroundColor = color;
+
+        super.setBackgroundColor(color);
+    }
+
+    @Override
+    public boolean getFocusable()
+    {
+        return focusable;
+    }
+
+    @Override
+    public void setFocusable(boolean focusable)
+    {
+        this.focusable = focusable;
+
+        super.setFocusable(focusable);
+
+        Generic.setupFocusChange(this, focusable);
     }
 }

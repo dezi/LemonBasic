@@ -8,55 +8,51 @@ import android.view.View;
 import android.widget.ImageView;
 
 @SuppressLint("AppCompatCustomView")
-public class GenericImage extends ImageView
+public class GenericImage extends ImageView implements GenericFocus
 {
-    private static final String LOGTAG = GenericImage.class.getSimpleName();
+    private boolean focusable = false;
+    private int backgroundColor = Color.TRANSPARENT;
 
     public GenericImage(Context context)
     {
         super(context);
+    }
 
-        if (Simple.isTV())
-        {
-            //
-            // Image needs to be able to display the focus.
-            //
+    @Override
+    public int getBackgroundColor()
+    {
+        return backgroundColor;
+    }
 
-            setFocusable(true);
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        backgroundColor = color;
 
-            Simple.setPaddingDip(this,2);
+        super.setBackgroundColor(color);
+    }
 
-            setOnFocusChangeListener(new OnFocusChangeListener()
-            {
-                @Override
-                public void onFocusChange(View view, boolean hasfocus)
-                {
-                    Log.d(LOGTAG, "onFocusChange: hasfocus=" + hasfocus);
+    @Override
+    public boolean getFocusable()
+    {
+        return focusable;
+    }
 
-                    if (hasfocus)
-                    {
-                        //
-                        // Dismiss any keyboard.
-                        //
+    @Override
+    public void setFocusable(boolean focusable)
+    {
+        this.focusable = focusable;
 
-                        Simple.hideSoftKeyBoard(view);
+        super.setFocusable(focusable);
 
-                        //
-                        // Display focus frame around image.
-                        //
+        Generic.setupFocusChange(this, focusable);
+    }
 
-                        Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
-                    }
-                    else
-                    {
-                        //
-                        // Make neutral again.
-                        //
+    @Override
+    public void setOnClickListener(View.OnClickListener onClickListener)
+    {
+       super.setOnClickListener(onClickListener);
 
-                        view.setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }
-            });
-        }
+       setFocusable(onClickListener != null);
     }
 }

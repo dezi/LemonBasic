@@ -89,6 +89,7 @@ public class SettingsActivity extends ContentBaseActivity
         //region Body frames.
 
         bodyHorz = new LinearLayout(this);
+        bodyHorz.setFocusable(false);
         Simple.setSizeDip(bodyHorz, Simple.MP, Simple.MP, 1.0f);
 
         if (Simple.isTablet())

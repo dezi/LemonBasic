@@ -25,6 +25,7 @@ public class SettingsDetail extends LinearLayout
     protected FrameLayout imageFrame;
     protected ImageView contentImage;
     protected ImageView typeIcon;
+    protected GenericButton deleteButton;
 
     public SettingsDetail(Context context)
     {
@@ -42,7 +43,7 @@ public class SettingsDetail extends LinearLayout
 
         if (Defines.isCompactSettings)
         {
-            if (! Simple.isTablet())
+            if (!Simple.isTablet())
             {
                 setBackgroundColor(Defines.COLOR_FRAMES);
 
@@ -66,7 +67,6 @@ public class SettingsDetail extends LinearLayout
 
         Typeface headerTF = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SETTINGS_HEADER);
         Typeface infosTF = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SETTINGS_INFOS);
-        Typeface buttonsTF = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_BUTTON);
 
         //region Top area.
 
@@ -91,8 +91,6 @@ public class SettingsDetail extends LinearLayout
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(backButtonImage, Defines.SETTINGS_BACK_SIZE, Simple.MP);
 
-        backButtonImage.requestFocus();
-
         if (Defines.isCompactSettings)
         {
             Simple.setPaddingDip(backButtonImage, Defines.PADDING_TINY);
@@ -109,7 +107,7 @@ public class SettingsDetail extends LinearLayout
 
         topArea.addView(backButtonImage);
 
-        if ((! Simple.isTablet()) || ! Defines.isCompactSettings)
+        if ((!Simple.isTablet()) || !Defines.isCompactSettings)
         {
             TextView contentTitle = new TextView(getContext());
             contentTitle.setText(R.string.settings_detail_title);
@@ -130,7 +128,7 @@ public class SettingsDetail extends LinearLayout
 
         //region Title.
 
-        if (! Defines.isCompactSettings)
+        if (!Defines.isCompactSettings)
         {
             TextView titleSection = new TextView(getContext());
             titleSection.setText(Json.getString(content, "category"));
@@ -178,7 +176,7 @@ public class SettingsDetail extends LinearLayout
         Simple.setSizeDip(miscArea, Simple.MP, Simple.MP);
         Simple.setMarginTopDip(miscArea, Defines.PADDING_NORMAL);
 
-        if (Defines.isCompactDetails && ! Simple.isTablet())
+        if (Defines.isCompactDetails && !Simple.isTablet())
         {
             miscArea.setBackgroundColor(Color.WHITE);
 
@@ -201,7 +199,7 @@ public class SettingsDetail extends LinearLayout
         specsArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(specsArea, Simple.MP, Simple.MP);
 
-        if (! Defines.isCompactSettings)
+        if (!Defines.isCompactSettings)
         {
             specsArea.setBackgroundColor(Color.WHITE);
             Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
@@ -234,7 +232,8 @@ public class SettingsDetail extends LinearLayout
         int typeResid = R.string.detail_specs_type_unknown;
 
         if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
-        if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO)
+            typeResid = R.string.detail_specs_type_video;
         if (content_type == Defines.CONTENT_TYPE_ZIP) typeResid = R.string.detail_specs_type_zip;
 
         String typeText = Simple.getTrans(getContext(), typeResid);
@@ -267,8 +266,7 @@ public class SettingsDetail extends LinearLayout
                     + " " + Simple.getEmDash() + " "
                     + quantText
                     + " " + Simple.getEmDash() + " "
-                    + sizeText
-                    ;
+                    + sizeText;
 
             TableLikeLayout wideView = new TableLikeLayout(getContext(), infosTF, infosTF);
             wideView.setLeftText(R.string.settings_specs_file);
@@ -330,9 +328,12 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(deleteArea);
 
-        TextView deleteButton = new GenericButton(getContext());
+        deleteButton = new GenericButton(getContext());
         deleteButton.setText(R.string.settings_detail_delete);
+        deleteButton.setDefaultButton(true);
         Simple.setSizeDip(deleteButton, Simple.WC, Simple.WC);
+
+        deleteButton.requestFocus();
 
         if (Defines.isCompactSettings)
         {
@@ -361,22 +362,35 @@ public class SettingsDetail extends LinearLayout
             public void onClick(View view)
             {
                 AppCompatActivity activity = ApplicationBase.getCurrentActivity(view.getContext());
+                if (!(activity instanceof SettingsActivity)) return;
 
-                if (activity instanceof FullScreenActivity)
-                {
-                    ViewGroup topframe = ((FullScreenActivity) activity).topFrame;
+                ViewGroup topframe = ((SettingsActivity) activity).topFrame;
 
-                    DialogView.yesnoAlert(topframe, R.string.alert_settings_delete_title,
-                            Simple.getTrans(view.getContext(), R.string.alert_settings_delete_info),
-                            new OnClickListener()
+                DialogView.yesnoAlert(topframe, R.string.alert_settings_delete_title,
+                        Simple.getTrans(view.getContext(), R.string.alert_settings_delete_info),
+                        new OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View view)
                             {
-                                @Override
-                                public void onClick(View view)
+                                deleteContent();
+                            }
+                        },
+                        new OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                ApplicationBase.handler.post(new Runnable()
                                 {
-                                    deleteContent();
-                                }
-                            });
-                }
+                                    @Override
+                                    public void run()
+                                    {
+                                        deleteButton.requestFocus();
+                                    }
+                                });
+                            }
+                        });
             }
         });
 
@@ -422,25 +436,33 @@ public class SettingsDetail extends LinearLayout
 
     private void deleteContent()
     {
-        boolean ok = ContentHandler.deleteCachedFile(content);
+        final boolean ok = ContentHandler.deleteCachedFile(content);
 
-        AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
+        final AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
 
         if (activity instanceof SettingsActivity)
         {
-            ViewGroup topframe = ((SettingsActivity) activity).topFrame;
-
-            DialogView.errorAlert(topframe, R.string.alert_settings_delete_oktitle,
-                    Simple.getTrans(getContext(), ok
-                            ? R.string.alert_settings_delete_ok
-                            : R.string.alert_settings_delete_fail));
-
             if (ok)
             {
                 ((SettingsActivity) activity).removeContent(content);
 
                 goBack();
             }
+
+            ViewGroup topframe = ((SettingsActivity) activity).topFrame;
+
+            DialogView.errorAlert(topframe, R.string.alert_settings_delete_oktitle,
+                    Simple.getTrans(getContext(), ok
+                            ? R.string.alert_settings_delete_ok
+                            : R.string.alert_settings_delete_fail),
+                    new OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View view)
+                        {
+                            if (! ok) deleteButton.requestFocus();
+                        }
+                    });
         }
     }
 

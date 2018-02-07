@@ -1,12 +1,11 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.graphics.Typeface;
-import android.view.Gravity;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
+import android.view.Gravity;
 import android.view.View;
 
 public class ScaledButton extends GenericLinear
@@ -36,17 +35,11 @@ public class ScaledButton extends GenericLinear
     public void setContent(View parent, Rect rect, int imageresid)
     {
         setLayoutParams(Simple.getScaledLayout(parent, rect, imageresid));
-
-        setOnTouchListener(onButtonTouch);
-        setOnClickListener(onButtonClick);
     }
 
     public void setContentHorz(View parent, Rect rect, int imageresid)
     {
         setLayoutParams(Simple.getScaledHorzLayout(parent, rect, imageresid));
-
-        setOnTouchListener(onButtonTouch);
-        setOnClickListener(onButtonClick);
     }
 
     public void setButtonText(int padleft, int textresid)
@@ -66,6 +59,9 @@ public class ScaledButton extends GenericLinear
     public void setOnButtonClicked(Runnable onButtonClicked)
     {
         this.onButtonClicked = onButtonClicked;
+
+        setOnTouchListener(onButtonTouch);
+        setOnClickListener(onButtonClick);
     }
 
     private final View.OnTouchListener onButtonTouch = new View.OnTouchListener()

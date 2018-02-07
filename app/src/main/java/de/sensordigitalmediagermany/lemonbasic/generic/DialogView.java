@@ -2,6 +2,8 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -42,7 +44,15 @@ public class DialogView extends RelativeLayout
         dialogView.setInfoText(msgstr);
 
         dialogView.setPositiveButton(R.string.button_ok, onokclick);
-        dialogView.positiveButton.requestFocus();
+
+        ApplicationBase.handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                dialogView.positiveButton.requestFocus();
+            }
+        });
 
         if (Simple.isUIThread())
         {
@@ -61,19 +71,30 @@ public class DialogView extends RelativeLayout
         }
     }
 
-    public static void yesnoAlert(final ViewGroup rootView, int titleres, String msgstr, View.OnClickListener onokclick)
+    public static void yesnoAlert(final ViewGroup rootView, int titleres, String msgstr,
+                                  View.OnClickListener onyesclick,
+                                  View.OnClickListener onnoclick)
     {
         final DialogView dialogView = new DialogView(rootView.getContext());
 
-        dialogView.setCloseButton(true, null);
+        dialogView.setCloseButton(true, onnoclick);
 
         Simple.setRoundedCorners(dialogView.marginView, Defines.CORNER_RADIUS_DIALOG, Defines.COLOR_ALERT_BACK, true);
 
         dialogView.setTitleText(titleres);
         dialogView.setInfoText(msgstr);
 
-        dialogView.setPositiveButton(R.string.button_ok, onokclick);
-        dialogView.setNegativeButton(R.string.button_cancel, null);
+        dialogView.setPositiveButton(R.string.button_ok, onyesclick);
+        dialogView.setNegativeButton(R.string.button_cancel, onnoclick);
+
+        ApplicationBase.handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                dialogView.positiveButton.requestFocus();
+            }
+        });
 
         if (Simple.isUIThread())
         {
@@ -267,16 +288,16 @@ public class DialogView extends RelativeLayout
             @Override
             public void onClick(View view)
             {
-                if (negativeButtonOnClick != null)
-                {
-                    negativeButtonOnClick.onClick(DialogView.this);
-                }
-
                 ViewGroup parent = (ViewGroup) DialogView.this.getParent();
 
                 if (parent != null)
                 {
                     parent.removeView(DialogView.this);
+                }
+
+                if (negativeButtonOnClick != null)
+                {
+                    negativeButtonOnClick.onClick(DialogView.this);
                 }
             }
         });
@@ -292,21 +313,51 @@ public class DialogView extends RelativeLayout
             @Override
             public void onClick(View view)
             {
-                if (positiveButtonOnClick != null)
-                {
-                    positiveButtonOnClick.onClick(DialogView.this);
-                }
-
                 ViewGroup parent = (ViewGroup) DialogView.this.getParent();
 
                 if (parent != null)
                 {
                     parent.removeView(DialogView.this);
                 }
+
+                if (positiveButtonOnClick != null)
+                {
+                    positiveButtonOnClick.onClick(DialogView.this);
+                }
             }
         });
 
         buttonFrame.addView(positiveButton);
+    }
+
+    @Override
+    public void onAttachedToWindow()
+    {
+        super.onAttachedToWindow();
+
+        AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
+
+        if (activity instanceof FullScreenActivity)
+        {
+            Log.d(LOGTAG, "onAttachedToWindow: saveFocusableViews.");
+
+            ((FullScreenActivity) activity).saveFocusableViews(this);
+        }
+    }
+
+    @Override
+    public void onDetachedFromWindow()
+    {
+        super.onDetachedFromWindow();
+
+        AppCompatActivity activity = ApplicationBase.getCurrentActivity(getContext());
+
+        if (activity instanceof FullScreenActivity)
+        {
+            Log.d(LOGTAG, "onDetachedFromWindow: restoreFocusableViews.");
+
+            ((FullScreenActivity) activity).restoreFocusableViews();
+        }
     }
 
     private void initFonts()

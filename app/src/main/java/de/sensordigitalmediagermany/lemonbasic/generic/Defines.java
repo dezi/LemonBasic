@@ -45,6 +45,7 @@ public class Defines
     public static final boolean isLoginButton      = isRainerAlbers;
     public static final boolean isSimpleLogin      = false; //isPierreCardin;
     public static final boolean isRegistration     = false; //isRainerAlbers;
+    public static final boolean isUserMenu         = isRainerAlbers;
     public static final boolean isTabBar           = isPierreCardin;
     public static final boolean isTopBanner        = isPierreCardin;
     public static final boolean isCategoryMenu     = isRainerAlbers;
@@ -336,10 +337,11 @@ public class Defines
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
-    public static final int TABBAR_HEIGHT       = Simple.isTablet() ?  60 :  48;
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 :  48;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
+
+    public static final int TABBAR_HEIGHT       = Simple.isWideScreen()? 48 : Simple.isTablet() ?  60 :  48;
     // @formatter:on
 
     // @formatter:off
@@ -440,9 +442,9 @@ public class Defines
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
 
             ASSET_THUMBNAIL_ASPECT  = Simple.isTablet() ? 1.30f : 1.00f;
-            ASSET_DETAIL_ASPECT     = Simple.isTablet() ? 3.20f : 3.20f;
             ASSET_COURSE_ASPECT     = Simple.isTablet() ? 6.00f : 3.40f;
 
+            ASSET_DETAIL_ASPECT     = Simple.isWideScreen() ? 4.00f : Simple.isTablet() ? 3.20f : 3.20f;
             ASSET_SETTINGS_ASPECT   = Simple.isWideScreen() ? 5.00f : Simple.isTablet() ? 3.00f : 3.00f;
             ASSET_BANNER_ASPECT     = Simple.isWideScreen() ? 4.80f : Simple.isTablet() ? 3.20f : 2.20f;
 

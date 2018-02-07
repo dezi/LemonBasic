@@ -9,36 +9,22 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 
 @SuppressLint("AppCompatCustomView")
-public class GenericEdit extends EditText
+public class GenericEdit extends EditText implements GenericFocus
 {
+    private boolean focusable = false;
+    private int backgroundColor = Color.TRANSPARENT;
+
     public GenericEdit(Context context)
     {
         super(context);
 
+        setFocusable(true);
         setMatchParent(true);
         setTypeface(getDefaultTypeface());
 
         Simple.setPaddingDip(this,Defines.PADDING_SMALL);
         Simple.setTextSizeDip(this, getFontSize());
         Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
-
-        setOnFocusChangeListener(new OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View view, boolean hasfocus)
-            {
-                if (Simple.isTV())
-                {
-                    if (hasfocus)
-                    {
-                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, Defines.COLOR_TV_FOCUS);
-                    } else
-                    {
-                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.WHITE, true);
-                    }
-                }
-            }
-        });
     }
 
     public int getFontSize()
@@ -80,5 +66,56 @@ public class GenericEdit extends EditText
         //
 
         setTypeface(getDefaultTypeface());
+    }
+
+    @Override
+    public int getBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        backgroundColor = color;
+
+        super.setBackgroundColor(color);
+    }
+
+    @Override
+    public boolean getFocusable()
+    {
+        return focusable;
+    }
+
+    @Override
+    public void setFocusable(boolean focusable)
+    {
+        this.focusable = focusable;
+
+        super.setFocusable(focusable);
+
+        if (focusable && Simple.isTV())
+        {
+            setOnFocusChangeListener(new OnFocusChangeListener()
+            {
+                @Override
+                public void onFocusChange(View view, boolean hasfocus)
+                {
+                    if (hasfocus)
+                    {
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_TV_FOCUS);
+                    }
+                    else
+                    {
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, backgroundColor, true);
+                    }
+                }
+            });
+        }
+        else
+        {
+            setOnFocusChangeListener(null);
+        }
     }
 }

@@ -11,8 +11,11 @@ import android.content.Context;
 import android.graphics.Typeface;
 
 @SuppressLint("AppCompatCustomView")
-public abstract class GenericText extends TextView
+public abstract class GenericText extends TextView implements GenericFocus
 {
+    private boolean focusable = false;
+    private int backgroundColor = Color.TRANSPARENT;
+
     public GenericText(Context context)
     {
         super(context);
@@ -31,25 +34,6 @@ public abstract class GenericText extends TextView
         super.setOnClickListener(onClickListener);
 
         setFocusable(true);
-
-        setOnFocusChangeListener(new OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View view, boolean hasfocus)
-            {
-                if (Simple.isTV())
-                {
-                    if (hasfocus)
-                    {
-                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
-                    }
-                    else
-                    {
-                        view.setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }
-            }
-        });
     }
 
     public abstract int getFontSize();
@@ -105,5 +89,52 @@ public abstract class GenericText extends TextView
     public void setMarginTopDip(int margin)
     {
         Simple.setMarginTopDip(this, margin);
+    }
+
+    @Override
+    public int getBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        backgroundColor = color;
+
+        super.setBackgroundColor(color);
+    }
+
+    @Override
+    public boolean getFocusable()
+    {
+        return focusable;
+    }
+
+    @Override
+    public void setFocusable(boolean focusable)
+    {
+        this.focusable = focusable;
+
+        super.setFocusable(focusable);
+
+        setOnFocusChangeListener(new OnFocusChangeListener()
+        {
+            @Override
+            public void onFocusChange(View view, boolean hasfocus)
+            {
+                if (Simple.isTV())
+                {
+                    if (hasfocus)
+                    {
+                        Simple.setRoundedCorners(view, 0, backgroundColor, Defines.COLOR_TV_FOCUS);
+                    }
+                    else
+                    {
+                        view.setBackgroundColor(backgroundColor);
+                    }
+                }
+            }
+        });
     }
 }

@@ -27,7 +27,7 @@ public class DetailActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = DetailActivity.class.getSimpleName();
 
-    protected TextView buyButton;
+    protected GenericButton buyButton;
     protected ImageView downloadButton;
     protected ImageView statusIcon;
     protected TableLikeLayout statusView;
@@ -96,9 +96,18 @@ public class DetailActivity extends ContentBaseActivity
 
         if (Defines.isCompactDetails)
         {
-            Simple.setPaddingDip(imageFrame,
-                    Defines.PADDING_LARGE, Defines.PADDING_TINY,
-                    Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+            if (Simple.isWideScreen())
+            {
+                Simple.setPaddingDip(imageFrame,
+                        Defines.PADDING_ZERO, Defines.PADDING_ZERO,
+                        Defines.PADDING_ZERO, Defines.PADDING_SMALL);
+            }
+            else
+            {
+                Simple.setPaddingDip(imageFrame,
+                        Defines.PADDING_LARGE, Defines.PADDING_TINY,
+                        Defines.PADDING_LARGE, Defines.PADDING_LARGE);
+            }
         }
 
         Log.d(LOGTAG, "onCreate: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
@@ -171,33 +180,47 @@ public class DetailActivity extends ContentBaseActivity
 
         //region Detail description area.
 
-        ScrollView descScroll = new ScrollView(this);
-        Simple.setPaddingDip(descScroll, Defines.PADDING_NORMAL);
-        Simple.setRoundedCorners(descScroll, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
-
-        if (Simple.isTablet())
-        {
-            Simple.setSizeDip(descScroll, Simple.MP, Simple.MP, 0.3f);
-            infoAreaHorz.addView(descScroll);
-        }
-        else
-        {
-            Simple.setSizeDip(descScroll, Simple.MP, Simple.WC);
-            infoAreaVert.addView(descScroll, 0);
-        }
-
         LinearLayout descFrame = new LinearLayout(this);
         descFrame.setOrientation(LinearLayout.VERTICAL);
 
-        descScroll.addView(descFrame);
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(descFrame, Simple.MP, Simple.MP, 0.3f);
+            infoAreaHorz.addView(descFrame);
+        }
+        else
+        {
+            Simple.setSizeDip(descFrame, Simple.MP, Simple.WC);
+            infoAreaVert.addView(descFrame, 0);
+        }
+
+        GenericScrollVert descScroll = new GenericScrollVert(this);
+        descScroll.setSizeDependendFocusable(true);
+        descScroll.setBackgroundColor(Defines.COLOR_FRAMES);
+        Simple.setPaddingDip(descScroll, Defines.PADDING_NORMAL);
+        Simple.setRoundedCorners(descScroll, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+
+        descFrame.addView(descScroll);
+
+        LinearLayout descScrollContent = new LinearLayout(this);
+        descScrollContent.setOrientation(LinearLayout.VERTICAL);
+
+        descScroll.addView(descScrollContent);
 
         if (Defines.isCompactDetails)
         {
+            if (Simple.isWideScreen())
+            {
+                contentFrame.removeView(imageFrame);
+                descFrame.addView(imageFrame, 0);
+                Simple.setSizeDip(descScroll, Simple.MP, Simple.MP);
+            }
+
             naviFrame.removeView(ctView);
             naviFrame.removeView(ciView);
 
-            descFrame.addView(ctView);
-            descFrame.addView(ciView);
+            descScrollContent.addView(ctView);
+            descScrollContent.addView(ciView);
         }
 
         TextView chView = new TextView(this);
@@ -208,7 +231,7 @@ public class DetailActivity extends ContentBaseActivity
         Simple.setTextSizeDip(chView, Defines.FS_DETAIL_TITLE);
         Simple.setSizeDip(chView, Simple.MP, Simple.WC);
 
-        descFrame.addView(chView);
+        if (! Simple.isEmpty(contentHeader)) descScrollContent.addView(chView);
 
         TextView cdView = new TextView(this);
         cdView.setText(contentDescription);
@@ -219,12 +242,15 @@ public class DetailActivity extends ContentBaseActivity
         Simple.setTextSizeDip(cdView, Defines.FS_DETAIL_INFOS);
         Simple.setSizeDip(cdView, Simple.WC, Simple.WC);
 
-        descFrame.addView(cdView);
+        if (! Simple.isEmpty(contentDescription)) descScrollContent.addView(cdView);
 
         if (Defines.isCompactDetails)
         {
-            Simple.setMarginTopDip(ctView, Defines.PADDING_NORMAL);
-            Simple.setMarginTopDip(chView, Defines.PADDING_LARGE);
+            if (! Simple.isWideScreen())
+            {
+                Simple.setMarginTopDip(ctView, Defines.PADDING_NORMAL);
+                Simple.setMarginTopDip(chView, Defines.PADDING_LARGE);
+            }
         }
         else
         {
@@ -492,13 +518,11 @@ public class DetailActivity extends ContentBaseActivity
             downloadButton.setVisibility(GONE);
         }
 
-        buyButton = new TextView(this);
-        buyButton.setTextColor(Color.WHITE);
+        buyButton = new GenericButton(this);
+        buyButton.setDefaultButton(true);
         buyButton.setGravity(Gravity.CENTER_HORIZONTAL);
-        buyButton.setTypeface(buttonsTF);
-        buyButton.setAllCaps(Defines.isButtonAllCaps);
-        Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
+
+        buyButton.requestFocus();
 
         if (Simple.isTablet())
         {
@@ -622,7 +646,7 @@ public class DetailActivity extends ContentBaseActivity
         {
             int content_type = Json.getInt(Globals.displayContent, "content_type");
 
-            if ((content_type == Defines.CONTENT_TYPE_PDF) && Defines.isPDFExternal)
+            if ((content_type == Defines.CONTENT_TYPE_PDF) && Defines.isPDFExternal && ! Simple.isTV())
             {
                 File file = ContentHandler.getCachedFile(Globals.displayContent);
 
@@ -704,6 +728,8 @@ public class DetailActivity extends ContentBaseActivity
 
                 askdialog.setPositiveButton(R.string.ask_download_only_load, startDownload);
                 askdialog.positiveButton.setSingleLine(false);
+
+                askdialog.positiveButton.requestFocus();
 
                 if (!Simple.isTablet())
                 {

@@ -2,16 +2,20 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.annotation.SuppressLint;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
 import android.content.Context;
 import android.util.Log;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 import android.view.Display;
 import android.view.View;
 import android.os.Bundle;
+
+import java.util.ArrayList;
 
 @SuppressLint("Registered")
 public class FullScreenActivity extends AppCompatActivity
@@ -116,4 +120,56 @@ public class FullScreenActivity extends AppCompatActivity
             ApplicationBase.handler.postDelayed(focusDump, 2000);
         }
     };
+
+    private ArrayList<View> focusableViews;
+    private View excludeView;
+
+    public void saveFocusableViews(View exclude)
+    {
+        excludeView = exclude;
+
+        focusableViews = new ArrayList<>();
+
+        saveFocusableViewsRecurse(topFrame);
+    }
+
+    public void restoreFocusableViews()
+    {
+        if (focusableViews != null)
+        {
+            for (View view : focusableViews)
+            {
+                //Log.d(LOGTAG, "restoreFocusableViewsRunner: view=" + view);
+
+                view.setFocusable(true);
+            }
+
+            focusableViews = null;
+        }
+    }
+
+    private void saveFocusableViewsRecurse(View view)
+    {
+        if (view instanceof ViewGroup)
+        {
+            ViewGroup vg = (ViewGroup) view;
+
+            for (int inx = 0; inx < vg.getChildCount(); inx++)
+            {
+                View child = vg.getChildAt(inx);
+
+                if (child == excludeView) continue;
+
+                if (Generic.canFocus(child))
+                {
+                    //Log.d(LOGTAG, "saveFocusableViewsRecurse: view=" + view);
+
+                    focusableViews.add(child);
+                    child.setFocusable(false);
+                }
+
+                saveFocusableViewsRecurse(child);
+            }
+        }
+    }
 }

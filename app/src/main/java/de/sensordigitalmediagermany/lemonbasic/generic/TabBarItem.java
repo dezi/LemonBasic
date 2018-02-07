@@ -29,30 +29,9 @@ public class TabBarItem extends RelativeLayout
 
         Simple.setSizeDip(this, Simple.MP, dipheight, 1.0f);
 
-        itemBox = new LinearLayout(context);
+        itemBox = new GenericLinear(context);
         itemBox.setOrientation(LinearLayout.HORIZONTAL);
-        itemBox.setFocusable(true);
-
         Simple.setSizeDip(itemBox, Simple.WC, Simple.MP);
-
-        itemBox.setOnFocusChangeListener(new OnFocusChangeListener()
-        {
-            @Override
-            public void onFocusChange(View view, boolean hasfocus)
-            {
-                if (Simple.isTV())
-                {
-                    if (hasfocus)
-                    {
-                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
-                    }
-                    else
-                    {
-                        view.setBackgroundColor(Color.TRANSPARENT);
-                    }
-                }
-            }
-        });
 
         addView(itemBox);
 

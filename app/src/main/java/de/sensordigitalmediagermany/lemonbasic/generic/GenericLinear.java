@@ -1,64 +1,55 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.view.View;
 import android.widget.LinearLayout;
 import android.content.Context;
 import android.graphics.Color;
-import android.view.View;
 
-public class GenericLinear extends LinearLayout
+public class GenericLinear extends LinearLayout implements GenericFocus
 {
+    private boolean focusable = false;
+    private int backgroundColor = Color.TRANSPARENT;
+
     public GenericLinear(Context context)
     {
         super(context);
     }
 
     @Override
+    public int getBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    @Override
+    public void setBackgroundColor(int color)
+    {
+        backgroundColor = color;
+
+        super.setBackgroundColor(color);
+    }
+
+    @Override
+    public boolean getFocusable()
+    {
+        return focusable;
+    }
+
+    @Override
     public void setFocusable(boolean focusable)
     {
+        this.focusable = focusable;
+
         super.setFocusable(focusable);
 
-        if (focusable)
-        {
-            Simple.setPaddingDip(this, 2);
+        Generic.setupFocusChange(this, focusable);
+    }
 
-            setOnFocusChangeListener(new OnFocusChangeListener()
-            {
-                @Override
-                public void onFocusChange(View view, boolean hasFocus)
-                {
-                    if (Simple.isTV())
-                    {
-                        if (hasFocus)
-                        {
-                            //
-                            // Dismiss any keyboard.
-                            //
+    @Override
+    public void setOnClickListener(View.OnClickListener onClickListener)
+    {
+        super.setOnClickListener(onClickListener);
 
-                            Simple.hideSoftKeyBoard(view);
-
-                            //
-                            // Display focus frame around image.
-                            //
-
-                            Simple.setRoundedCorners(view, 0, Color.TRANSPARENT, Defines.COLOR_TV_FOCUS);
-                        }
-                        else
-                        {
-                            //
-                            // Make neutral again.
-                            //
-
-                            view.setBackgroundColor(Color.TRANSPARENT);
-                        }
-                    }
-                }
-            });
-        }
-        else
-        {
-            Simple.setPaddingDip(this, 0);
-
-            setOnFocusChangeListener(null);
-        }
+        setFocusable(onClickListener != null);
     }
 }
