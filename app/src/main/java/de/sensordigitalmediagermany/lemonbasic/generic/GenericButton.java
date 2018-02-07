@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.annotation.SuppressLint;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -74,14 +75,16 @@ public class GenericButton extends TextView implements GenericFocus
 
         if (isDefaultButton)
         {
+            backgroundColor = Defines.COLOR_BUTTON_BACK;
             super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.WHITE : Color.BLACK);
-            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, true);
         }
         else
         {
+            backgroundColor = Color.TRANSPARENT;
             super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.BLACK : Color.WHITE);
-            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, Defines.COLOR_BUTTON_BACK, false);
         }
+
+        Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_BACK);
     }
 
     public void setFullWidth(boolean set)
@@ -132,6 +135,41 @@ public class GenericButton extends TextView implements GenericFocus
 
         super.setFocusable(focusable);
 
-        Generic.setupFocusChange(this, focusable);
+        if (focusable && Simple.isTV())
+        {
+            setOnFocusChangeListener(new View.OnFocusChangeListener()
+            {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus)
+                {
+                    if (hasFocus)
+                    {
+                        //
+                        // Dismiss any keyboard.
+                        //
+
+                        Simple.hideSoftKeyBoard(view);
+
+                        //
+                        // Display focus frame around image.
+                        //
+
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_TV_FOCUS);
+                    }
+                    else
+                    {
+                        //
+                        // Make neutral again.
+                        //
+
+                        Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_BACK);
+                    }
+                }
+            });
+        }
+        else
+        {
+            setOnFocusChangeListener(null);
+        }
     }
 }

@@ -70,7 +70,6 @@ public class TopBanners extends FrameLayout
         Simple.setSizeDip(scrollView, Simple.MP, Simple.MP);
 
         scrollView.setFocusable(false);
-        scrollView.setBackgroundColor(0x88880000);
 
         addView(scrollView);
 

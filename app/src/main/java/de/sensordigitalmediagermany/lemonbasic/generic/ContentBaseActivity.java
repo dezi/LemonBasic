@@ -33,7 +33,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected TopBanners topBanners;
     protected ScrollView categoryScroll;
     protected LinearLayout categoryContent;
-    protected GridView assetGrid;
+    protected AssetGridView assetGrid;
     protected AssetsAdapter assetsAdapter;
     protected TabBar tabBar;
 
@@ -233,7 +233,7 @@ public class ContentBaseActivity extends FullScreenActivity
         // Asset grid.
         //
 
-        assetGrid = new GridView(this);
+        assetGrid = new AssetGridView(this);
 
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
         assetGrid.setColumnWidth(GridView.AUTO_FIT);

@@ -266,8 +266,19 @@ public class AssetsAdapter extends BaseAdapter
             });
         }
 
+        //assetFrame.setOnFocusChangeListener(onFocusChangeListener);
+
         return assetFrame;
     }
+
+    private final View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener()
+    {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus)
+        {
+            Log.d(LOGTAG, "OnFocusChangeListener: view=" + view + " hasFocus=" + hasFocus);
+        }
+    };
 
     private View getViewContents(int position, View convertView, ViewGroup parent)
     {

@@ -313,8 +313,6 @@ public class Simple
             // their background color.
             //
 
-            view.setBackgroundColor(color);
-
             shape.setColor(color);
         }
         else
@@ -338,7 +336,6 @@ public class Simple
         // their background color.
         //
 
-        view.setBackgroundColor(innerColor);
         view.setBackground(shape);
     }
 
@@ -360,8 +357,6 @@ public class Simple
             // Make focusable views remember
             // their background color.
             //
-
-            view.setBackgroundColor(color);
 
             shape.setColor(color);
         }
