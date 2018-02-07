@@ -440,9 +440,10 @@ public class Defines
             SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
 
             ASSET_THUMBNAIL_ASPECT  = Simple.isTablet() ? 1.30f : 1.00f;
-            ASSET_SETTINGS_ASPECT   = Simple.isTablet() ? 3.00f : 3.00f;
             ASSET_DETAIL_ASPECT     = Simple.isTablet() ? 3.20f : 3.20f;
             ASSET_COURSE_ASPECT     = Simple.isTablet() ? 6.00f : 3.40f;
+
+            ASSET_SETTINGS_ASPECT   = Simple.isWideScreen() ? 5.00f : Simple.isTablet() ? 3.00f : 3.00f;
             ASSET_BANNER_ASPECT     = Simple.isWideScreen() ? 4.80f : Simple.isTablet() ? 3.20f : 2.20f;
 
             // @formatter:on

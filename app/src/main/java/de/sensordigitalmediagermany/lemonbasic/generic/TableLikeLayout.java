@@ -12,7 +12,6 @@ public class TableLikeLayout extends LinearLayout
     protected TextView leftText;
     protected TextView rightText;
 
-
     public TableLikeLayout(Context context)
     {
         this(context, null, null, false);

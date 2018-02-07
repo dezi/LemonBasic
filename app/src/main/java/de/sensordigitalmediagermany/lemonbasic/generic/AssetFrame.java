@@ -15,7 +15,7 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
-public class AssetFrame extends LinearLayout
+public class AssetFrame extends GenericLinear
 {
     private static final String LOGTAG = AssetFrame.class.getSimpleName();
 
@@ -59,8 +59,10 @@ public class AssetFrame extends LinearLayout
         Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_ASSET_TITLE);
         Typeface summaryFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_ASSET_SUMMARY);
 
-        this.setOrientation(LinearLayout.VERTICAL);
-        this.setBackgroundColor(Defines.COLOR_CONTENT);
+        setFocusable(true);
+
+        setOrientation(LinearLayout.VERTICAL);
+        setBackgroundColor(Defines.COLOR_CONTENT);
 
         //
         // Do NOT set layout params in top view
@@ -72,9 +74,9 @@ public class AssetFrame extends LinearLayout
 
         imageBox = new FrameLayout(getContext());
 
-        this.addView(imageBox);
+        addView(imageBox);
 
-        imageView = new GenericImage(getContext());
+        imageView = new ImageView(getContext());
         imageView.setId(android.R.id.content);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 

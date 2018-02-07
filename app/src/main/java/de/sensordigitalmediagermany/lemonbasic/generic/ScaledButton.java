@@ -9,7 +9,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class ScaledButton extends RelativeLayout
+public class ScaledButton extends GenericLinear
 {
     private static final String LOGTAG = ScaledButton.class.getSimpleName();
 

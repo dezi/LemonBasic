@@ -235,7 +235,7 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? new Rect(40, 24, 96, 80)
+                    ? new Rect(44, 26, 94, 76)
                     : new Rect(30, 24, 70, 64)
                     ;
         }
@@ -251,7 +251,7 @@ public class DefinesScreens extends Defines
         if (isPierreCardin)
         {
             return Simple.isTablet()
-                    ? new Rect(10, 10, 90, 90)
+                    ? new Rect(24, 6, 114, 96)
                     : new Rect(10, 10, 90, 90)
                     ;
         }

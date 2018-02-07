@@ -13,7 +13,7 @@ public class SettingsInfoHeader extends GenericText
 
         setTextColor(Color.BLACK);
         setAllCaps(Defines.isInfosAllCaps);
-        setMarginTopDip(Defines.PADDING_SMALL);
+        setMarginTopDip(Simple.isWideScreen() ? Defines.PADDING_TINY : Defines.PADDING_SMALL);
     }
 
     @Override

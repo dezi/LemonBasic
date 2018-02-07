@@ -78,8 +78,9 @@ public class ContentBaseActivity extends FullScreenActivity
         headerFrame.addView(backButtonImage);
 
         backButton = new ScaledButton(this);
-        backButton.setContentHorz(headerImage, DefinesScreens.getContentScreenBackButtonRect(), hdresid);
+
         backButton.setVisibility(View.GONE);
+        backButton.setContentHorz(headerImage, DefinesScreens.getContentScreenBackButtonRect(), hdresid);
 
         headerFrame.addView(backButton);
 
@@ -99,6 +100,8 @@ public class ContentBaseActivity extends FullScreenActivity
             headerFrame.addView(profileButtonImage);
 
             ScaledButton profileButton = new ScaledButton(this);
+
+            profileButton.setFocusable(! Defines.isTabBar);
             profileButton.setContentHorz(headerImage, DefinesScreens.getContentScreenButtonProfileRect(), hdresid);
 
             if (Globals.accountId > 0)
@@ -128,6 +131,7 @@ public class ContentBaseActivity extends FullScreenActivity
         if (naviRect != null)
         {
             navigationButton = new ScaledButton(this);
+
             navigationButton.setContentHorz(headerImage, naviRect, hdresid);
 
             headerFrame.addView(navigationButton);
@@ -186,6 +190,7 @@ public class ContentBaseActivity extends FullScreenActivity
         //
 
         categoryScroll = new ScrollView(this);
+        categoryScroll.setFocusable(false);
         categoryScroll.setVisibility(View.GONE);
         Simple.setSizeDip(categoryScroll, Simple.MP, Simple.MP, 1.0f);
 
@@ -226,6 +231,7 @@ public class ContentBaseActivity extends FullScreenActivity
 
         assetGrid = new GridView(this);
 
+        assetGrid.setFocusable(false);
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
         assetGrid.setColumnWidth(GridView.AUTO_FIT);
         assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
@@ -308,6 +314,7 @@ public class ContentBaseActivity extends FullScreenActivity
                 }
             });
             backButton.setVisibility(View.VISIBLE);
+            backButton.setFocusable(true);
         }
         else
         {
@@ -316,6 +323,7 @@ public class ContentBaseActivity extends FullScreenActivity
 
             backButton.setOnButtonClicked(null);
             backButton.setVisibility(View.GONE);
+            backButton.setFocusable(false);
         }
     }
 }

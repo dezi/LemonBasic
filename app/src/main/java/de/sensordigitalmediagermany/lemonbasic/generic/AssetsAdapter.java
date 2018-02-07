@@ -103,7 +103,9 @@ public class AssetsAdapter extends BaseAdapter
         }
         else
         {
-            assetFrame = new LinearLayout(parent.getContext());
+            assetFrame = new GenericLinear(parent.getContext());
+
+            assetFrame.setFocusable(true);
             assetFrame.setOrientation(LinearLayout.HORIZONTAL);
 
             //

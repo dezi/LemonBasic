@@ -152,12 +152,12 @@ public class Simple
 
     public static int dipToPx(int dp)
     {
-        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+        return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     public static int pxToDip(int px)
     {
-        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+        return Math.round(px / Resources.getSystem().getDisplayMetrics().density);
     }
 
     public static void setPaddingDip(View view, int pad)
@@ -183,6 +183,17 @@ public class Simple
         {
             view.setLetterSpacing(factor);
         }
+    }
+
+    public static void setSizeNODip(View view, int width, int height)
+    {
+        if (view.getLayoutParams() == null)
+        {
+            view.setLayoutParams(new LinearLayout.LayoutParams(WC, WC));
+        }
+
+        view.getLayoutParams().width = width;
+        view.getLayoutParams().height = height;
     }
 
     public static void setSizeDip(View view, int width, int height)
@@ -313,7 +324,7 @@ public class Simple
         shape.setCornerRadius(dipToPx(radiusdip));
 
         shape.setColor(innerColor);
-        shape.setStroke(dipToPx(2), strokeColor);
+        shape.setStroke(2, strokeColor);
 
         view.setBackground(shape);
     }
@@ -336,7 +347,7 @@ public class Simple
         }
         else
         {
-            shape.setStroke(dipToPx(2), color);
+            shape.setStroke(2, color);
         }
 
         view.setBackground(shape);
@@ -1247,5 +1258,10 @@ public class Simple
         {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public static String getEmDash()
+    {
+        return "-"; //"—";
     }
 }

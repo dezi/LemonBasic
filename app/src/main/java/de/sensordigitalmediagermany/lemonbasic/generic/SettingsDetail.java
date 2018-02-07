@@ -73,14 +73,25 @@ public class SettingsDetail extends LinearLayout
         LinearLayout topArea = new LinearLayout(getContext());
         topArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(topArea, Simple.MP, Simple.WC);
-        Simple.setPaddingDip(topArea, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
+
+        if (Simple.isWideScreen())
+        {
+            Simple.setPaddingDip(topArea, 0, Defines.PADDING_ZERO, 0, Defines.PADDING_ZERO);
+        }
+        else
+        {
+            Simple.setPaddingDip(topArea, 0, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL);
+        }
 
         addView(topArea);
 
-        ImageView backButtonImage = new ImageView(getContext());
+        ImageView backButtonImage = new GenericImage(getContext());
+        backButtonImage.setFocusable(true);
         backButtonImage.setImageResource(DefinesScreens.getArrowDarkLeftOnRes());
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(backButtonImage, Defines.SETTINGS_BACK_SIZE, Simple.MP);
+
+        backButtonImage.requestFocus();
 
         if (Defines.isCompactSettings)
         {
@@ -198,6 +209,8 @@ public class SettingsDetail extends LinearLayout
 
         miscArea.addView(specsArea);
 
+        //region Specs title area.
+
         TableLikeLayout titleView = new TableLikeLayout(getContext(), headerTF, headerTF);
 
         titleView.setLeftText(R.string.settings_specs_title);
@@ -212,10 +225,11 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(themeView);
 
-        specsArea.addView(createSeparator());
+        specsArea.addView(SettingsActivity.createSeparator(getContext()));
 
-        TableLikeLayout fileView = new TableLikeLayout(getContext(), infosTF, infosTF);
-        fileView.setLeftText(R.string.settings_specs_file);
+        //endregion Specs title area.
+
+        //region Specs info area.
 
         int typeResid = R.string.detail_specs_type_unknown;
 
@@ -223,61 +237,89 @@ public class SettingsDetail extends LinearLayout
         if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
         if (content_type == Defines.CONTENT_TYPE_ZIP) typeResid = R.string.detail_specs_type_zip;
 
-        fileView.setRightText(typeResid);
+        String typeText = Simple.getTrans(getContext(), typeResid);
 
-        specsArea.addView(fileView);
-
-        specsArea.addView(createSeparator());
-
-        TableLikeLayout quantView = new TableLikeLayout(getContext(), infosTF, infosTF);
-        quantView.setLeftText(R.string.settings_specs_quantity);
-
-        quantView.setRightText("-");
+        String quantText = "-";
 
         if (content_type == Defines.CONTENT_TYPE_PDF)
         {
-            quantView.setRightText(Simple.getTrans(getContext(),
+            quantText = Simple.getTrans(getContext(),
                     (file_duration == 1)
                             ? R.string.detail_specs_quantity_onepage
                             : R.string.detail_specs_quantity_pages,
-                    String.valueOf(file_duration)));
+                    String.valueOf(file_duration));
         }
 
         if ((content_type == Defines.CONTENT_TYPE_AUDIO) || (content_type == Defines.CONTENT_TYPE_VIDEO))
         {
             int minutes = 1 + (file_duration / 60);
 
-            quantView.setRightText(Simple.getTrans(getContext(),
+            quantText = Simple.getTrans(getContext(),
                     R.string.settings_specs_quantity_duration,
-                    String.valueOf(minutes)));
+                    String.valueOf(minutes));
         }
 
-        specsArea.addView(quantView);
+        String sizeText = Simple.formatBytes(file_size);
 
-        specsArea.addView(createSeparator());
-
-        TableLikeLayout sizeView = new TableLikeLayout(getContext(), infosTF, infosTF);
-        sizeView.setLeftText(R.string.settings_specs_size);
-
-        sizeView.setRightText(Simple.formatBytes(file_size));
-
-        specsArea.addView(sizeView);
-
-        specsArea.addView(createSeparator());
-
-        if (! Defines.isCompactSettings)
+        if (Simple.isWideScreen())
         {
-            TableLikeLayout seenView = new TableLikeLayout(getContext(), infosTF, infosTF);
-            seenView.setLeftText(R.string.settings_specs_seen);
+            String wideText = typeText
+                    + " " + Simple.getEmDash() + " "
+                    + quantText
+                    + " " + Simple.getEmDash() + " "
+                    + sizeText
+                    ;
 
-            seenView.setRightText(Simple.getTrans(getContext(),
-                    R.string.settings_specs_seen_date,
-                    "11.11.2011"));
+            TableLikeLayout wideView = new TableLikeLayout(getContext(), infosTF, infosTF);
+            wideView.setLeftText(R.string.settings_specs_file);
+            wideView.setRightText(wideText);
 
-            specsArea.addView(seenView);
+            specsArea.addView(wideView);
 
-            specsArea.addView(createSeparator());
+            specsArea.addView(SettingsActivity.createSeparator(getContext()));
         }
+        else
+        {
+            TableLikeLayout fileView = new TableLikeLayout(getContext(), infosTF, infosTF);
+            fileView.setLeftText(R.string.settings_specs_file);
+            fileView.setRightText(typeText);
+
+            specsArea.addView(fileView);
+
+            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+
+            TableLikeLayout quantView = new TableLikeLayout(getContext(), infosTF, infosTF);
+            quantView.setLeftText(R.string.settings_specs_quantity);
+            quantView.setRightText(quantText);
+
+            specsArea.addView(quantView);
+
+            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+
+            TableLikeLayout sizeView = new TableLikeLayout(getContext(), infosTF, infosTF);
+            sizeView.setLeftText(R.string.settings_specs_size);
+            sizeView.setRightText(sizeText);
+
+            specsArea.addView(sizeView);
+
+            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+
+            if (!Defines.isCompactSettings)
+            {
+                TableLikeLayout seenView = new TableLikeLayout(getContext(), infosTF, infosTF);
+                seenView.setLeftText(R.string.settings_specs_seen);
+
+                seenView.setRightText(Simple.getTrans(getContext(),
+                        R.string.settings_specs_seen_date,
+                        "11.11.2011"));
+
+                specsArea.addView(seenView);
+
+                specsArea.addView(SettingsActivity.createSeparator(getContext()));
+            }
+        }
+
+        //endregion Specs info area.
 
         //region Delete button.
 
@@ -288,13 +330,9 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(deleteArea);
 
-        TextView deleteButton = new TextView(getContext());
+        TextView deleteButton = new GenericButton(getContext());
         deleteButton.setText(R.string.settings_detail_delete);
-        deleteButton.setAllCaps(Defines.isButtonAllCaps);
-        deleteButton.setTextColor(Color.WHITE);
-        deleteButton.setTypeface(buttonsTF);
         Simple.setSizeDip(deleteButton, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(deleteButton, Defines.FS_SETTINGS_BUTTON);
 
         if (Defines.isCompactSettings)
         {
@@ -306,8 +344,6 @@ public class SettingsDetail extends LinearLayout
                 Simple.setSizeDip(deleteButton, Simple.MP, Simple.WC);
                 deleteButton.setGravity(Gravity.CENTER_HORIZONTAL);
             }
-
-            Simple.setRoundedCorners(deleteButton, Defines.CORNER_RADIUS_BUTTON, Color.BLACK, true);
         }
         else
         {
@@ -359,24 +395,6 @@ public class SettingsDetail extends LinearLayout
         super.onLayout(changed, l, t, r, b);
 
         ApplicationBase.handler.post(displayImage);
-    }
-
-    private RelativeLayout createSeparator()
-    {
-        RelativeLayout separ = new RelativeLayout(getContext());
-        separ.setBackgroundColor(Defines.isCompactSettings ? Color.BLACK : Color.LTGRAY);
-        Simple.setSizeDip(separ, Simple.MP, 1);
-
-        if (Simple.isTablet())
-        {
-            Simple.setMarginDip(separ, 0, Defines.PADDING_TINY, 0, Defines.PADDING_TINY);
-        }
-        else
-        {
-            Simple.setMarginDip(separ, 0, Defines.PADDING_NORMAL, 0, Defines.PADDING_NORMAL);
-        }
-
-        return separ;
     }
 
     private final Runnable displayImage = new Runnable()
