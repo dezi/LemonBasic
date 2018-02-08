@@ -223,7 +223,7 @@ public class SettingsDetail extends LinearLayout
 
         specsArea.addView(themeView);
 
-        specsArea.addView(SettingsActivity.createSeparator(getContext()));
+        specsArea.addView(SettingsActivity.createSeparatorDetail(getContext()));
 
         //endregion Specs title area.
 
@@ -274,7 +274,7 @@ public class SettingsDetail extends LinearLayout
 
             specsArea.addView(wideView);
 
-            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+            specsArea.addView(SettingsActivity.createSeparatorDetail(getContext()));
         }
         else
         {
@@ -284,7 +284,7 @@ public class SettingsDetail extends LinearLayout
 
             specsArea.addView(fileView);
 
-            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+            specsArea.addView(SettingsActivity.createSeparatorDetail(getContext()));
 
             TableLikeLayout quantView = new TableLikeLayout(getContext(), infosTF, infosTF);
             quantView.setLeftText(R.string.settings_specs_quantity);
@@ -292,7 +292,7 @@ public class SettingsDetail extends LinearLayout
 
             specsArea.addView(quantView);
 
-            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+            specsArea.addView(SettingsActivity.createSeparatorDetail(getContext()));
 
             TableLikeLayout sizeView = new TableLikeLayout(getContext(), infosTF, infosTF);
             sizeView.setLeftText(R.string.settings_specs_size);
@@ -300,7 +300,7 @@ public class SettingsDetail extends LinearLayout
 
             specsArea.addView(sizeView);
 
-            specsArea.addView(SettingsActivity.createSeparator(getContext()));
+            specsArea.addView(SettingsActivity.createSeparatorDetail(getContext()));
 
             if (!Defines.isCompactSettings)
             {
@@ -313,7 +313,7 @@ public class SettingsDetail extends LinearLayout
 
                 specsArea.addView(seenView);
 
-                specsArea.addView(SettingsActivity.createSeparator(getContext()));
+                specsArea.addView(SettingsActivity.createSeparatorDetail(getContext()));
             }
         }
 

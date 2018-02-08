@@ -38,6 +38,7 @@ public class AssetsAdapter extends BaseAdapter
 
     public void setOnAssetClickedHandler(OnAssetClickedHandler onAssetClickedHandler)
     {
+        notifyDataSetChanged();
         this.onAssetClickedHandler = onAssetClickedHandler;
     }
 
@@ -70,10 +71,8 @@ public class AssetsAdapter extends BaseAdapter
 
     private static Typeface settingsFont;
 
-    private View getViewSettings(int position, View convertView, ViewGroup parent)
+    private View getViewSettings(int position, View convertView, final ViewGroup parent)
     {
-        final GridView gridView = (GridView) parent;
-
         if (settingsFont == null)
         {
             settingsFont = Typeface.createFromAsset(parent.getContext().getAssets(), Defines.FONT_SETTINGS_LIST);
@@ -248,7 +247,7 @@ public class AssetsAdapter extends BaseAdapter
                 @Override
                 public void onClick(View view)
                 {
-                    openCourse(gridView, asset);
+                    openCourse(parent, asset);
                 }
             });
         }
@@ -261,29 +260,24 @@ public class AssetsAdapter extends BaseAdapter
                 @Override
                 public void onClick(View view)
                 {
-                    openContent(gridView, asset);
+                    openContent(parent, asset);
                 }
             });
         }
 
-        //assetFrame.setOnFocusChangeListener(onFocusChangeListener);
-
         return assetFrame;
     }
-
-    private final View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener()
-    {
-        @Override
-        public void onFocusChange(View view, boolean hasFocus)
-        {
-            Log.d(LOGTAG, "OnFocusChangeListener: view=" + view + " hasFocus=" + hasFocus);
-        }
-    };
 
     private View getViewContents(int position, View convertView, ViewGroup parent)
     {
         JSONObject asset = (JSONObject) getItem(position % assets.length());
-        int width = ((GridView) parent).getColumnWidth();
+
+        int width = parent.getWidth();
+
+        if (parent instanceof GridView)
+        {
+            width = ((GridView) parent).getColumnWidth();
+        }
 
         return AssetFrame.createAssetFrame(parent.getContext(), convertView, width, asset, onAssetClickedHandler);
     }

@@ -9,4 +9,7 @@ public interface GenericFocus
 
     void setBackgroundColor(int color);
     int getBackgroundColor();
+
+    View.OnFocusChangeListener getOnFocusChangeListener();
+    void setOnFocusChangeListener(View.OnFocusChangeListener onFocusChangeListener);
 }

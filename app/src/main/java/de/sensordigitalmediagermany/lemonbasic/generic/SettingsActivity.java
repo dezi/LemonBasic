@@ -3,8 +3,10 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.GridView;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout leftArea;
     protected LinearLayout rightArea;
     protected SettingsInfoHeader contentSizeMB;
+    protected GenericGridView listView;
 
     protected JSONArray actContent;
 
@@ -446,15 +449,21 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Right content area.
 
+        listView = new GenericGridView(this);
+        listView.setFocusable(false);
+        listView.setAdapter(assetsAdapter);
+        //listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        Simple.setSizeDip(listView, Simple.MP, Simple.MP);
+
         if (Defines.isSectionDividers)
         {
-            Simple.setMarginTopDip(assetGrid, Defines.PADDING_LARGE);
-            assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_NORMAL));
+            Simple.setMarginTopDip(listView, Defines.PADDING_LARGE);
+            listView.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_NORMAL));
         }
         else
         {
-            Simple.setMarginTopDip(assetGrid, 0);
-            assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_SMALL));
+            Simple.setMarginTopDip(listView, 0);
+            listView.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_SMALL));
 
             TextView contentSection = new TextView(this);
             contentSection.setText(R.string.settings_your_contents);
@@ -477,7 +486,7 @@ public class SettingsActivity extends ContentBaseActivity
         assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setPaddingDip(assetGrid, 0);
 
-        rightArea.addView(assetGrid);
+        rightArea.addView(listView);
 
         //endregion Right content area.
 
@@ -502,11 +511,21 @@ public class SettingsActivity extends ContentBaseActivity
 
     public static FrameLayout createSeparator(Context context)
     {
+        return createSeparator(context, false);
+    }
+
+    public static FrameLayout createSeparatorDetail(Context context)
+    {
+        return createSeparator(context, true);
+    }
+
+    public static FrameLayout createSeparator(Context context, boolean details)
+    {
         FrameLayout divider = new FrameLayout(context);
         divider.setBackgroundColor(Color.BLACK);
         Simple.setSizeNODip(divider, Simple.MP, 1);
 
-        if (Simple.isWideScreen())
+        if (Simple.isWideScreen() || details)
         {
             Simple.setMarginTopDip(divider, Defines.PADDING_TINY);
             Simple.setMarginBottomDip(divider, Defines.PADDING_TINY);
@@ -552,7 +571,7 @@ public class SettingsActivity extends ContentBaseActivity
                     {
                         if (Simple.isTablet())
                         {
-                            rightArea.removeView(assetGrid);
+                            rightArea.removeView(listView);
                             rightArea.addView(detailView);
                         }
                         else
@@ -589,6 +608,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB.setText(Simple.formatBytes(total));
 
+        listView.buildContent();
         assetsAdapter.notifyDataSetChanged();
     }
 
@@ -615,9 +635,9 @@ public class SettingsActivity extends ContentBaseActivity
         {
             if (Simple.isTablet())
             {
-                if (assetGrid.getParent() == null)
+                if (listView.getParent() == null)
                 {
-                    rightArea.addView(assetGrid);
+                    rightArea.addView(listView);
                 }
             }
             else
