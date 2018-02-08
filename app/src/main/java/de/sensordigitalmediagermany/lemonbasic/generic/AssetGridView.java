@@ -8,6 +8,8 @@ public class AssetGridView extends GridView
     public AssetGridView(Context context)
     {
         super(context);
+
+        setFocusable(false);
     }
 
     public int getTotalHeight()

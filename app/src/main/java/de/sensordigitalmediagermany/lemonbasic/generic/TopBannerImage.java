@@ -23,9 +23,12 @@ public class TopBannerImage extends FrameLayout
     private int imageHeight;
 
     private ImageView contentImage;
-    private LinearLayout infoContent;
+    private GenericLinear infoContent;
     private TextView infoTitle;
     private TextView infoSummary;
+    private GenericButton moreButton;
+
+    private OnClickListener onClickListener;
 
     public TopBannerImage(Context context)
     {
@@ -59,7 +62,7 @@ public class TopBannerImage extends FrameLayout
 
         addView(infoCenter);
 
-        infoContent = new LinearLayout(context);
+        infoContent = new GenericLinear(context);
         infoContent.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(infoContent, Simple.MP, Simple.WC);
 
@@ -67,7 +70,6 @@ public class TopBannerImage extends FrameLayout
 
         Typeface titleFont = Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_ASSET_TITLE);
         Typeface summaryFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_ASSET_SUMMARY);
-        Typeface buttonFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_BUTTON);
 
         infoTitle = new TextView(context);
         infoTitle.setSingleLine(true);
@@ -93,12 +95,9 @@ public class TopBannerImage extends FrameLayout
 
         infoContent.addView(infoSummary);
 
-        TextView moreButton = new TextView(context);
-        moreButton.setAllCaps(true);
-        moreButton.setBackgroundColor(Color.BLACK);
-        moreButton.setTextColor(Color.WHITE);
-        moreButton.setTypeface(buttonFont);
+        moreButton = new GenericButton(context);
         moreButton.setText(R.string.banner_more_button);
+        moreButton.setDefaultButton(true);
 
         Simple.setSizeDip(moreButton, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(moreButton, Defines.FS_BANNER_BUTTON);
@@ -129,7 +128,7 @@ public class TopBannerImage extends FrameLayout
                         contentImage, bannerUrl,
                         imageWidth, imageHeight, false));
 
-        infoContent.setOnClickListener(new OnClickListener()
+        onClickListener = new OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -145,15 +144,22 @@ public class TopBannerImage extends FrameLayout
                     Simple.startActivity(getContext(), DetailActivity.class);
                 }
             }
-        });
+        };
 
-        infoContent.setOnFocusChangeListener(new OnFocusChangeListener()
+        infoContent.setFocusable(false);
+    }
+
+    public void allowFocus(boolean set)
+    {
+        if (Simple.isTV())
         {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus)
-            {
-                Log.d(LOGTAG, "onFocusChange: hasFocus=" + hasFocus + " view=" + view);
-            }
-        });
+            moreButton.setFocusable(set);
+            moreButton.setOnClickListener(set ? onClickListener : null);
+        }
+        else
+        {
+            infoContent.setFocusable(set);
+            infoContent.setOnClickListener(set ? onClickListener : null);
+        }
     }
 }

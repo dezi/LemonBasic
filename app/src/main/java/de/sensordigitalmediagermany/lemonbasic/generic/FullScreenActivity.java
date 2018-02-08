@@ -117,6 +117,11 @@ public class FullScreenActivity extends AppCompatActivity
         {
             Log.d(LOGTAG, "focusDump: view=" + FullScreenActivity.this.getCurrentFocus());
 
+            if (FullScreenActivity.this.getCurrentFocus() != null)
+            {
+                //FullScreenActivity.this.getCurrentFocus().setBackgroundColor(0x88880000);
+            }
+
             ApplicationBase.handler.postDelayed(focusDump, 2000);
         }
     };

@@ -55,7 +55,7 @@ public class TopBanners extends FrameLayout
         // Add scroll views.
         //
 
-        scrollView = new HorizontalScrollView(getContext())
+        scrollView = new GenericScrollHorz(getContext())
         {
             @Override
             @SuppressLint("ClickableViewAccessibility")
@@ -65,11 +65,22 @@ public class TopBanners extends FrameLayout
 
                 return super.onTouchEvent(motionEvent);
             }
+
+            @Override
+            protected void onScrollChanged(int left, int top, int oldleft, int oldtop)
+            {
+                super.onScrollChanged(left, top, oldleft, oldtop);
+
+                xDirTouch = (left > oldleft) ? -1 : 1;
+
+                getHandler().removeCallbacks(adjustArrows);
+                getHandler().removeCallbacks(adjustScroll);
+
+                getHandler().post(adjustScroll);
+            }
         };
 
         Simple.setSizeDip(scrollView, Simple.MP, Simple.MP);
-
-        scrollView.setFocusable(false);
 
         addView(scrollView);
 
@@ -177,7 +188,10 @@ public class TopBanners extends FrameLayout
             int leftrest = xoffset % bannerWidth;
             int rightrest = bannerWidth - leftrest;
 
-            scrollView.smoothScrollBy((xDirTouch > 0) ? -leftrest : rightrest, 0);
+            if (leftrest != 0)
+            {
+                scrollView.smoothScrollBy((xDirTouch > 0) ? -leftrest : rightrest, 0);
+            }
 
             getHandler().postDelayed(adjustArrows, 300);
         }
@@ -207,6 +221,17 @@ public class TopBanners extends FrameLayout
         }
     }
 
+    private final Runnable adjustScroll = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            onTouchEventCustomEnded.run();
+            getHandler().removeCallbacks(adjustArrows);
+            adjustArrows.run();
+        }
+    };
+
     private final Runnable adjustArrows = new Runnable()
     {
         @Override
@@ -218,6 +243,13 @@ public class TopBanners extends FrameLayout
 
             arrowLeftIcon.setVisibility((current > 0) ? VISIBLE : INVISIBLE);
             arrowRightIcon.setVisibility((current < (assets.length() - 1)) ? VISIBLE : INVISIBLE);
+
+            for (int inx = 0; inx < scrollContent.getChildCount(); inx++)
+            {
+                TopBannerImage banner = (TopBannerImage) scrollContent.getChildAt(inx);
+
+                banner.allowFocus(inx == current);
+            };
         }
     };
 }
