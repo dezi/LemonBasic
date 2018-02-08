@@ -3,10 +3,9 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.GridView;
 import android.view.ViewGroup;
@@ -33,6 +32,8 @@ public class SettingsActivity extends ContentBaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        Log.d(LOGTAG, "onCreate.");
+
         super.onCreate(savedInstanceState);
 
         setBackButton(true);
@@ -452,7 +453,6 @@ public class SettingsActivity extends ContentBaseActivity
         listView = new GenericGridView(this);
         listView.setFocusable(false);
         listView.setAdapter(assetsAdapter);
-        //listView.setDivider(new ColorDrawable(Color.TRANSPARENT));
         Simple.setSizeDip(listView, Simple.MP, Simple.MP);
 
         if (Defines.isSectionDividers)
@@ -608,8 +608,9 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB.setText(Simple.formatBytes(total));
 
-        listView.buildContent();
         assetsAdapter.notifyDataSetChanged();
+
+        listView.updateContent();
     }
 
     public void removeContent(JSONObject content)

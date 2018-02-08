@@ -32,6 +32,8 @@ public class GenericGridView extends ScrollView implements GenericFocus
     {
         super(context);
 
+        Log.d(LOGTAG, "GenericGridView: new.");
+
         contentView = new FrameLayout(context);
         Simple.setSizeDip(contentView, Simple.MP, Simple.WC);
 
@@ -56,7 +58,15 @@ public class GenericGridView extends ScrollView implements GenericFocus
     }
 
     private final Map<Object, View> views = new HashMap<>();
+    private Map<View, Integer> vpose = new HashMap<>();
     private final Map<Object, OnFocusChangeListener> focse = new HashMap<>();
+
+    public void updateContent()
+    {
+        buildContent();
+
+        invalidate();
+    }
 
     public void buildContent()
     {
@@ -75,8 +85,7 @@ public class GenericGridView extends ScrollView implements GenericFocus
             {
                 view = adapter.getView(inx, null, this);
 
-                MarginLayoutParams lp = new MarginLayoutParams(Simple.MP, Simple.WC);
-                view.setLayoutParams(lp);
+                view.setLayoutParams(new MarginLayoutParams(Simple.MP, Simple.WC));
 
                 if (Simple.isTV())
                 {
@@ -96,6 +105,10 @@ public class GenericGridView extends ScrollView implements GenericFocus
                 contentView.addView(view);
             }
         }
+
+        contentView.invalidate();
+
+        dirty = true;
 
         Log.d(LOGTAG, "buildContent: done.");
     }
@@ -118,13 +131,19 @@ public class GenericGridView extends ScrollView implements GenericFocus
             child = contentView.getChildAt(inx);
             height = child.getHeight();
 
+            Log.d(LOGTAG, "positionContent: ypos=" + ypos + " height=" + height);
+
             lp = (MarginLayoutParams) child.getLayoutParams();
 
             lp.leftMargin = xpos;
             lp.topMargin = ypos;
 
+            child.setLayoutParams(lp);
+
             ypos += height + verticalSpacing;
         }
+
+        dirty = false;
 
         Log.d(LOGTAG, "positionContent: done.");
     }
@@ -134,7 +153,7 @@ public class GenericGridView extends ScrollView implements GenericFocus
     {
         super.onLayout(changed, l, t, r, b);
 
-        if (changed) positionContent();
+        if (changed || dirty) positionContent();
     }
 
     private View.OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener()
