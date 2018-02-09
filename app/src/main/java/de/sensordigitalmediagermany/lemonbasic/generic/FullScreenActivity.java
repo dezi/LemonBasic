@@ -75,7 +75,7 @@ public class FullScreenActivity extends AppCompatActivity
 
         ApplicationBase.setCurrentActivity(this);
 
-        ApplicationBase.handler.postDelayed(focusDump, 2000);
+        //ApplicationBase.handler.postDelayed(focusDump, 2000);
     }
 
     @Override

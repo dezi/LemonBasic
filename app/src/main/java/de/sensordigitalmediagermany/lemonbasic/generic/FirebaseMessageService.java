@@ -30,6 +30,11 @@ public class FirebaseMessageService extends FirebaseMessagingService
         super.onCreate();
 
         Log.d(LOGTAG, "onCreate...");
+
+        if (Simple.isTV())
+        {
+            Simple.startActivity(getBaseContext(), MainActivity.class);
+        }
     }
 
     @Override

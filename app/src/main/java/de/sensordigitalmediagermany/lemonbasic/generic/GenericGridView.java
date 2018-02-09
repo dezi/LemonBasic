@@ -16,7 +16,6 @@ public class GenericGridView extends ScrollView implements GenericFocus
     private static final String LOGTAG = GenericGridView.class.getSimpleName();
 
     private FrameLayout contentView;
-    private View focusedChild;
     private BaseAdapter adapter;
 
     private int horizontalSpacing;
@@ -25,6 +24,7 @@ public class GenericGridView extends ScrollView implements GenericFocus
 
     private boolean dirty;
 
+    private int focusedIndex = -1;
     private boolean focusable = false;
     private int backgroundColor = Color.TRANSPARENT;
 
@@ -45,11 +45,39 @@ public class GenericGridView extends ScrollView implements GenericFocus
     {
         super.onAttachedToWindow();
 
-        if (focusedChild != null)
-        {
-            focusedChild.requestFocus();
-        }
+        getHandler().post(restoreFocused);
     }
+
+    private final Runnable restoreFocused = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            if (adapter != null)
+            {
+                if (focusedIndex >= adapter.getCount())
+                {
+                    focusedIndex = adapter.getCount() - 1;
+                }
+
+                if (focusedIndex >= 0)
+                {
+                    Object item = adapter.getItem(focusedIndex);
+
+                    if (item != null)
+                    {
+                        View view = views.get(item);
+
+                        if (view != null)
+                        {
+                            Log.d(LOGTAG, "onAttachedToWindow: focusedIndex=" + focusedIndex + " view=" + view);
+                            view.requestFocus();
+                        }
+                    }
+                }
+            }
+        }
+    };
 
     @Override
     public void onDetachedFromWindow()
@@ -57,9 +85,9 @@ public class GenericGridView extends ScrollView implements GenericFocus
         super.onDetachedFromWindow();
     }
 
-    private final Map<Object, View> views = new HashMap<>();
+    private Map<Object, View> views = new HashMap<>();
     private Map<View, Integer> vpose = new HashMap<>();
-    private final Map<Object, OnFocusChangeListener> focse = new HashMap<>();
+    private Map<Object, OnFocusChangeListener> focse = new HashMap<>();
 
     public void updateContent()
     {
@@ -73,6 +101,8 @@ public class GenericGridView extends ScrollView implements GenericFocus
         Log.d(LOGTAG, "buildContent: start...");
 
         contentView.removeAllViews();
+
+        Map<Object, View> newvs = new HashMap<>();
 
         int itemcount = adapter.getCount();
 
@@ -101,13 +131,15 @@ public class GenericGridView extends ScrollView implements GenericFocus
                         gf.setOnFocusChangeListener(onFocusChangeListener);
                     }
                 }
-
-                contentView.addView(view);
             }
+
+            newvs.put(item, view);
+            vpose.put(view, inx);
+
+            contentView.addView(view);
         }
 
-        contentView.invalidate();
-
+        views = newvs;
         dirty = true;
 
         Log.d(LOGTAG, "buildContent: done.");
@@ -163,7 +195,8 @@ public class GenericGridView extends ScrollView implements GenericFocus
         {
             if (hasFocus)
             {
-                focusedChild = view;
+                Integer index = vpose.get(view);
+                focusedIndex = (index == null) ? -1 : index;
             }
 
             if (view instanceof GenericFocus)

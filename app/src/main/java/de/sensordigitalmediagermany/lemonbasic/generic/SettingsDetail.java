@@ -442,13 +442,6 @@ public class SettingsDetail extends LinearLayout
 
         if (activity instanceof SettingsActivity)
         {
-            if (ok)
-            {
-                ((SettingsActivity) activity).removeContent(content);
-
-                goBack();
-            }
-
             ViewGroup topframe = ((SettingsActivity) activity).topFrame;
 
             DialogView.errorAlert(topframe, R.string.alert_settings_delete_oktitle,
@@ -460,7 +453,16 @@ public class SettingsDetail extends LinearLayout
                         @Override
                         public void onClick(View view)
                         {
-                            if (! ok) deleteButton.requestFocus();
+                            if (ok)
+                            {
+                                ((SettingsActivity) activity).removeContent(content);
+
+                                goBack();
+                            }
+                            else
+                            {
+                                deleteButton.requestFocus();
+                            }
                         }
                     });
         }
