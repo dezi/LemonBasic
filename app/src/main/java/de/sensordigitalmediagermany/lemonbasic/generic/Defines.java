@@ -62,6 +62,7 @@ public class Defines
     public static final boolean isAskDownload      = isPierreCardin;
     public static final boolean isCourseIcon       = isRainerAlbers;
     public static final boolean isLoadedIcon       = isRainerAlbers;
+    public static final boolean isStatusIcon       = isPierreCardin;
     public static final boolean isKaysNumbers      = isPierreCardin || isRainerAlbers;
     public static final boolean isKaysHorzScroll   = isPierreCardin;
     public static final boolean isAutoRefresh      = isPierreCardin;
@@ -329,11 +330,12 @@ public class Defines
     // @formatter:off
     public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // static!
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
+    public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  36 :  24;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;
     public static final int SETTINGS_BACK_SIZE  = Simple.isTablet() ?  24 :  20;
     public static final int QUESTION_CHECK_SIZE = Simple.isTablet() ?  30 :  24;
     public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  16;
-    public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  40 :  30;
+    public static final int LOADED_ICON_SIZE    = Simple.isTablet() ?  40 :  30;
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;

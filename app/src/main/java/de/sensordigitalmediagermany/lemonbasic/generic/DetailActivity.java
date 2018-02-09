@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.content.Intent;
 import android.graphics.Color;
@@ -376,7 +375,7 @@ public class DetailActivity extends ContentBaseActivity
 
             statusIcon = new ImageView(this);
             statusIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Simple.setSizeDip(statusIcon, Defines.STATUS_ICON_SIZE, Defines.STATUS_ICON_SIZE);
+            Simple.setSizeDip(statusIcon, Defines.LOADED_ICON_SIZE, Defines.LOADED_ICON_SIZE);
             Simple.setPaddingDip(statusIcon, Defines.PADDING_TINY);
             Simple.setMarginRightDip(statusIcon, Defines.PADDING_SMALL);
 

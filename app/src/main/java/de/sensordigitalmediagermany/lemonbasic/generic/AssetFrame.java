@@ -128,11 +128,12 @@ public class AssetFrame extends GenericLinear
 
         overlayBar.addView(ownedView);
 
+        int iconsize = Defines.isStatusIcon? Defines.STATUS_ICON_SIZE : Defines.READ_ICON_SIZE;
+
         loadedView = new ImageView(getContext());
         loadedView.setId(android.R.id.icon2);
-        loadedView.setImageResource(DefinesScreens.getReadMarkerRes());
         loadedView.setScaleType(ImageView.ScaleType.FIT_END);
-        Simple.setSizeDip(loadedView, Simple.MP, Defines.READ_ICON_SIZE + (Defines.PADDING_SMALL * 2));
+        Simple.setSizeDip(loadedView, Simple.MP, iconsize + (Defines.PADDING_SMALL * 2));
         Simple.setPaddingDip(loadedView, Defines.PADDING_SMALL);
 
         imageBox.addView(loadedView);
@@ -228,6 +229,7 @@ public class AssetFrame extends GenericLinear
         String thumburl = Json.getString(asset, "thumbnail_url");
 
         boolean isCourse = Json.getBoolean(asset, "_isCourse");
+        boolean isOwned;
 
         Simple.setSizeDip(imageBox, Simple.MP, Simple.pxToDip(imageHeight));
         Simple.setSizeDip(imageView, Simple.MP, Simple.pxToDip(imageHeight));
@@ -274,23 +276,7 @@ public class AssetFrame extends GenericLinear
                 }
             });
 
-            if (ContentHandler.isCachedContent(asset))
-            {
-                if (Defines.isLoadedIcon)
-                {
-                    loadedView.setVisibility(View.VISIBLE);
-                }
-            }
-            else
-            {
-                if (ContentHandler.isCourseBought(id))
-                {
-                    if (! Defines.isGiveAway)
-                    {
-                        ownedView.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
+            isOwned = ContentHandler.isCourseBought(id);
         }
         else
         {
@@ -333,21 +319,30 @@ public class AssetFrame extends GenericLinear
                 }
             });
 
-            if (ContentHandler.isCachedContent(asset))
+            isOwned = ContentHandler.isContentBought(id);
+        }
+
+        if (ContentHandler.isCachedContent(asset))
+        {
+            if (Defines.isLoadedIcon)
             {
-                if (Defines.isLoadedIcon)
-                {
-                    loadedView.setVisibility(View.VISIBLE);
-                }
+                loadedView.setImageResource(DefinesScreens.getReadMarkerRes());
+                loadedView.setVisibility(View.VISIBLE);
             }
-            else
+        }
+        else
+        {
+            if (Defines.isStatusIcon)
             {
-                if (ContentHandler.isContentBought(id))
+                loadedView.setImageResource(DefinesScreens.getStatusNewMarkerRes());
+                loadedView.setVisibility(View.VISIBLE);
+            }
+
+            if (isOwned)
+            {
+                if (! Defines.isGiveAway)
                 {
-                    if (! Defines.isGiveAway)
-                    {
-                        ownedView.setVisibility(View.VISIBLE);
-                    }
+                    ownedView.setVisibility(View.VISIBLE);
                 }
             }
         }

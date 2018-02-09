@@ -86,6 +86,14 @@ public class DefinesScreens extends Defines
                 ;
     }
 
+    public static int getStatusNewMarkerRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_generic_inhalt_new
+                : R.drawable.lem_t_iany_generic_inhalt_new
+                ;
+    }
+
     public static int getSplashScreenRes()
     {
         if (isPierreCardin)
