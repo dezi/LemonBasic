@@ -130,6 +130,10 @@ public class GenericGridView extends ScrollView implements GenericFocus
 
             if (view == null)
             {
+                //
+                // Create new view.
+                //
+
                 view = adapter.getView(inx, null, this);
 
                 view.setLayoutParams(new MarginLayoutParams(Simple.MP, Simple.WC));
@@ -148,6 +152,14 @@ public class GenericGridView extends ScrollView implements GenericFocus
                         gf.setOnFocusChangeListener(onFocusChangeListener);
                     }
                 }
+            }
+            else
+            {
+                //
+                // Reuse old view and thus update status etc.
+                //
+
+                view = adapter.getView(inx, null, this);
             }
 
             newvs.put(item, view);

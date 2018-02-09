@@ -807,8 +807,12 @@ public class DetailActivity extends ContentBaseActivity
 
             boolean doDisplay = (activity instanceof DetailActivity) && (id_current == id_loaded) && shouldDisplay;
 
+            Log.d(LOGTAG, "onFileLoadedHandler: hier.");
+
             if (activity instanceof ContentBaseActivity)
             {
+                Log.d(LOGTAG, "onFileLoadedHandler: da.");
+
                 ContentBaseActivity cbactivity = (ContentBaseActivity) activity;
 
                 cbactivity.assetsAdapter.notifyDataSetChanged();
