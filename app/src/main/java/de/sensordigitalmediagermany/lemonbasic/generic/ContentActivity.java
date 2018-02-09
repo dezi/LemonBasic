@@ -205,7 +205,7 @@ public class ContentActivity extends ContentBaseActivity
         public void run()
         {
             assetsAdapter.setAssets(ContentHandler.getFilteredContent());
-            assetsAdapter.notifyDataSetChanged();
+            assetGrid.updateContent();
         }
     };
 }

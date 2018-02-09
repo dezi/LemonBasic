@@ -20,10 +20,11 @@ public class GenericGridView extends ScrollView implements GenericFocus
 
     private int horizontalSpacing;
     private int verticalSpacing;
-    private int numColumns;
+    private int columnWidth;
 
     private boolean dirty;
 
+    private int numColumns = 1;
     private int focusedIndex = -1;
     private boolean focusable = false;
     private int backgroundColor = Color.TRANSPARENT;
@@ -91,12 +92,28 @@ public class GenericGridView extends ScrollView implements GenericFocus
 
     public void updateContent()
     {
-        buildContent();
-
-        invalidate();
+        ApplicationBase.handler.postDelayed(updateRunner, 10);
     }
 
-    public void buildContent()
+    private final Runnable updateRunner = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            if (columnWidth > 0)
+            {
+                buildContent();
+
+                invalidate();
+            }
+            else
+            {
+                ApplicationBase.handler.postDelayed(updateRunner, 10);
+            }
+        }
+    };
+
+    private void buildContent()
     {
         Log.d(LOGTAG, "buildContent: start...");
 
@@ -145,7 +162,7 @@ public class GenericGridView extends ScrollView implements GenericFocus
         Log.d(LOGTAG, "buildContent: done.");
     }
 
-    public void positionContent()
+    private void positionContent()
     {
         Log.d(LOGTAG, "positionContent: start...");
 
@@ -163,16 +180,26 @@ public class GenericGridView extends ScrollView implements GenericFocus
             child = contentView.getChildAt(inx);
             height = child.getHeight();
 
-            Log.d(LOGTAG, "positionContent: ypos=" + ypos + " height=" + height);
+            //Log.d(LOGTAG, "positionContent: xpos=" + xpos + " ypos=" + ypos);
+            //Log.d(LOGTAG, "positionContent: width=" + columnWidth + " height=" + height);
 
             lp = (MarginLayoutParams) child.getLayoutParams();
 
+            lp.width = columnWidth;
             lp.leftMargin = xpos;
             lp.topMargin = ypos;
 
             child.setLayoutParams(lp);
 
-            ypos += height + verticalSpacing;
+            if (((inx + 1) % numColumns) == 0)
+            {
+                ypos += height + verticalSpacing;
+                xpos = 0;
+            }
+            else
+            {
+                xpos += columnWidth + horizontalSpacing;
+            }
         }
 
         dirty = false;
@@ -186,6 +213,21 @@ public class GenericGridView extends ScrollView implements GenericFocus
         super.onLayout(changed, l, t, r, b);
 
         if (changed || dirty) positionContent();
+    }
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+
+        int nettoWidth = widthSize - getPaddingLeft() - getPaddingRight();
+        columnWidth = (nettoWidth - (numColumns - 1) * verticalSpacing) / numColumns;
+
+        Log.d(LOGTAG, "onMeasure:" + " widthMode=" + widthMode + " widthSize=" + widthSize);
+        Log.d(LOGTAG, "onMeasure:" + " padLeft=" + getPaddingLeft() + " padright=" + getPaddingRight());
+        Log.d(LOGTAG, "onMeasure:" + " nettoWidth=" + nettoWidth + " columnWidth=" + columnWidth);
     }
 
     private View.OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener()
@@ -275,13 +317,18 @@ public class GenericGridView extends ScrollView implements GenericFocus
         return verticalSpacing;
     }
 
-    public void setNumColums(int columns)
+    public void setNumColumns(int columns)
     {
         numColumns = columns;
     }
 
-    public int getNumColums()
+    public int getNumColumns()
     {
         return numColumns;
+    }
+
+    public int getColumnWidth()
+    {
+        return columnWidth;
     }
 }

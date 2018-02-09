@@ -33,7 +33,7 @@ public class ContentBaseActivity extends FullScreenActivity
     protected TopBanners topBanners;
     protected ScrollView categoryScroll;
     protected LinearLayout categoryContent;
-    protected AssetGridView assetGrid;
+    protected GenericGridView assetGrid;
     protected AssetsAdapter assetsAdapter;
     protected TabBar tabBar;
 
@@ -233,11 +233,12 @@ public class ContentBaseActivity extends FullScreenActivity
         // Asset grid.
         //
 
-        assetGrid = new AssetGridView(this);
+        assetGrid = new GenericGridView(this);
 
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
-        assetGrid.setColumnWidth(GridView.AUTO_FIT);
-        assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        //assetGrid.setColumnWidth(GridView.AUTO_FIT);
+        //assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+
         assetGrid.setVerticalSpacing(Defines.PADDING_LARGE);
         assetGrid.setHorizontalSpacing(Defines.PADDING_LARGE);
         assetGrid.setBackgroundColor(Defines.COLOR_CONTENT);
@@ -263,9 +264,9 @@ public class ContentBaseActivity extends FullScreenActivity
     {
         super.onResume();
 
-        Log.d(LOGTAG, "onResume: notifyDataSetChanged...");
+        Log.d(LOGTAG, "onResume: assetGrid.updateContent....");
 
-        assetsAdapter.notifyDataSetChanged();
+        assetGrid.updateContent();
     }
 
     protected void showNavigationPath(String category)

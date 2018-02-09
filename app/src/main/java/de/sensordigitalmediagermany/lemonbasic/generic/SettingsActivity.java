@@ -25,7 +25,6 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout leftArea;
     protected LinearLayout rightArea;
     protected SettingsInfoHeader contentSizeMB;
-    protected GenericGridView listView;
 
     protected JSONArray actContent;
 
@@ -450,20 +449,19 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Right content area.
 
-        listView = new GenericGridView(this);
-        listView.setFocusable(false);
-        listView.setAdapter(assetsAdapter);
-        Simple.setSizeDip(listView, Simple.MP, Simple.MP);
+        assetGrid.setFocusable(false);
+        assetGrid.setAdapter(assetsAdapter);
+        Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
 
         if (Defines.isSectionDividers)
         {
-            Simple.setMarginTopDip(listView, Defines.PADDING_LARGE);
-            listView.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_NORMAL));
+            Simple.setMarginTopDip(assetGrid, Defines.PADDING_LARGE);
+            assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_NORMAL));
         }
         else
         {
-            Simple.setMarginTopDip(listView, 0);
-            listView.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_SMALL));
+            Simple.setMarginTopDip(assetGrid, 0);
+            assetGrid.setVerticalSpacing(Simple.dipToPx(Defines.PADDING_SMALL));
 
             TextView contentSection = new TextView(this);
             contentSection.setText(R.string.settings_your_contents);
@@ -480,13 +478,11 @@ public class SettingsActivity extends ContentBaseActivity
         }
 
         assetGrid.setNumColumns(1);
-        assetGrid.setColumnWidth(GridView.AUTO_FIT);
-        assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
         assetGrid.setHorizontalSpacing(0);
         assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setPaddingDip(assetGrid, 0);
 
-        rightArea.addView(listView);
+        rightArea.addView(assetGrid);
 
         //endregion Right content area.
 
@@ -559,6 +555,7 @@ public class SettingsActivity extends ContentBaseActivity
             }
 
             assetsAdapter.notifyDataSetChanged();
+            assetGrid.updateContent();
 
             ApplicationBase.handler.postDelayed(new Runnable()
             {
@@ -571,7 +568,7 @@ public class SettingsActivity extends ContentBaseActivity
                     {
                         if (Simple.isTablet())
                         {
-                            rightArea.removeView(listView);
+                            rightArea.removeView(assetGrid);
                             rightArea.addView(detailView);
                         }
                         else
@@ -609,8 +606,7 @@ public class SettingsActivity extends ContentBaseActivity
         contentSizeMB.setText(Simple.formatBytes(total));
 
         assetsAdapter.notifyDataSetChanged();
-
-        listView.updateContent();
+        assetGrid.updateContent();
     }
 
     public void removeContent(JSONObject content)
@@ -636,9 +632,9 @@ public class SettingsActivity extends ContentBaseActivity
         {
             if (Simple.isTablet())
             {
-                if (listView.getParent() == null)
+                if (assetGrid.getParent() == null)
                 {
-                    rightArea.addView(listView);
+                    rightArea.addView(assetGrid);
                 }
             }
             else

@@ -810,7 +810,10 @@ public class DetailActivity extends ContentBaseActivity
 
             if (activity instanceof ContentBaseActivity)
             {
-                ((ContentBaseActivity) activity).assetsAdapter.notifyDataSetChanged();
+                ContentBaseActivity cbactivity = (ContentBaseActivity) activity;
+
+                cbactivity.assetsAdapter.notifyDataSetChanged();
+                cbactivity.assetGrid.updateContent();
             }
 
             if (activity instanceof FullScreenActivity)

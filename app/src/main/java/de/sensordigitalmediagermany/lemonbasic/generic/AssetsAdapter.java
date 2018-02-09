@@ -39,6 +39,7 @@ public class AssetsAdapter extends BaseAdapter
     public void setOnAssetClickedHandler(OnAssetClickedHandler onAssetClickedHandler)
     {
         notifyDataSetChanged();
+
         this.onAssetClickedHandler = onAssetClickedHandler;
     }
 
@@ -233,7 +234,6 @@ public class AssetsAdapter extends BaseAdapter
                         imageView, thumburl,
                         imageWidth, imageHeight, false));
 
-
         titleView.setText(displayTitle);
 
         summaryView.setText(Simple.formatBytes(file_size));
@@ -277,6 +277,11 @@ public class AssetsAdapter extends BaseAdapter
         if (parent instanceof GridView)
         {
             width = ((GridView) parent).getColumnWidth();
+        }
+
+        if (parent instanceof GenericGridView)
+        {
+            width = ((GenericGridView) parent).getColumnWidth();
         }
 
         return AssetFrame.createAssetFrame(parent.getContext(), convertView, width, asset, onAssetClickedHandler);

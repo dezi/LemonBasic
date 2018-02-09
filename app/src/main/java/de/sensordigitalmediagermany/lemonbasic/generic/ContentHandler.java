@@ -288,7 +288,7 @@ public class ContentHandler
                                     Json.put(course, "_isCourse", true);
                                     Json.put(course, "_cc", new JSONArray());
 
-                                    Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
+                                    //Log.d(LOGTAG, "getAllContent: course=" + Json.getString(course, "title"));
 
                                     //
                                     // Make sure, a real or virtual category_id is present.
@@ -344,7 +344,7 @@ public class ContentHandler
             JSONObject content = Json.getObject(contents, inx);
             if (content == null) continue;
 
-            Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
+            //Log.d(LOGTAG, "getAllContent: content=" + Json.getString(content, "title"));
 
             //
             // Make sure, a real or virtual category_id is present.
@@ -374,7 +374,7 @@ public class ContentHandler
                 JSONArray cc = Json.getArray(course, "_cc");
                 if (cc == null) continue;
 
-                Log.d(LOGTAG, "getAllContent: cc=" + Json.getString(content, "title"));
+                //Log.d(LOGTAG, "getAllContent: cc=" + Json.getString(content, "title"));
 
                 Json.put(content, "_courseId", courseId);
                 Json.put(cc, content);
