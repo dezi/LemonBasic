@@ -114,10 +114,17 @@ public class DefinesScreens extends Defines
     {
         if (isPierreCardin)
         {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_ipad_pierrecardin_startscreen
-                    : R.drawable.lem_t_ipho_pierrecardin_startscreen
-                    ;
+            if (Simple.isWideScreen())
+            {
+                return R.drawable.lem_t_wide_pierrecardin_startscreen;
+            }
+            else
+            {
+                return Simple.isTablet()
+                        ? R.drawable.lem_t_ipad_pierrecardin_startscreen
+                        : R.drawable.lem_t_ipho_pierrecardin_startscreen
+                        ;
+            }
         }
 
         return Simple.isTablet()
