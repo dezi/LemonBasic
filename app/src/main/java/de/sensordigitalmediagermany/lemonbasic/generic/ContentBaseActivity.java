@@ -1,6 +1,8 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -314,6 +316,22 @@ public class ContentBaseActivity extends FullScreenActivity
                 @Override
                 public void run()
                 {
+                    /*
+                    Intent i = new Intent(Intent.ACTION_MAIN);
+                    i.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(i);
+                    */
+
+                    /*
+                    Intent intent = new Intent ("com.android.systemui.recent.action.TOGGLE_RECENTS");
+
+                    intent.setComponent (new ComponentName(
+                            "com.android.systemui",
+                            "com.android.systemui.recent.RecentsActivity"));
+
+                    startActivity (intent);
+                    */
+
                     onBackPressed();
                 }
             });

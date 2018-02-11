@@ -159,7 +159,7 @@ public class GenericGridView extends ScrollView implements GenericFocus
                 // Reuse old view and thus update status etc.
                 //
 
-                view = adapter.getView(inx, null, this);
+                view = adapter.getView(inx, view, this);
             }
 
             newvs.put(item, view);
