@@ -105,6 +105,8 @@ public class GenericEdit extends EditText implements GenericFocus
                     if (hasfocus)
                     {
                         Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_TV_FOCUS);
+
+                        Generic.saveFocused(view);
                     }
                     else
                     {

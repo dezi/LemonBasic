@@ -155,6 +155,12 @@ public class GenericButton extends TextView implements GenericFocus
                         //
 
                         Simple.setRoundedCorners(view, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_TV_FOCUS);
+
+                        //
+                        // Save focused view for possible restore.
+                        //
+
+                        Generic.saveFocused(view);
                     }
                     else
                     {

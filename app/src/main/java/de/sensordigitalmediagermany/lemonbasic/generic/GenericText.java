@@ -128,6 +128,8 @@ public abstract class GenericText extends TextView implements GenericFocus
                     if (hasfocus)
                     {
                         Simple.setRoundedCorners(view, 0, backgroundColor, Defines.COLOR_TV_FOCUS);
+
+                        Generic.saveFocused(view);
                     }
                     else
                     {

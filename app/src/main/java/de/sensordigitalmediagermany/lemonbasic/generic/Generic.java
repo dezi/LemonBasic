@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.app.Activity;
 import android.view.View;
 
 public class Generic
@@ -9,6 +10,16 @@ public class Generic
     public static boolean canFocus(View view)
     {
         return (view instanceof GenericFocus) && ((GenericFocus) view).getFocusable();
+    }
+
+    public static void saveFocused(View focused)
+    {
+        Activity currentact = ApplicationBase.getCurrentActivity(focused.getContext());
+
+        if (currentact instanceof FullScreenActivity)
+        {
+            ((FullScreenActivity) currentact).saveFocusedView(focused);
+        }
     }
 
     public final static View.OnFocusChangeListener genericOnFocusChangeListener = new View.OnFocusChangeListener()
@@ -34,6 +45,12 @@ public class Generic
                 {
                     Simple.setRoundedCorners(view, 0, gf.getBackgroundColor(), Defines.COLOR_TV_FOCUS);
                 }
+
+                //
+                // Save focused view for possible restore.
+                //
+
+                saveFocused(view);
             }
             else
             {

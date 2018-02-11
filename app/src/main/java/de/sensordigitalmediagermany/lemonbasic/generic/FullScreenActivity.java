@@ -75,6 +75,8 @@ public class FullScreenActivity extends AppCompatActivity
 
         ApplicationBase.setCurrentActivity(this);
 
+        restoreFocusedView();
+
         //ApplicationBase.handler.postDelayed(focusDump, 2000);
     }
 
@@ -128,6 +130,33 @@ public class FullScreenActivity extends AppCompatActivity
 
     private ArrayList<View> focusableViews;
     private View excludeView;
+    private View focusedView;
+
+    public void saveFocusedView(View focusedView)
+    {
+        this.focusedView = focusedView;
+
+        Log.d(LOGTAG, "saveFocusedView: view=" + focusedView);
+    }
+
+    public void restoreFocusedView()
+    {
+        if ((focusedView != null) && (focusedView.getParent() != null))
+        {
+            final View focusme = this.focusedView;
+
+            ApplicationBase.handler.postDelayed(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    focusme.requestFocus();
+                }
+            }, 200);
+
+            Log.d(LOGTAG, "restoreFocusedView: view=" + focusme);
+        }
+    }
 
     public void saveFocusableViews(View exclude)
     {
