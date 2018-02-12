@@ -128,6 +128,7 @@
     <string name="course_buy_price">%1$s Coins</string>
     <string name="course_buy_gratis">Free</string>
     <string name="course_buy_train">Train</string>
+    <string name="course_buy_load">Load all contents</string>
 
     <string name="detail_buy_price">%1$s Coins</string>
     <string name="detail_buy_gratis">Free</string>

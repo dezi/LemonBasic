@@ -43,8 +43,8 @@ public class Defines
 
     public static final boolean isGiveAway         = isPierreCardin || isRainerAlbers;
     public static final boolean isLoginButton      = isRainerAlbers;
-    public static final boolean isSimpleLogin      = false; //isPierreCardin;
-    public static final boolean isRegistration     = false; //isRainerAlbers;
+    public static final boolean isSimpleLogin      = isPierreCardin;
+    public static final boolean isRegistration     = isRainerAlbers;
     public static final boolean isUserMenu         = isRainerAlbers;
     public static final boolean isTabBar           = isPierreCardin;
     public static final boolean isTopBanner        = isPierreCardin;

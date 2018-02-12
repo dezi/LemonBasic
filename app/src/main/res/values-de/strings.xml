@@ -128,6 +128,7 @@
     <string name="course_buy_price">%1$s Coins</string>
     <string name="course_buy_gratis">Gratis</string>
     <string name="course_buy_train">Trainieren</string>
+    <string name="course_buy_load">Alle Inhalte laden</string>
 
     <string name="detail_buy_price">%1$s Coins</string>
     <string name="detail_buy_gratis">Gratis</string>

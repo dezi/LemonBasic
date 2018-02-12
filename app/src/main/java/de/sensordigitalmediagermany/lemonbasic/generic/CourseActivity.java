@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +15,8 @@ public class CourseActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = CourseActivity.class.getSimpleName();
 
-    protected TextView buyButton;
+    protected RelativeLayout buyButtonCenter;
+    protected GenericButton buyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -113,14 +115,13 @@ public class CourseActivity extends ContentBaseActivity
         titleArea.addView(ciView);
 
         LinearLayout infoAndButtonArea = new LinearLayout(this);
-        infoAndButtonArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(infoAndButtonArea, Simple.MP, Simple.WC);
 
         naviFrame.addView(infoAndButtonArea);
 
         LinearLayout infoArea = new LinearLayout(this);
         infoArea.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(infoArea, Simple.MP, Simple.WC);
+        Simple.setSizeDip(infoArea, Simple.WC, Simple.WC, 1.0f);
 
         infoAndButtonArea.addView(infoArea);
 
@@ -183,23 +184,37 @@ public class CourseActivity extends ContentBaseActivity
             Simple.setMarginTopDip(cdView, Defines.PADDING_NORMAL);
         }
 
-        buyButton = new TextView(this);
-        buyButton.setTextColor(Color.WHITE);
-        buyButton.setTypeface(buttonsTF);
-        Simple.setSizeDip(buyButton, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(buyButton, Defines.FS_DIALOG_BUTTON);
-        Simple.setRoundedCorners(buyButton, Defines.CORNER_RADIUS_BIGBUT, Color.BLACK, true);
+        buyButtonCenter = new RelativeLayout(this);
+        buyButtonCenter.setGravity(RelativeLayout.CENTER_HORIZONTAL + RelativeLayout.CENTER_VERTICAL);
+        buyButtonCenter.setVisibility(View.GONE);
 
-        Simple.setPaddingDip(buyButton,
-                Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
-                Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
-
-        infoAndButtonArea.addView(buyButton);
-
-        if (Defines.isGiveAway)
+        if (Simple.isTablet())
         {
-            buyButton.setVisibility(View.GONE);
+            infoAndButtonArea.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(buyButtonCenter, Simple.WC, Simple.MP);
         }
+        else
+        {
+            infoAndButtonArea.setOrientation(LinearLayout.VERTICAL);
+            Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.WC);
+        }
+
+        infoAndButtonArea.addView(buyButtonCenter);
+
+        buyButton = new GenericButton(this);
+
+        if (Simple.isTablet())
+        {
+            Simple.setMarginLeftDip(buyButtonCenter, Defines.PADDING_LARGE);
+            buyButton.setFullWidth(false);
+        }
+        else
+        {
+            Simple.setMarginTopDip(buyButtonCenter, Defines.PADDING_LARGE);
+            buyButton.setFullWidth(true);
+        }
+
+        buyButtonCenter.addView(buyButton);
 
         JSONArray cc = Json.getArray(Globals.displayContent, "_cc");
 
@@ -213,36 +228,72 @@ public class CourseActivity extends ContentBaseActivity
         int courseId = Json.getInt(Globals.displayContent, "id");
         int price = Json.getInt(Globals.displayContent, "price");
         boolean bought = ContentHandler.isCourseBought(courseId);
+        boolean cached = ContentHandler.isCachedContent(Globals.displayContent);
 
         String buyText = (price > 0)
                 ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
                 : Simple.getTrans(this, R.string.course_buy_gratis);
 
-        if (bought)
+        if (Defines.isGiveAway)
         {
-            buyText = Simple.getTrans(this, R.string.course_buy_train);
-
-            buyButton.setOnClickListener(new View.OnClickListener()
+            if (! cached)
             {
-                @Override
-                public void onClick(View view)
+                buyButtonCenter.setVisibility(View.VISIBLE);
+
+                Simple.setPaddingDip(buyButton,
+                        Defines.PADDING_XLARGE, Defines.PADDING_SMALL,
+                        Defines.PADDING_XLARGE, Defines.PADDING_SMALL);
+
+                buyText = Simple.getTrans(this, R.string.course_buy_load);
+
+                buyButton.setOnClickListener(new View.OnClickListener()
                 {
-                    Simple.startActivity(CourseActivity.this, TrainingActivity.class);
-                }
-            });
+                    @Override
+                    public void onClick(View view)
+                    {
+                        downloadAllContent();
+                    }
+                });
+            }
         }
         else
         {
-            buyButton.setOnClickListener(new View.OnClickListener()
+            buyButtonCenter.setVisibility(View.VISIBLE);
+
+            Simple.setPaddingDip(buyButton,
+                    Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
+                    Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+
+            if (bought)
             {
-                @Override
-                public void onClick(View view)
+                buyText = Simple.getTrans(this, R.string.course_buy_train);
+
+                buyButton.setOnClickListener(new View.OnClickListener()
                 {
-                    topFrame.addView(new BuyContentDialog(CourseActivity.this));
-                }
-            });
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Simple.startActivity(CourseActivity.this, TrainingActivity.class);
+                    }
+                });
+            } else
+            {
+                buyButton.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        topFrame.addView(new BuyContentDialog(CourseActivity.this));
+                    }
+                });
+            }
         }
 
         buyButton.setText(buyText);
+    }
+
+    private void downloadAllContent()
+    {
+
     }
 }

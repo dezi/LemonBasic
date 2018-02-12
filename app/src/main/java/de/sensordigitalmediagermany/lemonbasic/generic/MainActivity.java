@@ -18,6 +18,7 @@ public class MainActivity extends FullScreenActivity
         super.onCreate(savedInstanceState);
 
         Simple.setThreadPolicy();
+        Simple.setThreadPolicy();
 
         splashScreen = new ImageView(this);
         splashScreen.setScaleType(ImageView.ScaleType.FIT_CENTER);
