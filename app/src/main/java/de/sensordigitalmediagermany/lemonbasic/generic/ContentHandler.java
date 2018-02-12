@@ -672,6 +672,26 @@ public class ContentHandler
         return size;
     }
 
+    public static JSONArray getUnCachedContent()
+    {
+        JSONArray everything = new JSONArray();
+
+        for (int inx = 0; inx < Globals.displayAllContents.length(); inx++)
+        {
+            JSONObject content = Json.getObject(Globals.displayAllContents, inx);
+            if (content == null) continue;
+
+            JSONArray uncached = getUnCachedContent(content);
+
+            for (int cnt = 0; cnt < uncached.length(); cnt++)
+            {
+                Json.put(everything, Json.getObject(uncached, cnt));
+            }
+        }
+
+        return everything;
+    }
+
     public static JSONArray getUnCachedContent(JSONObject content)
     {
         JSONArray uncached = new JSONArray();

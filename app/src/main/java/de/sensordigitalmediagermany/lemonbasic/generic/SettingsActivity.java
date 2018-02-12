@@ -17,6 +17,8 @@ import android.os.Bundle;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+
 @SuppressWarnings("unused")
 public class SettingsActivity extends ContentBaseActivity
 {
@@ -458,9 +460,19 @@ public class SettingsActivity extends ContentBaseActivity
             GenericButton loadAllButton = new GenericButton(this);
             Simple.setSizeDip(loadAllButton, Simple.WC, Simple.WC, 0.5f);
 
+            loadAllButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    askDownloadAllContent();
+                }
+            });
+
             loadAllArea.addView(loadAllButton);
 
             GenericButton deleteAllButton = new GenericButton(this);
+            deleteAllButton.setDefaultButton(true);
             Simple.setSizeDip(deleteAllButton, Simple.WC, Simple.WC, 0.5f);
             Simple.setMarginLeftDip(deleteAllButton, Defines.PADDING_LARGE);
 
@@ -698,4 +710,159 @@ public class SettingsActivity extends ContentBaseActivity
             }
         }
     }
+
+    //region Complete load.
+
+    private JSONArray uncachedItems;
+    private long uncachedTotal;
+
+    private void askDownloadAllContent()
+    {
+        uncachedItems = ContentHandler.getUnCachedContent();
+        uncachedTotal = ContentHandler.getUnCachedSize(uncachedItems);
+
+        Log.d(LOGTAG, "askDownloadAllContent: uncachedItems=" + uncachedItems.length() + " uncachedTotal=" + uncachedTotal);
+
+        if (uncachedItems.length() == 0) return;
+
+        if (Simple.isOnline(this))
+        {
+            String infoText = Simple.getTrans(this,
+                    R.string.ask_download_all_info,
+                    String.valueOf(uncachedItems.length()),
+                    Simple.formatBytes(uncachedTotal));
+
+            DialogView askdialog = new DialogView(this);
+
+            askdialog.setCloseButton(true, null);
+
+            askdialog.setTitleText(R.string.ask_download_all_title);
+            askdialog.setInfoText(infoText);
+
+            askdialog.setNegativeButton(R.string.button_cancel);
+
+            askdialog.setPositiveButton(R.string.ask_download_all_load, new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    downloadAllContent();
+                }
+            });
+
+            if (! Simple.isTablet())
+            {
+                askdialog.setButtonsVertical(true);
+            }
+
+            askdialog.positiveButton.requestFocus();
+
+            topFrame.addView(askdialog);
+        }
+        else
+        {
+            DialogView.errorAlert(topFrame,
+                    R.string.alert_no_internet_title,
+                    R.string.alert_no_internet_info);
+        }
+    }
+
+    private DownloadDialog downloadDialog;
+    private boolean downloadCancel;
+
+    private long downloadTotal;
+    private long downloadBytes;
+    private int downloadItems;
+
+    private long downloadProgressRunCurrent;
+
+    private void downloadAllContent()
+    {
+        downloadCancel = false;
+
+        downloadTotal = uncachedTotal;
+        downloadBytes = 0;
+        downloadItems = 0;
+
+        downloadDialog = new DownloadDialog(this);
+        topFrame.addView(downloadDialog);
+
+        for (int inx = 0; inx < uncachedItems.length(); inx++)
+        {
+            JSONObject downloadcontent = Json.getObject(uncachedItems, inx);
+            if (downloadcontent == null) continue;
+
+            AssetsDownloadManager.getContentOrFetch(downloadcontent, onFileLoadedHandler, onDownloadProgressHandler);
+        }
+    }
+
+    private final AssetsDownloadManager.OnFileLoadedHandler onFileLoadedHandler
+            = new AssetsDownloadManager.OnFileLoadedHandler()
+    {
+        @Override
+        public void OnFileLoaded(JSONObject content, File file)
+        {
+            long file_size = Json.getLong(content, "file_size");
+
+            Log.d(LOGTAG, "onFileLoadedHandler: file=" + file + " size=" + file_size);
+
+            downloadBytes += file_size;
+            downloadItems += 1;
+
+            if (downloadItems == uncachedItems.length())
+            {
+                downloadDialog.dismissDialog();
+                downloadDialog = null;
+
+                assetGrid.updateContent();
+            }
+        }
+    };
+
+    private final AssetsDownloadManager.OnDownloadProgressHandler onDownloadProgressHandler
+            = new AssetsDownloadManager.OnDownloadProgressHandler()
+    {
+        @Override
+        public boolean OnDownloadProgress(JSONObject content, long current, long total)
+        {
+            downloadProgressRunCurrent = current;
+
+            ApplicationBase.handler.removeCallbacks(downloadProgressRun);
+            ApplicationBase.handler.post(downloadProgressRun);
+
+            if (downloadCancel)
+            {
+                ApplicationBase.handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        if (downloadDialog != null)
+                        {
+                            downloadDialog.dismissDialog();
+                            downloadDialog = null;
+                        }
+
+                        assetGrid.updateContent();
+                    }
+                }, 250);
+            }
+
+            return downloadCancel;
+        }
+    };
+
+    private final Runnable downloadProgressRun = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            if (downloadDialog != null)
+            {
+                downloadCancel = downloadDialog.setProgressLong(downloadProgressRunCurrent + downloadBytes, downloadTotal);
+            }
+        }
+    };
+
+    //endregion Complete load.
 }
