@@ -139,28 +139,8 @@ public class ContentActivity extends ContentBaseActivity
         else
         {
             assetGrid.setVisibility(View.GONE);
-            categoryScroll.setVisibility(View.VISIBLE);
-
-            if (Globals.displayCategories != null)
-            {
-                for (int inx = 0; inx < Globals.displayCategories.length(); inx++)
-                {
-                    JSONObject catjson = Json.getObject(Globals.displayCategories, inx);
-                    if (catjson == null) continue;
-
-                    String category = Json.getString(catjson, "name");
-                    int categoryCount = Json.getInt(catjson, "_count");
-
-                    Log.d(LOGTAG, "onCreate: category=" + category + " count=" + categoryCount);
-
-                    if (categoryCount == 0) continue;
-
-                    ContentSlider cs = new ContentSlider(this, topFrame);
-                    cs.setAssets(category, ContentHandler.getFilteredContent(false, category));
-
-                    categoryContent.addView(cs);
-                }
-            }
+            contentScroll.setVisibility(View.VISIBLE);
+            categoryContent.setCategories(Globals.displayCategories, topFrame);
         }
     }
 

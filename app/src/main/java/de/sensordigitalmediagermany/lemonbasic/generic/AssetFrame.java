@@ -28,6 +28,8 @@ public class AssetFrame extends GenericLinear
     private ImageView loadedView;
     private ProgressBar downloadProgress;
 
+    private JSONObject asset;
+
     public static AssetFrame createAssetFrame(Context context, View convertView, int width, JSONObject asset,
                                               AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler)
     {
@@ -221,18 +223,11 @@ public class AssetFrame extends GenericLinear
                          final JSONObject asset,
                          final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler)
     {
+        this.asset = asset;
+
         int imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 
-        int id = Json.getInt(asset, "id");
-        String title = Json.getString(asset, "title");
-        String subtitle = Json.getString(asset, "sub_title");
         String thumburl = Json.getString(asset, "thumbnail_url");
-
-        boolean isCourse = Json.getBoolean(asset, "_isCourse");
-        boolean isOwned;
-
-        Simple.setSizeDip(imageBox, Simple.MP, Simple.pxToDip(imageHeight));
-        Simple.setSizeDip(imageView, Simple.MP, Simple.pxToDip(imageHeight));
 
         imageView.setImageDrawable(
                 AssetsImageManager.getDrawableOrFetch(
@@ -241,8 +236,50 @@ public class AssetFrame extends GenericLinear
                         imageWidth, imageHeight,
                         Defines.isRoundedAsset));
 
+        Simple.setSizeDip(imageBox, Simple.MP, Simple.pxToDip(imageHeight));
+        Simple.setSizeDip(imageView, Simple.MP, Simple.pxToDip(imageHeight));
+
+        this.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Log.d(LOGTAG,"openContent....");
+
+                if (onAssetClickedHandler != null)
+                {
+                    onAssetClickedHandler.OnAssetClicked(asset);
+                }
+                else
+                {
+                    Globals.displayContent = asset;
+
+                    if (Json.getBoolean(asset, "_isCourse"))
+                    {
+                        Simple.startActivity(getContext(), CourseActivity.class);
+                    }
+                    else
+                    {
+                        Simple.startActivity(getContext(), DetailActivity.class);
+                    }
+                }
+            }
+        });
+
+        updateContent();
+    }
+
+    public void updateContent()
+    {
+        int id = Json.getInt(asset, "id");
+        String title = Json.getString(asset, "title");
+        String subtitle = Json.getString(asset, "sub_title");
+
         titleView.setText(title);
         summaryView.setText(subtitle);
+
+        boolean isCourse = Json.getBoolean(asset, "_isCourse");
+        boolean isOwned;
 
         ownedView.setVisibility(View.GONE);
         loadedView.setVisibility(View.GONE);
@@ -255,26 +292,6 @@ public class AssetFrame extends GenericLinear
                 iconView.setImageResource(DefinesScreens.getCourseMarkerRes());
                 iconView.setVisibility(View.VISIBLE);
             }
-
-            this.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    Log.d(LOGTAG,"openCourse....");
-
-                    if (onAssetClickedHandler != null)
-                    {
-                        onAssetClickedHandler.OnAssetClicked(asset);
-                    }
-                    else
-                    {
-                        Globals.displayContent = asset;
-
-                        Simple.startActivity(getContext(), CourseActivity.class);
-                    }
-                }
-            });
 
             isOwned = ContentHandler.isCourseBought(id);
         }
@@ -299,26 +316,6 @@ public class AssetFrame extends GenericLinear
                 iconView.setVisibility(View.GONE);
             }
 
-            this.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    Log.d(LOGTAG,"openContent....");
-
-                    if (onAssetClickedHandler != null)
-                    {
-                        onAssetClickedHandler.OnAssetClicked(asset);
-                    }
-                    else
-                    {
-                        Globals.displayContent = asset;
-
-                        Simple.startActivity(getContext(), DetailActivity.class);
-                    }
-                }
-            });
-
             isOwned = ContentHandler.isContentBought(id);
         }
 
@@ -334,7 +331,12 @@ public class AssetFrame extends GenericLinear
         {
             if (Defines.isStatusIcon)
             {
-                loadedView.setImageResource(DefinesScreens.getStatusNewMarkerRes());
+                boolean missing = ContentHandler.isMissingContent(asset);
+
+                loadedView.setImageResource(missing
+                        ? DefinesScreens.getStatusFailMarkerRes()
+                        : DefinesScreens.getStatusNewMarkerRes());
+
                 loadedView.setVisibility(View.VISIBLE);
             }
 

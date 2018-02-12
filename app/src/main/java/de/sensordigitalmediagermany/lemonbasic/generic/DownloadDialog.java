@@ -81,10 +81,10 @@ public class DownloadDialog extends DialogView
 
             percentView.setText(percentstr);
 
-            String ckb = Simple.formatDecimal(current / 1024);
-            String tmb = Simple.formatDecimal(total / (1024 * 1000));
+            String currentStr = Simple.formatBytes(current);
+            String totalStr = Simple.formatBytes(total);
 
-            String sizestr = Simple.getTrans(getContext(), R.string.download_size, ckb, tmb);
+            String sizestr = Simple.getTrans(getContext(),R.string.download_size, currentStr, totalStr);
 
             sizeView.setText(sizestr);
         }

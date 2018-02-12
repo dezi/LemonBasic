@@ -23,6 +23,7 @@ public class ContentSlider extends LinearLayout
     private static final String LOGTAG = ContentSlider.class.getSimpleName();
 
     private HorizontalScrollView scrollView;
+    private LinearLayout scrollContent;
     private TextView leftButton;
 
     private int sliderWidth;
@@ -159,6 +160,12 @@ public class ContentSlider extends LinearLayout
         Simple.setSizeDip(scrollView, Simple.MP, Simple.pxToDip(imageHeight));
 
         addView(scrollView);
+
+        scrollContent = new LinearLayout(getContext());
+        scrollContent.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
+
+        scrollView.addView(scrollContent);
     }
 
     public void setAssets(String category, JSONArray assets)
@@ -170,15 +177,7 @@ public class ContentSlider extends LinearLayout
 
         if ((assets == null) || (assets.length() == 0)) return;
 
-        //
-        // Adjust view to aspect height.
-        //
-
-        LinearLayout scrollContent = new LinearLayout(getContext());
-        scrollContent.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
-
-        scrollView.addView(scrollContent);
+        scrollContent.removeAllViews();
 
         for (int inx = 0; inx < assets.length(); inx++)
         {
@@ -236,4 +235,21 @@ public class ContentSlider extends LinearLayout
             scrollView.smoothScrollBy((xDirTouch > 0) ? -leftrest : rightrest, 0);
         }
     };
+
+    public void updateContent()
+    {
+        for (int inx = 0; inx < scrollContent.getChildCount(); inx++)
+        {
+            View imageCell = scrollContent.getChildAt(inx);
+            if (!(imageCell instanceof ViewGroup)) continue;
+
+            ViewGroup imageCellVG = (ViewGroup) imageCell;
+            if (imageCellVG.getChildCount() == 0) continue;
+
+            View assetFrame = imageCellVG.getChildAt(0);
+            if (!(assetFrame instanceof AssetFrame)) continue;
+
+            ((AssetFrame) assetFrame).updateContent();
+        }
+    }
 }

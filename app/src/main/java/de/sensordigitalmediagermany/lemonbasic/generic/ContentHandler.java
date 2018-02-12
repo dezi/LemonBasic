@@ -578,6 +578,40 @@ public class ContentHandler
         return storageDir;
     }
 
+    public static boolean isMissingContent(JSONObject content)
+    {
+        boolean missing = false;
+
+        boolean isCourse = Json.getBoolean(content, "_isCourse");
+
+        if (! isCourse)
+        {
+            String fileName = Json.getString(content, "content_file_name");
+
+            missing = (fileName == null);
+        }
+        else
+        {
+            JSONArray cc = Json.getArray(content, "_cc");
+
+            if (cc != null)
+            {
+                int numLoaded = 0;
+
+                for (int inx = 0; inx < cc.length(); inx++)
+                {
+                    JSONObject ccontent = Json.getObject(cc, inx);
+                    if (ccontent == null) continue;
+
+                    String fileName = Json.getString(ccontent, "content_file_name");
+                    missing |= (fileName == null);
+                }
+            }
+        }
+
+        return missing;
+    }
+
     public static boolean isCachedContent(JSONObject content)
     {
         boolean isCourse = Json.getBoolean(content, "_isCourse");
@@ -621,6 +655,70 @@ public class ContentHandler
         }
 
         return false;
+    }
+
+    public static long getUnCachedSize(JSONArray contents)
+    {
+        long size = 0;
+
+        for (int inx = 0; inx < contents.length(); inx++)
+        {
+            JSONObject content = Json.getObject(contents, inx);
+            if (content == null) continue;
+
+            size += Json.getLong(content, "file_size");
+        }
+
+        return size;
+    }
+
+    public static JSONArray getUnCachedContent(JSONObject content)
+    {
+        JSONArray uncached = new JSONArray();
+
+        boolean isCourse = Json.getBoolean(content, "_isCourse");
+
+        if (! isCourse)
+        {
+            String fileName = Json.getString(content, "content_file_name");
+
+            if (fileName != null)
+            {
+                File cacheFile = new File(getStorageDir(), fileName);
+
+                if (! cacheFile.exists())
+                {
+                    Json.put(uncached, content);
+                }
+            }
+        }
+        else
+        {
+            JSONArray cc = Json.getArray(content, "_cc");
+
+            if (cc != null)
+            {
+                for (int inx = 0; inx < cc.length(); inx++)
+                {
+                    JSONObject ccontent = Json.getObject(cc, inx);
+                    if (ccontent == null) continue;
+
+                    String fileName = Json.getString(ccontent, "content_file_name");
+
+                    if (fileName != null)
+                    {
+                        File cacheFile = new File(getStorageDir(), fileName);
+
+                        if (! cacheFile.exists())
+                        {
+                            Json.put(uncached, ccontent);
+                        }
+                    }
+                }
+            }
+        }
+
+        return uncached;
     }
 
     @Nullable

@@ -1,10 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,8 +30,8 @@ public class ContentBaseActivity extends FullScreenActivity
     protected ProgressBar downloadProgress;
     protected LinearLayout naviFrame;
     protected TopBanners topBanners;
-    protected ScrollView categoryScroll;
-    protected LinearLayout categoryContent;
+    protected ScrollView contentScroll;
+    protected CategoryContent categoryContent;
     protected GenericGridView assetGrid;
     protected AssetsAdapter assetsAdapter;
     protected TabBar tabBar;
@@ -195,14 +192,14 @@ public class ContentBaseActivity extends FullScreenActivity
         // Category sliders scrollview.
         //
 
-        categoryScroll = new ScrollView(this);
-        categoryScroll.setFocusable(false);
-        categoryScroll.setVisibility(View.GONE);
-        Simple.setSizeDip(categoryScroll, Simple.MP, Simple.MP, 1.0f);
+        contentScroll = new ScrollView(this);
+        contentScroll.setFocusable(false);
+        contentScroll.setVisibility(View.GONE);
+        Simple.setSizeDip(contentScroll, Simple.MP, Simple.MP, 1.0f);
 
         if (Simple.isTablet())
         {
-            Simple.setPaddingDip(categoryScroll, Defines.PADDING_SMALL);
+            Simple.setPaddingDip(contentScroll, Defines.PADDING_SMALL);
         }
         else
         {
@@ -210,18 +207,16 @@ public class ContentBaseActivity extends FullScreenActivity
             // Less spacy layout on phones.
             //
 
-            Simple.setPaddingDip(categoryScroll,
+            Simple.setPaddingDip(contentScroll,
                     Defines.PADDING_SMALL, Defines.PADDING_ZERO,
                     Defines.PADDING_SMALL, Defines.PADDING_SMALL);
         }
 
-        contentFrame.addView(categoryScroll);
+        contentFrame.addView(contentScroll);
 
-        categoryContent = new LinearLayout(this);
-        categoryContent.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(categoryContent, Simple.MP, Simple.WC);
+        categoryContent = new CategoryContent(this);
 
-        categoryScroll.addView(categoryContent);
+        contentScroll.addView(categoryContent);
 
         //
         // Banner area.
@@ -265,6 +260,10 @@ public class ContentBaseActivity extends FullScreenActivity
     public void onResume()
     {
         super.onResume();
+
+        Log.d(LOGTAG, "onResume: categoryContent.updateContent....");
+
+        categoryContent.updateContent();
 
         Log.d(LOGTAG, "onResume: assetGrid.updateContent....");
 

@@ -94,6 +94,14 @@ public class DefinesScreens extends Defines
                 ;
     }
 
+    public static int getStatusFailMarkerRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_generic_inhalt_fehler
+                : R.drawable.lem_t_iany_generic_inhalt_fehler
+                ;
+    }
+
     public static int getSplashScreenRes()
     {
         if (isPierreCardin)

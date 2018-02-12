@@ -66,10 +66,10 @@ public class Defines
     public static final boolean isKaysNumbers      = isPierreCardin || isRainerAlbers;
     public static final boolean isKaysHorzScroll   = isPierreCardin;
     public static final boolean isAutoRefresh      = isPierreCardin;
+    public static final boolean isDeleteCache      = isPierreCardin;
     public static final boolean isAutoRefreshInfo  = false;
     public static final boolean isPDFExternal      = isPierreCardin;
     public static final boolean isPDFZoomable      = false;
-    public static final boolean isDeleteCache      = isDezi;
     public static final boolean isSoundSettings    = false;
     // @formatter:on
 

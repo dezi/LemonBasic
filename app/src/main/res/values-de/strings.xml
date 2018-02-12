@@ -37,7 +37,12 @@
 
     <string name="download_title">Download läuft</string>
     <string name="download_cancel">Download abbrechen</string>
-    <string name="download_size">%1$s Kb von %2$s Mb</string>
+    <string name="download_size">%1$s von %2$s</string>
+
+    <string name="ask_download_all_title">Diese Inhalte jetzt laden?</string>
+    <string name="ask_download_all_info">Möchten Sie alle %1$s Inhalte mit insgesamt %2$s jetzt laden?</string>
+    <string name="ask_download_all_info_onecontent">Möchten Sie %1$s Inhalt mit %2$s jetzt laden?</string>
+    <string name="ask_download_all_load">Alles jetzt laden</string>
 
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>

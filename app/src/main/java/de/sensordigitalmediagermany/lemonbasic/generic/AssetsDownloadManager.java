@@ -155,11 +155,10 @@ public class AssetsDownloadManager
                 }
 
                 final QueueData qd = current;
+                final File file = getFile(qd);
 
                 if (qd.onFileLoadedHandler != null)
                 {
-                    final File file = getFile(qd);
-
                     ApplicationBase.handler.post(new Runnable()
                     {
                         @Override
@@ -242,6 +241,41 @@ public class AssetsDownloadManager
                         Log.d(LOGTAG, "getFile: done url=" + urlstring);
 
                         return realfile;
+                    }
+                }
+                else
+                {
+                    Log.d(LOGTAG, "getFile: was cancelled...");
+
+                    //
+                    // Download was cancelled. Remove all queue entries
+                    // with the same callback delegates as well in case
+                    // this was a multi asset download.
+                    //
+
+                    synchronized (queue)
+                    {
+                        for (int inx = 0; inx < queue.size(); inx++)
+                        {
+                            QueueData qdcheck = queue.get(inx);
+
+                            String remname = Json.getString(qdcheck.content, "content_file_name");
+
+                            Log.d(LOGTAG, "####1 " + qdcheck.onDownloadProgressHandler);
+                            Log.d(LOGTAG, "####2 " + qd.onDownloadProgressHandler);
+
+                            if (qdcheck.onDownloadProgressHandler.equals(qd.onDownloadProgressHandler)
+                                && qdcheck.onFileLoadedHandler.equals(qd.onFileLoadedHandler))
+                            {
+                                Log.d(LOGTAG, "getFile: remove entry=" + remname);
+
+                                queue.remove(inx--);
+                            }
+                            else
+                            {
+                                Log.d(LOGTAG, "getFile: retain entry=" + remname);
+                            }
+                        }
                     }
                 }
             }
