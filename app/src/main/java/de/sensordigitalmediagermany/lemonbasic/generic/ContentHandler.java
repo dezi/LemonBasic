@@ -672,7 +672,7 @@ public class ContentHandler
         return size;
     }
 
-    public static JSONArray getUnCachedContent()
+    private static JSONArray getUnCachedContent()
     {
         JSONArray everything = new JSONArray();
 
@@ -694,6 +694,16 @@ public class ContentHandler
 
     public static JSONArray getUnCachedContent(JSONObject content)
     {
+        if (content == null)
+        {
+            //
+            // Get everything.
+            //
+
+            return getUnCachedContent();
+
+        };
+
         JSONArray uncached = new JSONArray();
 
         boolean isCourse = Json.getBoolean(content, "_isCourse");

@@ -44,6 +44,9 @@
     <string name="ask_download_all_info_onecontent">Möchten Sie %1$s Inhalt mit %2$s jetzt laden?</string>
     <string name="ask_download_all_load">Alles jetzt laden</string>
 
+    <string name="ask_download_all_done_title">Alle Inhalte laden</string>
+    <string name="ask_download_all_done_info">Es gibt keine weiteren Inhalte zum Download mehr.</string>
+
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>
 
