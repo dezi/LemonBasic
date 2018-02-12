@@ -108,6 +108,11 @@
     <string name="settings_specs_seen">Seen</string>
     <string name="settings_specs_seen_date">Completely seen on %1$s</string>
 
+    <string name="settings_content_loadall_tablet">Load all contents</string>
+    <string name="settings_content_loadall_phones">Load all</string>
+    <string name="settings_content_deletall_tablet">Delete all contents</string>
+    <string name="settings_content_deletall_phones">Delete all</string>
+
     <string name="content_navibar_left_show_all">All contents</string>
     <string name="content_navibar_left_show_my">Show my contents</string>
     <string name="content_navibar_right_themes">Choose category</string>

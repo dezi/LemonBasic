@@ -123,6 +123,7 @@ public class DialogView extends RelativeLayout
     protected TextView titleView;
     protected TextView infoView;
     protected RelativeLayout customView;
+    protected LinearLayout buttonFrame;
     protected DialogButton positiveButton;
     protected DialogButton negativeButton;
 
@@ -274,7 +275,7 @@ public class DialogView extends RelativeLayout
 
         padView.addView(customView);
 
-        LinearLayout buttonFrame = new LinearLayout(context);
+        buttonFrame = new LinearLayout(context);
         buttonFrame.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(buttonFrame, Simple.MP, Simple.WC);
 
@@ -367,6 +368,23 @@ public class DialogView extends RelativeLayout
             titleFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_TITLE);
             infosFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_INFOS);
             editsFont = Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_DIALOG_EDITS);
+        }
+    }
+
+    public void setButtonsVertical(boolean set)
+    {
+        if (set)
+        {
+            buttonFrame.setOrientation(LinearLayout.VERTICAL);
+
+            Simple.setMarginLeftDip(positiveButton, Defines.PADDING_ZERO);
+            Simple.setMarginTopDip(positiveButton, Defines.PADDING_SMALL);
+        }
+        else
+        {
+            buttonFrame.setOrientation(LinearLayout.HORIZONTAL);
+
+            Simple.setMarginLeftDip(positiveButton, Defines.PADDING_ZERO);
         }
     }
 

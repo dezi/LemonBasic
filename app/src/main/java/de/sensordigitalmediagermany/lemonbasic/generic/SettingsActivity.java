@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -234,7 +235,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left clear cache button.
 
-        if (Defines.isDeleteCache)
+        if (Defines.isDeleteCache && Simple.isTablet())
         {
             GenericButton cacheButton = new GenericButton(this);
             cacheButton.setText(R.string.settings_clearcache);
@@ -445,6 +446,38 @@ public class SettingsActivity extends ContentBaseActivity
             rightArea.addView(createSeparator(this));
         }
 
+        if (Defines.isLoadAll)
+        {
+            LinearLayout loadAllArea = new LinearLayout(this);
+            loadAllArea.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(loadAllArea, Simple.MP, Simple.WC);
+            Simple.setMarginTopDip(loadAllArea, Defines.PADDING_SMALL);
+
+            rightArea.addView(loadAllArea);
+
+            GenericButton loadAllButton = new GenericButton(this);
+            Simple.setSizeDip(loadAllButton, Simple.WC, Simple.WC, 0.5f);
+
+            loadAllArea.addView(loadAllButton);
+
+            GenericButton deleteAllButton = new GenericButton(this);
+            Simple.setSizeDip(deleteAllButton, Simple.WC, Simple.WC, 0.5f);
+            Simple.setMarginLeftDip(deleteAllButton, Defines.PADDING_LARGE);
+
+            loadAllArea.addView(deleteAllButton);
+
+            if (Simple.isTablet())
+            {
+                loadAllButton.setText(R.string.settings_content_loadall_tablet);
+                deleteAllButton.setText(R.string.settings_content_deletall_tablet);
+            }
+            else
+            {
+                loadAllButton.setText(R.string.settings_content_loadall_phones);
+                deleteAllButton.setText(R.string.settings_content_deletall_phones);
+            }
+        }
+
         //endregion Right top area.
 
         //region Right content area.
@@ -534,8 +567,8 @@ public class SettingsActivity extends ContentBaseActivity
         }
         else
         {
-            Simple.setMarginTopDip(divider, Defines.PADDING_SMALL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_TINY);
+            Simple.setMarginTopDip(divider, Defines.PADDING_TINY);
+            Simple.setMarginBottomDip(divider, Defines.PADDING_ZERO);
         }
 
         return divider;

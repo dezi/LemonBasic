@@ -349,6 +349,11 @@ public class CourseActivity extends ContentBaseActivity
                 }
             });
 
+            if (! Simple.isTablet())
+            {
+                askdialog.setButtonsVertical(true);
+            }
+
             askdialog.positiveButton.requestFocus();
 
             topFrame.addView(askdialog);
