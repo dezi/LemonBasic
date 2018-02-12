@@ -169,7 +169,6 @@ public class CourseActivity extends ContentBaseActivity
             imageFrame.addView(titleArea);
 
             Simple.setSizeDip(cdView, Simple.WC, Simple.WC);
-
         }
         else
         {
@@ -224,6 +223,24 @@ public class CourseActivity extends ContentBaseActivity
         assetsAdapter.setAssets(cc);
 
         updateContent();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        Log.d(LOGTAG, "onPause...");
+
+        downloadCancel = true;
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        Log.d(LOGTAG, "onStop...");
     }
 
     public void updateContent()
@@ -346,7 +363,6 @@ public class CourseActivity extends ContentBaseActivity
 
     private DownloadDialog downloadDialog;
     private boolean downloadCancel;
-    private boolean downloadPosted;
 
     private long downloadTotal;
     private long downloadBytes;
@@ -357,7 +373,6 @@ public class CourseActivity extends ContentBaseActivity
     private void downloadAllContent()
     {
         downloadCancel = false;
-        downloadPosted = false;
 
         downloadTotal = uncachedTotal;
         downloadBytes = 0;
@@ -406,30 +421,22 @@ public class CourseActivity extends ContentBaseActivity
         {
             downloadProgressRunCurrent = current;
 
-            if (! downloadPosted)
-            {
-                //
-                // Avoid postings in too high frequency.
-                //
-
-                ApplicationBase.handler.post(downloadProgressRun);
-
-                downloadPosted = true;
-            }
+            ApplicationBase.handler.removeCallbacks(downloadProgressRun);
+            ApplicationBase.handler.post(downloadProgressRun);
 
             if (downloadCancel)
             {
-                if (downloadDialog != null)
-                {
-                    downloadDialog.dismissDialog();
-                    downloadDialog = null;
-                }
-
                 ApplicationBase.handler.postDelayed(new Runnable()
                 {
                     @Override
                     public void run()
                     {
+                        if (downloadDialog != null)
+                        {
+                            downloadDialog.dismissDialog();
+                            downloadDialog = null;
+                        }
+
                         assetGrid.updateContent();
                     }
                 }, 250);
@@ -448,8 +455,6 @@ public class CourseActivity extends ContentBaseActivity
             {
                 downloadCancel = downloadDialog.setProgressLong(downloadProgressRunCurrent + downloadBytes, downloadTotal);
             }
-
-            downloadPosted = false;
         }
     };
 }

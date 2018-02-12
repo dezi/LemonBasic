@@ -623,7 +623,14 @@ public class SettingsActivity extends ContentBaseActivity
             }
         }
 
-        updateContent();
+        ApplicationBase.handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                updateContent();
+            }
+        });
     }
 
     public void reAttachRightArea()
