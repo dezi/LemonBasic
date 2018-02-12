@@ -257,7 +257,7 @@ public class SettingsActivity extends ContentBaseActivity
 
                     RestApi.nukeSavedQueries(SettingsActivity.this);
 
-                    updateContent();
+                    updateContentDelayed();
                 }
             });
 
@@ -537,7 +537,6 @@ public class SettingsActivity extends ContentBaseActivity
         actContent = ContentHandler.getCachedContent();
 
         assetsAdapter.setSettings(true);
-        assetsAdapter.setAssets(actContent);
         assetsAdapter.setOnAssetClickedHandler(onAssetClickedHandler);
 
         //
@@ -546,7 +545,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentFrame.addView(tabBar);
 
-        updateContent();
+        updateContentDelayed();
     }
 
     public static FrameLayout createSeparator(Context context)
@@ -649,6 +648,18 @@ public class SettingsActivity extends ContentBaseActivity
         }
     };
 
+    private void updateContentDelayed()
+    {
+        ApplicationBase.handler.postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                updateContent();
+            }
+        }, 500);
+    }
+
     private void updateContent()
     {
         long total = 0;
@@ -664,6 +675,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB.setText(Simple.formatBytes(total));
 
+        assetsAdapter.setAssets(actContent);
         assetsAdapter.notifyDataSetChanged();
         assetGrid.updateContent();
     }
@@ -682,14 +694,7 @@ public class SettingsActivity extends ContentBaseActivity
             }
         }
 
-        ApplicationBase.handler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                updateContent();
-            }
-        }, 250);
+        updateContentDelayed();
     }
 
     public void reAttachRightArea()
