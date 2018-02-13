@@ -1,8 +1,5 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.view.animation.AnimationSet;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -10,7 +7,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.content.Context;
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
 import android.util.Log;
 
@@ -54,6 +50,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
     public void startSpinner()
     {
+        /*
         if (spinnerCenter == null)
         {
             spinnerCenter = new RelativeLayout(getContext());
@@ -85,6 +82,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
             spinnerIcon.startAnimation(animSet);
         }
+        */
     }
 
     public void stopSpinner()
@@ -148,6 +146,10 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         }
         else
         {
+            Log.d(LOGTAG, "updateContent: ############");
+
+            startSpinner();
+
             ApplicationBase.handler.removeCallbacks(updateContentRunner);
             ApplicationBase.handler.postDelayed(updateContentRunner, 250);
         }
@@ -160,7 +162,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         {
             if (columnWidth > 0)
             {
-                buildContentNow();
+                buildContent();
             }
             else
             {
@@ -169,11 +171,11 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         }
     };
 
-    private void buildContentNow()
+    private void buildContent()
     {
         Log.d(LOGTAG, "buildContent: start...");
 
-        dirty = true;
+        dirty = false;
 
         int xpos = 0;
         int ypos = 0;
@@ -184,6 +186,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         Map<Object, View> newvs = new HashMap<>();
 
         int itemcount = adapter.getCount();
+
         Log.d(LOGTAG, "buildContent: itemcount=" + itemcount);
 
         for (int inx = 0; inx < itemcount; inx++)
@@ -198,6 +201,8 @@ public class GenericGridView extends FrameLayout implements GenericFocus
                 //
 
                 view = adapter.getView(inx, null, this);
+
+                view.setLayoutParams(new MarginLayoutParams(columnWidth, Simple.WC));
 
                 if (Simple.isTV())
                 {
@@ -215,6 +220,8 @@ public class GenericGridView extends FrameLayout implements GenericFocus
                 }
 
                 contentView.addView(view);
+
+                dirty = true;
             }
             else
             {
@@ -223,22 +230,19 @@ public class GenericGridView extends FrameLayout implements GenericFocus
                 //
 
                 view = adapter.getView(inx, view, this);
-            }
+                height = view.getHeight();
 
-            if (view.getLayoutParams() instanceof MarginLayoutParams)
-            {
-                lp = (MarginLayoutParams) view.getLayoutParams();
-
-                if (lp.height > 0)
+                if (view.getLayoutParams() instanceof MarginLayoutParams)
                 {
-                    height = lp.height;
+                    lp = (MarginLayoutParams) view.getLayoutParams();
 
-                    lp.width = columnWidth;
+                    if ((lp.height == height) && (lp.width == columnWidth))
+                    {
+                        lp.leftMargin = xpos;
+                        lp.topMargin = ypos;
 
-                    lp.leftMargin = xpos;
-                    lp.topMargin = ypos;
-
-                    dirty = false;
+                        view.setLayoutParams(lp);
+                    }
                 }
             }
 
@@ -265,7 +269,12 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
         views = newvs;
 
-        stopSpinner();
+        if (! dirty)
+        {
+            stopSpinner();
+        }
+
+        ApplicationBase.handler.removeCallbacks(updateContentRunner);
 
         Log.d(LOGTAG, "buildContent: done dirty=" + dirty);
     }
@@ -274,7 +283,9 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     {
         Log.d(LOGTAG, "positionContent: start...");
 
-        int ccount = contentView.getChildCount();
+        int itemcount = contentView.getChildCount();
+
+        Log.d(LOGTAG, "positionContent: itemcount=" + itemcount);
 
         int xpos = 0;
         int ypos = 0;
@@ -283,38 +294,24 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         View child;
         int height;
 
-        for (int inx = 0; inx < ccount; inx++)
+        for (int inx = 0; inx < itemcount; inx++)
         {
             child = contentView.getChildAt(inx);
             height = child.getHeight();
 
             lp = (MarginLayoutParams) child.getLayoutParams();
 
-            if (lp == null)
+            if ((lp.width != columnWidth)
+                    || (lp.height != height)
+                    || (lp.leftMargin != xpos)
+                    || (lp.topMargin != ypos))
             {
-                //
-                // Items needs to be positioned.
-                //
-
-                lp = new MarginLayoutParams(columnWidth, Simple.WC);
-
+                lp.height = height;
+                lp.width = columnWidth;
                 lp.leftMargin = xpos;
                 lp.topMargin = ypos;
 
                 child.setLayoutParams(lp);
-            }
-            else
-            {
-                if ((lp.width != columnWidth)
-                    || (lp.leftMargin != xpos)
-                    || (lp.topMargin != ypos))
-                {
-                    lp.width = columnWidth;
-                    lp.leftMargin = xpos;
-                    lp.topMargin = ypos;
-
-                    child.setLayoutParams(lp);
-                }
             }
 
             if (((inx + 1) % numColumns) == 0)
@@ -329,6 +326,13 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         }
 
         dirty = false;
+
+        if (itemcount > 0)
+        {
+            stopSpinner();
+
+            ApplicationBase.handler.removeCallbacks(updateContentRunner);
+        }
 
         Log.d(LOGTAG, "positionContent: done.");
     }
