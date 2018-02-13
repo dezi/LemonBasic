@@ -246,6 +246,7 @@ public class CourseActivity extends ContentBaseActivity
         Log.d(LOGTAG, "onStop...");
     }
 
+    @Override
     public void updateContent()
     {
         int courseId = Json.getInt(Globals.displayContent, "id");

@@ -190,9 +190,17 @@ public class DownloadAllManager
     {
         Activity activity = ApplicationBase.getCurrentActivity(rootframe.getContext());
 
-        if (activity instanceof ContentBaseActivity)
+        if (activity instanceof SettingsActivity)
         {
-            ((ContentBaseActivity) activity).assetGrid.updateContent();
+            ((SettingsActivity) activity).reloadContent();
+            ((SettingsActivity) activity).updateContent();
+        }
+        else
+        {
+            if (activity instanceof ContentBaseActivity)
+            {
+                ((ContentBaseActivity) activity).assetGrid.updateContent();
+            }
         }
     }
 }

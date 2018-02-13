@@ -571,6 +571,7 @@ public class DetailActivity extends ContentBaseActivity
         return separ;
     }
 
+    @Override
     public void updateContent()
     {
         if (AssetsDownloadManager.connectDownload(Globals.displayContent,

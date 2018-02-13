@@ -508,17 +508,25 @@ public class SettingsActivity extends ContentBaseActivity
 
         //endregion Body frames
 
-        actContent = ContentHandler.getCachedContent();
-
         assetsAdapter.setSettings(true);
         assetsAdapter.setOnAssetClickedHandler(onAssetClickedHandler);
-        assetsAdapter.setAssets(actContent);
 
         //
         // Add tab bar again.
         //
 
         contentFrame.addView(tabBar);
+
+        reloadContent();
+    }
+
+    public void reloadContent()
+    {
+        actContent = ContentHandler.getCachedContent();
+
+        Log.d(LOGTAG, "reloadContent: actContent=" + actContent.length());
+
+        assetsAdapter.setAssets(actContent);
     }
 
     public static FrameLayout createSeparator(Context context)
@@ -655,7 +663,7 @@ public class SettingsActivity extends ContentBaseActivity
     private void updateContentDelayed()
     {
         ApplicationBase.handler.removeCallbacks(updateContentRunner);
-        ApplicationBase.handler.postDelayed(updateContentRunner, 500);
+        ApplicationBase.handler.postDelayed(updateContentRunner, 100);
     }
 
     private final Runnable updateContentRunner = new Runnable()
@@ -669,7 +677,7 @@ public class SettingsActivity extends ContentBaseActivity
         }
     };
 
-    private void updateContent()
+    public void updateContent()
     {
         long total = 0;
 
@@ -681,6 +689,8 @@ public class SettingsActivity extends ContentBaseActivity
             long file_size = Json.getLong(item, "file_size");
             total += file_size;
         }
+
+        Log.d(LOGTAG, "updateContent: total=" + total);
 
         contentSizeMB.setText(Simple.formatBytes(total));
 
@@ -710,35 +720,18 @@ public class SettingsActivity extends ContentBaseActivity
         {
             if (Simple.isTablet())
             {
-                if (loadAllArea.getParent() == null)
-                {
-                    rightArea.addView(loadAllArea);
-                }
-
-                if (assetGrid.getParent() == null)
-                {
-                    rightArea.addView(assetGrid);
-                }
+                if (loadAllArea.getParent() == null) rightArea.addView(loadAllArea);
+                if (assetGrid.getParent() == null) rightArea.addView(assetGrid);
             }
             else
             {
-                if (leftArea.getParent() == null)
-                {
-                    bodyHorz.addView(leftArea);
-                }
-
-                if (rightArea.getParent() == null)
-                {
-                    bodyHorz.addView(rightArea);
-                }
+                if (leftArea.getParent() == null) bodyHorz.addView(leftArea);
+                if (rightArea.getParent() == null) bodyHorz.addView(rightArea);
             }
         }
         else
         {
-            if (rightArea.getParent() == null)
-            {
-                bodyHorz.addView(rightArea);
-            }
+            if (rightArea.getParent() == null) bodyHorz.addView(rightArea);
         }
     }
 }

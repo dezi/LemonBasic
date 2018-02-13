@@ -120,6 +120,7 @@ public class ContentActivity extends ContentBaseActivity
         }
     };
 
+    @Override
     public void updateContent()
     {
         Log.d(LOGTAG, "updateContent: start...");

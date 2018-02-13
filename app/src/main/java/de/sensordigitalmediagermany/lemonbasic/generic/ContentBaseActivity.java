@@ -261,13 +261,12 @@ public class ContentBaseActivity extends FullScreenActivity
     {
         super.onResume();
 
-        Log.d(LOGTAG, "onResume: categoryContent.updateContent....");
+        updateContent();
+    }
 
-        categoryContent.updateContent();
-
-        Log.d(LOGTAG, "onResume: assetGrid.updateContent....");
-
-        assetGrid.updateContent();
+    public void updateContent()
+    {
+        Log.d(LOGTAG, "updateContent: needs overiding...");
     }
 
     protected void showNavigationPath(String category)

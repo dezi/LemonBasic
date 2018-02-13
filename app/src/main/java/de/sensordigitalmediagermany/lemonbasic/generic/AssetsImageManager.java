@@ -44,6 +44,9 @@ public class AssetsImageManager
         {
             Log.d(LOGTAG, "nukeCache: file=" + nuke.toString() + " del=" + nuke.delete());
         }
+
+        cache.clear();
+        tried.clear();
     }
 
     public static Drawable getDrawableOrFetch(Context context, ImageView iv, String url,
@@ -56,14 +59,13 @@ public class AssetsImageManager
             String cacheTag = url + "|" + ivwidth + "|" + ivheight + "|" + rounded;
 
             Drawable image = cache.get(cacheTag);
-            triedit = tried.get(cacheTag);
 
             if (image != null) return image;
+
+            triedit = tried.get(cacheTag);
         }
 
         if ((triedit == null) || ! triedit) fetchAssetImage(context, iv, url, ivwidth, ivheight, rounded);
-
-        //return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
 
         return null;
     }

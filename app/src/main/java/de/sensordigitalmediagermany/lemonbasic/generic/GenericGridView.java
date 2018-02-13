@@ -33,6 +33,10 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     private boolean focusable = false;
     private int backgroundColor = Color.TRANSPARENT;
 
+    private Map<Object, View> views = new HashMap<>();
+    private Map<View, Integer> vpose = new HashMap<>();
+    private Map<Object, OnFocusChangeListener> focse = new HashMap<>();
+
     private boolean dirty;
 
     public GenericGridView(Context context)
@@ -134,14 +138,14 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         }
     };
 
-    private Map<Object, View> views = new HashMap<>();
-    private Map<View, Integer> vpose = new HashMap<>();
-    private Map<Object, OnFocusChangeListener> focse = new HashMap<>();
-
     public void updateContent()
     {
         if ((adapter == null) || (adapter.getCount() == 0))
         {
+            views.clear();
+            vpose.clear();
+            focse.clear();
+
             contentView.removeAllViews();
         }
         else

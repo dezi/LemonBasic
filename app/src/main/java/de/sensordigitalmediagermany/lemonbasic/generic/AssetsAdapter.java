@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -18,6 +19,8 @@ import org.json.JSONObject;
 
 public class AssetsAdapter extends BaseAdapter
 {
+    private static final String LOGTAG = AssetsAdapter.class.getSimpleName();
+
     private static Typeface settingsFont;
 
     private JSONArray assets;
@@ -174,10 +177,11 @@ public class AssetsAdapter extends BaseAdapter
 
             if (!Defines.isSectionDividers) displayTitle = title + " | " + displayTitle;
 
-            AssetsImageManager.getDrawableOrFetch(
+            imageView.setImageDrawable(AssetsImageManager.getDrawableOrFetch(
                     parent.getContext(),
                     imageView, thumburl,
-                    imageWidth, imageHeight, false);
+                    imageWidth, imageHeight,
+                    false));
 
             titleView.setText(displayTitle);
 
