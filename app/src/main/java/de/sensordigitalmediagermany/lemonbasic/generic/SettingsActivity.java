@@ -103,7 +103,6 @@ public class SettingsActivity extends ContentBaseActivity
         else
         {
             bodyHorz.setOrientation(LinearLayout.VERTICAL);
-
         }
 
         contentFrame.addView(bodyHorz);
@@ -235,31 +234,12 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left clear cache button.
 
-        if (Defines.isDeleteCache && Simple.isTablet())
+        if (Defines.isDeleteCache && Simple.isTablet() && ! Defines.isLoadAll)
         {
             GenericButton cacheButton = new GenericButton(this);
             cacheButton.setText(R.string.settings_clearcache);
             cacheButton.setMarginTopDip(Defines.PADDING_LARGE);
-
-            cacheButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    ContentHandler.deleteAllCachedFiles();
-
-                    while (actContent.length() > 0)
-                    {
-                        Json.remove(actContent, 0);
-                    }
-
-                    AssetsImageManager.nukeCache(SettingsActivity.this);
-
-                    RestApi.nukeSavedQueries(SettingsActivity.this);
-
-                    updateContentDelayed();
-                }
-            });
+            cacheButton.setOnClickListener(onDeleteAllClicked);
 
             leftArea.addView(cacheButton);
         }
@@ -456,22 +436,16 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setMarginTopDip(loadAllArea, Defines.PADDING_SMALL);
 
             GenericButton loadAllButton = new GenericButton(this);
-            Simple.setSizeDip(loadAllButton, Simple.WC, Simple.WC, 0.5f);
+            loadAllButton.setOnClickListener(onLoadAllClicked);
 
-            loadAllButton.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    downloadAllManager = new DownloadAllManager();
-                    downloadAllManager.askDownloadAllContent(topFrame);
-                }
-            });
+            Simple.setSizeDip(loadAllButton, Simple.WC, Simple.WC, 0.5f);
 
             loadAllArea.addView(loadAllButton);
 
             GenericButton deleteAllButton = new GenericButton(this);
             deleteAllButton.setDefaultButton(true);
+            deleteAllButton.setOnClickListener(onDeleteAllClicked);
+
             Simple.setSizeDip(deleteAllButton, Simple.WC, Simple.WC, 0.5f);
             Simple.setMarginLeftDip(deleteAllButton, Defines.PADDING_LARGE);
 
@@ -545,8 +519,6 @@ public class SettingsActivity extends ContentBaseActivity
         //
 
         contentFrame.addView(tabBar);
-
-        updateContentDelayed();
     }
 
     public static FrameLayout createSeparator(Context context)
@@ -598,6 +570,36 @@ public class SettingsActivity extends ContentBaseActivity
             downloadAllManager = null;
         }
     }
+
+    private final View.OnClickListener onLoadAllClicked = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            downloadAllManager = new DownloadAllManager();
+            downloadAllManager.askDownloadAllContent(topFrame);
+        }
+    };
+
+    private final View.OnClickListener onDeleteAllClicked = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            ContentHandler.deleteAllCachedFiles();
+
+            while (actContent.length() > 0)
+            {
+                Json.remove(actContent, 0);
+            }
+
+            AssetsImageManager.nukeCache(SettingsActivity.this);
+
+            RestApi.nukeSavedQueries(SettingsActivity.this);
+
+            updateContentDelayed();
+        }
+    };
 
     private final AssetsAdapter.OnAssetClickedHandler onAssetClickedHandler = new AssetsAdapter.OnAssetClickedHandler()
     {
@@ -663,11 +665,11 @@ public class SettingsActivity extends ContentBaseActivity
         {
             Log.d(LOGTAG, "updateContentRunner:");
 
-            updateContentx();
+            updateContent();
         }
     };
 
-    private void updateContentx()
+    private void updateContent()
     {
         long total = 0;
 

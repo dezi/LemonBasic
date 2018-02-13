@@ -4,6 +4,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -98,14 +99,7 @@ public class AssetsAdapter extends BaseAdapter
             assetFrame.setFocusable(true);
             assetFrame.setOrientation(LinearLayout.HORIZONTAL);
             assetFrame.setOnClickListener(onClickHandler);
-
-            //
-            // Do NOT set layout params in top view
-            // as this would yield an illegal cast
-            // exception on older buggy Android versions.
-            //
-
-            Simple.setSizeDip(assetFrame, Simple.MP, Simple.pxToDip(imageHeight));
+            assetFrame.setLayoutParams(new ViewGroup.MarginLayoutParams(Simple.MP, imageHeight));
 
             imageView = new ImageView(parent.getContext());
             imageView.setId(android.R.id.content);
@@ -162,16 +156,33 @@ public class AssetsAdapter extends BaseAdapter
 
         final JSONObject asset = (JSONObject) getItem(position % assets.length());
 
-        assetFrame.setTag(asset);
+        if (assetFrame.getTag() != asset)
+        {
+            assetFrame.setTag(asset);
 
-        String title = Json.getString(asset, "title");
-        String subtitle = Json.getString(asset, "sub_title");
-        String thumburl = Json.getString(asset, "thumbnail_url");
-        long file_size = Json.getLong(asset, "file_size");
+            //
+            // The following attributes never change.
+            // Only set them, if the asset changed.
+            //
 
-        String displayTitle = subtitle;
+            String title = Json.getString(asset, "title");
+            String subtitle = Json.getString(asset, "sub_title");
+            String thumburl = Json.getString(asset, "thumbnail_url");
+            long file_size = Json.getLong(asset, "file_size");
 
-        if (! Defines.isSectionDividers) displayTitle = title + " | " + displayTitle;
+            String displayTitle = subtitle;
+
+            if (!Defines.isSectionDividers) displayTitle = title + " | " + displayTitle;
+
+            AssetsImageManager.getDrawableOrFetch(
+                    parent.getContext(),
+                    imageView, thumburl,
+                    imageWidth, imageHeight, false);
+
+            titleView.setText(displayTitle);
+
+            summaryView.setText(Simple.formatBytes(file_size));
+        }
 
         if (Json.getBoolean(asset, "_isSelected"))
         {
@@ -199,17 +210,6 @@ public class AssetsAdapter extends BaseAdapter
             assetFrame.setBackgroundColor(Defines.COLOR_SETTINGS_LIST);
         }
 
-        /*
-        AssetsImageManager.getDrawableOrFetch(
-                parent.getContext(),
-                imageView, thumburl,
-                imageWidth, imageHeight, false);
-        */
-
-        titleView.setText(displayTitle);
-
-        summaryView.setText(Simple.formatBytes(file_size));
-
         return assetFrame;
     }
 
@@ -218,11 +218,6 @@ public class AssetsAdapter extends BaseAdapter
         JSONObject asset = (JSONObject) getItem(position % assets.length());
 
         int width = parent.getWidth();
-
-        if (parent instanceof GridView)
-        {
-            width = ((GridView) parent).getColumnWidth();
-        }
 
         if (parent instanceof GenericGridView)
         {
