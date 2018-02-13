@@ -54,7 +54,9 @@ public class DownloadAllManager
         if (Simple.isOnline(rootframe.getContext()))
         {
             String infoText = Simple.getTrans(rootframe.getContext(),
-                    R.string.ask_download_all_info,
+                    (uncachedItems.length() == 1)
+                            ? R.string.ask_download_all_info_onecontent
+                            : R.string.ask_download_all_info,
                     String.valueOf(uncachedItems.length()),
                     Simple.formatBytes(uncachedTotal));
 

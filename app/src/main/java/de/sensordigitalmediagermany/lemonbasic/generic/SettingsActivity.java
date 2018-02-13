@@ -594,18 +594,34 @@ public class SettingsActivity extends ContentBaseActivity
         @Override
         public void onClick(View view)
         {
-            ContentHandler.deleteAllCachedFiles();
+            DialogView askdialog = new DialogView(view.getContext());
 
-            while (actContent.length() > 0)
+            askdialog.setCloseButton(true, null);
+
+            askdialog.setTitleText(R.string.ask_delete_all_title);
+            askdialog.setInfoText(R.string.ask_delete_all_info);
+
+            askdialog.setNegativeButton(R.string.button_cancel);
+
+            askdialog.setPositiveButton(R.string.settings_content_deletall_tablet, new View.OnClickListener()
             {
-                Json.remove(actContent, 0);
-            }
+                @Override
+                public void onClick(View view)
+                {
+                    ContentHandler.deleteAllCachedFiles();
 
-            AssetsImageManager.nukeCache(SettingsActivity.this);
+                    while (actContent.length() > 0)
+                    {
+                        Json.remove(actContent, 0);
+                    }
 
-            RestApi.nukeSavedQueries(SettingsActivity.this);
+                    AssetsImageManager.nukeCache(SettingsActivity.this);
 
-            updateContentDelayed();
+                    RestApi.nukeSavedQueries(SettingsActivity.this);
+
+                    updateContentDelayed();
+                }
+            });
         }
     };
 

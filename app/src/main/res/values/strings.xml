@@ -47,6 +47,9 @@
     <string name="ask_download_all_done_title">Load all contents</string>
     <string name="ask_download_all_done_info">There are no more contents to be downloaded.</string>
 
+    <string name="ask_delete_all_title">Delete all contents</string>
+    <string name="ask_delete_all_info">You can reload and view the contents at any time.</string>
+
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profile</string>
 

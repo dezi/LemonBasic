@@ -47,6 +47,9 @@
     <string name="ask_download_all_done_title">Alle Inhalte laden</string>
     <string name="ask_download_all_done_info">Es gibt keine weiteren Inhalte zum Download mehr.</string>
 
+    <string name="ask_delete_all_title">Alle Inhalte löschen?</string>
+    <string name="ask_delete_all_info">Sie können die Inhalte jederzeit wieder neu laden und ansehen.</string>
+
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profil</string>
 
