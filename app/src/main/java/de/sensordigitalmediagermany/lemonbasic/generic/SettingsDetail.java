@@ -27,6 +27,9 @@ public class SettingsDetail extends LinearLayout
     protected ImageView typeIcon;
     protected GenericButton deleteButton;
 
+    protected int imageWidth;
+    protected int imageHeight;
+
     public SettingsDetail(Context context)
     {
         this(context, null);
@@ -232,8 +235,7 @@ public class SettingsDetail extends LinearLayout
         int typeResid = R.string.detail_specs_type_unknown;
 
         if (content_type == Defines.CONTENT_TYPE_PDF) typeResid = R.string.detail_specs_type_pdf;
-        if (content_type == Defines.CONTENT_TYPE_VIDEO)
-            typeResid = R.string.detail_specs_type_video;
+        if (content_type == Defines.CONTENT_TYPE_VIDEO) typeResid = R.string.detail_specs_type_video;
         if (content_type == Defines.CONTENT_TYPE_ZIP) typeResid = R.string.detail_specs_type_zip;
 
         String typeText = Simple.getTrans(getContext(), typeResid);
@@ -404,11 +406,24 @@ public class SettingsDetail extends LinearLayout
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b)
+    protected void onAttachedToWindow()
     {
-        super.onLayout(changed, l, t, r, b);
+        super.onAttachedToWindow();
 
-        ApplicationBase.handler.post(displayImage);
+        View parent = (View) getParent();
+
+        imageWidth = parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
+        imageHeight = Math.round(imageWidth / Defines.ASSET_SETTINGS_ASPECT);
+
+        Log.d(LOGTAG, "onAttachedToWindow: width=" + imageWidth + " height=" + imageHeight);
+
+        if (parent.getWidth() > 0)
+        {
+            Simple.setSizeDip(imageFrame, Simple.MP, Simple.pxToDip(imageHeight));
+            Simple.setSizeDip(contentImage, Simple.MP, Simple.pxToDip(imageHeight));
+
+            ApplicationBase.handler.post(displayImage);
+        }
     }
 
     private final Runnable displayImage = new Runnable()
@@ -416,14 +431,6 @@ public class SettingsDetail extends LinearLayout
         @Override
         public void run()
         {
-            int imageWidth = SettingsDetail.this.getWidth();
-            int imageHeight = Math.round(imageWidth / Defines.ASSET_SETTINGS_ASPECT);
-
-            Simple.setSizeDip(imageFrame, Simple.MP, Simple.pxToDip(imageHeight));
-            Simple.setSizeDip(contentImage, Simple.MP, Simple.pxToDip(imageHeight));
-
-            Log.d(LOGTAG, "displayImage: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
-
             String detailUrl = Json.getString(content, "detail_image_url");
 
             contentImage.setImageDrawable(

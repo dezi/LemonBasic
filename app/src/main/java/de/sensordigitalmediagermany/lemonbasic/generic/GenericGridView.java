@@ -1,44 +1,100 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenericGridView extends ScrollView implements GenericFocus
+public class GenericGridView extends FrameLayout implements GenericFocus
 {
     private static final String LOGTAG = GenericGridView.class.getSimpleName();
 
-    private FrameLayout contentView;
     private BaseAdapter adapter;
+
+    private ScrollView scrollView;
+    private FrameLayout contentView;
+    private RelativeLayout spinnerCenter;
+    private ImageView spinnerIcon;
 
     private int horizontalSpacing;
     private int verticalSpacing;
     private int columnWidth;
-
-    private boolean dirty;
 
     private int numColumns = 1;
     private int focusedIndex = -1;
     private boolean focusable = false;
     private int backgroundColor = Color.TRANSPARENT;
 
+    private boolean dirty;
+
     public GenericGridView(Context context)
     {
         super(context);
 
-        Log.d(LOGTAG, "GenericGridView: new.");
+        scrollView = new ScrollView(context);
 
-        contentView = new FrameLayout(context);
-        Simple.setSizeDip(contentView, Simple.MP, Simple.WC);
+        addView(scrollView);
 
-        addView(contentView);
+        contentView = new FrameLayout(getContext());
+
+        scrollView.addView(contentView);
+    }
+
+    public void startSpinner()
+    {
+        if (spinnerCenter == null)
+        {
+            spinnerCenter = new RelativeLayout(getContext());
+            spinnerCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+            Simple.setSizeDip(spinnerCenter, Simple.MP, Simple.MP);
+
+            addView(spinnerCenter);
+
+            spinnerIcon = new ImageView(getContext());
+            spinnerIcon.setScaleType(ImageView.ScaleType.FIT_XY);
+            spinnerIcon.setImageResource(R.drawable.lem_t_iany_generic_spinner);
+            Simple.setSizeDip(spinnerIcon, Defines.SPINNER_ICON_SIZE, Defines.SPINNER_ICON_SIZE);
+
+            spinnerCenter.addView(spinnerIcon);
+
+            AnimationSet animSet = new AnimationSet(true);
+            animSet.setInterpolator(new LinearInterpolator());
+            animSet.setFillAfter(true);
+            animSet.setFillEnabled(true);
+
+            final RotateAnimation animRotate = new RotateAnimation(0.0f, -360.0f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+
+            animRotate.setFillAfter(true);
+            animRotate.setDuration(1000);
+            animRotate.setRepeatCount(1000);
+            animSet.addAnimation(animRotate);
+
+            spinnerIcon.startAnimation(animSet);
+        }
+    }
+
+    public void stopSpinner()
+    {
+        if (spinnerCenter != null)
+        {
+            spinnerIcon.clearAnimation();
+            removeView(spinnerCenter);
+            spinnerCenter = null;
+        }
     }
 
     @Override
@@ -80,53 +136,60 @@ public class GenericGridView extends ScrollView implements GenericFocus
         }
     };
 
-    @Override
-    public void onDetachedFromWindow()
-    {
-        super.onDetachedFromWindow();
-    }
-
     private Map<Object, View> views = new HashMap<>();
     private Map<View, Integer> vpose = new HashMap<>();
     private Map<Object, OnFocusChangeListener> focse = new HashMap<>();
 
     public void updateContent()
     {
-        ApplicationBase.handler.postDelayed(updateRunner, 10);
+        if ((adapter == null) || (adapter.getCount() == 0))
+        {
+            contentView.removeAllViews();
+        }
+        else
+        {
+            ApplicationBase.handler.removeCallbacks(updateContentRunner);
+            ApplicationBase.handler.postDelayed(updateContentRunner, 250);
+        }
     }
 
-    private final Runnable updateRunner = new Runnable()
+    private final Runnable updateContentRunner = new Runnable()
     {
         @Override
         public void run()
         {
             if (columnWidth > 0)
             {
-                buildContent();
-
-                invalidate();
+                buildContentNow();
             }
             else
             {
-                ApplicationBase.handler.postDelayed(updateRunner, 10);
+                ApplicationBase.handler.postDelayed(updateContentRunner, 10);
             }
         }
     };
 
-    private void buildContent()
+    private void buildContentNow()
     {
         Log.d(LOGTAG, "buildContent: start...");
 
-        contentView.removeAllViews();
+        dirty = true;
+
+        int xpos = 0;
+        int ypos = 0;
+
+        MarginLayoutParams lp;
+        int height = 0;
 
         Map<Object, View> newvs = new HashMap<>();
 
         int itemcount = adapter.getCount();
+        Log.d(LOGTAG, "buildContent: itemcount=" + itemcount);
 
         for (int inx = 0; inx < itemcount; inx++)
         {
             Object item = adapter.getItem(inx);
-            View view = views.get(item);
+            View view = views.remove(item);
 
             if (view == null)
             {
@@ -135,8 +198,6 @@ public class GenericGridView extends ScrollView implements GenericFocus
                 //
 
                 view = adapter.getView(inx, null, this);
-
-                view.setLayoutParams(new MarginLayoutParams(Simple.MP, Simple.WC));
 
                 if (Simple.isTV())
                 {
@@ -152,6 +213,8 @@ public class GenericGridView extends ScrollView implements GenericFocus
                         gf.setOnFocusChangeListener(onFocusChangeListener);
                     }
                 }
+
+                contentView.addView(view);
             }
             else
             {
@@ -162,16 +225,49 @@ public class GenericGridView extends ScrollView implements GenericFocus
                 view = adapter.getView(inx, view, this);
             }
 
+            if (view.getLayoutParams() instanceof MarginLayoutParams)
+            {
+                lp = (MarginLayoutParams) view.getLayoutParams();
+
+                if (lp.height > 0)
+                {
+                    height = lp.height;
+
+                    lp.width = columnWidth;
+
+                    lp.leftMargin = xpos;
+                    lp.topMargin = ypos;
+
+                    dirty = false;
+                }
+            }
+
             newvs.put(item, view);
             vpose.put(view, inx);
 
-            contentView.addView(view);
+            if (((inx + 1) % numColumns) == 0)
+            {
+                ypos += height + verticalSpacing;
+                xpos = 0;
+            }
+            else
+            {
+                xpos += columnWidth + horizontalSpacing;
+            }
+        }
+
+        for (Map.Entry<Object, View> entry : views.entrySet())
+        {
+            contentView.removeView(entry.getValue());
+
+            Log.d(LOGTAG, "remove=" + entry.getValue());
         }
 
         views = newvs;
-        dirty = true;
 
-        Log.d(LOGTAG, "buildContent: done.");
+        stopSpinner();
+
+        Log.d(LOGTAG, "buildContent: done dirty=" + dirty);
     }
 
     private void positionContent()
@@ -192,16 +288,34 @@ public class GenericGridView extends ScrollView implements GenericFocus
             child = contentView.getChildAt(inx);
             height = child.getHeight();
 
-            //Log.d(LOGTAG, "positionContent: xpos=" + xpos + " ypos=" + ypos);
-            //Log.d(LOGTAG, "positionContent: width=" + columnWidth + " height=" + height);
-
             lp = (MarginLayoutParams) child.getLayoutParams();
 
-            lp.width = columnWidth;
-            lp.leftMargin = xpos;
-            lp.topMargin = ypos;
+            if (lp == null)
+            {
+                //
+                // Items needs to be positioned.
+                //
 
-            child.setLayoutParams(lp);
+                lp = new MarginLayoutParams(columnWidth, Simple.WC);
+
+                lp.leftMargin = xpos;
+                lp.topMargin = ypos;
+
+                child.setLayoutParams(lp);
+            }
+            else
+            {
+                if ((lp.width != columnWidth)
+                    || (lp.leftMargin != xpos)
+                    || (lp.topMargin != ypos))
+                {
+                    lp.width = columnWidth;
+                    lp.leftMargin = xpos;
+                    lp.topMargin = ypos;
+
+                    child.setLayoutParams(lp);
+                }
+            }
 
             if (((inx + 1) % numColumns) == 0)
             {
@@ -224,22 +338,23 @@ public class GenericGridView extends ScrollView implements GenericFocus
     {
         super.onLayout(changed, l, t, r, b);
 
-        if (changed || dirty) positionContent();
-    }
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-
-        int nettoWidth = widthSize - getPaddingLeft() - getPaddingRight();
+        int width = (r - l);
+        int nettoWidth = width - getPaddingLeft() - getPaddingRight();
         columnWidth = (nettoWidth - (numColumns - 1) * verticalSpacing) / numColumns;
 
-        Log.d(LOGTAG, "onMeasure:" + " widthMode=" + widthMode + " widthSize=" + widthSize);
-        Log.d(LOGTAG, "onMeasure:" + " padLeft=" + getPaddingLeft() + " padright=" + getPaddingRight());
-        Log.d(LOGTAG, "onMeasure:" + " nettoWidth=" + nettoWidth + " columnWidth=" + columnWidth);
+        Log.d(LOGTAG, "onLayout:" + " changed=" + changed + " width=" + width);
+
+        if (changed || dirty)
+        {
+            ApplicationBase.handler.post(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    positionContent();
+                }
+            });
+        }
     }
 
     private View.OnFocusChangeListener onFocusChangeListener = new OnFocusChangeListener()

@@ -96,6 +96,12 @@ public class FullScreenActivity extends AppCompatActivity
         super.onDestroy();
 
         ApplicationBase.clearCurrentActivity(this);
+
+        Log.d(LOGTAG, "onDestroy: garbage start...");
+
+        System.gc();
+
+        Log.d(LOGTAG, "onDestroy: garbage done...");
     }
 
     @Override

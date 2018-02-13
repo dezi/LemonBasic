@@ -341,6 +341,7 @@ public class Defines
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 :  48;
+    public static final int SPINNER_ICON_SIZE   = Simple.isTablet() ? 128 :  48;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
 

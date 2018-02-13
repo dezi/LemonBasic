@@ -1,29 +1,27 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.view.Gravity;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.view.ViewGroup;
+import android.view.Gravity;
 import android.view.View;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class AssetsAdapter extends BaseAdapter
 {
-    private static final String LOGTAG = AssetsAdapter.class.getSimpleName();
+    private static Typeface settingsFont;
 
     private JSONArray assets;
     private boolean isSettings;
+
     private OnAssetClickedHandler onAssetClickedHandler;
 
     public void setAssets(JSONArray assets)
@@ -38,8 +36,6 @@ public class AssetsAdapter extends BaseAdapter
 
     public void setOnAssetClickedHandler(OnAssetClickedHandler onAssetClickedHandler)
     {
-        notifyDataSetChanged();
-
         this.onAssetClickedHandler = onAssetClickedHandler;
     }
 
@@ -70,8 +66,6 @@ public class AssetsAdapter extends BaseAdapter
                 ;
     }
 
-    private static Typeface settingsFont;
-
     private View getViewSettings(int position, View convertView, final ViewGroup parent)
     {
         if (settingsFont == null)
@@ -82,13 +76,10 @@ public class AssetsAdapter extends BaseAdapter
         int imageWidth = Simple.dipToPx(Defines.SETTINGS_IMAGE_SIZE);
         int imageHeight = Math.round(imageWidth / Defines.ASSET_THUMBNAIL_ASPECT);
 
-        Log.d(LOGTAG, "getView: imageWidth=" + imageWidth + " imageHeight=" + +imageHeight);
-
         LinearLayout assetFrame;
         ImageView imageView;
         TextView titleView;
         TextView summaryView;
-        ImageView courseView;
         TextView moreView;
 
         if (convertView != null)
@@ -98,7 +89,6 @@ public class AssetsAdapter extends BaseAdapter
             imageView = (ImageView) convertView.findViewById(android.R.id.content);
             titleView = (TextView) convertView.findViewById(android.R.id.title);
             summaryView = (TextView) convertView.findViewById(android.R.id.summary);
-            courseView = (ImageView) convertView.findViewById(android.R.id.icon);
             moreView = (TextView) convertView.findViewById(android.R.id.custom);
         }
         else
@@ -107,39 +97,22 @@ public class AssetsAdapter extends BaseAdapter
 
             assetFrame.setFocusable(true);
             assetFrame.setOrientation(LinearLayout.HORIZONTAL);
+            assetFrame.setOnClickListener(onClickHandler);
 
             //
             // Do NOT set layout params in top view
             // as this would yield an illegal cast
-            // execption on older buggy Android versions.
+            // exception on older buggy Android versions.
             //
 
-            //Simple.setSizeDip(assetFrame, Simple.MP, Simple.WC);
-
-            FrameLayout imageBox = new FrameLayout(parent.getContext());
-            Simple.setSizeDip(imageBox, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
-
-            assetFrame.addView(imageBox);
+            Simple.setSizeDip(assetFrame, Simple.MP, Simple.pxToDip(imageHeight));
 
             imageView = new ImageView(parent.getContext());
             imageView.setId(android.R.id.content);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             Simple.setSizeDip(imageView, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
 
-            imageBox.addView(imageView);
-
-            RelativeLayout courseBar = new RelativeLayout(parent.getContext());
-            courseBar.setGravity(Gravity.CENTER_VERTICAL + Gravity.CENTER_HORIZONTAL);
-            Simple.setSizeDip(courseBar, Simple.MP, Simple.MP);
-            imageBox.addView(courseBar);
-
-            courseView = new ImageView(parent.getContext());
-            courseView.setId(android.R.id.icon);
-            courseView.setImageResource(DefinesScreens.getCourseMarkerRes());
-            courseView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Simple.setSizeDip(courseView, Simple.WC, Simple.pxToDip(imageHeight) * 2 / 3);
-
-            courseBar.addView(courseView);
+            assetFrame.addView(imageView);
 
             LinearLayout textBox = new LinearLayout(parent.getContext());
             textBox.setOrientation(LinearLayout.HORIZONTAL);
@@ -189,20 +162,18 @@ public class AssetsAdapter extends BaseAdapter
 
         final JSONObject asset = (JSONObject) getItem(position % assets.length());
 
+        assetFrame.setTag(asset);
+
         String title = Json.getString(asset, "title");
         String subtitle = Json.getString(asset, "sub_title");
         String thumburl = Json.getString(asset, "thumbnail_url");
+        long file_size = Json.getLong(asset, "file_size");
 
         String displayTitle = subtitle;
 
         if (! Defines.isSectionDividers) displayTitle = title + " | " + displayTitle;
 
-        long file_size = Json.getLong(asset, "file_size");
-
-        boolean isCourse = Json.getBoolean(asset, "_isCourse");
-        boolean isSelected = Json.getBoolean(asset, "_isSelected");
-
-        if (isSelected)
+        if (Json.getBoolean(asset, "_isSelected"))
         {
             if (Defines.COLOR_SETTINGS_LIST_SEL == Color.BLACK)
             {
@@ -228,42 +199,16 @@ public class AssetsAdapter extends BaseAdapter
             assetFrame.setBackgroundColor(Defines.COLOR_SETTINGS_LIST);
         }
 
-        imageView.setImageDrawable(
-                AssetsImageManager.getDrawableOrFetch(
-                        parent.getContext(),
-                        imageView, thumburl,
-                        imageWidth, imageHeight, false));
+        /*
+        AssetsImageManager.getDrawableOrFetch(
+                parent.getContext(),
+                imageView, thumburl,
+                imageWidth, imageHeight, false);
+        */
 
         titleView.setText(displayTitle);
 
         summaryView.setText(Simple.formatBytes(file_size));
-
-        if (isCourse)
-        {
-            courseView.setVisibility(View.VISIBLE);
-
-            assetFrame.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    openCourse(parent, asset);
-                }
-            });
-        }
-        else
-        {
-            courseView.setVisibility(View.GONE);
-
-            assetFrame.setOnClickListener(new View.OnClickListener()
-            {
-                @Override
-                public void onClick(View view)
-                {
-                    openContent(parent, asset);
-                }
-            });
-        }
 
         return assetFrame;
     }
@@ -287,37 +232,19 @@ public class AssetsAdapter extends BaseAdapter
         return AssetFrame.createAssetFrame(parent.getContext(), convertView, width, asset, onAssetClickedHandler);
     }
 
-    private void openCourse(ViewGroup parent, JSONObject course)
+    private final View.OnClickListener onClickHandler = new View.OnClickListener()
     {
-        Log.d(LOGTAG,"openCourse....");
-
-        if (onAssetClickedHandler != null)
+        @Override
+        public void onClick(View view)
         {
-            onAssetClickedHandler.OnAssetClicked(course);
-        }
-        else
-        {
-            Globals.displayContent = course;
+            Object asset = view.getTag();
 
-            Simple.startActivity(parent.getContext(), CourseActivity.class);
+            if ((asset instanceof JSONObject) && (onAssetClickedHandler != null))
+            {
+                onAssetClickedHandler.OnAssetClicked((JSONObject) asset);
+            }
         }
-    }
-
-    private void openContent(ViewGroup parent, JSONObject content)
-    {
-        Log.d(LOGTAG,"openContent....");
-
-        if (onAssetClickedHandler != null)
-        {
-            onAssetClickedHandler.OnAssetClicked(content);
-        }
-        else
-        {
-            Globals.displayContent = content;
-
-            Simple.startActivity(parent.getContext(), DetailActivity.class);
-        }
-    }
+    };
 
     public interface OnAssetClickedHandler
     {

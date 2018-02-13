@@ -538,6 +538,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         assetsAdapter.setSettings(true);
         assetsAdapter.setOnAssetClickedHandler(onAssetClickedHandler);
+        assetsAdapter.setAssets(actContent);
 
         //
         // Add tab bar again.
@@ -611,7 +612,6 @@ public class SettingsActivity extends ContentBaseActivity
                 Json.put(item, "_isSelected", (content == item));
             }
 
-            assetsAdapter.notifyDataSetChanged();
             assetGrid.updateContent();
 
             ApplicationBase.handler.postDelayed(new Runnable()
@@ -620,6 +620,8 @@ public class SettingsActivity extends ContentBaseActivity
                 public void run()
                 {
                     SettingsDetail detailView = new SettingsDetail(SettingsActivity.this, content);
+
+                    int width = 0;
 
                     if (Defines.isCompactSettings)
                     {
@@ -650,17 +652,22 @@ public class SettingsActivity extends ContentBaseActivity
 
     private void updateContentDelayed()
     {
-        ApplicationBase.handler.postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                updateContent();
-            }
-        }, 500);
+        ApplicationBase.handler.removeCallbacks(updateContentRunner);
+        ApplicationBase.handler.postDelayed(updateContentRunner, 500);
     }
 
-    private void updateContent()
+    private final Runnable updateContentRunner = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            Log.d(LOGTAG, "updateContentRunner:");
+
+            updateContentx();
+        }
+    };
+
+    private void updateContentx()
     {
         long total = 0;
 
@@ -675,8 +682,6 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB.setText(Simple.formatBytes(total));
 
-        assetsAdapter.setAssets(actContent);
-        assetsAdapter.notifyDataSetChanged();
         assetGrid.updateContent();
     }
 

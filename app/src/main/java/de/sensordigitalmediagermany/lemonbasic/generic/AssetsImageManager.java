@@ -63,7 +63,9 @@ public class AssetsImageManager
 
         if ((triedit == null) || ! triedit) fetchAssetImage(context, iv, url, ivwidth, ivheight, rounded);
 
-        return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
+        //return Simple.getDrawableFromResources(context, R.drawable.lem_t_iany_ralbers_loading_placeholder);
+
+        return null;
     }
 
     private static void fetchAssetImage(Context context, ImageView iv, String url,
