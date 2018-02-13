@@ -288,4 +288,7 @@
     <string name="alert_no_internet_title">Internet-Verbindung</string>
     <string name="alert_no_internet_info">Zur Zeit besteht keine Internet-Verbindung. Bitte wiederholen Sie den Vorgang zu einem späteren Zeitpunkt.</string>
 
+    <string name="alert_no_asset_defined_title">Inhalt fehlt</string>
+    <string name="alert_no_asset_defined_info">Bitte kontaktieren Sie Ihren System-Administrator bezüglich dieses Inhalts.</string>
+
 </resources>

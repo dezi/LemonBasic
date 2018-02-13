@@ -479,6 +479,28 @@ public class ContentHandler
         return contentsBought.get(contentId, false);
     }
 
+    public static int countCourseContent()
+    {
+        int count = 0;
+
+        JSONArray source = Globals.completeContents;
+
+        for (int inx = 0; inx < source.length(); inx++)
+        {
+            JSONObject content = Json.getObject(source, inx);
+            if (content == null) continue;
+
+            if (Json.getBoolean(content, "_isCourse"))
+            {
+                count++;
+            }
+        }
+
+        Log.d(LOGTAG, "countCourseContent count=" + count);
+
+        return count;
+    }
+
     public static JSONArray getCachedContent()
     {
         JSONArray result = new JSONArray();

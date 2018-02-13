@@ -710,7 +710,12 @@ public class SettingsActivity extends ContentBaseActivity
 
         Log.d(LOGTAG, "updateContent: total=" + total);
 
-        contentSizeMB.setText(Simple.formatBytes(total));
+        int loaded = actContent.length();
+        int available = Globals.completeContents.length() - ContentHandler.countCourseContent();
+
+        String infostr = loaded + "/" + available + " = " + Simple.formatBytes(total);
+
+        contentSizeMB.setText(infostr);
 
         assetGrid.updateContent();
     }

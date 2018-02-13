@@ -315,5 +315,7 @@ public class CourseActivity extends ContentBaseActivity
         }
 
         buyButton.setText(buyText);
+
+        assetGrid.updateContent();
     }
 }

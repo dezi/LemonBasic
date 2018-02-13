@@ -288,4 +288,7 @@
     <string name="alert_no_internet_title">Internet connection</string>
     <string name="alert_no_internet_info">There is currently no internet connection. Please try again later.</string>
 
+    <string name="alert_no_asset_defined_title">Content is missing</string>
+    <string name="alert_no_asset_defined_info">Please contact Your system administrator regarding this content.</string>
+
 </resources>
