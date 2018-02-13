@@ -622,6 +622,8 @@ public class SettingsActivity extends ContentBaseActivity
                     updateContentDelayed();
                 }
             });
+
+            topFrame.addView(askdialog);
         }
     };
 
