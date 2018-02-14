@@ -94,6 +94,14 @@ public class DefinesScreens extends Defines
                 ;
     }
 
+    public static int getStatusUpdateMarkerRes()
+    {
+        return Simple.isTablet()
+                ? R.drawable.lem_t_iany_generic_inhalt_update
+                : R.drawable.lem_t_iany_generic_inhalt_update
+                ;
+    }
+
     public static int getStatusFailMarkerRes()
     {
         return Simple.isTablet()

@@ -252,7 +252,7 @@ public class CourseActivity extends ContentBaseActivity
         int courseId = Json.getInt(Globals.displayContent, "id");
         int price = Json.getInt(Globals.displayContent, "price");
         boolean bought = ContentHandler.isCourseBought(courseId);
-        boolean cached = ContentHandler.isCachedContent(Globals.displayContent);
+        boolean loadme = ContentHandler.isOutdatedOrNotCachedContent(Globals.displayContent);
 
         String buyText = (price > 0)
                 ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
@@ -260,7 +260,7 @@ public class CourseActivity extends ContentBaseActivity
 
         if (Defines.isGiveAway)
         {
-            if (! cached)
+            if (loadme)
             {
                 buyButtonCenter.setVisibility(View.VISIBLE);
 
@@ -276,7 +276,7 @@ public class CourseActivity extends ContentBaseActivity
                     public void onClick(View view)
                     {
                         downloadAllManager = new DownloadAllManager();
-                        downloadAllManager.askDownloadAllContent(topFrame);
+                        downloadAllManager.askDownloadAllContent(topFrame, Globals.displayContent);
                     }
                 });
             }

@@ -321,10 +321,21 @@ public class AssetFrame extends GenericLinear
 
         if (ContentHandler.isCachedContent(asset))
         {
-            if (Defines.isLoadedIcon)
+            if (Defines.isStatusIcon)
             {
-                loadedView.setImageResource(DefinesScreens.getReadMarkerRes());
-                loadedView.setVisibility(View.VISIBLE);
+                if (ContentHandler.isOutdatedContent(asset))
+                {
+                    loadedView.setImageResource(DefinesScreens.getStatusUpdateMarkerRes());
+                    loadedView.setVisibility(View.VISIBLE);
+                }
+            }
+            else
+            {
+                if (Defines.isLoadedIcon)
+                {
+                    loadedView.setImageResource(DefinesScreens.getReadMarkerRes());
+                    loadedView.setVisibility(View.VISIBLE);
+                }
             }
         }
         else

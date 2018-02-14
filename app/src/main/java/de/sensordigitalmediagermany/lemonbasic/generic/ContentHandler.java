@@ -313,6 +313,15 @@ public class ContentHandler
                             Log.d(LOGTAG, "getAllContent: data unchanged...");
                         }
 
+                        if (Defines.isDezi)
+                        {
+                            //
+                            // For testing the modification download.
+                            //
+
+                            fakeSomeOutdatedContent(0.05f);
+                        }
+
                         Globals.contentsLoaded = true;
 
                         ApplicationBase.handler.post(callback);
@@ -679,19 +688,64 @@ public class ContentHandler
         return false;
     }
 
-    public static long getUnCachedSize(JSONArray contents)
+    public static boolean isOutdatedContent(JSONObject content)
     {
-        long size = 0;
+        boolean outdated = false;
 
-        for (int inx = 0; inx < contents.length(); inx++)
+        boolean isCourse = Json.getBoolean(content, "_isCourse");
+
+        if (! isCourse)
         {
-            JSONObject content = Json.getObject(contents, inx);
-            if (content == null) continue;
+            String fileName = Json.getString(content, "content_file_name");
 
-            size += Json.getLong(content, "file_size");
+            if (fileName != null)
+            {
+                File cacheFile = new File(getStorageDir(), fileName);
+
+                if (cacheFile.exists())
+                {
+                    String sqldate = Json.getString(content, "mdDate");
+                    long mdMillis = Simple.getTimeStamp(sqldate);
+
+                    outdated = (cacheFile.lastModified() < mdMillis);
+                }
+            }
+        }
+        else
+        {
+            JSONArray cc = Json.getArray(content, "_cc");
+
+            if (cc != null)
+            {
+                for (int inx = 0; inx < cc.length(); inx++)
+                {
+                    JSONObject ccontent = Json.getObject(cc, inx);
+                    if (ccontent == null) continue;
+
+                    String fileName = Json.getString(ccontent, "content_file_name");
+
+                    if (fileName != null)
+                    {
+                        File cacheFile = new File(getStorageDir(), fileName);
+
+                        if (cacheFile.exists())
+                        {
+                            String sqldate = Json.getString(ccontent, "mdDate");
+                            long mdMillis = Simple.getTimeStamp(sqldate);
+
+                            outdated |= (cacheFile.lastModified() < mdMillis);
+                        }
+                    }
+                }
+            }
         }
 
-        return size;
+        return outdated;
+    }
+
+    public static boolean isOutdatedOrNotCachedContent(JSONObject content)
+    {
+        return (! isCachedContent(content)) || isOutdatedContent(content);
     }
 
     private static JSONArray getUnCachedContent()
@@ -723,8 +777,7 @@ public class ContentHandler
             //
 
             return getUnCachedContent();
-
-        };
+        }
 
         JSONArray uncached = new JSONArray();
 
@@ -741,6 +794,16 @@ public class ContentHandler
                 if (! cacheFile.exists())
                 {
                     Json.put(uncached, content);
+                }
+                else
+                {
+                    String sqldate = Json.getString(content, "mdDate");
+                    long mdMillis = Simple.getTimeStamp(sqldate);
+
+                    if (cacheFile.lastModified() < mdMillis)
+                    {
+                        Json.put(uncached, content);
+                    }
                 }
             }
         }
@@ -765,12 +828,55 @@ public class ContentHandler
                         {
                             Json.put(uncached, ccontent);
                         }
+                        else
+                        {
+                            String sqldate = Json.getString(ccontent, "mdDate");
+                            long mdMillis = Simple.getTimeStamp(sqldate);
+
+                            if (cacheFile.lastModified() < mdMillis)
+                            {
+                                Json.put(uncached, ccontent);
+                            }
+                        }
                     }
                 }
             }
         }
 
         return uncached;
+    }
+
+    private static void fakeSomeOutdatedContent(float chance)
+    {
+        for (int inx = 0; inx < Globals.completeContents.length(); inx++)
+        {
+            JSONObject content = Json.getObject(Globals.completeContents, inx);
+            if (content == null) continue;
+
+            if (Json.getBoolean(content, "_isCourse")) continue;
+
+            if (Simple.randomBoolean(chance))
+            {
+                Log.d(LOGTAG, "fakeSomeOutdatedContent: faked one.");
+
+                Json.put(content, "mdDate", "2099-01-26 15:05:11");
+            }
+        }
+    }
+
+    public static long getTotalFileSize(JSONArray contents)
+    {
+        long size = 0;
+
+        for (int inx = 0; inx < contents.length(); inx++)
+        {
+            JSONObject content = Json.getObject(contents, inx);
+            if (content == null) continue;
+
+            size += Json.getLong(content, "file_size");
+        }
+
+        return size;
     }
 
     @Nullable

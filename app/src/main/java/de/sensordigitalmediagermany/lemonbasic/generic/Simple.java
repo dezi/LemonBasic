@@ -60,6 +60,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -1290,5 +1291,12 @@ public class Simple
         {
 
         }
+    }
+
+    public static boolean randomBoolean(float chance)
+    {
+        Random rand = new Random();
+
+        return (rand.nextFloat() < chance);
     }
 }

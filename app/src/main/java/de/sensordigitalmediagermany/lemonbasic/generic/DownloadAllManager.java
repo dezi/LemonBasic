@@ -38,7 +38,7 @@ public class DownloadAllManager
         this.rootframe = rootframe;
 
         uncachedItems = ContentHandler.getUnCachedContent(content);
-        uncachedTotal = ContentHandler.getUnCachedSize(uncachedItems);
+        uncachedTotal = ContentHandler.getTotalFileSize(uncachedItems);
 
         Log.d(LOGTAG, "askDownloadAllContent: uncachedItems=" + uncachedItems.length() + " uncachedTotal=" + uncachedTotal);
 
