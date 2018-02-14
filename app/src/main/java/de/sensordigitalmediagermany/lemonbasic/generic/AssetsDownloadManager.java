@@ -124,7 +124,7 @@ public class AssetsDownloadManager
         fetchContentData(content, onFileLoadedHandler, onDownloadProgressHandler);
     }
 
-    private static void fetchContentData(JSONObject content,
+    public static void fetchContentData(JSONObject content,
                                          OnFileLoadedHandler onFileLoadedHandler,
                                          OnDownloadProgressHandler onDownloadProgressHandler)
     {

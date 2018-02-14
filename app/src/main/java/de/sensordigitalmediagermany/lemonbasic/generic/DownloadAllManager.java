@@ -116,7 +116,7 @@ public class DownloadAllManager
             JSONObject downloadcontent = Json.getObject(uncachedItems, inx);
             if (downloadcontent == null) continue;
 
-            AssetsDownloadManager.getContentOrFetch(downloadcontent, onFileLoadedHandler, onDownloadProgressHandler);
+            AssetsDownloadManager.fetchContentData(downloadcontent, onFileLoadedHandler, onDownloadProgressHandler);
         }
     }
 
