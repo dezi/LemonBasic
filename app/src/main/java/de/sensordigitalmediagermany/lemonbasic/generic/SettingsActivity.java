@@ -225,7 +225,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left sound section.
 
-        if (Defines.isSoundSettings)
+        //if (Defines.isSoundSettings)
         {
             leftArea.addView(new SettingsSound(this));
         }

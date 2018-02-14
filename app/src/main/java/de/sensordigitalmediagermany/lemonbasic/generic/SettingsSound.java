@@ -25,10 +25,18 @@ public class SettingsSound extends LinearLayout
 
         LinearLayout onoffArea = new LinearLayout(context);
         onoffArea.setOrientation(LinearLayout.HORIZONTAL);
-        onoffArea.setBackgroundColor(Color.LTGRAY);
         Simple.setSizeDip(onoffArea, Simple.MP, Simple.WC);
         Simple.setPaddingDip(onoffArea, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(onoffArea, Defines.PADDING_TINY);
+
+        if (Defines.isCompactSettings)
+        {
+            onoffArea.setBackgroundColor(Color.WHITE);
+        }
+        else
+        {
+            onoffArea.setBackgroundColor(Color.LTGRAY);
+        }
 
         addView(onoffArea);
 
@@ -64,10 +72,18 @@ public class SettingsSound extends LinearLayout
 
         LinearLayout volumeArea = new LinearLayout(context);
         volumeArea.setOrientation(LinearLayout.HORIZONTAL);
-        volumeArea.setBackgroundColor(Color.LTGRAY);
         Simple.setSizeDip(volumeArea, Simple.MP, Simple.WC);
         Simple.setPaddingDip(volumeArea, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(volumeArea, Defines.PADDING_TINY);
+
+        if (Defines.isCompactSettings)
+        {
+            volumeArea.setBackgroundColor(Color.WHITE);
+        }
+        else
+        {
+            volumeArea.setBackgroundColor(Color.LTGRAY);
+        }
 
         addView(volumeArea);
 
