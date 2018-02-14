@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.Gravity;
 import android.view.View;
 
-public class SliderControl extends FrameLayout
+public class SliderControl extends GenericFrame
 {
     private static final String LOGTAG = SliderControl.class.getSimpleName();
 
@@ -34,6 +34,8 @@ public class SliderControl extends FrameLayout
 
         Simple.setSizeDip(this, Simple.MP, Simple.WC);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL, 0);
+
+        setFocusable(true);
 
         int radiusdipse[] = new int[4];
 
@@ -85,32 +87,7 @@ public class SliderControl extends FrameLayout
         Simple.setSizeDip(knobCenter, Simple.MP, Simple.MP);
         addView(knobCenter);
 
-        knobBox = new GenericLinear(getContext())
-        {
-            @Override
-            public boolean onKeyDown(int keyCode, KeyEvent event)
-            {
-                Log.d(LOGTAG, "onKeyDown:" + keyCode);
-
-                switch (keyCode)
-                {
-                    case KeyEvent.KEYCODE_DPAD_UP:
-                    case KeyEvent.KEYCODE_DPAD_DOWN:
-                    case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    case KeyEvent.KEYCODE_DPAD_LEFT:
-                    case KeyEvent.KEYCODE_BACK:
-                    case KeyEvent.KEYCODE_ESCAPE:
-
-                        Log.d(LOGTAG, "key pressed!");
-
-                        return true;
-                }
-
-                return false;
-            }
-        };
-
-        knobBox.setFocusable(true);
+        knobBox = new LinearLayout(getContext());
         knobBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(knobBox, Simple.MP, Defines.SLIDER_KNOB_SIZE);
 
@@ -162,6 +139,38 @@ public class SliderControl extends FrameLayout
         });
 
         setCurrentPosition(0.25f);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        Log.d(LOGTAG, "onKeyDown:" + keyCode);
+
+        if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)
+        {
+            Log.d(LOGTAG, "onKeyDown: KeyEvent.KEYCODE_DPAD_RIGHT=" + keyCode);
+
+            float newposition = currentPosition + 0.1f;
+            if (newposition > 1f) newposition = 1f;
+
+            setCurrentPosition(newposition);
+
+            return true;
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT)
+        {
+            Log.d(LOGTAG, "onKeyDown: KeyEvent.KEYCODE_DPAD_LEFT=" + keyCode);
+
+            float newposition = currentPosition - 0.1f;
+            if (newposition < 0f) newposition = 0f;
+
+            setCurrentPosition(newposition);
+
+            return true;
+        }
+
+        return false;
     }
 
     public void setOnChangedListener(OnChangedListener onChanged)

@@ -1,16 +1,15 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.widget.LinearLayout;
 import android.content.Context;
 import android.graphics.Color;
-import android.view.View;
+import android.widget.FrameLayout;
 
-public class GenericLinear extends LinearLayout implements GenericFocus
+public class GenericFrame extends FrameLayout implements GenericFocus
 {
     private boolean focusable = false;
     private int backgroundColor = Color.TRANSPARENT;
 
-    public GenericLinear(Context context)
+    public GenericFrame(Context context)
     {
         super(context);
     }
@@ -46,7 +45,7 @@ public class GenericLinear extends LinearLayout implements GenericFocus
     }
 
     @Override
-    public void setOnClickListener(View.OnClickListener onClickListener)
+    public void setOnClickListener(OnClickListener onClickListener)
     {
         super.setOnClickListener(onClickListener);
 

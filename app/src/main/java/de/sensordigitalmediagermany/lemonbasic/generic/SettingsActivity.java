@@ -244,7 +244,7 @@ public class SettingsActivity extends ContentBaseActivity
         {
             cacheButton = new GenericButton(this);
             cacheButton.setText(R.string.settings_clearcache);
-            cacheButton.setMarginTopDip(Defines.PADDING_LARGE);
+            cacheButton.setMarginTopDip(Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
 
             leftArea.addView(cacheButton);
         }
@@ -254,7 +254,7 @@ public class SettingsActivity extends ContentBaseActivity
         //region Left logoff button.
 
         LinearLayout logoffArea = new LinearLayout(this);
-        Simple.setMarginTopDip(logoffArea, Defines.PADDING_LARGE);
+        Simple.setMarginTopDip(logoffArea, Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
 
         if (Defines.isCompactSettings)
         {
@@ -299,7 +299,7 @@ public class SettingsActivity extends ContentBaseActivity
         {
             passwordButton.setFullWidth(true);
 
-            Simple.setMarginTopDip(passwordButton, Defines.PADDING_LARGE);
+            Simple.setMarginTopDip(passwordButton, Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
         }
         else
         {

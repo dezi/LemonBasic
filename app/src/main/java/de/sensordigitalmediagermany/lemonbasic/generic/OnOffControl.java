@@ -2,6 +2,8 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -9,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class OnOffControl extends FrameLayout
+public class OnOffControl extends GenericFrame
 {
     private static final String LOGTAG = OnOffControl.class.getSimpleName();
 
@@ -31,6 +33,8 @@ public class OnOffControl extends FrameLayout
 
         Simple.setSizeDip(this, Simple.WC, Simple.WC);
         Simple.setPaddingDip(this, Defines.PADDING_SMALL, 0, Defines.PADDING_SMALL, 0);
+
+        setFocusable(true);
 
         int radiusdipse[] = new int[4];
 
@@ -126,6 +130,32 @@ public class OnOffControl extends FrameLayout
         });
 
         setCurrentPosition(1f);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        Log.d(LOGTAG, "onKeyDown:" + keyCode);
+
+        if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT)
+        {
+            Log.d(LOGTAG, "onKeyDown: KeyEvent.KEYCODE_DPAD_RIGHT=" + keyCode);
+
+            setCurrentPosition(1f);
+
+            return true;
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT)
+        {
+            Log.d(LOGTAG, "onKeyDown: KeyEvent.KEYCODE_DPAD_LEFT=" + keyCode);
+
+            setCurrentPosition(0f);
+
+            return true;
+        }
+
+        return false;
     }
 
     public void setOnChangedListener(OnChangedListener onChanged)

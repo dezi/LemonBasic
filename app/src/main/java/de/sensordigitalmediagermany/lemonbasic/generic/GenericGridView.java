@@ -162,11 +162,21 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     {
         if ((adapter == null) || (adapter.getCount() == 0))
         {
+            if (onUpdateStartedHandler != null)
+            {
+                onUpdateStartedHandler.run();
+            }
+
             views.clear();
             vpose.clear();
             focse.clear();
 
             contentView.removeAllViews();
+
+            if (onUpdateFinishedHandler != null)
+            {
+                onUpdateFinishedHandler.run();
+            }
         }
         else
         {

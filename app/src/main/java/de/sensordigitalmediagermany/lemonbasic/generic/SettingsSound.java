@@ -26,8 +26,9 @@ public class SettingsSound extends LinearLayout
         LinearLayout onoffArea = new LinearLayout(context);
         onoffArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(onoffArea, Simple.MP, Simple.WC);
-        Simple.setPaddingDip(onoffArea, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(onoffArea, Defines.PADDING_TINY);
+
+        Simple.setPaddingDip(onoffArea, Simple.isWideScreen() ? Defines.PADDING_TINY : Defines.PADDING_SMALL);
 
         if (Defines.isCompactSettings)
         {
@@ -73,8 +74,9 @@ public class SettingsSound extends LinearLayout
         LinearLayout volumeArea = new LinearLayout(context);
         volumeArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(volumeArea, Simple.MP, Simple.WC);
-        Simple.setPaddingDip(volumeArea, Defines.PADDING_SMALL);
         Simple.setMarginTopDip(volumeArea, Defines.PADDING_TINY);
+
+        Simple.setPaddingDip(volumeArea, Simple.isWideScreen() ? Defines.PADDING_TINY : Defines.PADDING_SMALL);
 
         if (Defines.isCompactSettings)
         {
