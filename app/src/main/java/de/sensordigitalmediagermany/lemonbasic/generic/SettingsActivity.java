@@ -711,7 +711,7 @@ public class SettingsActivity extends ContentBaseActivity
         Log.d(LOGTAG, "updateContent: total=" + total);
 
         int loaded = actContent.length();
-        int available = Globals.completeContents.length() - ContentHandler.countCourseContent();
+        int available = ContentHandler.countContents();
 
         String infostr = loaded + "/" + available + " = " + Simple.formatBytes(total);
 

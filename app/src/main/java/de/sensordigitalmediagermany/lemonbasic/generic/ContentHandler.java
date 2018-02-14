@@ -488,7 +488,7 @@ public class ContentHandler
         return contentsBought.get(contentId, false);
     }
 
-    public static int countCourseContent()
+    public static int countCourses()
     {
         int count = 0;
 
@@ -505,7 +505,29 @@ public class ContentHandler
             }
         }
 
-        Log.d(LOGTAG, "countCourseContent count=" + count);
+        Log.d(LOGTAG, "countCourses count=" + count);
+
+        return count;
+    }
+
+    public static int countContents()
+    {
+        int count = 0;
+
+        JSONArray source = Globals.completeContents;
+
+        for (int inx = 0; inx < source.length(); inx++)
+        {
+            JSONObject content = Json.getObject(source, inx);
+            if (content == null) continue;
+
+            if (! Json.getBoolean(content, "_isCourse"))
+            {
+                count++;
+            }
+        }
+
+        Log.d(LOGTAG, "countContents count=" + count);
 
         return count;
     }
@@ -520,8 +542,7 @@ public class ContentHandler
             JSONObject content = Json.getObject(source, inx);
             if (content == null) continue;
 
-            boolean isCourse = Json.getBoolean(content, "_isCourse");
-            if (isCourse) continue;
+            if (Json.getBoolean(content, "_isCourse")) continue;
 
             if (! isCachedContent(content)) continue;
 
@@ -752,10 +773,12 @@ public class ContentHandler
     {
         JSONArray everything = new JSONArray();
 
-        for (int inx = 0; inx < Globals.displayAllContents.length(); inx++)
+        for (int inx = 0; inx < Globals.completeContents.length(); inx++)
         {
-            JSONObject content = Json.getObject(Globals.displayAllContents, inx);
+            JSONObject content = Json.getObject(Globals.completeContents, inx);
             if (content == null) continue;
+
+            if (Json.getBoolean(content, "_isCourse")) continue;
 
             JSONArray uncached = getUnCachedContent(content);
 
