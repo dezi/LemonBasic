@@ -2,6 +2,8 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.graphics.Color;
 import android.content.Context;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.SoundEffectConstants;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -83,7 +85,32 @@ public class SliderControl extends FrameLayout
         Simple.setSizeDip(knobCenter, Simple.MP, Simple.MP);
         addView(knobCenter);
 
-        knobBox = new LinearLayout(getContext());
+        knobBox = new GenericLinear(getContext())
+        {
+            @Override
+            public boolean onKeyDown(int keyCode, KeyEvent event)
+            {
+                Log.d(LOGTAG, "onKeyDown:" + keyCode);
+
+                switch (keyCode)
+                {
+                    case KeyEvent.KEYCODE_DPAD_UP:
+                    case KeyEvent.KEYCODE_DPAD_DOWN:
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                    case KeyEvent.KEYCODE_BACK:
+                    case KeyEvent.KEYCODE_ESCAPE:
+
+                        Log.d(LOGTAG, "key pressed!");
+
+                        return true;
+                }
+
+                return false;
+            }
+        };
+
+        knobBox.setFocusable(true);
         knobBox.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(knobBox, Simple.MP, Defines.SLIDER_KNOB_SIZE);
 
