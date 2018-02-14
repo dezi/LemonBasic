@@ -1,5 +1,9 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.view.Gravity;
+import android.view.animation.AnimationSet;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,6 +43,9 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
     private boolean dirty;
 
+    private Runnable onUpdateStartedHandler;
+    private Runnable onUpdateFinishedHandler;
+
     public GenericGridView(Context context)
     {
         super(context);
@@ -52,9 +59,13 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         scrollView.addView(contentView);
     }
 
-    public void startSpinner()
+    private void startSpinner()
     {
-        /*
+        if (onUpdateStartedHandler != null)
+        {
+            onUpdateStartedHandler.run();
+        }
+
         if (spinnerCenter == null)
         {
             spinnerCenter = new RelativeLayout(getContext());
@@ -86,18 +97,27 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
             spinnerIcon.startAnimation(animSet);
         }
-        */
     }
 
-    public void stopSpinner()
+    private final Runnable stopSpinner = new Runnable()
     {
-        if (spinnerCenter != null)
+        @Override
+        public void run()
         {
-            spinnerIcon.clearAnimation();
-            removeView(spinnerCenter);
-            spinnerCenter = null;
+            if (spinnerCenter != null)
+            {
+                spinnerIcon.clearAnimation();
+                removeView(spinnerCenter);
+                spinnerCenter = null;
+            }
+
+            if (onUpdateFinishedHandler != null)
+            {
+                ApplicationBase.handler.postDelayed(onUpdateFinishedHandler, 100);
+            }
         }
-    }
+
+    };
 
     @Override
     public void onAttachedToWindow()
@@ -150,7 +170,10 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         }
         else
         {
-            startSpinner();
+            if (adapter.getCount() > 100)
+            {
+                startSpinner();
+            }
 
             ApplicationBase.handler.removeCallbacks(updateContentRunner);
             ApplicationBase.handler.postDelayed(updateContentRunner, 100);
@@ -302,7 +325,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
         if (! dirty)
         {
-            stopSpinner();
+            ApplicationBase.handler.post(stopSpinner);
         }
 
         ApplicationBase.handler.removeCallbacks(updateContentRunner);
@@ -360,9 +383,9 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
         if (itemcount > 0)
         {
-            stopSpinner();
-
             ApplicationBase.handler.removeCallbacks(updateContentRunner);
+
+            ApplicationBase.handler.post(stopSpinner);
         }
 
         Log.d(LOGTAG, "positionContent: done.");
@@ -492,5 +515,15 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     public int getColumnWidth()
     {
         return columnWidth;
+    }
+
+    public void setOnUpdateStartedHandler(Runnable onUpdateStartedHandler)
+    {
+        this.onUpdateStartedHandler = onUpdateStartedHandler;
+    }
+
+    public void setOnUpdateFinishedHandler(Runnable onUpdateFinishedHandler)
+    {
+        this.onUpdateFinishedHandler = onUpdateFinishedHandler;
     }
 }

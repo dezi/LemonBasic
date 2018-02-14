@@ -232,6 +232,11 @@ public class ContentHandler
                             Globals.ccontents = Json.getArray(data, "ContentsForCourses");
                             Globals.courseContents = Json.getArray(data, "CourseContents");
 
+                            Log.d(LOGTAG, "getAllContent: courses=" + Globals.courses.length());
+                            Log.d(LOGTAG, "getAllContent: contents=" + Globals.contents.length());
+                            Log.d(LOGTAG, "getAllContent: ccontents=" + Globals.ccontents.length());
+                            Log.d(LOGTAG, "getAllContent: courseContents=" + Globals.courseContents.length());
+
                             //
                             // Display categories either com from data
                             // or are created on the fly from contents.

@@ -26,6 +26,12 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout loadAllArea;
     protected SettingsInfoHeader contentSizeMB;
 
+    protected GenericButton cacheButton;
+    protected GenericButton logoffButton;
+    protected GenericButton passwordButton;
+    protected GenericButton loadAllButton;
+    protected GenericButton deleteAllButton;
+
     protected JSONArray actContent;
     protected DownloadAllManager downloadAllManager;
 
@@ -236,10 +242,9 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Defines.isDeleteCache && Simple.isTablet() && ! Defines.isLoadAll)
         {
-            GenericButton cacheButton = new GenericButton(this);
+            cacheButton = new GenericButton(this);
             cacheButton.setText(R.string.settings_clearcache);
             cacheButton.setMarginTopDip(Defines.PADDING_LARGE);
-            cacheButton.setOnClickListener(onDeleteAllClicked);
 
             leftArea.addView(cacheButton);
         }
@@ -272,7 +277,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(logoffArea);
 
-        GenericButton logoffButton = new GenericButton(this);
+        logoffButton = new GenericButton(this);
         logoffButton.setText(R.string.settings_logoff);
 
         if (Simple.isTablet())
@@ -284,29 +289,11 @@ public class SettingsActivity extends ContentBaseActivity
             logoffButton.setWeight(0.5f);
         }
 
-        logoffButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                topFrame.addView(new LogoffDialog(SettingsActivity.this));
-            }
-        });
-
         logoffArea.addView(logoffButton);
 
-        GenericButton passwordButton = new GenericButton(this);
+        passwordButton = new GenericButton(this);
         passwordButton.setText(R.string.settings_change_password);
         passwordButton.setDefaultButton(true);
-
-        passwordButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                topFrame.addView(new PasswordChangeDialog(SettingsActivity.this));
-            }
-        });
 
         if (Simple.isTablet())
         {
@@ -435,16 +422,14 @@ public class SettingsActivity extends ContentBaseActivity
         {
             Simple.setMarginTopDip(loadAllArea, Defines.PADDING_SMALL);
 
-            GenericButton loadAllButton = new GenericButton(this);
-            loadAllButton.setOnClickListener(onLoadAllClicked);
+            loadAllButton = new GenericButton(this);
 
             Simple.setSizeDip(loadAllButton, Simple.WC, Simple.WC, 0.5f);
 
             loadAllArea.addView(loadAllButton);
 
-            GenericButton deleteAllButton = new GenericButton(this);
+            deleteAllButton = new GenericButton(this);
             deleteAllButton.setDefaultButton(true);
-            deleteAllButton.setOnClickListener(onDeleteAllClicked);
 
             Simple.setSizeDip(deleteAllButton, Simple.WC, Simple.WC, 0.5f);
             Simple.setMarginLeftDip(deleteAllButton, Defines.PADDING_LARGE);
@@ -470,6 +455,21 @@ public class SettingsActivity extends ContentBaseActivity
         assetGrid.setFocusable(false);
         assetGrid.setAdapter(assetsAdapter);
         Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
+
+        //
+        // Important.
+        //
+        // sWhen hundreds of assets are loaded,
+        // the grid update takes several seconds. To avoid
+        // stacked multiple clicking on buttons within this
+        // time, all click listeners are remove before the
+        // update starts and restore a while after the
+        // UI is responsible again. So all clicks in between
+        // should be lost, which is the desired behaviour.
+        //
+
+        assetGrid.setOnUpdateStartedHandler(onUpdateStartedHandler);
+        assetGrid.setOnUpdateFinishedHandler(onUpdateFinishedHandler);
 
         if (Defines.isSectionDividers)
         {
@@ -578,6 +578,24 @@ public class SettingsActivity extends ContentBaseActivity
             downloadAllManager = null;
         }
     }
+
+    private final View.OnClickListener onChangePasswordClicked = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            topFrame.addView(new PasswordChangeDialog(SettingsActivity.this));
+        }
+    };
+
+    private final View.OnClickListener onLogoffClicked = new View.OnClickListener()
+    {
+        @Override
+        public void onClick(View view)
+        {
+            topFrame.addView(new LogoffDialog(SettingsActivity.this));
+        }
+    };
 
     private final View.OnClickListener onLoadAllClicked = new View.OnClickListener()
     {
@@ -757,4 +775,38 @@ public class SettingsActivity extends ContentBaseActivity
             if (rightArea.getParent() == null) bodyHorz.addView(rightArea);
         }
     }
+
+    private final Runnable onUpdateStartedHandler = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            Log.d(LOGTAG, "onUpdateStartedHandler:");
+
+            if (cacheButton != null) cacheButton.setOnClickListener(null);
+
+            if (logoffButton != null) logoffButton.setOnClickListener(null);
+            if (passwordButton != null) passwordButton.setOnClickListener(null);
+
+            if (loadAllButton != null) loadAllButton.setOnClickListener(null);
+            if (deleteAllButton != null) deleteAllButton.setOnClickListener(null);
+        }
+    };
+
+    private final Runnable onUpdateFinishedHandler = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+            Log.d(LOGTAG, "onUpdateFinishedHandler:");
+
+            if (cacheButton != null) cacheButton.setOnClickListener(onDeleteAllClicked);
+
+            if (logoffButton != null) logoffButton.setOnClickListener(onLogoffClicked);
+            if (passwordButton != null) passwordButton.setOnClickListener(onChangePasswordClicked);
+
+            if (loadAllButton != null) loadAllButton.setOnClickListener(onLoadAllClicked);
+            if (deleteAllButton != null) deleteAllButton.setOnClickListener(onDeleteAllClicked);
+        }
+    };
 }
