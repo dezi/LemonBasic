@@ -120,6 +120,8 @@ public class GenericButton extends TextView implements GenericFocus
         backgroundColor = color;
 
         super.setBackgroundColor(color);
+
+        Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_BACK);
     }
 
     @Override

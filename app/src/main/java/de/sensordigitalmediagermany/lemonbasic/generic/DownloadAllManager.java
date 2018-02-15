@@ -31,18 +31,42 @@ public class DownloadAllManager
 
     public void askDownloadAllContent(ViewGroup rootframe)
     {
-        askDownloadAllContent(rootframe, null);
+        this.rootframe = rootframe;
+
+        uncachedItems = ContentHandler.getUnCachedContent();
+        uncachedTotal = ContentHandler.getTotalFileSize(uncachedItems);
+
+        Log.d(LOGTAG, "askDownloadAllContent: uncachedItems=" + uncachedItems.length() + " uncachedTotal=" + uncachedTotal);
+
+        doAskDownload();
     }
 
-    public void askDownloadAllContent(ViewGroup rootframe, JSONObject content)
+    public void askDownloadSpecificContent(ViewGroup rootframe, JSONArray content)
     {
         this.rootframe = rootframe;
 
         uncachedItems = ContentHandler.getUnCachedContent(content);
         uncachedTotal = ContentHandler.getTotalFileSize(uncachedItems);
 
-        Log.d(LOGTAG, "askDownloadAllContent: uncachedItems=" + uncachedItems.length() + " uncachedTotal=" + uncachedTotal);
+        Log.d(LOGTAG, "askDownloadSpecificContent: uncachedItems=" + uncachedItems.length() + " uncachedTotal=" + uncachedTotal);
 
+        doAskDownload();
+    }
+
+    public void askDownloadCourseContent(ViewGroup rootframe, JSONObject content)
+    {
+        this.rootframe = rootframe;
+
+        uncachedItems = ContentHandler.getUnCachedContent(content);
+        uncachedTotal = ContentHandler.getTotalFileSize(uncachedItems);
+
+        Log.d(LOGTAG, "askDownloadCourseContent: uncachedItems=" + uncachedItems.length() + " uncachedTotal=" + uncachedTotal);
+
+        doAskDownload();
+    }
+
+    private void doAskDownload()
+    {
         if (uncachedItems.length() == 0)
         {
             DialogView.errorAlert(rootframe,

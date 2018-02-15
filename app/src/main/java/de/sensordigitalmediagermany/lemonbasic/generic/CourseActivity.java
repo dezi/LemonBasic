@@ -278,7 +278,7 @@ public class CourseActivity extends ContentBaseActivity
                     public void onClick(View view)
                     {
                         downloadAllManager = new DownloadAllManager();
-                        downloadAllManager.askDownloadAllContent(topFrame, Globals.displayContent);
+                        downloadAllManager.askDownloadCourseContent(topFrame, Globals.displayContent);
                     }
                 });
             }

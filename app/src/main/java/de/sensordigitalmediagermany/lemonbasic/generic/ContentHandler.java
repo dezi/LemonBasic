@@ -776,7 +776,7 @@ public class ContentHandler
         return (! isCachedContent(content)) || isOutdatedContent(content);
     }
 
-    private static JSONArray getUnCachedContent()
+    public static JSONArray getUnCachedContent()
     {
         JSONArray everything = new JSONArray();
 
@@ -798,17 +798,28 @@ public class ContentHandler
         return everything;
     }
 
-    public static JSONArray getUnCachedContent(JSONObject content)
+    public static JSONArray getUnCachedContent(JSONArray source)
     {
-        if (content == null)
-        {
-            //
-            // Get everything.
-            //
+        JSONArray everything = new JSONArray();
 
-            return getUnCachedContent();
+        for (int inx = 0; inx < source.length(); inx++)
+        {
+            JSONObject content = Json.getObject(source, inx);
+            if (content == null) continue;
+
+            JSONArray uncached = getUnCachedContent(content);
+
+            for (int cnt = 0; cnt < uncached.length(); cnt++)
+            {
+                Json.put(everything, Json.getObject(uncached, cnt));
+            }
         }
 
+        return everything;
+    }
+
+    public static JSONArray getUnCachedContent(JSONObject content)
+    {
         JSONArray uncached = new JSONArray();
 
         boolean isCourse = Json.getBoolean(content, "_isCourse");

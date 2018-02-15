@@ -1,17 +1,27 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.Gravity;
-import android.widget.TextView;
+import android.view.View;
 import android.os.Bundle;
+import android.util.Log;
+
+import org.json.JSONArray;
+
+import java.net.*;
 
 public class CategoryActivity extends ContentBaseActivity
 {
     private static final String LOGTAG = CategoryActivity.class.getSimpleName();
 
     protected TextView naviLeftButton;
+    protected RelativeLayout buyButtonCenter;
+    protected GenericButton buyButton;
+
+    protected DownloadAllManager downloadAllManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,9 +66,37 @@ public class CategoryActivity extends ContentBaseActivity
         }
 
         naviLeftButton.setText(Globals.category);
+
+        buyButtonCenter = new RelativeLayout(this);
+        buyButtonCenter.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+        buyButtonCenter.setVisibility(View.GONE);
+        Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.MP, 1.0f);
+        Simple.setMarginRightDip(buyButtonCenter, Defines.PADDING_SMALL);
+
+        naviFrame.addView(buyButtonCenter);
+
+        buyButton = new GenericButton(this);
+        buyButton.setFullWidth(false);
+
+        buyButtonCenter.addView(buyButton);
+
         assetsAdapter.setAssets(Globals.categoryContents);
 
         updateContent();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+
+        Log.d(LOGTAG, "onPause...");
+
+        if (downloadAllManager != null)
+        {
+            downloadAllManager.requestCancel();
+            downloadAllManager = null;
+        }
     }
 
     @Override
@@ -75,6 +113,36 @@ public class CategoryActivity extends ContentBaseActivity
     @Override
     public void updateContent()
     {
+        if (Defines.isGiveAway)
+        {
+            JSONArray unCachedContent = ContentHandler.getUnCachedContent(Globals.categoryContents);
+
+            if (unCachedContent.length() == 0)
+            {
+                buyButtonCenter.setVisibility(View.GONE);
+            }
+            else
+            {
+                buyButtonCenter.setVisibility(View.VISIBLE);
+
+                Simple.setPaddingDip(buyButton,
+                        Defines.PADDING_XLARGE, Defines.PADDING_SMALL,
+                        Defines.PADDING_XLARGE, Defines.PADDING_SMALL);
+
+                buyButton.setText(R.string.course_buy_load);
+
+                buyButton.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        downloadAllManager = new DownloadAllManager();
+                        downloadAllManager.askDownloadSpecificContent(topFrame, Globals.categoryContents);
+                    }
+                });
+            }
+        }
+
         assetGrid.updateContent();
     }
 }
