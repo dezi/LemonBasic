@@ -258,6 +258,8 @@ public class CourseActivity extends ContentBaseActivity
                 ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
                 : Simple.getTrans(this, R.string.course_buy_gratis);
 
+        buyButtonCenter.setVisibility(View.GONE);
+
         if (Defines.isGiveAway)
         {
             if (loadme)

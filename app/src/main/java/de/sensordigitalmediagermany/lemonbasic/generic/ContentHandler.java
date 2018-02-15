@@ -958,4 +958,12 @@ public class ContentHandler
             deleteCachedFile(content);
         }
     }
+
+    public static boolean isDownloadSizeOk(long bytes)
+    {
+        long free = Simple.mbAvailable(getStorageDir());
+        long want = 50 + (bytes / (1024 * 1024));
+
+        return free > want;
+    }
 }

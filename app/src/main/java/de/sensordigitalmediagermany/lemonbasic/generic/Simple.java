@@ -1301,10 +1301,10 @@ public class Simple
         return (rand.nextFloat() < chance);
     }
 
-    public static int mbAvailable(File file)
+    public static long mbAvailable(File file)
     {
         StatFs stat = new StatFs(file.getPath());
         long bytesAvailable = stat.getBlockSize() * (long) stat.getAvailableBlocks();
-        return (int) (bytesAvailable / (1024 * 1024));
+        return (bytesAvailable / (1024 * 1024));
     }
 }

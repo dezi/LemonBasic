@@ -58,7 +58,7 @@ public class CategoryActivity extends ContentBaseActivity
         naviLeftButton.setText(Globals.category);
         assetsAdapter.setAssets(Globals.categoryContents);
 
-        assetGrid.updateContent();
+        updateContent();
     }
 
     @Override
@@ -70,5 +70,11 @@ public class CategoryActivity extends ContentBaseActivity
 
         Globals.category = null;
         Globals.categoryContents = null;
+    }
+
+    @Override
+    public void updateContent()
+    {
+        assetGrid.updateContent();
     }
 }

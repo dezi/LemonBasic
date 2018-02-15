@@ -179,110 +179,114 @@ public class AssetsDownloadManager
     @Nullable
     private static File getFile(QueueData qd)
     {
+        long total = Json.getLong(qd.content, "file_size");
+
         File tempfile = null;
-        File realfile = null;
 
-        try
+        if (ContentHandler.isDownloadSizeOk(total))
         {
-            String urlstring = Simple.urlEncodeFuckedUpDirty(Json.getString(qd.content, "content_url"));
-            String name = Json.getString(qd.content, "content_file_name");
-
-            long total = Json.getLong(qd.content, "file_size");
-            long current = 0;
-
-            if ((urlstring != null) && (name != null))
+            try
             {
-                String temp = name + ".tmp";
+                String urlstring = Simple.urlEncodeFuckedUpDirty(Json.getString(qd.content, "content_url"));
+                String name = Json.getString(qd.content, "content_file_name");
 
-                realfile = new File(ContentHandler.getStorageDir(), name);
-                tempfile = new File(ContentHandler.getStorageDir(), temp);
+                long current = 0;
+                File realfile;
 
-                URL url = new URL(urlstring);
-
-                Log.d(LOGTAG, "getFile: load url=" + urlstring);
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                InputStream inputStream = conn.getInputStream();
-
-                FileOutputStream outputStream = new FileOutputStream(tempfile);
-
-                boolean cancel = false;
-                byte[] chunk = new byte[8192];
-                int xfer;
-
-                while ((xfer = inputStream.read(chunk)) > 0)
+                if ((urlstring != null) && (name != null))
                 {
-                    outputStream.write(chunk, 0, xfer);
+                    String temp = name + ".tmp";
 
-                    current += xfer;
+                    realfile = new File(ContentHandler.getStorageDir(), name);
+                    tempfile = new File(ContentHandler.getStorageDir(), temp);
 
-                    OnDownloadProgressHandler qdph = qd.onDownloadProgressHandler;
+                    URL url = new URL(urlstring);
 
-                    if (qdph != null)
+                    Log.d(LOGTAG, "getFile: load url=" + urlstring);
+
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    InputStream inputStream = conn.getInputStream();
+
+                    FileOutputStream outputStream = new FileOutputStream(tempfile);
+
+                    boolean cancel = false;
+                    byte[] chunk = new byte[8192];
+                    int xfer;
+
+                    while ((xfer = inputStream.read(chunk)) > 0)
                     {
-                        cancel = qdph.OnDownloadProgress(qd.content, current, total);
-                    }
+                        outputStream.write(chunk, 0, xfer);
 
-                    if (cancel) break;
-                }
+                        current += xfer;
 
-                outputStream.close();
-                inputStream.close();
+                        OnDownloadProgressHandler qdph = qd.onDownloadProgressHandler;
 
-                if (! cancel)
-                {
-                    if (tempfile.renameTo(realfile))
-                    {
-                        synchronized (cache)
+                        if (qdph != null)
                         {
-                            cache.put(name, realfile);
+                            cancel = qdph.OnDownloadProgress(qd.content, current, total);
                         }
 
-                        Log.d(LOGTAG, "getFile: done url=" + urlstring);
-
-                        return realfile;
+                        if (cancel) break;
                     }
-                }
-                else
-                {
-                    Log.d(LOGTAG, "getFile: was cancelled...");
 
-                    //
-                    // Download was cancelled. Remove all queue entries
-                    // with the same callback delegates as well in case
-                    // this was a multi asset download.
-                    //
+                    outputStream.close();
+                    inputStream.close();
 
-                    synchronized (queue)
+                    if (!cancel)
                     {
-                        for (int inx = 0; inx < queue.size(); inx++)
+                        if (tempfile.renameTo(realfile))
                         {
-                            QueueData qdcheck = queue.get(inx);
-
-                            String remname = Json.getString(qdcheck.content, "content_file_name");
-
-                            Log.d(LOGTAG, "####1 " + qdcheck.onDownloadProgressHandler);
-                            Log.d(LOGTAG, "####2 " + qd.onDownloadProgressHandler);
-
-                            if (qdcheck.onDownloadProgressHandler.equals(qd.onDownloadProgressHandler)
-                                && qdcheck.onFileLoadedHandler.equals(qd.onFileLoadedHandler))
+                            synchronized (cache)
                             {
-                                Log.d(LOGTAG, "getFile: remove entry=" + remname);
-
-                                queue.remove(inx--);
+                                cache.put(name, realfile);
                             }
-                            else
+
+                            Log.d(LOGTAG, "getFile: done url=" + urlstring);
+
+                            return realfile;
+                        }
+                    }
+                    else
+                    {
+                        Log.d(LOGTAG, "getFile: was cancelled...");
+
+                        //
+                        // Download was cancelled. Remove all queue entries
+                        // with the same callback delegates as well in case
+                        // this was a multi asset download.
+                        //
+
+                        synchronized (queue)
+                        {
+                            for (int inx = 0; inx < queue.size(); inx++)
                             {
-                                Log.d(LOGTAG, "getFile: retain entry=" + remname);
+                                QueueData qdcheck = queue.get(inx);
+
+                                String remname = Json.getString(qdcheck.content, "content_file_name");
+
+                                Log.d(LOGTAG, "####1 " + qdcheck.onDownloadProgressHandler);
+                                Log.d(LOGTAG, "####2 " + qd.onDownloadProgressHandler);
+
+                                if (qdcheck.onDownloadProgressHandler.equals(qd.onDownloadProgressHandler)
+                                        && qdcheck.onFileLoadedHandler.equals(qd.onFileLoadedHandler))
+                                {
+                                    Log.d(LOGTAG, "getFile: remove entry=" + remname);
+
+                                    queue.remove(inx--);
+                                }
+                                else
+                                {
+                                    Log.d(LOGTAG, "getFile: retain entry=" + remname);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            Log.d(LOGTAG, ex.toString());
+            catch (Exception ex)
+            {
+                Log.d(LOGTAG, ex.toString());
+            }
         }
 
         OnDownloadProgressHandler qdph = qd.onDownloadProgressHandler;
