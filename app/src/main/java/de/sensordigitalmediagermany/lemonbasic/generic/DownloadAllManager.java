@@ -1,9 +1,9 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.app.Activity;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
+import android.view.View;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

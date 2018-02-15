@@ -4,6 +4,7 @@ import android.app.UiModeManager;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.StatFs;
 import android.support.annotation.Nullable;
 
 import android.app.Activity;
@@ -1298,5 +1299,12 @@ public class Simple
         Random rand = new Random();
 
         return (rand.nextFloat() < chance);
+    }
+
+    public static int mbAvailable(File file)
+    {
+        StatFs stat = new StatFs(file.getPath());
+        long bytesAvailable = stat.getBlockSize() * (long) stat.getAvailableBlocks();
+        return (int) (bytesAvailable / (1024 * 1024));
     }
 }
