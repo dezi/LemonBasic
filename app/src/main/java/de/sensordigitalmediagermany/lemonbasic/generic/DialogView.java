@@ -283,6 +283,7 @@ public class DialogView extends RelativeLayout
 
         negativeButton = new DialogButton(context);
         negativeButton.setVisibility(GONE);
+        negativeButton.setFocusable(false);
 
         negativeButton.setOnClickListener(new OnClickListener()
         {
@@ -308,6 +309,7 @@ public class DialogView extends RelativeLayout
         positiveButton = new DialogButton(context);
         positiveButton.setDefaultButton(true);
         positiveButton.setVisibility(GONE);
+        positiveButton.setFocusable(false);
 
         positiveButton.setOnClickListener(new OnClickListener()
         {
@@ -427,6 +429,7 @@ public class DialogView extends RelativeLayout
     public void setPositiveButton(int resid, OnClickListener onClickListener)
     {
         positiveButton.setText(resid);
+        positiveButton.setFocusable(true);
         positiveButton.setVisibility(VISIBLE);
         positiveButtonOnClick = onClickListener;
 
@@ -444,6 +447,7 @@ public class DialogView extends RelativeLayout
     public void setNegativeButton(int resid, OnClickListener onClickListener)
     {
         negativeButton.setText(resid);
+        negativeButton.setFocusable(true);
         negativeButton.setVisibility(VISIBLE);
         negativeButtonOnClick = onClickListener;
 

@@ -25,6 +25,7 @@ public class DownloadAllManager
     private long downloadTotal;
     private long downloadBytes;
     private int downloadItems;
+    private int downloadFails;
 
     private long downloadProgressRunCurrent;
 
@@ -107,6 +108,7 @@ public class DownloadAllManager
         downloadTotal = uncachedTotal;
         downloadBytes = 0;
         downloadItems = 0;
+        downloadFails = 0;
 
         downloadDialog = new DownloadDialog(rootframe.getContext());
         rootframe.addView(downloadDialog);
@@ -132,13 +134,36 @@ public class DownloadAllManager
 
             downloadBytes += file_size;
             downloadItems += 1;
+            downloadFails += (file != null) ? 0 : 1;
 
             if (downloadItems == uncachedItems.length())
             {
                 downloadDialog.dismissDialog();
                 downloadDialog = null;
 
-                checkForAssetGritUpdate();
+                if (downloadFails > 0)
+                {
+                    String info = Simple.getTrans(rootframe.getContext(),
+                            (downloadFails == 1)
+                                    ? R.string.ask_download_all_fail_info_onlyone
+                                    : R.string.ask_download_all_fail_info,
+                            String.valueOf(downloadFails));
+
+                    DialogView.errorAlert(rootframe,
+                            R.string.ask_download_all_fail_title, info,
+                            new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View view)
+                                {
+                                    checkForAssetGritUpdate();
+                                }
+                            });
+                }
+                else
+                {
+                    checkForAssetGritUpdate();
+                }
             }
         }
     };

@@ -318,6 +318,7 @@ public class ContentHandler
                             Log.d(LOGTAG, "getAllContent: data unchanged...");
                         }
 
+                        /*
                         if (Defines.isDezi)
                         {
                             //
@@ -326,6 +327,7 @@ public class ContentHandler
 
                             fakeSomeOutdatedContent(0.05f);
                         }
+                        */
 
                         Globals.contentsLoaded = true;
 

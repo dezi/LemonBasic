@@ -44,6 +44,10 @@
     <string name="ask_download_all_info_onecontent">Do you want to download %1$s content with a size of %2$s?</string>
     <string name="ask_download_all_load">Load all now</string>
 
+    <string name="ask_download_all_fail_title">Contents failed download!</string>
+    <string name="ask_download_all_fail_info">%1$s contents could be downloaded.</string>
+    <string name="ask_download_all_fail_info_onlyone">%1$s content could be downloaded.</string>
+
     <string name="ask_download_all_done_title">Load all contents</string>
     <string name="ask_download_all_done_info">There are no more contents to be downloaded.</string>
 

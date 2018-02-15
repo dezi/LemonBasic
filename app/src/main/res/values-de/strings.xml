@@ -44,6 +44,10 @@
     <string name="ask_download_all_info_onecontent">Möchten Sie %1$s Inhalt mit %2$s jetzt laden?</string>
     <string name="ask_download_all_load">Alles jetzt laden</string>
 
+    <string name="ask_download_all_fail_title">Fehler beim Download!</string>
+    <string name="ask_download_all_fail_info">%1$s Inhalte konnten nicht geladen werden.</string>
+    <string name="ask_download_all_fail_info_onlyone">%1$s Inhalt konnten nicht geladen werden.</string>
+
     <string name="ask_download_all_done_title">Alle Inhalte laden</string>
     <string name="ask_download_all_done_info">Es gibt keine weiteren Inhalte zum Download mehr.</string>
 

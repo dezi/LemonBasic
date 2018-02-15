@@ -51,6 +51,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
         super(context);
 
         scrollView = new ScrollView(context);
+        scrollView.setFocusable(false);
 
         addView(scrollView);
 
@@ -66,6 +67,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
             onUpdateStartedHandler.run();
         }
 
+        /*
         if (spinnerCenter == null)
         {
             spinnerCenter = new RelativeLayout(getContext());
@@ -97,6 +99,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
             spinnerIcon.startAnimation(animSet);
         }
+        */
     }
 
     private final Runnable stopSpinner = new Runnable()

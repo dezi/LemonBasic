@@ -70,6 +70,15 @@ public class DownloadDialog extends DialogView
         dialogItems.addView(downloadProgress);
 
         setCustomView(dialogItems);
+
+        ApplicationBase.handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                negativeButton.requestFocus();
+            }
+        });
     }
 
     public boolean setProgressLong(long current, long total)
