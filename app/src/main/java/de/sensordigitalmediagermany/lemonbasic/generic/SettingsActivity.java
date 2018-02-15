@@ -643,6 +643,11 @@ public class SettingsActivity extends ContentBaseActivity
                 }
             });
 
+            if (! Simple.isTablet())
+            {
+                askdialog.setButtonsVertical(true);
+            }
+
             topFrame.addView(askdialog);
         }
     };

@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.graphics.Color;
@@ -70,7 +71,6 @@ public class CategoryActivity extends ContentBaseActivity
         buyButtonCenter = new RelativeLayout(this);
         buyButtonCenter.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
         buyButtonCenter.setVisibility(View.GONE);
-        Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.MP, 1.0f);
         Simple.setMarginRightDip(buyButtonCenter, Defines.PADDING_SMALL);
 
         naviFrame.addView(buyButtonCenter);
@@ -79,6 +79,18 @@ public class CategoryActivity extends ContentBaseActivity
         buyButton.setFullWidth(false);
 
         buyButtonCenter.addView(buyButton);
+
+        if (Simple.isTablet())
+        {
+            naviFrame.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.MP, 1.0f);
+        }
+        else
+        {
+            naviFrame.setOrientation(LinearLayout.VERTICAL);
+            Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.WC);
+            Simple.setMarginBottomDip(buyButtonCenter, Defines.PADDING_SMALL);
+        }
 
         assetsAdapter.setAssets(Globals.categoryContents);
 
