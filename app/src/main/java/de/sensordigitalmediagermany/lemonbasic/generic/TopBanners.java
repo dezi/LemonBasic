@@ -26,6 +26,8 @@ public class TopBanners extends FrameLayout
 
     private int bannerWidth;
     private int bannerHeight;
+
+    private boolean inTouch;
     private int xDirTouch;
     private int xLastTouch;
 
@@ -71,12 +73,20 @@ public class TopBanners extends FrameLayout
             {
                 super.onScrollChanged(left, top, oldleft, oldtop);
 
-                xDirTouch = (left > oldleft) ? -1 : 1;
+                if (! inTouch)
+                {
+                    //
+                    // Used on Android TV once the focus
+                    // moved out of screen.
+                    //
 
-                getHandler().removeCallbacks(adjustArrows);
-                getHandler().removeCallbacks(adjustScroll);
+                    xDirTouch = (left > oldleft) ? -1 : 1;
 
-                getHandler().post(adjustScroll);
+                    getHandler().removeCallbacks(adjustArrows);
+                    getHandler().removeCallbacks(adjustScroll);
+
+                    getHandler().post(adjustScroll);
+                }
             }
         };
 
@@ -163,6 +173,7 @@ public class TopBanners extends FrameLayout
 
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
         {
+            inTouch = true;
             xDirTouch = 0;
             xLastTouch = xscreen;
         }
@@ -173,8 +184,11 @@ public class TopBanners extends FrameLayout
             xLastTouch = xscreen;
         }
 
-        if (motionEvent.getAction() == MotionEvent.ACTION_UP)
+        if ((motionEvent.getAction() == MotionEvent.ACTION_UP) ||
+                (motionEvent.getAction() == MotionEvent.ACTION_CANCEL))
         {
+            inTouch = false;
+
             getHandler().post(onTouchEventCustomEnded);
         }
     }
@@ -187,6 +201,12 @@ public class TopBanners extends FrameLayout
             int xoffset = scrollView.getScrollX();
             int leftrest = xoffset % bannerWidth;
             int rightrest = bannerWidth - leftrest;
+
+            Log.d(LOGTAG, "onTouchEventCustomEnded:"
+                    + " xDirTouch=" + xDirTouch
+                    + " xoffset=" + xoffset
+                    + " leftrest=" + leftrest
+                    + " rightrest=" + rightrest);
 
             if (leftrest != 0)
             {

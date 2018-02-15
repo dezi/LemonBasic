@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.0 (15) 08.02.2018 17:30";
+    public static final String DEBUG_VERSION = "1.1 (16) 15.02.2018 14:00";
 
     //
     // Rest API database access selectors.
@@ -68,10 +68,10 @@ public class Defines
     public static final boolean isAutoRefresh      = isPierreCardin;
     public static final boolean isDeleteCache      = isPierreCardin;
     public static final boolean isLoadAll          = isPierreCardin;
-    public static final boolean isAutoRefreshInfo  = false;
     public static final boolean isPDFExternal      = isPierreCardin;
     public static final boolean isPDFZoomable      = false;
     public static final boolean isSoundSettings    = false;
+    public static final boolean isAutoRefreshInfo  = false;
     // @formatter:on
 
     //
@@ -85,6 +85,7 @@ public class Defines
     //
 
     public static final int AUTO_REFRESH_SECONDS = 5 * 60;
+    public static final int SETTINGS_MAX_ENTRIES = 100;
 
     public static final int TRAINING_NUM_QUESTIONS = 4;
     public static final int SLIDER_MAX_COLUMNS = 6;
@@ -355,7 +356,7 @@ public class Defines
     public static final int ONOFF_KNOB_SIZE       = Simple.isTablet() ?  30 :  30;
     public static final int PROGRESS_BAR_SIZE     = Simple.isTablet() ?   6 :   6;
     public static final int PROGRESS_BAR_WIDTH    = Simple.isTablet() ? 300 : 200;
-    public static final int PROGRESS_DIALOG_WIDTH = Simple.isTablet() ? 500 : 300;
+    public static final int PROGRESS_DIALOG_WIDTH = Simple.isTablet() ? 500 : 250;
     // @formatter:on
 
     static

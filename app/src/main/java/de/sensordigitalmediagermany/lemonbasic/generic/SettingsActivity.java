@@ -454,13 +454,15 @@ public class SettingsActivity extends ContentBaseActivity
 
         assetGrid.setFocusable(false);
         assetGrid.setAdapter(assetsAdapter);
+        assetGrid.setMaxEntries(Defines.SETTINGS_MAX_ENTRIES);
+
         Simple.setSizeDip(assetGrid, Simple.MP, Simple.MP);
 
         //
         // Important.
         //
-        // sWhen hundreds of assets are loaded,
-        // the grid update takes several seconds. To avoid
+        // When hundreds of assets are loaded, the grid
+        // update may take several seconds. To avoid
         // stacked multiple clicking on buttons within this
         // time, all click listeners are remove before the
         // update starts and restore a while after the

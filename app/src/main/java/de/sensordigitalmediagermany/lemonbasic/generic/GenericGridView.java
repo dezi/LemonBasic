@@ -32,6 +32,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     private int verticalSpacing;
     private int columnWidth;
 
+    private int maxEntries;
     private int numColumns = 1;
     private int focusedIndex = -1;
     private boolean focusable = false;
@@ -325,6 +326,11 @@ public class GenericGridView extends FrameLayout implements GenericFocus
             {
                 xpos += columnWidth + horizontalSpacing;
             }
+
+            if ((maxEntries > 0) && ((inx + 1) >= maxEntries))
+            {
+                break;
+            }
         }
 
         for (Map.Entry<Object, View> entry : views.entrySet())
@@ -528,6 +534,16 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     public int getColumnWidth()
     {
         return columnWidth;
+    }
+
+    public void setMaxEntries(int max)
+    {
+        maxEntries = max;
+    }
+
+    public int getMaxEntries()
+    {
+        return maxEntries;
     }
 
     public void setOnUpdateStartedHandler(Runnable onUpdateStartedHandler)
