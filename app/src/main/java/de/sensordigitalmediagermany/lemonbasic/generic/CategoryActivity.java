@@ -68,28 +68,31 @@ public class CategoryActivity extends ContentBaseActivity
 
         naviLeftButton.setText(Globals.category);
 
-        buyButtonCenter = new RelativeLayout(this);
-        buyButtonCenter.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
-        buyButtonCenter.setVisibility(View.GONE);
-        Simple.setMarginRightDip(buyButtonCenter, Defines.PADDING_SMALL);
-
-        naviFrame.addView(buyButtonCenter);
-
-        buyButton = new GenericButton(this);
-        buyButton.setFullWidth(false);
-
-        buyButtonCenter.addView(buyButton);
-
-        if (Simple.isTablet())
+        if (Defines.isCategoryDownload)
         {
-            naviFrame.setOrientation(LinearLayout.HORIZONTAL);
-            Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.MP, 1.0f);
-        }
-        else
-        {
-            naviFrame.setOrientation(LinearLayout.VERTICAL);
-            Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.WC);
-            Simple.setMarginBottomDip(buyButtonCenter, Defines.PADDING_SMALL);
+            buyButtonCenter = new RelativeLayout(this);
+            buyButtonCenter.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+            buyButtonCenter.setVisibility(View.GONE);
+            Simple.setMarginRightDip(buyButtonCenter, Defines.PADDING_SMALL);
+
+            naviFrame.addView(buyButtonCenter);
+
+            buyButton = new GenericButton(this);
+            buyButton.setFullWidth(false);
+
+            buyButtonCenter.addView(buyButton);
+
+            if (Simple.isTablet())
+            {
+                naviFrame.setOrientation(LinearLayout.HORIZONTAL);
+                Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.MP, 1.0f);
+            }
+            else
+            {
+                naviFrame.setOrientation(LinearLayout.VERTICAL);
+                Simple.setSizeDip(buyButtonCenter, Simple.MP, Simple.WC);
+                Simple.setMarginBottomDip(buyButtonCenter, Defines.PADDING_SMALL);
+            }
         }
 
         assetsAdapter.setAssets(Globals.categoryContents);
@@ -125,7 +128,7 @@ public class CategoryActivity extends ContentBaseActivity
     @Override
     public void updateContent()
     {
-        if (Defines.isGiveAway)
+        if (Defines.isGiveAway && Defines.isCategoryDownload)
         {
             JSONArray unCachedContent = ContentHandler.getUnCachedContent(Globals.categoryContents);
 

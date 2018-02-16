@@ -15,6 +15,7 @@ public class DownloadDialog extends DialogView
     private TextView sizeView;
 
     private boolean cancel;
+    private long lastsetmillis;
 
     public DownloadDialog(Context context)
     {
@@ -83,22 +84,29 @@ public class DownloadDialog extends DialogView
 
     public boolean setProgressLong(long current, long total)
     {
-        if (total > 0)
+        long now = System.currentTimeMillis();
+
+        if (now > (lastsetmillis + 1000))
         {
-            long percent = current * 100 / total;
-            String percentstr = percent + " %";
+            if (total > 0)
+            {
+                long percent = current * 100 / total;
+                String percentstr = percent + " %";
 
-            percentView.setText(percentstr);
+                percentView.setText(percentstr);
 
-            String currentStr = Simple.formatBytes(current);
-            String totalStr = Simple.formatBytes(total);
+                String currentStr = Simple.formatBytes(current);
+                String totalStr = Simple.formatBytes(total);
 
-            String sizestr = Simple.getTrans(getContext(),R.string.download_size, currentStr, totalStr);
+                String sizestr = Simple.getTrans(getContext(), R.string.download_size, currentStr, totalStr);
 
-            sizeView.setText(sizestr);
+                sizeView.setText(sizestr);
+            }
+
+            downloadProgress.setProgressLong(current, total);
+
+            lastsetmillis = now;
         }
-
-        downloadProgress.setProgressLong(current, total);
 
         return cancel;
     }

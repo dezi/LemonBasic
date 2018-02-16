@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.ViewGroup;
 import android.view.View;
 import android.util.Log;
+import android.view.WindowManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -127,6 +128,8 @@ public class DownloadAllManager
 
     private void downloadAllContent()
     {
+        rootframe.setKeepScreenOn(true);
+
         downloadCancel = false;
 
         downloadTotal = uncachedTotal;
@@ -162,6 +165,8 @@ public class DownloadAllManager
 
             if (downloadItems == uncachedItems.length())
             {
+                rootframe.setKeepScreenOn(false);
+
                 downloadDialog.dismissDialog();
                 downloadDialog = null;
 
@@ -212,6 +217,8 @@ public class DownloadAllManager
                     {
                         if (downloadDialog != null)
                         {
+                            rootframe.setKeepScreenOn(false);
+
                             downloadDialog.dismissDialog();
                             downloadDialog = null;
                         }

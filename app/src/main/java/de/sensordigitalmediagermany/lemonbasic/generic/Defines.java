@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.1 (18) 15.02.2018 14:30";
+    public static final String DEBUG_VERSION = "1.1 (19) 16.02.2018 11:00";
 
     //
     // Rest API database access selectors.
@@ -69,6 +69,7 @@ public class Defines
     public static final boolean isDeleteCache      = isPierreCardin;
     public static final boolean isLoadAll          = isPierreCardin;
     public static final boolean isPDFExternal      = isPierreCardin;
+    public static final boolean isCategoryDownload = false;
     public static final boolean isPDFZoomable      = false;
     public static final boolean isSoundSettings    = false;
     public static final boolean isAutoRefreshInfo  = false;

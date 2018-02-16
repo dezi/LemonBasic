@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.app.Activity;
 import android.app.Application;
 import android.app.UiModeManager;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import java.io.File;
 
