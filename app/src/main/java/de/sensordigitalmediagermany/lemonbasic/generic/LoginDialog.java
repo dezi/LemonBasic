@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -244,9 +245,7 @@ public class LoginDialog extends DialogView
                     Simple.isEmpty(passWord.getText().toString()) ||
                     !Simple.isEmailValid(userEmail.getText().toString()))
             {
-                DialogView.errorAlert((ViewGroup) LoginDialog.this.getParent(),
-                        R.string.alert_login_bad_title,
-                        R.string.alert_login_bad_info);
+                badLogin();
 
                 return;
             }
@@ -264,7 +263,6 @@ public class LoginDialog extends DialogView
         @Override
         public void run()
         {
-
             DialogView.errorAlert((ViewGroup) LoginDialog.this.getParent(),
                     R.string.login,
                     R.string.login_success,
@@ -292,9 +290,26 @@ public class LoginDialog extends DialogView
         @Override
         public void run()
         {
-            DialogView.errorAlert((ViewGroup) LoginDialog.this.getParent(),
-                    R.string.alert_login_bad_title,
-                    R.string.alert_login_bad_info);
+            badLogin();
         }
     };
+
+    private void badLogin()
+    {
+        final ViewGroup topframe = (ViewGroup) LoginDialog.this.getParent();
+
+        LoginDialog.this.dismissDialog();
+
+        DialogView.errorAlert(topframe,
+                R.string.alert_login_bad_title,
+                R.string.alert_login_bad_info,
+                new OnClickListener()
+                {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        topframe.addView(new LoginDialog(getContext()));
+                    }
+                });
+    }
 }

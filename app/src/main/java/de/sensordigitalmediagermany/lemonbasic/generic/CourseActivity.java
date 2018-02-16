@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class CourseActivity extends ContentBaseActivity
 {
@@ -20,12 +21,12 @@ public class CourseActivity extends ContentBaseActivity
 
     protected DownloadAllManager downloadAllManager;
 
+    protected JSONObject content;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
-        //Log.d(LOGTAG, "onCreate: course=" + Json.toPretty(Globals.displayContent));
 
         naviFrame.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(naviFrame, Simple.MP, Simple.WC);
@@ -34,16 +35,18 @@ public class CourseActivity extends ContentBaseActivity
 
         if (Globals.displayContent == null) return;
 
+        content = Globals.displayContent;
+
         Typeface headerTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_HEADER);
         Typeface subheadTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_SUBHEAD);
         Typeface titleTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_TITLE);
         Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_INFOS);
 
-        String courseTitle = Json.getString(Globals.displayContent, "title");
-        String courseInfo = Json.getString(Globals.displayContent, "sub_title");
-        String courseHeader = Json.getString(Globals.displayContent, "description_header");
-        String courseDescription = Json.getString(Globals.displayContent, "description");
-        String detailUrl = Json.getString(Globals.displayContent, "detail_image_url");
+        String courseTitle = Json.getString(content, "title");
+        String courseInfo = Json.getString(content, "sub_title");
+        String courseHeader = Json.getString(content, "description_header");
+        String courseDescription = Json.getString(content, "description");
+        String detailUrl = Json.getString(content, "detail_image_url");
 
         //
         // Setup navigation path.
@@ -217,7 +220,7 @@ public class CourseActivity extends ContentBaseActivity
 
         buyButtonCenter.addView(buyButton);
 
-        JSONArray cc = Json.getArray(Globals.displayContent, "_cc");
+        JSONArray cc = Json.getArray(content, "_cc");
 
         assetsAdapter.setAssets(cc);
 
@@ -249,10 +252,10 @@ public class CourseActivity extends ContentBaseActivity
     @Override
     public void updateContent()
     {
-        int courseId = Json.getInt(Globals.displayContent, "id");
-        int price = Json.getInt(Globals.displayContent, "price");
+        int courseId = Json.getInt(content, "id");
+        int price = Json.getInt(content, "price");
         boolean bought = ContentHandler.isCourseBought(courseId);
-        boolean loadme = ContentHandler.isOutdatedOrNotCachedContent(Globals.displayContent);
+        boolean loadme = ContentHandler.isOutdatedOrNotCachedContent(content);
 
         String buyText = (price > 0)
                 ? Simple.getTrans(this, R.string.course_buy_price, String.valueOf(price))
@@ -278,7 +281,7 @@ public class CourseActivity extends ContentBaseActivity
                     public void onClick(View view)
                     {
                         downloadAllManager = new DownloadAllManager();
-                        downloadAllManager.askDownloadCourseContent(topFrame, Globals.displayContent);
+                        downloadAllManager.askDownloadCourseContent(topFrame, content);
                     }
                 });
             }
