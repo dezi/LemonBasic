@@ -524,7 +524,7 @@ public class SettingsActivity extends ContentBaseActivity
 
     public void reloadContent()
     {
-        actContent = ContentHandler.getCachedContent();
+        actContent = Json.sortInteger(ContentHandler.getCachedContent(), "file_size", true);
 
         Log.d(LOGTAG, "reloadContent: actContent=" + actContent.length());
 
