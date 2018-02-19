@@ -31,10 +31,7 @@
         </provider>
 
         <activity android:name=".MainActivity"
-                  android:label="@string/app_name_pierre_cardin"
-                  android:icon="@drawable/lem_t_iany_pierrecardin_tv_banner"
-                  android:logo="@drawable/lem_t_iany_pierrecardin_tv_banner"
-                  android:banner="@drawable/lem_t_iany_pierrecardin_tv_banner">
+                  android:label="@string/app_name_pierre_cardin">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
