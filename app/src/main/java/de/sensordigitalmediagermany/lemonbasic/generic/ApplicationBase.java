@@ -1,22 +1,18 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.app.Activity;
-import android.app.Application;
-import android.app.UiModeManager;
-import android.content.Context;
+import android.support.annotation.Nullable;
+
+import android.support.v7.app.AppCompatActivity;
+import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.preference.PreferenceManager;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.app.Application;
+import android.content.Context;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.os.Handler;
+import android.util.Log;
 
 import java.io.File;
-
-import static android.content.ContentValues.TAG;
 
 public class ApplicationBase extends Application
 {
