@@ -177,7 +177,21 @@ public class GenericButton extends TextView implements GenericFocus
         }
         else
         {
-            setOnFocusChangeListener(null);
+            setOnFocusChangeListener(new View.OnFocusChangeListener()
+            {
+                @Override
+                public void onFocusChange(View view, boolean hasFocus)
+                {
+                    if (hasFocus)
+                    {
+                        //
+                        // Dismiss any keyboard.
+                        //
+
+                        Simple.hideSoftKeyBoard(view);
+                    }
+                }
+            });
         }
     }
 }

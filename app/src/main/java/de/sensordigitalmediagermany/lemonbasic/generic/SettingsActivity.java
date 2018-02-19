@@ -25,6 +25,7 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout rightArea;
     protected LinearLayout loadAllArea;
     protected SettingsInfoHeader contentSizeMB;
+    protected SettingsInfoText diskFree;
 
     protected GenericButton cacheButton;
     protected GenericButton logoffButton;
@@ -340,15 +341,18 @@ public class SettingsActivity extends ContentBaseActivity
         //region Right top area.
 
         LinearLayout rightTopArea = new LinearLayout(this);
-        rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
 
         if (Simple.isTablet())
         {
+            rightTopArea.setOrientation(LinearLayout.VERTICAL);
+
             Simple.setMarginTopDip(rightTopArea, Simple.isWideScreen() ? Defines.PADDING_ZERO :Defines.PADDING_SMALL);
             Simple.setSizeDip(rightTopArea, Simple.MP, topHeight);
         }
         else
         {
+            rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
+
             Simple.setSizeDip(rightTopArea, Simple.MP, Simple.WC);
         }
 
@@ -356,9 +360,21 @@ public class SettingsActivity extends ContentBaseActivity
 
         SettingsTitle contentTitle = new SettingsTitle(this);
         contentTitle.setText(R.string.settings_contents);
-        contentTitle.setWeight(0.58f);
+        contentTitle.setFullWidth(Simple.isTablet());
 
         rightTopArea.addView(contentTitle);
+
+        if (Defines.isTabBar)
+        {
+            diskFree = new SettingsInfoText(this);
+            diskFree.setTextSizeDip(Defines.FS_DEBUG_VERSION);
+            diskFree.setMarginTopDip(Defines.PADDING_ZERO);
+            diskFree.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
+            diskFree.setFullWidth(! Simple.isTablet());
+            diskFree.setFullHeight(true);
+
+            rightTopArea.addView(diskFree);
+        }
 
         LinearLayout contentSizeFrame = new LinearLayout(this);
         contentSizeFrame.setOrientation(LinearLayout.HORIZONTAL);
@@ -722,6 +738,10 @@ public class SettingsActivity extends ContentBaseActivity
 
     public void updateContent()
     {
+        long freeBytes = Simple.bytesAvailable(ContentHandler.getStorageDir());
+        String diskfreetxt = Simple.getTrans(this, R.string.settings_free_storage, Simple.formatBytes(freeBytes));
+        diskFree.setText(diskfreetxt);
+
         long total = 0;
 
         for (int inx = 0; inx < actContent.length(); inx++)

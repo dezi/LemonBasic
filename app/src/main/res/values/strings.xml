@@ -99,6 +99,7 @@
     <string name="settings_your_contents">Your loaded contents</string>
     <string name="settings_used_storage">Used memory:</string>
     <string name="settings_used_storage_mb">%1$s MB</string>
+    <string name="settings_free_storage">Free memory: %1$s</string>
 
     <string name="settings_detail_title">Back to list of contents</string>
     <string name="settings_detail_delete">Delete</string>

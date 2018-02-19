@@ -1303,8 +1303,13 @@ public class Simple
 
     public static long mbAvailable(File file)
     {
+        return (bytesAvailable(file) / (1024 * 1024));
+    }
+
+    public static long bytesAvailable(File file)
+    {
         StatFs stat = new StatFs(file.getPath());
-        long bytesAvailable = stat.getBlockSize() * (long) stat.getAvailableBlocks();
-        return (bytesAvailable / (1024 * 1024));
+
+        return stat.getBlockSize() * (long) stat.getAvailableBlocks();
     }
 }
