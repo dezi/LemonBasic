@@ -412,7 +412,21 @@ public class SettingsDetail extends LinearLayout
 
         View parent = (View) getParent();
 
-        imageWidth = parent.getWidth() - parent.getPaddingLeft() - parent.getPaddingRight();
+        Log.d(LOGTAG, "onAttachedToWindow: imageFrame.width=" + imageFrame.getWidth());
+
+        imageWidth = parent.getWidth()
+                - parent.getPaddingLeft()
+                - parent.getPaddingRight()
+                - this.getPaddingLeft()
+                - this.getPaddingRight();
+
+        if (getLayoutParams() instanceof MarginLayoutParams)
+        {
+            MarginLayoutParams lp = (MarginLayoutParams) getLayoutParams();
+
+            imageWidth -= lp.leftMargin + lp.rightMargin;
+        }
+
         imageHeight = Math.round(imageWidth / Defines.ASSET_SETTINGS_ASPECT);
 
         Log.d(LOGTAG, "onAttachedToWindow: width=" + imageWidth + " height=" + imageHeight);
