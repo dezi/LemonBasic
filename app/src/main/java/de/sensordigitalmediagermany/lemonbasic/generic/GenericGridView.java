@@ -1,9 +1,5 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.view.Gravity;
-import android.view.animation.AnimationSet;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -17,13 +13,13 @@ import android.util.Log;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class GenericGridView extends FrameLayout implements GenericFocus
 {
     private static final String LOGTAG = GenericGridView.class.getSimpleName();
 
     private BaseAdapter adapter;
 
-    private ScrollView scrollView;
     private FrameLayout contentView;
     private RelativeLayout spinnerCenter;
     private ImageView spinnerIcon;
@@ -51,7 +47,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     {
         super(context);
 
-        scrollView = new ScrollView(context);
+        ScrollView scrollView = new ScrollView(context);
         scrollView.setFocusable(false);
 
         addView(scrollView);
@@ -216,6 +212,18 @@ public class GenericGridView extends FrameLayout implements GenericFocus
 
         dirty = false;
 
+        //noinspection RedundantIfStatement
+        if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.LOLLIPOP_MR1)
+        {
+            //
+            // Always force repositioning after
+            // build due to bug in framelayout
+            // resetting margins.
+            //
+
+            dirty = true;
+        }
+
         int xpos = 0;
         int ypos = 0;
 
@@ -248,15 +256,15 @@ public class GenericGridView extends FrameLayout implements GenericFocus
                     if (lp.width != columnWidth)
                     {
                         lp.width = columnWidth;
-
-                        lp.leftMargin = xpos;
-                        lp.topMargin = ypos;
                     }
 
                     if (lp.height > 0)
                     {
                         height = lp.height;
                     }
+
+                    lp.leftMargin = xpos;
+                    lp.topMargin = ypos;
 
                     view.setLayoutParams(lp);
                 }

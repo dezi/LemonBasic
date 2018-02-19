@@ -233,9 +233,6 @@ public class ContentBaseActivity extends FullScreenActivity
         assetGrid = new GenericGridView(this);
 
         assetGrid.setNumColumns(Defines.ASSETS_NUM_COLUMNS);
-        //assetGrid.setColumnWidth(GridView.AUTO_FIT);
-        //assetGrid.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-
         assetGrid.setVerticalSpacing(Defines.PADDING_LARGE);
         assetGrid.setHorizontalSpacing(Defines.PADDING_LARGE);
         assetGrid.setBackgroundColor(Defines.COLOR_CONTENT);
