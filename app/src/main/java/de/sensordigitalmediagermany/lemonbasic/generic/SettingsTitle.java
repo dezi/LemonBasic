@@ -10,6 +10,7 @@ public class SettingsTitle extends GenericText
     {
         super(context);
 
+        setSingleLine();
         setAllCaps(Defines.isInfosAllCaps);
         setTextColor(Defines.COLOR_SETTINGS_HEADERS);
     }

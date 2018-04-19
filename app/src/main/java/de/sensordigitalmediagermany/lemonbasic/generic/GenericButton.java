@@ -80,7 +80,7 @@ public class GenericButton extends TextView implements GenericFocus
         }
         else
         {
-            backgroundColor = Color.TRANSPARENT;
+            backgroundColor = Defines.isDefaultButtonTrans ? Color.TRANSPARENT : Defines.COLOR_BUTTON_BACK;
             super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.BLACK : Color.WHITE);
         }
 

@@ -71,6 +71,7 @@ public abstract class GenericText extends TextView implements GenericFocus
 
         Simple.setSizeDip(this, width, height, weight);
     }
+
     public void setTextSizeDip(int size)
     {
         Simple.setTextSizeDip(this, size);

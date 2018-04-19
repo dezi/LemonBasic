@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.content.Context;
 import android.graphics.Color;
@@ -27,6 +28,16 @@ public class GenericLinear extends LinearLayout implements GenericFocus
         backgroundColor = color;
 
         super.setBackgroundColor(color);
+    }
+
+    public void setWeight(float weight)
+    {
+        ViewGroup.LayoutParams lp = getLayoutParams();
+
+        int width = (lp == null) ? Simple.MP : lp.width;
+        int height = (lp == null) ? Simple.WC : lp.height;
+
+        Simple.setSizeDip(this, width, height, weight);
     }
 
     @Override

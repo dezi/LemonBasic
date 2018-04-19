@@ -2,7 +2,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.graphics.Color;
 
-@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "UnusedAssignment"})
 public class Defines
 {
     //
@@ -11,7 +11,7 @@ public class Defines
 
     public static final boolean isDezi = true;
 
-    public static final String DEBUG_VERSION = "1.1 (23) 19.02.2018 12:00";
+    public static final String DEBUG_VERSION = "1.1 (23) 19.04.2018 12:00";
 
     //
     // Rest API database access selectors.
@@ -38,41 +38,42 @@ public class Defines
     //
 
     // @formatter:off
-    public static final boolean isBasic            = isPierreCardin;
-    public static final boolean isTrainer          = isRainerAlbers;
+    public static final boolean isBasic              = isPierreCardin;
+    public static final boolean isTrainer            = isRainerAlbers;
 
-    public static final boolean isGiveAway         = isPierreCardin || isRainerAlbers;
-    public static final boolean isLoginButton      = isRainerAlbers;
-    public static final boolean isSimpleLogin      = isPierreCardin;
-    public static final boolean isRegistration     = isRainerAlbers;
-    public static final boolean isUserMenu         = isRainerAlbers;
-    public static final boolean isTabBar           = isPierreCardin;
-    public static final boolean isTopBanner        = isPierreCardin;
-    public static final boolean isCategoryMenu     = isRainerAlbers;
-    public static final boolean isRoundedAsset     = isRainerAlbers;
-    public static final boolean isOverlayAsset     = isPierreCardin;
-    public static final boolean isSectionDividers  = isPierreCardin;
-    public static final boolean isFlatEdits        = isPierreCardin;
-    public static final boolean isDialogTextCenter = isRainerAlbers;
-    public static final boolean isCompactDetails   = isPierreCardin;
-    public static final boolean isCompactSettings  = isPierreCardin;
-    public static final boolean isHintsAllCaps     = isPierreCardin;
-    public static final boolean isButtonAllCaps    = isPierreCardin;
-    public static final boolean isInfosAllCaps     = isPierreCardin;
-    public static final boolean isAskDownload      = isPierreCardin;
-    public static final boolean isCourseIcon       = isRainerAlbers;
-    public static final boolean isLoadedIcon       = isRainerAlbers;
-    public static final boolean isStatusIcon       = isPierreCardin;
-    public static final boolean isKaysNumbers      = isPierreCardin || isRainerAlbers;
-    public static final boolean isKaysHorzScroll   = isPierreCardin;
-    public static final boolean isAutoRefresh      = isPierreCardin;
-    public static final boolean isDeleteCache      = isPierreCardin;
-    public static final boolean isLoadAll          = isPierreCardin;
-    public static final boolean isPDFExternal      = isPierreCardin;
-    public static final boolean isCategoryDownload = false;
-    public static final boolean isPDFZoomable      = false;
-    public static final boolean isSoundSettings    = false;
-    public static final boolean isAutoRefreshInfo  = false;
+    public static final boolean isGiveAway           = isPierreCardin || isRainerAlbers;
+    public static final boolean isLoginButton        = isRainerAlbers;
+    public static final boolean isSimpleLogin        = isPierreCardin;
+    public static final boolean isRegistration       = isRainerAlbers;
+    public static final boolean isUserMenu           = isRainerAlbers;
+    public static final boolean isTabBar             = isPierreCardin;
+    public static final boolean isTopBanner          = isPierreCardin;
+    public static final boolean isCategoryMenu       = isRainerAlbers;
+    public static final boolean isRoundedAsset       = isRainerAlbers;
+    public static final boolean isOverlayAsset       = isPierreCardin;
+    public static final boolean isSectionDividers    = isPierreCardin;
+    public static final boolean isFlatEdits          = isPierreCardin;
+    public static final boolean isDialogTextCenter   = isRainerAlbers;
+    public static final boolean isCompactDetails     = isPierreCardin;
+    public static final boolean isCompactSettings    = isPierreCardin;
+    public static final boolean isDefaultButtonTrans = isPierreCardin;
+    public static final boolean isHintsAllCaps       = isPierreCardin;
+    public static final boolean isButtonAllCaps      = isPierreCardin;
+    public static final boolean isInfosAllCaps       = isPierreCardin || isRainerAlbers;
+    public static final boolean isAskDownload        = isPierreCardin;
+    public static final boolean isCourseIcon         = isRainerAlbers;
+    public static final boolean isLoadedIcon         = isRainerAlbers;
+    public static final boolean isStatusIcon         = isPierreCardin;
+    public static final boolean isKaysNumbers        = isPierreCardin || isRainerAlbers;
+    public static final boolean isKaysHorzScroll     = isPierreCardin;
+    public static final boolean isAutoRefresh        = isPierreCardin;
+    public static final boolean isDeleteCache        = isPierreCardin;
+    public static final boolean isLoadAll            = isPierreCardin;
+    public static final boolean isPDFExternal        = isPierreCardin;
+    public static final boolean isCategoryDownload   = false;
+    public static final boolean isPDFZoomable        = false;
+    public static final boolean isSoundSettings      = false;
+    public static final boolean isAutoRefreshInfo    = false;
     // @formatter:on
 
     //
@@ -173,8 +174,6 @@ public class Defines
     public static final String FUTURA_BOOK          = "fonts/Futura-Book.otf";
     public static final String SOURCE_SERIF_LIGHT   = "fonts/SourceSerifPro-Light.otf";
     public static final String SOURCE_SERIF_BOLD    = "fonts/SourceSerifPro-Bold.otf";
-    public static final String SOURCE_SANS_BOLD     = "fonts/SourceSansPro-Bold.otf";
-    public static final String SOURCE_SANS_SEMIBOLD = "fonts/SourceSansPro-Semibold.otf";
     // @formatter:on
 
     //
@@ -261,9 +260,8 @@ public class Defines
     public static final int FS_BUY_PRICE          = Simple.isTablet() ? 48 : 40;
 
     public static final int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
-    public static final int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14;
+    public static       int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14; // static!
     public static final int FS_SETTINGS_BACK      = Simple.isTablet() ? 15 : 12;
-    public static final int FS_SETTINGS_BUTTON    = Simple.isTablet() ? 14 : 12;
     public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // static!
     public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // static!
 
@@ -343,7 +341,6 @@ public class Defines
     public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 :  48;
-    public static final int SPINNER_ICON_SIZE   = Simple.isTablet() ? 128 :  48;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;
     public static final int COINS_BUTTON_WIDTH  = Simple.isTablet() ? 145 : 130;
 
@@ -437,6 +434,7 @@ public class Defines
             FS_ASSET_TITLE          = Simple.isTablet() ? 13 : 11;
             FS_ASSET_INFO           = Simple.isTablet() ? 18 : 16;
             FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  8;
+            FS_SETTINGS_INFO        = Simple.isTablet() ? 15 : 14;
             FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
             FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;
             FS_DETAIL_HEADER        = Simple.isTablet() ? 16 : 14;

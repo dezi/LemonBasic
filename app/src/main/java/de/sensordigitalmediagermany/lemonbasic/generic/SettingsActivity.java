@@ -1,11 +1,11 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.content.Context;
+import android.graphics.Color;
 import android.view.ViewGroup;
 import android.view.Gravity;
 import android.view.View;
@@ -127,7 +127,7 @@ public class SettingsActivity extends ContentBaseActivity
                     Defines.PADDING_LARGE, Defines.PADDING_SMALL,
                     Defines.PADDING_LARGE / 2, Defines.PADDING_LARGE);
 
-            Simple.setSizeDip(leftArea, Simple.MP, Simple.MP, 0.6f);
+            Simple.setSizeDip(leftArea, Simple.MP, Simple.MP, 0.65f);
         }
         else
         {
@@ -327,7 +327,7 @@ public class SettingsActivity extends ContentBaseActivity
                     Defines.PADDING_LARGE / 2, Defines.PADDING_SMALL,
                     Defines.PADDING_LARGE, Defines.PADDING_LARGE);
 
-            Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.4f);
+            Simple.setSizeDip(rightArea, Simple.MP, Simple.MP, 0.35f);
         }
         else
         {
@@ -344,15 +344,21 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Simple.isTablet())
         {
-            rightTopArea.setOrientation(LinearLayout.VERTICAL);
+            if (Defines.isSectionDividers)
+            {
+                rightTopArea.setOrientation(LinearLayout.VERTICAL);
+            }
+            else
+            {
+                rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
+            }
 
-            Simple.setMarginTopDip(rightTopArea, Simple.isWideScreen() ? Defines.PADDING_ZERO :Defines.PADDING_SMALL);
             Simple.setSizeDip(rightTopArea, Simple.MP, topHeight);
+            Simple.setMarginTopDip(rightTopArea, Simple.isWideScreen() ? Defines.PADDING_ZERO : Defines.PADDING_SMALL);
         }
         else
         {
             rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
-
             Simple.setSizeDip(rightTopArea, Simple.MP, Simple.WC);
         }
 
@@ -376,13 +382,12 @@ public class SettingsActivity extends ContentBaseActivity
             rightTopArea.addView(diskFree);
         }
 
-        LinearLayout contentSizeFrame = new LinearLayout(this);
+        GenericLinear contentSizeFrame = new GenericLinear(this);
         contentSizeFrame.setOrientation(LinearLayout.HORIZONTAL);
 
         SettingsInfoHeader contentSizeText = new SettingsInfoHeader(this);
         contentSizeText.setText(R.string.settings_used_storage);
         contentSizeText.setMarginTopDip(Defines.PADDING_ZERO);
-        contentSizeText.setWeight(1.0f);
 
         contentSizeFrame.addView(contentSizeText);
 
@@ -411,6 +416,23 @@ public class SettingsActivity extends ContentBaseActivity
         }
         else
         {
+            Simple.setPaddingDip(leftArea,
+                    Defines.PADDING_NORMAL, Defines.PADDING_TINY,
+                    Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
+
+            Simple.setPaddingDip(rightArea,
+                    Defines.PADDING_NORMAL, Defines.PADDING_TINY,
+                    Defines.PADDING_NORMAL, Defines.PADDING_NORMAL);
+
+            leftTopArea.setGravity(Gravity.CENTER_VERTICAL);
+            rightTopArea.setGravity(Gravity.CENTER_VERTICAL);
+
+            Simple.setSizeDip(contentTitle, Simple.MP, Simple.WC, 1.0f);
+            Simple.setSizeDip(contentSizeFrame, Simple.WC, Simple.WC);
+            Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
+            Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
+            Simple.setSizeDip(contentSizeMB, Simple.WC, Simple.WC);
+
             contentSizeText.setTextColor(Color.WHITE);
             contentSizeMB.setTextColor(Color.WHITE);
 
@@ -418,7 +440,6 @@ public class SettingsActivity extends ContentBaseActivity
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
                     Defines.PADDING_NORMAL, Defines.PADDING_SMALL);
 
-            Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC, 0.42f);
             Simple.setRoundedCorners(contentSizeFrame, Defines.CORNER_RADIUS_BIGBUT, Color.LTGRAY, true);
 
             rightTopArea.addView(contentSizeFrame);
