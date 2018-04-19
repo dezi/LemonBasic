@@ -738,9 +738,12 @@ public class SettingsActivity extends ContentBaseActivity
 
     public void updateContent()
     {
-        long freeBytes = Simple.bytesAvailable(ContentHandler.getStorageDir());
-        String diskfreetxt = Simple.getTrans(this, R.string.settings_free_storage, Simple.formatBytes(freeBytes));
-        diskFree.setText(diskfreetxt);
+        if (diskFree != null)
+        {
+            long freeBytes = Simple.bytesAvailable(ContentHandler.getStorageDir());
+            String diskfreetxt = Simple.getTrans(this, R.string.settings_free_storage, Simple.formatBytes(freeBytes));
+            diskFree.setText(diskfreetxt);
+        }
 
         long total = 0;
 

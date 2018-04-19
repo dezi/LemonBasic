@@ -29,8 +29,8 @@ public class Defines
     //
 
     // @formatter:off
-    protected static final boolean isPierreCardin = true;
-    protected static final boolean isRainerAlbers = false;
+    protected static final boolean isPierreCardin = false;
+    protected static final boolean isRainerAlbers = true;
     // @formatter:on
 
     //
