@@ -31,7 +31,7 @@ public class GenericScrollVert extends ScrollView implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

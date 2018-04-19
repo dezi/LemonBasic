@@ -125,7 +125,7 @@ public class GenericButton extends TextView implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

@@ -83,7 +83,7 @@ public class GenericEdit extends EditText implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

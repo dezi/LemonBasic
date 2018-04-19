@@ -30,7 +30,7 @@ public class GenericLinear extends LinearLayout implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

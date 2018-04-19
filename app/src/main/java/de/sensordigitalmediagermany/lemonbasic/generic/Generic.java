@@ -9,7 +9,7 @@ public class Generic
 
     public static boolean canFocus(View view)
     {
-        return (view instanceof GenericFocus) && ((GenericFocus) view).getFocusable();
+        return (view instanceof GenericFocus) && ((GenericFocus) view).getIsFocusable();
     }
 
     public static void saveFocused(View focused)

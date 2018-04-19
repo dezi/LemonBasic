@@ -33,7 +33,7 @@ public class GenericImage extends ImageView implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

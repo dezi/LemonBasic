@@ -5,7 +5,7 @@ import android.view.View;
 public interface GenericFocus
 {
     void setFocusable(boolean focusable);
-    boolean getFocusable();
+    boolean getIsFocusable();
 
     void setBackgroundColor(int color);
     int getBackgroundColor();

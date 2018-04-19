@@ -30,7 +30,7 @@ public class GenericRelative extends RelativeLayout implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

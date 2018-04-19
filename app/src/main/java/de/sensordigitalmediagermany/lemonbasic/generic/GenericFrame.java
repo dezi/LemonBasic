@@ -29,7 +29,7 @@ public class GenericFrame extends FrameLayout implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

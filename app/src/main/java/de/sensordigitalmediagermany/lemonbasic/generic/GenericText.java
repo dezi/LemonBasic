@@ -106,7 +106,7 @@ public abstract class GenericText extends TextView implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }

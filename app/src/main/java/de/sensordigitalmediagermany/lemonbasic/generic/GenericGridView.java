@@ -484,7 +484,7 @@ public class GenericGridView extends FrameLayout implements GenericFocus
     }
 
     @Override
-    public boolean getFocusable()
+    public boolean getIsFocusable()
     {
         return focusable;
     }
