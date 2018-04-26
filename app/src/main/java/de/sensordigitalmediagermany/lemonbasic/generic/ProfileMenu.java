@@ -108,8 +108,16 @@ public class ProfileMenu extends RelativeLayout
         addOption(R.string.profile_popup_buy);
         addOption(R.string.profile_popup_redeem);
         addOption(R.string.profile_popup_settings);
-        addOption(R.string.profile_popup_faq);
-        addOption(R.string.profile_popup_impressum);
+
+        if (Defines.isFAQMenu)
+        {
+            addOption(R.string.profile_popup_faq);
+        }
+
+        if (Defines.isImpressumMenu)
+        {
+            addOption(R.string.profile_popup_impressum);
+        }
     }
 
     public void setTopMargin(int topmargin)

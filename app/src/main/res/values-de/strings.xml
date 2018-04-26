@@ -162,8 +162,10 @@
     <string name="detail_download_cancelled">Download abgebrochen.</string>
     <string name="detail_download_offline">Ihre Internet-Verbindung besteht nicht mehr.</string>
 
+    <string name="detail_specs_fileshort">Datei</string>
     <string name="detail_specs_file">Dateiformat</string>
 
+    <string name="detail_specs_quantshort">Umfang</string>
     <string name="detail_specs_quantity">Länge/Umfang</string>
     <string name="detail_specs_quantity_duration">%1$s Min.</string>
     <string name="detail_specs_quantity_pages">%1$s Seiten</string>

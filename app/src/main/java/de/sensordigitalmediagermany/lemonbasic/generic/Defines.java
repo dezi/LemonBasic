@@ -41,7 +41,7 @@ public class Defines
     public static final boolean isBasic              = isPierreCardin;
     public static final boolean isTrainer            = isRainerAlbers;
 
-    public static final boolean isGiveAway           = isPierreCardin || isRainerAlbers;
+    public static final boolean isGiveAway           = isPierreCardin;
     public static final boolean isLoginButton        = isRainerAlbers;
     public static final boolean isSimpleLogin        = isPierreCardin;
     public static final boolean isRegistration       = isRainerAlbers;
@@ -59,7 +59,8 @@ public class Defines
     public static final boolean isDefaultButtonTrans = isPierreCardin;
     public static final boolean isHintsAllCaps       = isPierreCardin;
     public static final boolean isButtonAllCaps      = isPierreCardin;
-    public static final boolean isInfosAllCaps       = isPierreCardin || isRainerAlbers;
+    public static final boolean isHeadersAllCaps     = isPierreCardin || isRainerAlbers;
+    public static final boolean isInfosAllCaps       = isPierreCardin;
     public static final boolean isAskDownload        = isPierreCardin;
     public static final boolean isCourseIcon         = isRainerAlbers;
     public static final boolean isLoadedIcon         = isRainerAlbers;
@@ -70,6 +71,8 @@ public class Defines
     public static final boolean isDeleteCache        = isPierreCardin;
     public static final boolean isLoadAll            = isPierreCardin;
     public static final boolean isPDFExternal        = isPierreCardin;
+    public static final boolean isFAQMenu            = isPierreCardin;
+    public static final boolean isImpressumMenu      = isPierreCardin;
     public static final boolean isCategoryDownload   = false;
     public static final boolean isPDFZoomable        = false;
     public static final boolean isSoundSettings      = false;
@@ -115,6 +118,7 @@ public class Defines
     public static final int COLOR_SENSOR_DIALOGS     = 0xcc3b4455;
     public static final int COLOR_SENSOR_NAVIBAR     = 0xffedf0f4;
     public static final int COLOR_SENSOR_CONTENT     = 0xffb6c4d2;
+    public static final int COLOR_SENSOR_FRAMES      = 0xffedeef1;
     public static final int COLOR_SENSOR_TABBAR      = 0xfff5f5f5;
     public static final int COLOR_SENSOR_BUTTONTEXT  = 0xfff5f5f5;
 
@@ -130,7 +134,7 @@ public class Defines
     public static       int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // static!
     public static       int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // static!
     public static       int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // static!
-    public static       int COLOR_FRAMES            = COLOR_SENSOR_CONTENT;    // static!
+    public static       int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // static!
     public static       int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // static!
     public static       int COLOR_DIALOG_TITLE      = Color.WHITE;             // static!
     public static       int COLOR_DIALOG_INFOS      = Color.WHITE;             // static!

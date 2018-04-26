@@ -52,7 +52,7 @@ public class ContentActivity extends ContentBaseActivity
                     assetsAdapter.setAssets(ContentHandler.getFilteredContent());
                 }
 
-                assetsAdapter.notifyDataSetChanged();
+                assetGrid.updateContent();
             }
         });
 
@@ -136,6 +136,7 @@ public class ContentActivity extends ContentBaseActivity
         if (Defines.isCategoryMenu)
         {
             assetsAdapter.setAssets(ContentHandler.getFilteredContent());
+            assetGrid.updateContent();
         }
         else
         {

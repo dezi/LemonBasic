@@ -203,7 +203,17 @@ public class AssetFrame extends GenericLinear
         summaryView = new TextView(getContext());
         summaryView.setId(android.R.id.summary);
         summaryView.setAllCaps(Defines.isInfosAllCaps);
-        summaryView.setMaxLines(3);
+
+        if (Defines.isOverlayAsset)
+        {
+            summaryView.setMaxLines(3);
+        }
+        else
+        {
+            summaryView.setMinLines(2);
+            summaryView.setMaxLines(2);
+        }
+
         summaryView.setEllipsize(TextUtils.TruncateAt.END);
         summaryView.setLineSpacing(0.0f, Defines.FS_ASSET_INFO_LSMULT);
         summaryView.setTextColor(Defines.isOverlayAsset ? Color.WHITE : Color.BLACK);

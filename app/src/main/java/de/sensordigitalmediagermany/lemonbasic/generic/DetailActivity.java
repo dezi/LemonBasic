@@ -137,7 +137,7 @@ public class DetailActivity extends ContentBaseActivity
         ctView.setAllCaps(true);
         ctView.setTextColor(Defines.COLOR_DETAIL_TITLE);
         ctView.setTypeface(headerTF);
-        ctView.setAllCaps(Defines.isInfosAllCaps);
+        ctView.setAllCaps(Defines.isHeadersAllCaps);
         Simple.setTextSizeDip(ctView, Defines.FS_DETAIL_HEADER);
         Simple.setSizeDip(ctView, Simple.MP, Simple.WC);
 
@@ -226,7 +226,7 @@ public class DetailActivity extends ContentBaseActivity
         chView.setText(contentHeader);
         chView.setTextColor(Color.BLACK);
         chView.setTypeface(titleTF);
-        chView.setAllCaps(Defines.isInfosAllCaps);
+        chView.setAllCaps(Defines.isHeadersAllCaps);
         Simple.setTextSizeDip(chView, Defines.FS_DETAIL_TITLE);
         Simple.setSizeDip(chView, Simple.MP, Simple.WC);
 
@@ -319,8 +319,8 @@ public class DetailActivity extends ContentBaseActivity
             miscAreaHorz.addView(specsArea);
         }
 
-        TableLikeLayout fileView = new TableLikeLayout(this, headerTF, infosTF, true);
-        fileView.setLeftText(R.string.detail_specs_file);
+        TableLikeLayout fileView = new TableLikeLayout(this, headerTF, infosTF, Defines.isCompactDetails);
+        fileView.setLeftText(Defines.isCompactDetails ? R.string.detail_specs_file : R.string.detail_specs_fileshort);
 
         Log.d(LOGTAG, "content_type=" + content_type);
 
@@ -337,8 +337,8 @@ public class DetailActivity extends ContentBaseActivity
 
         specsArea.addView(createSeparator());
 
-        TableLikeLayout quantView = new TableLikeLayout(this, headerTF, infosTF, true);
-        quantView.setLeftText(R.string.detail_specs_quantity);
+        TableLikeLayout quantView = new TableLikeLayout(this, headerTF, infosTF, Defines.isCompactDetails);
+        quantView.setLeftText(Defines.isCompactDetails ? R.string.detail_specs_quantity : R.string.detail_specs_quantshort);
         quantView.setRightText("-");
 
         if (content_type == Defines.CONTENT_TYPE_PDF)
@@ -386,7 +386,7 @@ public class DetailActivity extends ContentBaseActivity
 
             statusBox.addView(statusIcon);
 
-            statusView = new TableLikeLayout(this, headerTF, infosTF, true);
+            statusView = new TableLikeLayout(this, headerTF, infosTF, Defines.isCompactDetails);
 
             statusView.setLeftText(R.string.detail_specs_status);
 
@@ -399,7 +399,7 @@ public class DetailActivity extends ContentBaseActivity
         }
         else
         {
-            TableLikeLayout sizeView = new TableLikeLayout(this, headerTF, infosTF, true);
+            TableLikeLayout sizeView = new TableLikeLayout(this, headerTF, infosTF, Defines.isCompactDetails);
             sizeView.setLeftText(R.string.detail_specs_size);
 
             sizeView.setRightText(Simple.getTrans(this,
@@ -467,7 +467,7 @@ public class DetailActivity extends ContentBaseActivity
                 {
                     Simple.setRoundedCorners(suitableArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
-                    TableLikeLayout suitableView = new TableLikeLayout(this, headerTF, infosTF, true);
+                    TableLikeLayout suitableView = new TableLikeLayout(this, headerTF, infosTF, Defines.isCompactDetails);
 
                     suitableView.setLeftText(R.string.detail_specs_suitablefor);
                     suitableView.setRightText(suitable_for);
@@ -486,6 +486,8 @@ public class DetailActivity extends ContentBaseActivity
 
         if (Defines.isCompactDetails)
         {
+            Simple.setPaddingDip(buyloadArea, Defines.PADDING_LARGE);
+
             if (Simple.isTablet())
             {
                 //
@@ -495,8 +497,6 @@ public class DetailActivity extends ContentBaseActivity
 
                 Simple.setRoundedCorners(buyloadArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
             }
-
-            Simple.setPaddingDip(buyloadArea, Defines.PADDING_LARGE);
         }
 
         buyloadAreaVert.addView(buyloadArea);
@@ -527,9 +527,18 @@ public class DetailActivity extends ContentBaseActivity
         {
             Simple.setSizeDip(buyButton, Simple.MP, Simple.WC, 1.0f);
 
-            Simple.setPaddingDip(buyButton,
-                    Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
-                    Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+            if (Defines.isCompactDetails)
+            {
+                Simple.setPaddingDip(buyButton,
+                        Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL,
+                        Defines.PADDING_XLARGE * 2, Defines.PADDING_SMALL);
+            }
+            else
+            {
+                Simple.setPaddingDip(buyButton,
+                        Defines.PADDING_SMALL, Defines.PADDING_SMALL,
+                        Defines.PADDING_SMALL, Defines.PADDING_SMALL);
+            }
         }
         else
         {

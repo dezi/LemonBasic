@@ -162,8 +162,10 @@
     <string name="detail_download_cancelled">Download cancelled.</string>
     <string name="detail_download_offline">You are no longer connected to the internet.</string>
 
+    <string name="detail_specs_fileshort">File</string>
     <string name="detail_specs_file">File format</string>
 
+    <string name="detail_specs_quantshort">Amount</string>
     <string name="detail_specs_quantity">Length/Amount</string>
     <string name="detail_specs_quantity_duration">%1$s Min.</string>
     <string name="detail_specs_quantity_pages">%1$s Pages</string>
