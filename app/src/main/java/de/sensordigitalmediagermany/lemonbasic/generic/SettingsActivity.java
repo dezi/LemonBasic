@@ -118,7 +118,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea = new LinearLayout(this);
         leftArea.setOrientation(LinearLayout.VERTICAL);
-        leftArea.setBackgroundColor(Defines.COLOR_FRAMES);
+        if (Defines.isCompactSettings) leftArea.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setPaddingDip(leftArea, Defines.PADDING_NORMAL);
 
         if (Simple.isTablet())
@@ -318,7 +318,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         rightArea = new LinearLayout(this);
         rightArea.setOrientation(LinearLayout.VERTICAL);
-        rightArea.setBackgroundColor(Defines.COLOR_FRAMES);
+        if (Defines.isCompactSettings) rightArea.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setPaddingDip(rightArea, Defines.PADDING_NORMAL);
 
         if (Simple.isTablet())
@@ -393,6 +393,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         contentSizeMB = new SettingsInfoHeader(this);
         contentSizeMB.setMarginTopDip(Defines.PADDING_ZERO);
+        contentSizeMB.setMarginLeftDip(Defines.PADDING_TINY);
         contentSizeMB.setFullWidth(false);
 
         contentSizeFrame.addView(contentSizeMB);
@@ -536,7 +537,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         assetGrid.setNumColumns(1);
         assetGrid.setHorizontalSpacing(0);
-        assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
+        if (Defines.isCompactSettings) assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
         Simple.setPaddingDip(assetGrid, 0);
 
         rightArea.addView(assetGrid);
@@ -711,18 +712,20 @@ public class SettingsActivity extends ContentBaseActivity
                 {
                     SettingsDetail detailView = new SettingsDetail(SettingsActivity.this, content);
 
-                    int width = 0;
-
                     if (Defines.isCompactSettings)
                     {
                         if (Simple.isTablet())
                         {
+                            detailView.setWidth(rightArea.getWidth());
+
                             rightArea.removeView(loadAllArea);
                             rightArea.removeView(assetGrid);
                             rightArea.addView(detailView);
                         }
                         else
                         {
+                            detailView.setWidth(bodyHorz.getWidth());
+
                             bodyHorz.removeView(leftArea);
                             bodyHorz.removeView(rightArea);
                             bodyHorz.addView(detailView);
@@ -730,6 +733,8 @@ public class SettingsActivity extends ContentBaseActivity
                     }
                     else
                     {
+                        detailView.setWidth(bodyHorz.getWidth());
+
                         bodyHorz.removeView(rightArea);
                         bodyHorz.addView(detailView);
                     }
@@ -782,7 +787,8 @@ public class SettingsActivity extends ContentBaseActivity
         int loaded = actContent.length();
         int available = ContentHandler.countContents();
 
-        String infostr = loaded + "/" + available + " = " + Simple.formatBytes(total);
+        //String infostr = loaded + "/" + available + " = " + Simple.formatBytes(total);
+        String infostr = Simple.formatBytes(total);
 
         contentSizeMB.setText(infostr);
 

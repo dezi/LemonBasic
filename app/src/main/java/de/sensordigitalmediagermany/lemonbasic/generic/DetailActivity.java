@@ -181,6 +181,8 @@ public class DetailActivity extends ContentBaseActivity
 
         LinearLayout descFrame = new LinearLayout(this);
         descFrame.setOrientation(LinearLayout.VERTICAL);
+        Simple.setPaddingDip(descFrame, Defines.PADDING_NORMAL);
+        Simple.setRoundedCorners(descFrame, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
         if (Simple.isTablet())
         {
@@ -196,8 +198,6 @@ public class DetailActivity extends ContentBaseActivity
         GenericScrollVert descScroll = new GenericScrollVert(this);
         descScroll.setSizeDependendFocusable(true);
         descScroll.setBackgroundColor(Defines.COLOR_FRAMES);
-        Simple.setPaddingDip(descScroll, Defines.PADDING_NORMAL);
-        Simple.setRoundedCorners(descScroll, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
         descFrame.addView(descScroll);
 

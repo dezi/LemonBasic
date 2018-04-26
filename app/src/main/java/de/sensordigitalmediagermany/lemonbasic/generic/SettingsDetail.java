@@ -27,6 +27,7 @@ public class SettingsDetail extends LinearLayout
     protected ImageView typeIcon;
     protected GenericButton deleteButton;
 
+    protected int viewWidth;
     protected int imageWidth;
     protected int imageHeight;
 
@@ -405,6 +406,11 @@ public class SettingsDetail extends LinearLayout
         //endregion Misc area with specs and delete.
     }
 
+    public void setWidth(int width)
+    {
+        viewWidth = width;
+    }
+
     @Override
     protected void onAttachedToWindow()
     {
@@ -412,13 +418,9 @@ public class SettingsDetail extends LinearLayout
 
         View parent = (View) getParent();
 
-        Log.d(LOGTAG, "onAttachedToWindow: imageFrame.width=" + imageFrame.getWidth());
+        Log.d(LOGTAG, "onAttachedToWindow: viewWidth=" + viewWidth);
 
-        imageWidth = parent.getWidth()
-                - parent.getPaddingLeft()
-                - parent.getPaddingRight()
-                - this.getPaddingLeft()
-                - this.getPaddingRight();
+        imageWidth = viewWidth - this.getPaddingLeft() - this.getPaddingRight();
 
         if (getLayoutParams() instanceof MarginLayoutParams)
         {

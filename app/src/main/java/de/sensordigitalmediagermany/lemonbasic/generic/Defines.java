@@ -304,7 +304,7 @@ public class Defines
 
     // @formatter:off
     public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
-    public static       float ASSET_SETTINGS_ASPECT  = 2.5f; // static!
+    public static       float ASSET_SETTINGS_ASPECT  = 3.5f; // static!
     public static       float ASSET_DETAIL_ASPECT    = 3.0f; // static!
     public static       float ASSET_COURSE_ASPECT    = 3.5f; // static!
     public static       float ASSET_BANNER_ASPECT    = 3.2f; // static!
