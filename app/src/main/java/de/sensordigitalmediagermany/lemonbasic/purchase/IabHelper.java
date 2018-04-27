@@ -1165,14 +1165,13 @@ public class IabHelper
         skuList.add("coins1");
         skuList.add("coins2");
         skuList.add("coins3");
+        skuList.add("blbala");
 
         if (skuList.size() == 0)
         {
             logDebug("queryPrices: nothing to do because there are no SKUs.");
             return BILLING_RESPONSE_RESULT_OK;
         }
-
-        Log.d(LOGTAG, "###########################");
 
         // Split the sku list in blocks of no more than 20 elements.
         ArrayList<ArrayList<String>> packs = new ArrayList<ArrayList<String>>();
@@ -1200,12 +1199,15 @@ public class IabHelper
 
         for (ArrayList<String> skuPartList : packs)
         {
-            Log.d(LOGTAG, "########## getPackageName=" + mContext.getPackageName());
+            Log.d(LOGTAG, "type=" + itemType + " getPackageName=" + mContext.getPackageName());
 
             Bundle querySkus = new Bundle();
             querySkus.putStringArrayList(GET_SKU_DETAILS_ITEM_LIST, skuPartList);
             Bundle skuDetails = mService.getSkuDetails(3, mContext.getPackageName(),
                     itemType, querySkus);
+
+            Log.d(LOGTAG, "skuPartList=" + skuPartList.toString());
+            Log.d(LOGTAG, "querySkus=" + querySkus.toString());
 
             if (!skuDetails.containsKey(RESPONSE_GET_SKU_DETAILS_LIST))
             {
@@ -1224,6 +1226,8 @@ public class IabHelper
 
             ArrayList<String> responseList = skuDetails.getStringArrayList(
                     RESPONSE_GET_SKU_DETAILS_LIST);
+
+            Log.d(LOGTAG, "####### getSkuDetails: list=" + responseList.size());
 
             for (String thisResponse : responseList)
             {
