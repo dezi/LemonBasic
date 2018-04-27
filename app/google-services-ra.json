@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "65037347948",
+    "firebase_url": "https://lemon-trainer-rainer-albers.firebaseio.com",
+    "project_id": "lemon-trainer-rainer-albers",
+    "storage_bucket": "lemon-trainer-rainer-albers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65037347948:android:c063fea068409ffb",
+        "android_client_info": {
+          "package_name": "de.sensordigitalmediagermany.lemontrainer.raineralbers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65037347948-2abm7mv236no9diba955kle3o5blmkl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe5SggtZT0_yoN2z5TPw40au0MTETl8QM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
