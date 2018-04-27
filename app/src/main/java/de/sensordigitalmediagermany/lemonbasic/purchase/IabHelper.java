@@ -38,6 +38,8 @@ import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.sensordigitalmediagermany.lemonbasic.generic.AppStorePacket;
+
 
 /**
  * Provides convenience methods for in-app billing. You can create one instance of this
@@ -1162,10 +1164,10 @@ public class IabHelper
             }
         }
 
+        skuList.add("coins0");
         skuList.add("coins1");
         skuList.add("coins2");
         skuList.add("coins3");
-        skuList.add("blbala");
 
         if (skuList.size() == 0)
         {
@@ -1234,6 +1236,23 @@ public class IabHelper
                 SkuDetails d = new SkuDetails(itemType, thisResponse);
                 logDebug("Got sku details: " + d);
                 inv.addSkuDetails(d);
+
+                try
+                {
+                    String[] parts = d.getTitle().split(" ");
+
+                    int cents = (int) (d.getPriceAmountMicros() / 10000);
+                    int coins = Integer.parseInt(parts[ 0 ]);
+
+                    AppStorePacket packet = new AppStorePacket(d.getSku(), coins, cents);
+
+                    AppStorePacket.addAppStorePackets(packet);
+
+                    Log.d(LOGTAG, "querySkuDetails: sku=" + d.getSku() + "coins=" + coins + " cents=" + cents);
+                }
+                catch (Exception ignore)
+                {
+                }
             }
         }
 

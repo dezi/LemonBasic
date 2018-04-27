@@ -35,7 +35,7 @@ public class BuyCoinsDialog extends DialogView
 
         setCloseButton(true, null);
 
-        AppStorePacket packets[] = AppStorePacket.getAppStorePackets();
+        ArrayList<AppStorePacket> packets = AppStorePacket.getAppStorePackets();
 
         LinearLayout dialogItems = new LinearLayout(getContext());
         dialogItems.setOrientation(LinearLayout.VERTICAL);

@@ -1,24 +1,33 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import java.util.ArrayList;
+
 public class AppStorePacket
 {
-    private static final AppStorePacket[] APP_STORE_PACKEKTS =
-            {
-                    new AppStorePacket( 200, 1990),
-                    new AppStorePacket( 500, 4590),
-                    new AppStorePacket(1000, 8990)
-            };
+    private final static ArrayList<AppStorePacket> APP_STORE_PACKETS = new ArrayList<>();
 
-    public static AppStorePacket[] getAppStorePackets()
+    public static ArrayList<AppStorePacket> getAppStorePackets()
     {
-        return APP_STORE_PACKEKTS;
+        return APP_STORE_PACKETS;
     }
 
+    public static void addAppStorePackets(AppStorePacket packet)
+    {
+        APP_STORE_PACKETS.add(packet);
+    }
+
+    public static void  clearAppStorePackets()
+    {
+        APP_STORE_PACKETS.clear();
+    }
+
+    public String productId;
     public int coins;
     public int cents;
 
-    public  AppStorePacket(int coins, int cents)
+    public  AppStorePacket(String productId, int coins, int cents)
     {
+        this.productId = productId;
         this.coins = coins;
         this.cents = cents;
     }
