@@ -1,5 +1,6 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.widget.TextView;
@@ -121,6 +122,7 @@ public class ContentActivity extends ContentBaseActivity implements IabBroadcast
                 if (!result.isSuccess())
                 {
                     Log.e(LOGTAG, "Problem setting up in-app billing: " + result);
+
                     return;
                 }
 
@@ -152,25 +154,38 @@ public class ContentActivity extends ContentBaseActivity implements IabBroadcast
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        Log.d(LOGTAG, "onActivityResult(" + requestCode + "," + resultCode + "," + data);
+        if (mHelper == null) return;
+
+        if (!mHelper.handleActivityResult(requestCode, resultCode, data))
+        {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+        else
+        {
+            Log.d(LOGTAG, "onActivityResult handled by IABUtil.");
+        }
+    }
+
     IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener()
     {
         public void onQueryInventoryFinished(IabResult result, Inventory inventory)
         {
             Log.d(LOGTAG, "Query inventory finished.");
 
-            // Have we been disposed of in the meantime? If so, quit.
             if (mHelper == null) return;
 
-            // Is it a failure?
             if (result.isFailure())
             {
                 Log.e(LOGTAG, "Failed to query inventory: " + result);
+
                 return;
             }
 
             Log.d(LOGTAG, "Query inventory was successful.");
-
-            Log.d(LOGTAG, "Initial inventory query finished; enabling main UI.");
         }
     };
 

@@ -34,6 +34,7 @@ import com.android.vending.billing.IInAppBillingService;
 
 import org.json.JSONException;
 
+import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +73,8 @@ import java.util.List;
  */
 public class IabHelper
 {
+    private static final String LOGTAG = IabHelper.class.getSimpleName();
+
     // Is debug logging enabled?
     boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
@@ -818,7 +821,7 @@ public class IabHelper
     public void queryInventoryAsync(QueryInventoryFinishedListener listener)
             throws IabAsyncInProgressException
     {
-        queryInventoryAsync(false, null, null, listener);
+        queryInventoryAsync(true, null, null, listener);
     }
 
     /**
@@ -1159,11 +1162,17 @@ public class IabHelper
             }
         }
 
+        skuList.add("coins1");
+        skuList.add("coins2");
+        skuList.add("coins3");
+
         if (skuList.size() == 0)
         {
             logDebug("queryPrices: nothing to do because there are no SKUs.");
             return BILLING_RESPONSE_RESULT_OK;
         }
+
+        Log.d(LOGTAG, "###########################");
 
         // Split the sku list in blocks of no more than 20 elements.
         ArrayList<ArrayList<String>> packs = new ArrayList<ArrayList<String>>();
@@ -1191,6 +1200,8 @@ public class IabHelper
 
         for (ArrayList<String> skuPartList : packs)
         {
+            Log.d(LOGTAG, "########## getPackageName=" + mContext.getPackageName());
+
             Bundle querySkus = new Bundle();
             querySkus.putStringArrayList(GET_SKU_DETAILS_ITEM_LIST, skuPartList);
             Bundle skuDetails = mService.getSkuDetails(3, mContext.getPackageName(),

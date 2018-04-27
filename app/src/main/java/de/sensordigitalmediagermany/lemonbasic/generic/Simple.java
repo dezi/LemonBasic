@@ -821,7 +821,7 @@ public class Simple
         {
             URL url = new URL(urlstr);
 
-            Log.d(LOGTAG, "getDrawableFromHTTP: url=" + url);
+            //Log.d(LOGTAG, "getDrawableFromHTTP: url=" + url);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -857,7 +857,7 @@ public class Simple
         {
             URL url = new URL(urlstr);
 
-            Log.d(LOGTAG, "getBitmapFromHTTP: url=" + url);
+            //Log.d(LOGTAG, "getBitmapFromHTTP: url=" + url);
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -1038,15 +1038,15 @@ public class Simple
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
 
-        Log.d(LOGTAG, "getFittedLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
-        Log.d(LOGTAG, "getFittedLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+        //Log.d(LOGTAG, "getFittedLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
+        //Log.d(LOGTAG, "getFittedLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         //
         // Get aspect ratio and margins from fit image into screen.
         //
 
         float aspectRatio = parentWidth / (float) imageWidth;
-        Log.d(LOGTAG, "getFittedLayout: aspectRatio=" + aspectRatio);
+        //Log.d(LOGTAG, "getFittedLayout: aspectRatio=" + aspectRatio);
 
         //
         // Create bounding rectangle.
@@ -1059,7 +1059,7 @@ public class Simple
         rect.right = Math.round(imageWidth * aspectRatio);
         rect.bottom = Math.round(imageHeight * aspectRatio);
 
-        Log.d(LOGTAG, "getFittedLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+        //Log.d(LOGTAG, "getFittedLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
 
         return getLayoutFromRect(rect);
     }
@@ -1087,8 +1087,8 @@ public class Simple
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
 
-        Log.d(LOGTAG, "getScaledHorzLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
-        Log.d(LOGTAG, "getScaledHorzLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+        //Log.d(LOGTAG, "getScaledHorzLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
+        //Log.d(LOGTAG, "getScaledHorzLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         //
         // Get aspect ratio and margins from fit image into screen.
@@ -1096,25 +1096,25 @@ public class Simple
 
         float aspectRatio = parentWidth / (float) imageWidth;
 
-        Log.d(LOGTAG, "getScaledHorzLayout: aspect=" + aspectRatio);
+        //Log.d(LOGTAG, "getScaledHorzLayout: aspect=" + aspectRatio);
 
         int leftMargin = (parentWidth - Math.round(imageWidth * aspectRatio)) / 2;
         int topMargin = (parentHeight - Math.round(imageHeight * aspectRatio)) / 2;
 
-        Log.d(LOGTAG, "getScaledHorzLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
+        //Log.d(LOGTAG, "getScaledHorzLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
 
         //
         // Scale rectangle to final position.
         //
 
-        Log.d(LOGTAG, "getScaledHorzLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+        //Log.d(LOGTAG, "getScaledHorzLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
 
         rect.left = leftMargin + Math.round(rect.left * aspectRatio);
         rect.top = topMargin + Math.round(rect.top * aspectRatio);
         rect.right = leftMargin + Math.round(rect.right * aspectRatio);
         rect.bottom = topMargin + Math.round(rect.bottom * aspectRatio);
 
-        Log.d(LOGTAG, "getScaledHorzLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+        //Log.d(LOGTAG, "getScaledHorzLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
 
         return getLayoutFromRect(rect);
     }
@@ -1142,8 +1142,8 @@ public class Simple
         int imageWidth = bitmap.getWidth();
         int imageHeight = bitmap.getHeight();
 
-        Log.d(LOGTAG, "getScaledLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
-        Log.d(LOGTAG, "getScaledLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
+        //Log.d(LOGTAG, "getScaledLayout: parentWidth=" + parentWidth + " parentHeight=" + parentHeight);
+        //Log.d(LOGTAG, "getScaledLayout: imageWidth=" + imageWidth + " imageHeight=" + imageHeight);
 
         //
         // Get aspect ratio and margins from fit image into screen.
@@ -1152,27 +1152,27 @@ public class Simple
         float xAspectRatio = parentWidth / (float) imageWidth;
         float yAspectRatio = parentHeight / (float) imageHeight;
 
-        Log.d(LOGTAG, "getScaledLayout: xAspect=" + xAspectRatio + " yAspect=" + yAspectRatio);
+        //Log.d(LOGTAG, "getScaledLayout: xAspect=" + xAspectRatio + " yAspect=" + yAspectRatio);
 
         float aspectRatio = Math.min(xAspectRatio, yAspectRatio);
 
         int leftMargin = (parentWidth - Math.round(imageWidth * aspectRatio)) / 2;
         int topMargin = (parentHeight - Math.round(imageHeight * aspectRatio)) / 2;
 
-        Log.d(LOGTAG, "getScaledLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
+        //Log.d(LOGTAG, "getScaledLayout: leftMargin=" + leftMargin + " topMargin=" + topMargin);
 
         //
         // Scale rectangle to final position.
         //
 
-        Log.d(LOGTAG, "getScaledLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+        //Log.d(LOGTAG, "getScaledLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
 
         rect.left = leftMargin + Math.round(rect.left * aspectRatio);
         rect.top = topMargin + Math.round(rect.top * aspectRatio);
         rect.right = leftMargin + Math.round(rect.right * aspectRatio);
         rect.bottom = topMargin + Math.round(rect.bottom * aspectRatio);
 
-        Log.d(LOGTAG, "getScaledLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
+        //Log.d(LOGTAG, "getScaledLayout: left=" + rect.left + " top=" + rect.top + " right=" + rect.right + " bottom=" + rect.bottom);
 
         return getLayoutFromRect(rect);
     }
@@ -1255,7 +1255,7 @@ public class Simple
 
             String chksum = String.format("%0" + (chkbytes.length * 2) + "X", new BigInteger(1, chkbytes));
 
-            Log.d(LOGTAG, "getStringChecksum: chksum=" + chksum);
+            //Log.d(LOGTAG, "getStringChecksum: chksum=" + chksum);
 
             return chksum;
         }

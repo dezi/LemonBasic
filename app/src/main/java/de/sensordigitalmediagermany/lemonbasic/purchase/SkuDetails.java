@@ -15,14 +15,18 @@
 
 package de.sensordigitalmediagermany.lemonbasic.purchase;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Represents an in-app product's listing details.
- */
+import de.sensordigitalmediagermany.lemonbasic.generic.ContentActivity;
+import de.sensordigitalmediagermany.lemonbasic.generic.Json;
+
 public class SkuDetails
 {
+    private static final String LOGTAG = SkuDetails.class.getSimpleName();
+
     private final String mItemType;
     private final String mSku;
     private final String mType;
@@ -42,6 +46,7 @@ public class SkuDetails
     {
         mItemType = itemType;
         mJson = jsonSkuDetails;
+
         JSONObject o = new JSONObject(mJson);
         mSku = o.optString("productId");
         mType = o.optString("type");
@@ -50,6 +55,8 @@ public class SkuDetails
         mPriceCurrencyCode = o.optString("price_currency_code");
         mTitle = o.optString("title");
         mDescription = o.optString("description");
+
+        Log.d(LOGTAG, "SkuDetails: " + Json.toPretty(o));
     }
 
     public String getSku()

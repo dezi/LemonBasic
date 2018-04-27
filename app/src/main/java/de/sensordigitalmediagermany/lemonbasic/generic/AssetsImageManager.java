@@ -154,7 +154,7 @@ public class AssetsImageManager
                 tried.put(cacheTag, true);
             }
 
-            Log.d(LOGTAG, "Asset Image file url=" + urlstring);
+            //Log.d(LOGTAG, "Asset Image file url=" + urlstring);
 
             return drawable;
         }
@@ -200,7 +200,7 @@ public class AssetsImageManager
                     tried.put(cacheTag, true);
                 }
 
-                Log.d(LOGTAG, "Asset Image http url=" + urlstring);
+                //Log.d(LOGTAG, "Asset Image http url=" + urlstring);
 
                 return drawable;
             }
