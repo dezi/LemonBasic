@@ -90,6 +90,13 @@ public class ContentActivity extends ContentBaseActivity
         ApplicationBase.handler.postDelayed(doAutomaticRefresh, Defines.AUTO_REFRESH_SECONDS * 1000);
     }
 
+    private void purchases()
+    {
+
+        String base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vVFnaH14P/p9q3P12k5gOClOpt/JlS066YNbT/2D7d8kVluFtuGhDofnbJiSEBFHhTmQNoIhN2tDB+qJ2aG7EhcnULxiNXp2GYaYOQ4ygGgmZbqaoTRr0Hz2wfMihci7sgM81Mzlhuq78TcEo/5+eMa4Eaxec5S90tYruXh05XIPKOlQEoBOKDb+WQTCIrxYn9IK3h/v3fsmfrmZhjTYX+bVvZAheIumbN73ITh7PgTFn8slqAJvaczDzrlCrI+iLEl59L2zGgSqBpN+bJRInDju1+zPMSZALLfCR8z9bRglCVTgHSWYG3uDtLbcvqIb6LEJ/AROpFn3uFrPmGZUQIDAQAB";
+
+    }
+
     private final Runnable doAutomaticRefresh = new Runnable()
     {
         @Override
