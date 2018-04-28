@@ -51,6 +51,7 @@ public class TrainingActivity extends TrainingBaseActivity
 
         JSONObject params = new JSONObject();
 
+        Json.put(params, "UDID", Globals.UDID);
         Json.put(params, "courseId", Json.getInt(Globals.displayContent, "id"));
 
         RestApi.getPostThreaded("getCourseQuestions", params, new RestApi.RestApiResultListener()
