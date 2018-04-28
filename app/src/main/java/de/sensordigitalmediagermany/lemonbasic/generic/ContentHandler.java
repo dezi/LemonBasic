@@ -185,6 +185,7 @@ public class ContentHandler
 
         JSONObject params = new JSONObject();
 
+        Json.put(params, "UDID", Globals.UDID);
         Json.put(params, "language", Globals.language);
 
         Json.put(params, Defines.SYSTEM_USER_PARAM, Defines.SYSTEM_USER_NAME);
