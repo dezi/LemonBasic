@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public class Inventory
 {
-    Map<String, SkuDetails> mSkuMap = new HashMap<String, SkuDetails>();
+    Map<String, IABSkuDetails> mSkuMap = new HashMap<String, IABSkuDetails>();
     Map<String, Purchase> mPurchaseMap = new HashMap<String, Purchase>();
 
     Inventory()
@@ -36,7 +36,7 @@ public class Inventory
     /**
      * Returns the listing details for an in-app product.
      */
-    public SkuDetails getSkuDetails(String sku)
+    public IABSkuDetails getSkuDetails(String sku)
     {
         return mSkuMap.get(sku);
     }
@@ -107,7 +107,7 @@ public class Inventory
         return new ArrayList<Purchase>(mPurchaseMap.values());
     }
 
-    void addSkuDetails(SkuDetails d)
+    void addSkuDetails(IABSkuDetails d)
     {
         mSkuMap.put(d.getSku(), d);
     }
