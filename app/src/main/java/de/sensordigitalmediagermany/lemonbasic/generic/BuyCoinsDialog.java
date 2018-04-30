@@ -14,6 +14,7 @@ import android.view.View;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BuyCoinsDialog extends DialogView
 {
@@ -35,7 +36,7 @@ public class BuyCoinsDialog extends DialogView
 
         setCloseButton(true, null);
 
-        ArrayList<AppStorePacket> packets = AppStorePacket.getAppStorePackets();
+        List<AppStorePacket> packets = AppStorePacket.getAppStorePackets();
 
         LinearLayout dialogItems = new LinearLayout(getContext());
         dialogItems.setOrientation(LinearLayout.VERTICAL);

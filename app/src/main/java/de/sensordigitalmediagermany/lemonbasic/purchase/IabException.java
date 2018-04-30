@@ -23,19 +23,19 @@ package de.sensordigitalmediagermany.lemonbasic.purchase;
  */
 public class IabException extends Exception
 {
-    IabResult mResult;
+    IABResult mResult;
 
-    public IabException(IabResult r)
+    public IabException(IABResult r)
     {
         this(r, null);
     }
 
     public IabException(int response, String message)
     {
-        this(new IabResult(response, message));
+        this(new IABResult(response, message));
     }
 
-    public IabException(IabResult r, Exception cause)
+    public IabException(IABResult r, Exception cause)
     {
         super(r.getMessage(), cause);
         mResult = r;
@@ -43,13 +43,13 @@ public class IabException extends Exception
 
     public IabException(int response, String message, Exception cause)
     {
-        this(new IabResult(response, message), cause);
+        this(new IABResult(response, message), cause);
     }
 
     /**
      * Returns the IAB result (error) that this exception signals.
      */
-    public IabResult getResult()
+    public IABResult getResult()
     {
         return mResult;
     }

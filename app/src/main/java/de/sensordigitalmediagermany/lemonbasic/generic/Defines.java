@@ -22,6 +22,8 @@ public class Defines
 
     public static String SYSTEM_USER_NAME  = "undefined!";
     public static String SYSTEM_USER_PARAM = "undefined!";
+    public static String APP_STORE_PUBLIC_KEY = "undefined!";
+
     // @formatter:on
 
     //
@@ -29,8 +31,8 @@ public class Defines
     //
 
     // @formatter:off
-    protected static final boolean isPierreCardin = true;
-    protected static final boolean isRainerAlbers = false;
+    protected static final boolean isPierreCardin = false;
+    protected static final boolean isRainerAlbers = true;
     // @formatter:on
 
     //
@@ -371,6 +373,8 @@ public class Defines
             SYSTEM_USER_NAME = "RAINERALBERS";
 
             APIURL = "https://lemon-mobile-learning.com/lemon-trainer/ws/";
+
+            APP_STORE_PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0vVFnaH14P/p9q3P12k5gOClOpt/JlS066YNbT/2D7d8kVluFtuGhDofnbJiSEBFHhTmQNoIhN2tDB+qJ2aG7EhcnULxiNXp2GYaYOQ4ygGgmZbqaoTRr0Hz2wfMihci7sgM81Mzlhuq78TcEo/5+eMa4Eaxec5S90tYruXh05XIPKOlQEoBOKDb+WQTCIrxYn9IK3h/v3fsmfrmZhjTYX+bVvZAheIumbN73ITh7PgTFn8slqAJvaczDzrlCrI+iLEl59L2zGgSqBpN+bJRInDju1+zPMSZALLfCR8z9bRglCVTgHSWYG3uDtLbcvqIb6LEJ/AROpFn3uFrPmGZUQIDAQAB";
 
             logoff_info = R.string.logoff_info_rainer_albers;
         }
