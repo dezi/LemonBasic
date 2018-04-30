@@ -25,9 +25,6 @@ public class IabBroadcastReceiver extends BroadcastReceiver
         void receivedBroadcast();
     }
 
-    /**
-     * The Intent action that this Receiver should filter for.
-     */
     public static final String ACTION = "com.android.vending.billing.PURCHASES_UPDATED";
 
     private final IabBroadcastListener mListener;

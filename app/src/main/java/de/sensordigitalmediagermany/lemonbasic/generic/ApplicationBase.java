@@ -134,10 +134,6 @@ public class ApplicationBase extends Application implements IabBroadcastReceiver
                 // because we always call getPurchases() at startup, so therefore we can ignore
                 // any broadcasts sent while the app isn't running.
                 //
-                // Note: registering this listener in an Activity is a bad idea, but is done here
-                // because this is a SAMPLE. Regardless, the receiver must be registered after
-                // IabHelper is setup, but before first call to getPurchases().
-                //
 
                 iabBroadcastReceiver = new IabBroadcastReceiver(ApplicationBase.this);
                 IntentFilter broadcastFilter = new IntentFilter(IabBroadcastReceiver.ACTION);
