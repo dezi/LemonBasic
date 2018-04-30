@@ -3,6 +3,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,6 +16,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.sensordigitalmediagermany.lemonbasic.purchase.IABResult;
+import de.sensordigitalmediagermany.lemonbasic.purchase.IabHelper;
+import de.sensordigitalmediagermany.lemonbasic.purchase.Purchase;
 
 public class BuyCoinsDialog extends DialogView
 {
@@ -121,7 +126,99 @@ public class BuyCoinsDialog extends DialogView
         setCustomView(dialogItems);
     }
 
-    protected void buyPacket(final AppStorePacket paket)
+    protected void buyPacket(AppStorePacket paket)
+    {
+        //
+        // TODO: for security, generate your payload here for verification.
+        // See the comments on verifyDeveloperPayload() for more info.
+        //
+        // Since this is a SAMPLE, we just use an empty string, but on a
+        // production app you should carefully generate this.
+        //
+
+        String payload = "";
+
+        try
+        {
+            ApplicationBase.iabHelper.launchPurchaseFlow(
+                    ApplicationBase.getCurrentActivity(getContext()),
+                    paket.productId,
+                    IabHelper.RC_REQUEST,
+                    purchaseFinishedListener,
+                    payload);
+        }
+        catch (IabHelper.IabAsyncInProgressException ex)
+        {
+            //complain("Error launching purchase flow. Another async operation in progress.");
+            //setWaitScreen(false);
+        }
+    }
+
+    IabHelper.OnIabPurchaseFinishedListener purchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener()
+    {
+        public void onIabPurchaseFinished(IABResult result, Purchase purchase)
+        {
+            Log.d(LOGTAG, "onIabPurchaseFinished: result=" + result + ", purchase=" + purchase);
+
+            if (result.isFailure())
+            {
+                Log.e(LOGTAG, "onIabPurchaseFinished: purchase failed.");
+                return;
+            }
+
+            if (!verifyDeveloperPayload(purchase))
+            {
+                Log.e(LOGTAG, "onIabPurchaseFinished: verify failed.");
+                return;
+            }
+
+            Log.d(LOGTAG, "Purchase successful.");
+
+            String productId = purchase.getSku();
+            AppStorePacket packet = AppStorePacket.getAppStorePacket(productId);
+
+            if (packet == null)
+            {
+                Log.e(LOGTAG, "onIabPurchaseFinished: packet is null!");
+
+                return;
+            }
+
+            buyPacketSuccess(packet, purchase);
+        }
+    };
+
+    boolean verifyDeveloperPayload(Purchase p)
+    {
+        String payload = p.getDeveloperPayload();
+
+        /*
+         * TODO: verify that the developer payload of the purchase is correct. It will be
+         * the same one that you sent when initiating the purchase.
+         *
+         * WARNING: Locally generating a random string when starting a purchase and
+         * verifying it here might seem like a good approach, but this will fail in the
+         * case where the user purchases an item on one device and then uses your app on
+         * a different device, because on the other device you will not have access to the
+         * random string you originally generated.
+         *
+         * So a good developer payload has these characteristics:
+         *
+         * 1. If two different users purchase an item, the payload is different between them,
+         *    so that one user's purchase can't be replayed to another user.
+         *
+         * 2. The payload must be such that you can verify it even when the app wasn't the
+         *    one who initiated the purchase flow (so that items purchased by the user on
+         *    one device work on other devices owned by the user).
+         *
+         * Using your own server to store and verify developer payloads across app
+         * installations is recommended.
+         */
+
+        return true;
+    }
+
+    protected void buyPacketSuccess(final AppStorePacket paket, final Purchase purchase)
     {
         final ViewGroup parent = (ViewGroup) BuyCoinsDialog.this.getParent();
 
@@ -150,21 +247,19 @@ public class BuyCoinsDialog extends DialogView
                         Globals.coins += paket.coins;
                         Globals.coinsAdded = paket.coins;
 
-                        if (parent != null)
+                        //
+                        // Consume purchase.
+                        //
+
+                        try
                         {
-                            parent.removeView(BuyCoinsDialog.this);
+                            ApplicationBase.iabHelper.consumeAsync(purchase, mConsumeFinishedListener);
 
-                            parent.addView(new RedeemedDialog(parent.getContext(), true, new Runnable()
-                            {
-                                @Override
-                                public void run()
-                                {
-                                    boughtPacket(parent);
-                                }
-                            }));
+                            return;
                         }
-
-                        return;
+                        catch (IabHelper.IabAsyncInProgressException ignore)
+                        {
+                        }
                     }
                 }
 
@@ -176,6 +271,39 @@ public class BuyCoinsDialog extends DialogView
             }
         });
     }
+
+    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener()
+    {
+        public void onConsumeFinished(Purchase purchase, IABResult result)
+        {
+            Log.d(LOGTAG, "onConsumeFinished: purchase=" + purchase + " result=" + result);
+
+            if (result.isSuccess())
+            {
+                Log.d(LOGTAG, "onConsumeFinished successful.");
+            }
+            else
+            {
+                Log.e(LOGTAG, "onConsumeFinished failure.");
+            }
+
+            final ViewGroup parent = (ViewGroup) BuyCoinsDialog.this.getParent();
+
+            if (parent != null)
+            {
+                parent.removeView(BuyCoinsDialog.this);
+
+                parent.addView(new RedeemedDialog(parent.getContext(), true, new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        boughtPacket(parent);
+                    }
+                }));
+            }
+        }
+    };
 
     protected void boughtPacket(ViewGroup parent)
     {

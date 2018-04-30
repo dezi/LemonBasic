@@ -1,5 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,23 @@ public class AppStorePacket
     public static void clearAppStorePackets()
     {
         APP_STORE_PACKETS.clear();
+    }
+
+    @Nullable
+    public static AppStorePacket getAppStorePacket(String productId)
+    {
+        if (productId != null)
+        {
+            for (AppStorePacket packet : APP_STORE_PACKETS)
+            {
+                if (productId.equals(packet.productId))
+                {
+                    return packet;
+                }
+            }
+        }
+
+        return null;
     }
 
     public String productId;

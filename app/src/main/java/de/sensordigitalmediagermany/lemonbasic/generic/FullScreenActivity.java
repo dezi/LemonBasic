@@ -2,6 +2,7 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.annotation.SuppressLint;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.content.pm.ActivityInfo;
@@ -102,6 +103,22 @@ public class FullScreenActivity extends AppCompatActivity
         System.gc();
 
         Log.d(LOGTAG, "onDestroy: garbage done...");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        Log.d(LOGTAG, "onActivityResult: rqCode=" + requestCode + " rsCode=" + resultCode + " data=" + data);
+
+        if ((ApplicationBase.iabHelper == null)
+                || !ApplicationBase.iabHelper.handleActivityResult(requestCode, resultCode, data))
+        {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+        else
+        {
+            Log.d(LOGTAG, "onActivityResult: handled by IABHelper.");
+        }
     }
 
     @Override

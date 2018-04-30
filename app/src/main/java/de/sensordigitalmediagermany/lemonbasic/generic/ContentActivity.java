@@ -91,22 +91,6 @@ public class ContentActivity extends ContentBaseActivity
         ApplicationBase.handler.postDelayed(doAutomaticRefresh, Defines.AUTO_REFRESH_SECONDS * 1000);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        Log.d(LOGTAG, "onActivityResult: rqCode=" + requestCode + " rsCode=" + resultCode + " data=" + data);
-
-        if ((ApplicationBase.iabHelper == null)
-                || !ApplicationBase.iabHelper.handleActivityResult(requestCode, resultCode, data))
-        {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-        else
-        {
-            Log.d(LOGTAG, "onActivityResult: handled by IABHelper.");
-        }
-    }
-
     private final Runnable doAutomaticRefresh = new Runnable()
     {
         @Override

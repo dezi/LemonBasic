@@ -76,6 +76,8 @@ public class IabHelper
 {
     private static final String LOGTAG = IabHelper.class.getSimpleName();
 
+    public static final int RC_REQUEST = 42101;
+
     // Is debug logging enabled?
     boolean mDebugLog = false;
     String mDebugTag = "IabHelper";
