@@ -172,7 +172,7 @@
     <string name="detail_specs_quantity_onepage">%1$s Seite</string>
 
     <string name="detail_specs_size">Größe</string>
-    <string name="detail_specs_size_mb">%1$s MB Daten</string>
+    <string name="detail_specs_size_mb">%1$s MB</string>
 
     <string name="detail_specs_type_unknown">Unbekannt</string>
     <string name="detail_specs_type_video">Video</string>

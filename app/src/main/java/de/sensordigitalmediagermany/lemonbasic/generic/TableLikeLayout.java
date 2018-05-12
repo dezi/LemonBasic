@@ -31,7 +31,7 @@ public class TableLikeLayout extends LinearLayout
         if (vertical || ! Defines.isCompactSettings)
         {
             leftText = new TextView(getContext());
-            leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.7)));
+            leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.85)));
             leftText.setTextColor(Color.BLACK);
             leftText.setTypeface(leftFace);
             leftText.setAllCaps(Defines.isInfosAllCaps);

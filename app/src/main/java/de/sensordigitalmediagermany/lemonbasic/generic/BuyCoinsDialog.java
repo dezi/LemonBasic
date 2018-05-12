@@ -3,7 +3,6 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 import android.content.Context;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,20 +59,49 @@ public class BuyCoinsDialog extends DialogView
 
         dialogItems.addView(titleView);
 
-        LinearLayout coinsFrame = new LinearLayout(getContext());
-        coinsFrame.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(coinsFrame, Simple.WC, Simple.WC);
-        Simple.setMarginTopDip(coinsFrame, Defines.PADDING_NORMAL);
-        Simple.setMarginBottomDip(coinsFrame, Defines.PADDING_NORMAL);
+        LinearLayout coinsTwoLines = new LinearLayout(getContext());
+        coinsTwoLines.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(coinsTwoLines, Simple.WC, Simple.WC);
 
-        dialogItems.addView(coinsFrame);
+        dialogItems.addView(coinsTwoLines);
+
+        LinearLayout coinsFrame1 = new LinearLayout(getContext());
+        coinsFrame1.setOrientation(LinearLayout.HORIZONTAL);
+        coinsFrame1.setGravity(Gravity.CENTER_HORIZONTAL);
+        Simple.setSizeDip(coinsFrame1, Simple.WC, Simple.WC);
+        Simple.setMarginTopDip(coinsFrame1, Defines.PADDING_NORMAL);
+        Simple.setMarginBottomDip(coinsFrame1, Defines.PADDING_NORMAL);
+
+        coinsTwoLines.addView(coinsFrame1);
+
+        LinearLayout coinsFrame2 = new LinearLayout(getContext());
+        coinsFrame2.setOrientation(LinearLayout.HORIZONTAL);
+        coinsFrame2.setGravity(Gravity.CENTER_HORIZONTAL);
+        coinsFrame2.setVisibility(GONE);
+        Simple.setSizeDip(coinsFrame2, Simple.WC, Simple.WC);
+        Simple.setMarginTopDip(coinsFrame2, Defines.PADDING_NORMAL);
+        Simple.setMarginBottomDip(coinsFrame2, Defines.PADDING_NORMAL);
+
+        coinsTwoLines.addView(coinsFrame2);
+
+        int count = 0;
 
         for (AppStorePacket packet : packets)
         {
             CoinsButton button = new CoinsButton(getContext(), packet, coinButtons);
 
-            coinsFrame.addView(button);
+            if (Simple.isTablet() || (++count <= 2))
+            {
+                coinsFrame1.addView(button);
+            }
+            else
+            {
+                coinsFrame2.setVisibility(VISIBLE);
+                coinsFrame2.addView(button);
+            }
+
             coinButtons.add(button);
+
         }
 
         RelativeLayout requestCenter = new RelativeLayout(getContext());
@@ -147,10 +175,9 @@ public class BuyCoinsDialog extends DialogView
                     purchaseFinishedListener,
                     payload);
         }
-        catch (IabHelper.IabAsyncInProgressException ex)
+        catch (IabHelper.IabAsyncInProgressException ignore)
         {
-            //complain("Error launching purchase flow. Another async operation in progress.");
-            //setWaitScreen(false);
+            Log.e(LOGTAG, "buyPacket: Error launching purchase flow. Another async operation in progress.");
         }
     }
 
@@ -188,9 +215,9 @@ public class BuyCoinsDialog extends DialogView
         }
     };
 
-    boolean verifyDeveloperPayload(Purchase p)
+    boolean verifyDeveloperPayload(Purchase purchase)
     {
-        String payload = p.getDeveloperPayload();
+        String payload = purchase.getDeveloperPayload();
 
         /*
          * TODO: verify that the developer payload of the purchase is correct. It will be
@@ -220,8 +247,6 @@ public class BuyCoinsDialog extends DialogView
 
     protected void buyPacketSuccess(final AppStorePacket paket, final Purchase purchase)
     {
-        final ViewGroup parent = (ViewGroup) BuyCoinsDialog.this.getParent();
-
         JSONObject params = new JSONObject();
 
         Json.put(params, "UDID", Globals.UDID);
@@ -253,7 +278,7 @@ public class BuyCoinsDialog extends DialogView
 
                         try
                         {
-                            ApplicationBase.iabHelper.consumeAsync(purchase, mConsumeFinishedListener);
+                            ApplicationBase.iabHelper.consumeAsync(purchase, consumeFinishedListener);
 
                             return;
                         }
@@ -272,7 +297,7 @@ public class BuyCoinsDialog extends DialogView
         });
     }
 
-    IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener()
+    IabHelper.OnConsumeFinishedListener consumeFinishedListener = new IabHelper.OnConsumeFinishedListener()
     {
         public void onConsumeFinished(Purchase purchase, IABResult result)
         {

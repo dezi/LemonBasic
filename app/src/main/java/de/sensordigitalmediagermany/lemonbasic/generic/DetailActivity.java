@@ -159,7 +159,15 @@ public class DetailActivity extends ContentBaseActivity
 
         LinearLayout infoAreaVert = new LinearLayout(this);
         infoAreaVert.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(infoAreaVert, Simple.MP, Simple.MP);
+
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(infoAreaVert, Simple.MP, Simple.MP);
+        }
+        else
+        {
+            Simple.setSizeDip(infoAreaVert, Simple.MP, Simple.WC);
+        }
 
         if (! Defines.isCompactDetails)
         {
@@ -191,7 +199,7 @@ public class DetailActivity extends ContentBaseActivity
         }
         else
         {
-            Simple.setSizeDip(descFrame, Simple.MP, Simple.WC);
+            Simple.setSizeDip(descFrame, Simple.MP, Simple.MP, 0.3f);
             infoAreaVert.addView(descFrame, 0);
         }
 

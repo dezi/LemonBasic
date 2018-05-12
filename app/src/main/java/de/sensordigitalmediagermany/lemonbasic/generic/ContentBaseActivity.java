@@ -105,8 +105,11 @@ public class ContentBaseActivity extends FullScreenActivity
 
             if (Globals.accountId > 0)
             {
-                String username = Globals.firstName + " " + Globals.lastName;
-                profileButton.setButtonText(Defines.PADDING_XLARGE, username);
+                if (Simple.isTablet())
+                {
+                    String username = Globals.firstName + " " + Globals.lastName;
+                    profileButton.setButtonText(Defines.PADDING_XLARGE, username);
+                }
 
                 if (Defines.isUserMenu)
                 {
