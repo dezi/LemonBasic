@@ -59,47 +59,28 @@ public class BuyCoinsDialog extends DialogView
 
         dialogItems.addView(titleView);
 
-        LinearLayout coinsTwoLines = new LinearLayout(getContext());
-        coinsTwoLines.setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(coinsTwoLines, Simple.WC, Simple.WC);
+        LinearLayout coinsFrame = new LinearLayout(getContext());
 
-        dialogItems.addView(coinsTwoLines);
+        if (Simple.isTablet())
+        {
+            coinsFrame.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(coinsFrame, Simple.WC, Simple.WC);
+        }
+        else
+        {
+            coinsFrame.setOrientation(LinearLayout.VERTICAL);
+            coinsFrame.setGravity(Gravity.CENTER_HORIZONTAL);
+            Simple.setSizeDip(coinsFrame, Simple.MP, Simple.WC);
+        }
 
-        LinearLayout coinsFrame1 = new LinearLayout(getContext());
-        coinsFrame1.setOrientation(LinearLayout.HORIZONTAL);
-        coinsFrame1.setGravity(Gravity.CENTER_HORIZONTAL);
-        Simple.setSizeDip(coinsFrame1, Simple.WC, Simple.WC);
-        Simple.setMarginTopDip(coinsFrame1, Defines.PADDING_NORMAL);
-        Simple.setMarginBottomDip(coinsFrame1, Defines.PADDING_NORMAL);
-
-        coinsTwoLines.addView(coinsFrame1);
-
-        LinearLayout coinsFrame2 = new LinearLayout(getContext());
-        coinsFrame2.setOrientation(LinearLayout.HORIZONTAL);
-        coinsFrame2.setGravity(Gravity.CENTER_HORIZONTAL);
-        coinsFrame2.setVisibility(GONE);
-        Simple.setSizeDip(coinsFrame2, Simple.WC, Simple.WC);
-        Simple.setMarginTopDip(coinsFrame2, Defines.PADDING_NORMAL);
-        Simple.setMarginBottomDip(coinsFrame2, Defines.PADDING_NORMAL);
-
-        coinsTwoLines.addView(coinsFrame2);
+        dialogItems.addView(coinsFrame);
 
         int count = 0;
 
         for (AppStorePacket packet : packets)
         {
             CoinsButton button = new CoinsButton(getContext(), packet, coinButtons);
-
-            if (Simple.isTablet() || (++count <= 2))
-            {
-                coinsFrame1.addView(button);
-            }
-            else
-            {
-                coinsFrame2.setVisibility(VISIBLE);
-                coinsFrame2.addView(button);
-            }
-
+            coinsFrame.addView(button);
             coinButtons.add(button);
 
         }
@@ -115,8 +96,9 @@ public class BuyCoinsDialog extends DialogView
         TextView requestButton = new TextView(getContext());
         requestButton.setText(R.string.buy_coins_buy);
         requestButton.setTextColor(Color.WHITE);
+        requestButton.setGravity(Gravity.CENTER_HORIZONTAL);
         requestButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAM_BOLD));
-        Simple.setSizeDip(requestButton, Simple.WC, Simple.WC);
+        Simple.setSizeDip(requestButton, Simple.isTablet() ? Simple.WC : Simple.MP, Simple.WC);
         Simple.setTextSizeDip(requestButton, Defines.FS_DIALOG_BUTTON);
         Simple.setPaddingDip(requestButton, Defines.PADDING_SMALL);
         Simple.setRoundedCorners(requestButton, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_LTBLUE, true);

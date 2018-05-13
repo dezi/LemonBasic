@@ -37,13 +37,18 @@ public class CoinsButton extends LinearLayout
         this.packet = packet;
         this.allButtons = allButtons;
 
-        setOrientation(LinearLayout.VERTICAL);
-        Simple.setSizeDip(this, Simple.WC, Simple.WC);
+        setOrientation(Simple.isTablet() ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
+
+        Simple.setSizeDip(this, Simple.isTablet() ? Simple.WC : Simple.MP, Simple.WC);
         Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BIGBUT, Defines.COLOR_SENSOR_GREEN, true);
         Simple.setMarginDip(this, Defines.PADDING_TINY);
-        Simple.setPaddingDip(this, Defines.PADDING_NORMAL);
+        Simple.setPaddingDip(this, Simple.isTablet() ? Defines.PADDING_NORMAL : Defines.PADDING_SMALL);
 
         String coins = "" + packet.coins;
+
+        LinearLayout buttonFrame = new LinearLayout(getContext());
+        buttonFrame.setOrientation(VERTICAL);
+        addView(buttonFrame);
 
         buttonCoins = new TextView(getContext());
         buttonCoins.setText(coins);
@@ -56,7 +61,7 @@ public class CoinsButton extends LinearLayout
         Simple.setSizeDip(buttonCoins, Defines.COINS_BUTTON_WIDTH, Simple.WC);
         Simple.setMarginTopDip(buttonCoins, Defines.PADDING_SMALL);
 
-        addView(buttonCoins);
+        buttonFrame.addView(buttonCoins);
 
         buttonCtext = new TextView(getContext());
         buttonCtext.setText(R.string.buy_coins_coins);
@@ -68,13 +73,23 @@ public class CoinsButton extends LinearLayout
         Simple.setSizeDip(buttonCtext, Simple.MP, Simple.WC);
         Simple.setMarginBottomDip(buttonCtext, Defines.PADDING_SMALL);
 
-        addView(buttonCtext);
+        buttonFrame.addView(buttonCtext);
 
         separator = new RelativeLayout(getContext());
         separator.setBackgroundColor(Color.WHITE);
-        Simple.setSizeDip(separator, Simple.MP, 1);
-        Simple.setMarginTopDip(separator, Defines.PADDING_SMALL);
-        Simple.setMarginBottomDip(separator, Defines.PADDING_SMALL);
+
+        if (Simple.isTablet())
+        {
+            Simple.setSizeDip(separator, Simple.MP, 1);
+            Simple.setMarginTopDip(separator, Defines.PADDING_SMALL);
+            Simple.setMarginBottomDip(separator, Defines.PADDING_SMALL);
+        }
+        else
+        {
+            Simple.setSizeDip(separator, 1, Simple.MP);
+            Simple.setMarginLeftDip(separator, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(separator, Defines.PADDING_SMALL);
+        }
 
         addView(separator);
 
@@ -85,7 +100,7 @@ public class CoinsButton extends LinearLayout
         buttonCents.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.GOTHAMNARROW_LIGHT));
         buttonCents.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
         Simple.setTextSizeDip(buttonCents, Defines.FS_COINS_PRICE);
-        Simple.setSizeDip(buttonCents, Simple.MP, Simple.WC);
+        Simple.setSizeDip(buttonCents, Simple.MP, Simple.isTablet() ? Simple.WC : Simple.MP);
         Simple.setMarginTopDip(buttonCents, Defines.PADDING_SMALL);
         Simple.setMarginBottomDip(buttonCents, Defines.PADDING_NORMAL);
 

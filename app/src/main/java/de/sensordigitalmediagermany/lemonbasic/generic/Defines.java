@@ -251,7 +251,7 @@ public class Defines
     public static       int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // static!
     public static final int FS_ASSET_OWNED        = Simple.isTablet() ? 12 : 11;
 
-    public static final int FS_COINS_COINS        = Simple.isTablet() ? 56 : 48;
+    public static final int FS_COINS_COINS        = Simple.isTablet() ? 56 : 36;
     public static final int FS_COINS_PRICE        = Simple.isTablet() ? 26 : 22;
     public static final int FS_COINS_BUTTONS      = Simple.isTablet() ? 22 : 20;
 
