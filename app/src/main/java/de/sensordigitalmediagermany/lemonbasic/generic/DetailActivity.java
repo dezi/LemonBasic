@@ -321,7 +321,7 @@ public class DetailActivity extends ContentBaseActivity
         else
         {
             Simple.setMarginTopDip(miscAreaVert, Defines.PADDING_NORMAL);
-            Simple.setSizeDip(specsArea, Simple.MP, Simple.MP, 1f);
+            Simple.setSizeDip(specsArea, Simple.MP, Simple.MP, 1.0f);
 
             Simple.setSizeDip(miscAreaHorz, Simple.MP, Simple.MP);
             miscAreaHorz.addView(specsArea);
@@ -447,7 +447,8 @@ public class DetailActivity extends ContentBaseActivity
         }
         else
         {
-            Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.MP, 1f);
+            buyloadAreaVert.setGravity(Gravity.BOTTOM);
+            Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.MP, 0.5f);
             Simple.setMarginLeftDip(buyloadAreaVert, Defines.PADDING_LARGE);
 
             miscAreaHorz.addView(buyloadAreaVert);

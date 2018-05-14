@@ -7,6 +7,8 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.security.SignedObject;
+
 public class TableLikeLayout extends LinearLayout
 {
     protected TextView leftText;
@@ -28,7 +30,7 @@ public class TableLikeLayout extends LinearLayout
 
         setOrientation(vertical ? VERTICAL : HORIZONTAL);
 
-        if (vertical || ! Defines.isCompactSettings)
+        if ((vertical || ! Defines.isCompactSettings) && !Simple.isPhone())
         {
             leftText = new TextView(getContext());
             leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.85)));
@@ -41,7 +43,7 @@ public class TableLikeLayout extends LinearLayout
             addView(leftText);
         }
 
-        if ((! Defines.isCompactSettings) && ! vertical)
+        if (((! Defines.isCompactSettings) && ! vertical) && !Simple.isPhone())
         {
             TextView colonText = new TextView(getContext());
             colonText.setText(":");

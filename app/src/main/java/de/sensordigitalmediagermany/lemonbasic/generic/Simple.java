@@ -97,6 +97,11 @@ public class Simple
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
+    public static boolean isPhone()
+    {
+        return ! isTablet();
+    }
+
     private static boolean istv;
     private static boolean iswide;
     private static boolean istouch;
