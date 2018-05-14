@@ -358,7 +358,7 @@ public class SettingsActivity extends ContentBaseActivity
         }
         else
         {
-            rightTopArea.setOrientation(LinearLayout.HORIZONTAL);
+            rightTopArea.setOrientation(LinearLayout.VERTICAL);
             Simple.setSizeDip(rightTopArea, Simple.MP, Simple.WC);
         }
 
@@ -429,7 +429,17 @@ public class SettingsActivity extends ContentBaseActivity
             rightTopArea.setGravity(Gravity.CENTER_VERTICAL);
 
             Simple.setSizeDip(contentTitle, Simple.MP, Simple.WC, 1.0f);
-            Simple.setSizeDip(contentSizeFrame, Simple.WC, Simple.WC);
+
+            if (Simple.isTablet())
+            {
+                Simple.setSizeDip(contentSizeFrame, Simple.WC, Simple.WC);
+            }
+            else
+            {
+                Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC);
+                Simple.setMarginTopDip(contentSizeFrame, Defines.PADDING_TINY);
+            }
+
             Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
             Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
             Simple.setSizeDip(contentSizeMB, Simple.WC, Simple.WC);
@@ -735,6 +745,7 @@ public class SettingsActivity extends ContentBaseActivity
                     {
                         detailView.setWidth(bodyHorz.getWidth());
 
+                        bodyHorz.removeView(leftArea);
                         bodyHorz.removeView(rightArea);
                         bodyHorz.addView(detailView);
                     }
@@ -829,6 +840,7 @@ public class SettingsActivity extends ContentBaseActivity
         }
         else
         {
+            if (leftArea.getParent() == null) bodyHorz.addView(leftArea);
             if (rightArea.getParent() == null) bodyHorz.addView(rightArea);
         }
     }
