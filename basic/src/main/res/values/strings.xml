@@ -1,0 +1,302 @@
+<resources>
+
+    <string name="app_name_lemonbasic_demo">LB Musterfirma</string>
+    <string name="app_name_rainer_albers">LT Rainer Albers</string>
+    <string name="app_name_pierre_cardin">Pierre Cardin Sales Info</string>
+
+    <string name="logoff_info_basic_demo">Do you really want to log out of the Lemon Basicx System?</string>
+    <string name="logoff_info_pierre_cardin">Do you really want to log out of Pierre Cardin Sales Information System?</string>
+
+    <string name="course">Course</string>
+    <string name="no_category">Without Category</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_close">Close</string>
+
+    <string name="login_title">Log in:</string>
+    <string name="login_hint_email">Email address</string>
+    <string name="login_hint_password">Password</string>
+    <string name="login_login">Log in</string>
+    <string name="login_already_registered">Do you already have an account?</string>
+    <string name="login_password_forgotten">Password forgotten?</string>
+    <string name="login_register">No account? Register now</string>
+
+    <string name="login">Login</string>
+    <string name="login_success">Login successful.</string>
+    <string name="login_failed">Login failed.</string>
+
+    <string name="logoff_title">Log out?</string>
+    <string name="logoff_info_neutral">Do you really want to log out?</string>
+    <string name="logoff_info2">All loaded contents will be deleted.</string>
+    <string name="logoff_logoff">Log out</string>
+
+    <string name="ask_download_title">Load this content now?</string>
+    <string name="ask_download_info">Do you want to download and view the content or just load and view at a different time?</string>
+    <string name="ask_download_load_and_view">Load\nand view</string>
+    <string name="ask_download_only_load">Load and\nview later</string>
+
+    <string name="download_title">Downloading</string>
+    <string name="download_cancel">Cancel download</string>
+    <string name="download_size">%1$s of %2$s</string>
+
+    <string name="ask_download_all_title">Load all contents now?</string>
+    <string name="ask_download_all_info">Do you want to download all %1$s contents with a total size of %2$s?</string>
+    <string name="ask_download_all_info_onecontent">Do you want to download %1$s content with a size of %2$s?</string>
+    <string name="ask_download_all_load">Load all now</string>
+
+    <string name="ask_download_all_fail_title">Contents failed download!</string>
+    <string name="ask_download_all_fail_info">%1$s contents could be downloaded.</string>
+    <string name="ask_download_all_fail_info_onlyone">%1$s content could be downloaded.</string>
+
+    <string name="ask_download_all_done_title">Load all contents</string>
+    <string name="ask_download_all_done_info">There are no more contents to be downloaded.</string>
+
+    <string name="ask_delete_all_title">Delete all contents</string>
+    <string name="ask_delete_all_info">You can reload and view the contents at any time.</string>
+
+    <string name="tabbar_home">Home</string>
+    <string name="tabbar_profile">Profile</string>
+
+    <string name="register_title">Please register:</string>
+    <string name="register_hint_email">Email address</string>
+    <string name="register_hint_firstname">First name</string>
+    <string name="register_hint_lastname">Last name</string>
+    <string name="register_hint_company">Company</string>
+    <string name="register_hint_password1">Password</string>
+    <string name="register_hint_password2">Repeat password</string>
+    <string name="register_read_agb">Yes, I read the Terms and Conditions and accept them.</string>
+    <string name="register_register">Create account</string>
+    <string name="register_login_here">Login here.</string>
+
+    <string name="password_forgot_title">Forgot password:</string>
+    <string name="password_forgot_hint_email">Email address</string>
+    <string name="password_forgot_request">Send</string>
+    <string name="password_forgot_success">The password has been send.</string>
+    <string name="password_forgot_fail">The password could not be send.</string>
+
+    <string name="password_change_title">Enter new password:</string>
+    <string name="password_change_title_forced">Change password</string>
+    <string name="password_change_hint_oldpassword">Current password</string>
+    <string name="password_change_hint_newpassword">New password</string>
+    <string name="password_change_hint_newrepeat">Repeat new password</string>
+    <string name="password_change_request">Change password</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_version">App-Version</string>
+    <string name="settings_data">Personal data</string>
+    <string name="settings_edit_image">Edit</string>
+    <string name="settings_name">Name</string>
+    <string name="settings_company">Company</string>
+    <string name="settings_email">Email</string>
+    <string name="settings_password">Password</string>
+    <string name="settings_change_password">Change password</string>
+    <string name="settings_sound">Sound</string>
+    <string name="settings_sound_button">On/off</string>
+    <string name="settings_sound_volume">Volume</string>
+    <string name="settings_clearcache">Clear cache</string>
+    <string name="settings_logoff">Log out</string>
+    <string name="settings_contents">Manage contents</string>
+    <string name="settings_your_contents">Your loaded contents</string>
+    <string name="settings_used_storage">Used memory:</string>
+    <string name="settings_used_storage_mb">%1$s MB</string>
+    <string name="settings_free_storage">Free memory: %1$s</string>
+
+    <string name="settings_detail_title">Back to list of contents</string>
+    <string name="settings_detail_delete">Delete</string>
+
+    <string name="settings_specs_title">Titel</string>
+    <string name="settings_specs_theme">Category</string>
+
+    <string name="settings_specs_file">File</string>
+
+    <string name="settings_specs_quantity">Length</string>
+    <string name="settings_specs_quantity_duration">%1$s Min.</string>
+
+    <string name="settings_specs_size">Data</string>
+    <string name="settings_specs_size_mb">%1$s MB</string>
+    <string name="settings_list_size_mb">%1$s MB</string>
+
+    <string name="settings_specs_seen">Seen</string>
+    <string name="settings_specs_seen_date">Completely seen on %1$s</string>
+
+    <string name="settings_content_loadall_tablet">Load all contents</string>
+    <string name="settings_content_loadall_phones">Load all</string>
+    <string name="settings_content_deletall_tablet">Delete all contents</string>
+    <string name="settings_content_deletall_phones">Delete all</string>
+
+    <string name="content_navibar_left_show_all">All contents</string>
+    <string name="content_navibar_left_show_my">Show my contents</string>
+    <string name="content_navibar_right_themes">Choose category</string>
+
+    <string name="category_popup_title">Show all categories</string>
+    <string name="banner_more_button">Learn more</string>
+    <string name="slider_more_button">Show all</string>
+
+    <string name="profile_popup_credits">Your balance:</string>
+    <string name="profile_popup_coins">Coins</string>
+    <string name="profile_popup_buy">Buy coins</string>
+    <string name="profile_popup_redeem">Redeem coupon</string>
+    <string name="profile_popup_settings">Settings</string>
+    <string name="profile_popup_faq">FAQ</string>
+    <string name="profile_popup_impressum">Imprint</string>
+
+    <string name="buy_coins_title">Choose your coin package</string>
+    <string name="buy_coins_more">You need more coins!</string>
+    <string name="buy_coins_coins">Coins</string>
+    <string name="buy_coins_price">%1$s €</string>
+    <string name="buy_coins_buy">Buy package</string>
+
+    <string name="course_buy_price">%1$s Coins</string>
+    <string name="course_buy_gratis">Free</string>
+    <string name="course_buy_train">Train</string>
+    <string name="course_buy_load">Load all contents</string>
+
+    <string name="detail_buy_price">%1$s Coins</string>
+    <string name="detail_buy_gratis">Free</string>
+    <string name="detail_buy_bought">Bought</string>
+    <string name="detail_buy_loaded">Loaded</string>
+    <string name="detail_buy_display">Start</string>
+
+    <string name="detail_download_complete">Download finished.</string>
+    <string name="detail_download_failed">Download failed.</string>
+    <string name="detail_download_cancelled">Download cancelled.</string>
+    <string name="detail_download_offline">You are no longer connected to the internet.</string>
+
+    <string name="detail_specs_fileshort">File</string>
+    <string name="detail_specs_file">File format</string>
+
+    <string name="detail_specs_quantshort">Amount</string>
+    <string name="detail_specs_quantity">Length/Amount</string>
+    <string name="detail_specs_quantity_duration">%1$s Min.</string>
+    <string name="detail_specs_quantity_pages">%1$s Pages</string>
+    <string name="detail_specs_quantity_onepage">%1$s Page</string>
+
+    <string name="detail_specs_size">Size</string>
+    <string name="detail_specs_size_mb">%1$s MB Data</string>
+
+    <string name="detail_specs_type_unknown">Unknown</string>
+    <string name="detail_specs_type_video">Video</string>
+    <string name="detail_specs_type_audio">Audio</string>
+    <string name="detail_specs_type_pdf">PDF-File</string>
+    <string name="detail_specs_type_zip">WBT</string>
+
+    <string name="detail_specs_status">State</string>
+    <string name="detail_specs_status_online">Loaded</string>
+    <string name="detail_specs_status_offline">Not loaded</string>
+
+    <string name="detail_specs_suitablefor">Suitable for</string>
+
+    <string name="redeem_coupon_title">Enter coupon code:</string>
+    <string name="redeem_coupon_redeem">Redeem</string>
+
+    <string name="buy_content_title">Buy content?</string>
+    <string name="buy_content_price">Price: %1$s Coins</string>
+    <string name="buy_content_buy">Buy content</string>
+
+    <string name="buy_confirm_title">Confirm this purchase:</string>
+    <string name="buy_confirm_password">Enter password</string>
+    <string name="buy_confirm_buy">Buy</string>
+
+    <string name="buy_confirmed_text1">Congratulations!</string>
+    <string name="buy_confirmed_text2">You have bought this content.</string>
+
+    <string name="redeemed_title">Input successful!</string>
+    <string name="redeemed_purchase">Purchase successful!</string>
+    <string name="redeemed_info">Your account has been credited\nwith the following number of coins:</string>
+
+    <string name="asset_owned">Bought</string>
+
+    <string name="training_title">Train</string>
+    <string name="training_info_1">You start now the training for the course</string>
+    <string name="training_info_2">
+        You can cancel this training at any time and return to the course homepage.
+        For best results, we recommend you to have a quiet place
+        and eliminate possible distractions.
+         We wish you much success!
+    </string>
+    <string name="training_action">Start!</string>
+
+    <string name="results_title">Finished trainingt!</string>
+    <string name="results_info_1">Congratulations! You have successfully completed the training</string>
+    <string name="results_info_2">for the course. Now look at the results!</string>
+    <string name="results_action">Show results</string>
+
+    <string name="overview_title">Your results.</string>
+    <string name="overview_info_1">Tap on the numbers to go to the question page.</string>
+    <string name="overview_action">Back to course</string>
+
+    <string name="questions_progress">Progress</string>
+    <string name="questions_remain">Still</string>
+    <string name="questions_next">Continue</string>
+    <string name="questions_overview">Overview</string>
+
+    <string name="alert_buy_coins_title">Buy coins</string>
+    <string name="alert_buy_coins_noselect">Please choose a package.</string>
+    <string name="alert_buy_coins_fail">Transaction failed.</string>
+
+    <string name="alert_content_title">Content list</string>
+    <string name="alert_content_fail">Could not load the list iof contents.</string>
+
+    <string name="alert_register_username_missing_title">Name missing</string>
+    <string name="alert_register_username_missing_info">Please enter your name.</string>
+    <string name="alert_register_email_bad_title">Invalid/Missing email address</string>
+    <string name="alert_register_email_bad_info">Please enter your email address.</string>
+    <string name="alert_register_password_bad_title">Password too short</string>
+    <string name="alert_register_password_bad_info">Please enter a password with at least 6 characters.</string>
+    <string name="alert_register_password_diff_title">Passwords different</string>
+    <string name="alert_register_password_diff_info">Password and repeated password do not match.</string>
+
+    <string name="alert_register_title">Registration</string>
+    <string name="alert_register_ok">Registration successful.</string>
+    <string name="alert_register_fail">Registration failed.</string>
+
+    <string name="alert_login_bad_title">Login failed</string>
+    <string name="alert_login_bad_info">Invalid login data.</string>
+
+    <string name="alert_redeem_coupon_title">Redeem coupon</string>
+    <string name="alert_redeem_coupon_fail">The coupon could not be redeemed.</string>
+
+    <string name="alert_data_changed_title">Content update</string>
+    <string name="alert_data_changed_info">The content has been updated.</string>
+
+    <string name="alert_buy_confirm_password_title">Password confirmation</string>
+    <string name="alert_buy_confirm_password_fail">Password is invalid.</string>
+
+    <string name="alert_buy_content_title">Buy content</string>
+    <string name="alert_buy_content_fail">Transaction failed.</string>
+
+    <string name="alert_settings_delete_title">Really delete content?</string>
+    <string name="alert_settings_delete_info">You can reload and view the content at any time.</string>
+    <string name="alert_settings_delete_oktitle">Delete content</string>
+    <string name="alert_settings_delete_ok">The content has been deleted.</string>
+    <string name="alert_settings_delete_fail">The content could not be deleted.</string>
+
+    <string name="alert_change_password_diff_title">Wrong password</string>
+    <string name="alert_change_password_diff_info">Please enter the password again.</string>
+
+    <string name="alert_change_password_success_title">Change password</string>
+    <string name="alert_change_password_success_info">Change password failed.</string>
+
+    <string name="alert_change_password_fail_title">Change password failed</string>
+    <string name="alert_change_password_fail_info">The password could not be saved.</string>
+
+    <string name="alert_training_questions_title">Training questions</string>
+    <string name="alert_training_questions_fail">The questions could not be loaded.</string>
+
+    <string name="alert_not_implemented_title">Wrong error</string>
+    <string name="alert_not_implemented_info">Function not yet implemented.</string>
+
+    <string name="alert_no_pdf_title">PDF Display</string>
+    <string name="alert_no_pdf_info">PDF Display is not available, because your Android System is too old.</string>
+
+    <string name="alert_no_pdfapp_title">PDF Display</string>
+    <string name="alert_no_pdfapp_info">Your Device does not contain a PDF Reader. Please install a PDF Reader from the PlayStore.</string>
+
+    <string name="alert_no_internet_title">Internet connection</string>
+    <string name="alert_no_internet_info">There is currently no internet connection. Please try again later.</string>
+
+    <string name="alert_no_asset_defined_title">Content is missing</string>
+    <string name="alert_no_asset_defined_info">Please contact Your system administrator regarding this content.</string>
+
+</resources>

@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.sensordigitalmediagermany.lemonbasic.client.raineralbers">
+
+    <application
+        android:icon="@mipmap/lem_t_rainer_albers">
+    </application>
+
+</manifest>

@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LemonBasic.iml" filepath="$PROJECT_DIR$/LemonBasic.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/basic/basic.iml" filepath="$PROJECT_DIR$/basic/basic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client.raineralbers/client.raineralbers.iml" filepath="$PROJECT_DIR$/client.raineralbers/client.raineralbers.iml" />
     </modules>
   </component>
 </project>
