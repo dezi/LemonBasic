@@ -91,7 +91,7 @@ public class SettingsDetail extends LinearLayout
 
         ImageView backButtonImage = new GenericImage(getContext());
         backButtonImage.setFocusable(true);
-        backButtonImage.setImageResource(DefinesScreens.getArrowDarkLeftOnRes());
+        backButtonImage.setImageResource(Screens.getArrowDarkLeftOnRes());
         backButtonImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(backButtonImage, Defines.SETTINGS_BACK_SIZE, Simple.MP);
 

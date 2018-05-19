@@ -109,7 +109,7 @@ public class TopBanners extends FrameLayout
 
         arrowLeftIcon = new GenericImage(getContext());
         arrowLeftIcon.setVisibility(INVISIBLE);
-        arrowLeftIcon.setImageResource(DefinesScreens.getArrowBannerLeftRes());
+        arrowLeftIcon.setImageResource(Screens.getArrowBannerLeftRes());
         arrowLeftIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(arrowLeftIcon, arrowWidth, Simple.MP);
         Simple.setPaddingDip(arrowLeftIcon, arrowPadding);
@@ -127,7 +127,7 @@ public class TopBanners extends FrameLayout
 
         arrowRightIcon = new GenericImage(getContext());
         arrowRightIcon.setVisibility(INVISIBLE);
-        arrowRightIcon.setImageResource(DefinesScreens.getArrowBannerRightRes());
+        arrowRightIcon.setImageResource(Screens.getArrowBannerRightRes());
         arrowRightIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(arrowRightIcon, arrowWidth, Simple.MP);
         Simple.setPaddingDip(arrowRightIcon, arrowPadding);

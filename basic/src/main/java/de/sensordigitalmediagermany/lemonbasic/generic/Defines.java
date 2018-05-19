@@ -156,12 +156,12 @@ public class Defines
     //
 
     // @formatter:off
-    public static       int CORNER_RADIUS_BUTTON  =  3; // client!
-    public static       int CORNER_RADIUS_FRAMES  =  8; // client!
-    public static final int CORNER_RADIUS_BIGBUT  =  8;
-    public static final int CORNER_RADIUS_OVERLAY = 10;
-    public static       int CORNER_RADIUS_DIALOG  = 16; // client!
-    public static final int CORNER_RADIUS_ASSETS  = 16;
+    public static int CORNER_RADIUS_BUTTON  =  3; // client!
+    public static int CORNER_RADIUS_FRAMES  =  8; // client!
+    public static int CORNER_RADIUS_BIGBUT  =  8; // client!
+    public static int CORNER_RADIUS_OVERLAY = 10; // client!
+    public static int CORNER_RADIUS_DIALOG  = 16; // client!
+    public static int CORNER_RADIUS_ASSETS  = 16; // client!
     // @formatter:on
 
     //
@@ -379,9 +379,12 @@ public class Defines
 
             // @formatter:off
 
-            CORNER_RADIUS_BUTTON = 0;
-            CORNER_RADIUS_DIALOG = 0;
-            CORNER_RADIUS_FRAMES = 0;
+            CORNER_RADIUS_BUTTON  = 0;
+            CORNER_RADIUS_FRAMES  = 0;
+            CORNER_RADIUS_BIGBUT  = 0;
+            CORNER_RADIUS_OVERLAY = 0;
+            CORNER_RADIUS_DIALOG  = 0;
+            CORNER_RADIUS_ASSETS  = 0;
 
             COLOR_NAVIBAR           = COLOR_PCADIN_GRAY;
             COLOR_TABBAR            = COLOR_PCADIN_LTGRAY;

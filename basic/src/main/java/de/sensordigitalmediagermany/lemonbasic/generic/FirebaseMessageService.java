@@ -78,8 +78,8 @@ public class FirebaseMessageService extends FirebaseMessagingService
         nb.setContentText(body);
         nb.setSound(soundUri);
 
-        nb.setSmallIcon(DefinesScreens.getNotifyIconSmallRes());
-        nb.setLargeIcon(Simple.getBitmap(context, DefinesScreens.getNotifyIconLargeRes()));
+        nb.setSmallIcon(Screens.getNotifyIconSmallRes());
+        nb.setLargeIcon(Simple.getBitmap(context, Screens.getNotifyIconLargeRes()));
 
         NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (nm != null) nm.notify(0, nb.build());

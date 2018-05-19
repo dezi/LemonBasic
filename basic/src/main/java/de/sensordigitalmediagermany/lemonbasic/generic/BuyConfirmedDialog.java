@@ -39,7 +39,7 @@ public class BuyConfirmedDialog extends DialogView
         dialogItems.addView(imageFrame);
 
         ImageView confirmedIcon = new ImageView(getContext());
-        confirmedIcon.setImageResource(DefinesScreens.getConfirmedIconRes());
+        confirmedIcon.setImageResource(Screens.getConfirmedIconRes());
         confirmedIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Simple.setSizeDip(confirmedIcon, Simple.WC, Defines.CONFIRMED_ICON_SIZE);
 

@@ -52,7 +52,7 @@ public class ProfileMenu extends RelativeLayout
 
         popupShape = new LinearLayout(getContext());
         popupShape.setOrientation(LinearLayout.VERTICAL);
-        popupShape.setBackgroundResource(R.drawable.lem_t_iany_ralbers_menuelinks);
+        popupShape.setBackgroundResource(R.drawable.lem_t_iany_generic_menuelinks);
         Simple.setSizeDip(popupShape, Simple.WC, Simple.WC);
         Simple.setMarginLeftDip(popupShape, Defines.MARGIN_POPUP);
 

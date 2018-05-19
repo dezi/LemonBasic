@@ -77,10 +77,8 @@ public class RainerAlbers
         set("FONT_DIALOG_INFOS"       , GOTHAM_LIGHT);
         set("FONT_DIALOG_EDITS"       , GOTHAM_LIGHT);
         set("FONT_DIALOG_BUTTON"      , GOTHAM_BOLD);
-
         set("FONT_GENERIC_BUTTON"     , GOTHAM_BOLD);
         set("FONT_GENERIC_EDIT"       , GOTHAM_LIGHT);
-
         set("FONT_ASSET_TITLE"        , GOTHAM_BOLD);
         set("FONT_ASSET_SUMMARY"      , GOTHAMNARROW_LIGHT);
         set("FONT_SLIDER_ALL"         , GOTHAMNARROW_LIGHT);
@@ -97,12 +95,87 @@ public class RainerAlbers
         set("FONT_DETAILS_TITLE"      , ROONEY_REGULAR);
         set("FONT_DETAILS_INFOS"      , ROONEY_LIGHT);
 
+        set("FS_SCALED_BUTTON"        , isTablet() ? 18 : 16);
+        set("FS_DEBUG_VERSION"        , isTablet() ? 13 : 12);
+        set("FS_BANNER_TITLE"         , isTablet() ? 20 : 18);
+        set("FS_BANNER_INFO"          , isTablet() ? 20 : 18);
+        set("FS_ASSET_TITLE"          , isTablet() ? 13 : 12);
+        set("FS_ASSET_INFO"           , isTablet() ? 13 : 12);
+        set("FS_DETAIL_HEADER"        , isTablet() ? 16 : 14);
+        set("FS_DETAIL_SUBHEAD"       , isTablet() ? 24 : 22);
+        set("FS_DETAIL_TITLE"         , isTablet() ? 16 : 14);
+        set("FS_DETAIL_INFOS"         , isTablet() ? 15 : 12);
+        set("FS_DETAIL_SPECS"         , isTablet() ? 15 : 12);
+        set("FS_SETTINGS_INFO"        , isTablet() ? 15 : 14);
+        set("FS_SETTINGS_LIST"        , isTablet() ? 22 : 20);
+        set("FS_SETTINGS_MORE"        , isTablet() ? 30 : 28);
+
+        set("CORNER_RADIUS_BUTTON"    ,  3);
+        set("CORNER_RADIUS_FRAMES"    ,  8);
+        set("CORNER_RADIUS_BIGBUT"    ,  8);
+        set("CORNER_RADIUS_OVERLAY"   , 10);
+        set("CORNER_RADIUS_DIALOG"    , 16);
+        set("CORNER_RADIUS_ASSETS"    , 16);
+
+        setResId("notifyIconLargeRes", isTablet()
+                ? R.mipmap.lem_t_rainer_albers
+                : R.mipmap.lem_t_rainer_albers);
+
+        setResId("splashScreenRes", isTablet()
+                ? -1
+                : R.drawable.lem_t_ipho_ralbers_splashscreen);
+
+        setResId("mainScreenRes", isTablet()
+                ? R.drawable.lem_t_ipad_ralbers_startscreen
+                : R.drawable.lem_t_ipho_ralbers_startscreen);
+
+        setResId("closeButtonRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_kreuz
+                : R.drawable.lem_t_iany_ralbers_kreuz);
+
+        setResId("confirmedIconRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_buy_confirmed
+                : R.drawable.lem_t_iany_ralbers_buy_confirmed);
+
+        setResId("readMarkerRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_haken
+                : R.drawable.lem_t_iany_ralbers_haken);
+
+        setResId("courseMarkerRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_course_symbol
+                : R.drawable.lem_t_iany_ralbers_course_symbol);
+
+        setResId("contentScreenButtonProfileRes", isTablet()
+                ? R.drawable.lem_t_ipad_ralbers_profile
+                : R.drawable.lem_t_ipho_ralbers_profile);
+
+        setResId("contentScreenHeaderRes", isTablet()
+                ? R.drawable.lem_t_ipad_ralbers_menueoben
+                : R.drawable.lem_t_ipho_ralbers_menueoben);
+
+        setResId("arrowWhiteLeftOnRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
+                : R.drawable.lem_t_iany_ralbers_pfeillinks_weiss);
+
+        setResId("arrowDarkLeftOnRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel
+                : R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel);
+
+        setResId("contentScreenButtonBackOnRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_back_on
+                : R.drawable.lem_t_iany_ralbers_back_on);
+
+        setResId("contentScreenButtonBackOffRes", isTablet()
+                ? R.drawable.lem_t_iany_ralbers_back_off
+                : R.drawable.lem_t_iany_ralbers_back_off);
+
         // @formatter:on
     }
 
     //region Private static commom implementation.
 
     private static Class defines;
+    private static Class screens;
     private static Method simpleIsTablet;
     private static Method simpleIsWideScreen;
 
@@ -111,6 +184,7 @@ public class RainerAlbers
         try
         {
             defines = Class.forName("de.sensordigitalmediagermany.lemonbasic.generic.Defines");
+            screens = Class.forName("de.sensordigitalmediagermany.lemonbasic.generic.Screens");
 
             Class simple = Class.forName("de.sensordigitalmediagermany.lemonbasic.generic.Simple");
 
@@ -134,6 +208,20 @@ public class RainerAlbers
         catch (Exception ignore)
         {
             Log.e(LOGTAG,"set: field=" + field + " value=" + value + " failed!");
+        }
+    }
+
+    private static void setResId(String field, int resId)
+    {
+        try
+        {
+            screens.getField(field).set(null, resId);
+
+            Log.d(LOGTAG,"set: field=" + field + " resId=" + resId + " ok");
+        }
+        catch (Exception ignore)
+        {
+            Log.e(LOGTAG,"set: field=" + field + " resId=" + resId + " failed!");
         }
     }
 

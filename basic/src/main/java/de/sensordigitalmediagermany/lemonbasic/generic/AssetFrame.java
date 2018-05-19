@@ -299,7 +299,7 @@ public class AssetFrame extends GenericLinear
         {
             if (Defines.isCourseIcon)
             {
-                iconView.setImageResource(DefinesScreens.getCourseMarkerRes());
+                iconView.setImageResource(Screens.getCourseMarkerRes());
                 iconView.setVisibility(View.VISIBLE);
             }
 
@@ -335,7 +335,7 @@ public class AssetFrame extends GenericLinear
             {
                 if (ContentHandler.isOutdatedContent(asset))
                 {
-                    loadedView.setImageResource(DefinesScreens.getStatusUpdateMarkerRes());
+                    loadedView.setImageResource(Screens.getStatusUpdateMarkerRes());
                     loadedView.setVisibility(View.VISIBLE);
                 }
             }
@@ -343,7 +343,7 @@ public class AssetFrame extends GenericLinear
             {
                 if (Defines.isLoadedIcon)
                 {
-                    loadedView.setImageResource(DefinesScreens.getReadMarkerRes());
+                    loadedView.setImageResource(Screens.getReadMarkerRes());
                     loadedView.setVisibility(View.VISIBLE);
                 }
             }
@@ -355,8 +355,8 @@ public class AssetFrame extends GenericLinear
                 boolean missing = ContentHandler.isMissingContent(asset);
 
                 loadedView.setImageResource(missing
-                        ? DefinesScreens.getStatusFailMarkerRes()
-                        : DefinesScreens.getStatusNewMarkerRes());
+                        ? Screens.getStatusFailMarkerRes()
+                        : Screens.getStatusNewMarkerRes());
 
                 loadedView.setVisibility(View.VISIBLE);
             }
