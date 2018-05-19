@@ -1,11 +1,8 @@
 <resources>
 
     <string name="app_name_lemonbasic_demo">LB Musterfirma</string>
-    <string name="app_name_rainer_albers">LT Rainer Albers</string>
-    <string name="app_name_pierre_cardin">Pierre Cardin Sales Info</string>
 
     <string name="logoff_info_basic_demo">Do you really want to log out of the Lemon Basicx System?</string>
-    <string name="logoff_info_pierre_cardin">Do you really want to log out of Pierre Cardin Sales Information System?</string>
 
     <string name="course">Course</string>
     <string name="no_category">Without Category</string>

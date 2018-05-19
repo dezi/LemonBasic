@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LemonBasic.iml" filepath="$PROJECT_DIR$/LemonBasic.iml" />
       <module fileurl="file://$PROJECT_DIR$/basic/basic.iml" filepath="$PROJECT_DIR$/basic/basic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client.pierrecardin/client.pierrecardin.iml" filepath="$PROJECT_DIR$/client.pierrecardin/client.pierrecardin.iml" />
       <module fileurl="file://$PROJECT_DIR$/client.raineralbers/client.raineralbers.iml" filepath="$PROJECT_DIR$/client.raineralbers/client.raineralbers.iml" />
     </modules>
   </component>

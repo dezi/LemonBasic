@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.sensordigitalmediagermany.lemonbasic.client.pierrecardin">
+
+    <application
+        android:icon="@mipmap/lem_t_pierre_cardin">
+    </application>
+
+</manifest>

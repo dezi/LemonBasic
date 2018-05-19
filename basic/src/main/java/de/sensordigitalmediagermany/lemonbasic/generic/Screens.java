@@ -6,37 +6,22 @@ import android.graphics.Rect;
 @SuppressWarnings({"WeakerAccess"})
 public class Screens
 {
-    public static int getNotifyIconSmallRes()
-    {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_pierrecardin_notification
-                    : R.drawable.lem_t_iany_pierrecardin_notification
-                    ;
-        }
-
-        return Simple.isTablet()
-                ? R.drawable.lem_t_iany_generic_notification
-                : R.drawable.lem_t_iany_generic_notification
-                ;
-    }
-
     public static int notifyIconLargeRes = Simple.isTablet()
             ? R.mipmap.lem_t_demo
             : R.mipmap.lem_t_demo;
 
     public static int getNotifyIconLargeRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.mipmap.lem_t_pierre_cardin
-                    : R.mipmap.lem_t_pierre_cardin
-                    ;
-        }
-
         return notifyIconLargeRes;
+    }
+
+    public static int notifyIconSmallRes = Simple.isTablet()
+            ? R.drawable.lem_t_iany_generic_notification
+            : R.drawable.lem_t_iany_generic_notification;
+
+    public static int getNotifyIconSmallRes()
+    {
+        return notifyIconSmallRes;
     }
 
     public static int closeButtonRes = Simple.isTablet()
@@ -45,14 +30,6 @@ public class Screens
 
     public static int getCloseButtonRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_pierrecardin_kreuz
-                    : R.drawable.lem_t_iany_pierrecardin_kreuz
-                    ;
-        }
-
         return closeButtonRes;
     }
 
@@ -118,21 +95,6 @@ public class Screens
 
     public static int getMainScreenRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            if (Simple.isWideScreen())
-            {
-                return R.drawable.lem_t_wide_pierrecardin_startscreen;
-            }
-            else
-            {
-                return Simple.isTablet()
-                        ? R.drawable.lem_t_ipad_pierrecardin_startscreen
-                        : R.drawable.lem_t_ipho_pierrecardin_startscreen
-                        ;
-            }
-        }
-
         return mainScreenRes;
     }
 
@@ -158,14 +120,6 @@ public class Screens
 
     public static int getContentScreenHeaderRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_ipad_pierrecardin_menuoben
-                    : R.drawable.lem_t_ipho_pierrecardin_menuoben
-                    ;
-        }
-
         return contentScreenHeaderRes;
     }
 
@@ -175,14 +129,6 @@ public class Screens
 
     public static int getArrowWhiteLeftOnRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_pierrecardin_pfeillinks_weiss
-                    : R.drawable.lem_t_iany_pierrecardin_pfeillinks_weiss
-                    ;
-        }
-
         return arrowWhiteLeftOnRes;
     }
 
@@ -192,14 +138,6 @@ public class Screens
 
     public static int getArrowDarkLeftOnRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_pierrecardin_pfeillinks_dunkel
-                    : R.drawable.lem_t_iany_pierrecardin_pfeillinks_dunkel
-                    ;
-        }
-
         return arrowDarkLeftOnRes;
     }
 
@@ -225,14 +163,6 @@ public class Screens
 
     public static int getContentScreenButtonBackOnRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_pierrecardin_back_on
-                    : R.drawable.lem_t_iany_pierrecardin_back_on
-                    ;
-        }
-
         return contentScreenButtonBackOnRes;
     }
 
@@ -242,14 +172,6 @@ public class Screens
 
     public static int getContentScreenButtonBackOffRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_iany_pierrecardin_back_off
-                    : R.drawable.lem_t_iany_pierrecardin_back_off
-                    ;
-        }
-
         return contentScreenButtonBackOffRes;
     }
 
@@ -291,14 +213,6 @@ public class Screens
 
     public static int getContentScreenButtonProfileRes()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? R.drawable.lem_t_ipad_pierrecardin_profile
-                    : -1
-                    ;
-        }
-
         return contentScreenButtonProfileRes;
     }
 

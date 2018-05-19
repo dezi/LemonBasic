@@ -1,11 +1,8 @@
 <resources>
 
     <string name="app_name_lemonbasic_demo">LB Musterfirma</string>
-    <string name="app_name_rainer_albers">LT Rainer Albers</string>
-    <string name="app_name_pierre_cardin">Pierre Cardin Sales Info</string>
 
     <string name="logoff_info_basic_demo">Wollen Sie sich wirklich von Lemon Basic abmelden?</string>
-    <string name="logoff_info_pierre_cardin">Wollen Sie sich wirklich abmelden vom Pierre Cardin Sales Information System?</string>
 
     <string name="course">Lehrgang</string>
     <string name="no_category">Ohne Kategorie</string>
