@@ -511,7 +511,7 @@ public class DetailActivity extends ContentBaseActivity
         buyloadAreaVert.addView(buyloadArea);
 
         downloadButton = new ImageView(this);
-        downloadButton.setImageResource(R.drawable.lem_t_iany_ralbers_cloud_download);
+        downloadButton.setImageResource(R.drawable.lem_t_iany_generic_cloud_download);
         downloadButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
         downloadButton.setVisibility(GONE);
         Simple.setSizeDip(downloadButton, Defines.CLOUD_ICON_SIZE, Simple.MP);
