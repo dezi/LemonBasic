@@ -133,22 +133,22 @@ public class Defines
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
     public static final int COLOR_TV_FOCUS           = 0xffffcc00;
 
-    public static       int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // static!
-    public static       int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // static!
-    public static       int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // static!
-    public static       int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // static!
-    public static       int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // static!
-    public static       int COLOR_DIALOG_TITLE      = Color.WHITE;             // static!
-    public static       int COLOR_DIALOG_INFOS      = Color.WHITE;             // static!
-    public static       int COLOR_BUTTON_TEXT       = COLOR_SENSOR_BUTTONTEXT; // static!
-    public static       int COLOR_BUTTON_BACK       = COLOR_SENSOR_LTBLUE;     // static!
-    public static       int COLOR_ALERT_BACK        = COLOR_SENSOR_DIALOGS;    // static!
-    public static       int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // static!
-    public static       int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // static!
-    public static       int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // static!
-    public static       int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // static!
-    public static       int COLOR_PROGRESS_DONE     = Color.GREEN;             // static!
-    public static       int COLOR_PROGRESS_NEED     = Color.YELLOW;            // static!
+    public static       int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // client!
+    public static       int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // client!
+    public static       int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // client!
+    public static       int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // client!
+    public static       int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // client!
+    public static       int COLOR_DIALOG_TITLE      = Color.WHITE;             // client!
+    public static       int COLOR_DIALOG_INFOS      = Color.WHITE;             // client!
+    public static       int COLOR_BUTTON_TEXT       = COLOR_SENSOR_BUTTONTEXT; // client!
+    public static       int COLOR_BUTTON_BACK       = COLOR_SENSOR_LTBLUE;     // client!
+    public static       int COLOR_ALERT_BACK        = COLOR_SENSOR_DIALOGS;    // client!
+    public static       int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // client!
+    public static       int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // client!
+    public static       int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // client!
+    public static       int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // client!
+    public static       int COLOR_PROGRESS_DONE     = Color.GREEN;             // client!
+    public static       int COLOR_PROGRESS_NEED     = Color.YELLOW;            // client!
     // @formatter:on
 
     //
@@ -156,11 +156,11 @@ public class Defines
     //
 
     // @formatter:off
-    public static       int CORNER_RADIUS_BUTTON  =  3; // static!
-    public static       int CORNER_RADIUS_FRAMES  =  8; // static!
+    public static       int CORNER_RADIUS_BUTTON  =  3; // client!
+    public static       int CORNER_RADIUS_FRAMES  =  8; // client!
     public static final int CORNER_RADIUS_BIGBUT  =  8;
     public static final int CORNER_RADIUS_OVERLAY = 10;
-    public static       int CORNER_RADIUS_DIALOG  = 16; // static!
+    public static       int CORNER_RADIUS_DIALOG  = 16; // client!
     public static final int CORNER_RADIUS_ASSETS  = 16;
     // @formatter:on
 
@@ -187,29 +187,29 @@ public class Defines
     //
 
     // @formatter:off
-    public static String FONT_DIALOG_TITLE     = GOTHAM_BOLD;          // static!
-    public static String FONT_DIALOG_INFOS     = GOTHAM_LIGHT;         // static!
-    public static String FONT_DIALOG_EDITS     = GOTHAM_LIGHT;         // static!
-    public static String FONT_DIALOG_BUTTON    = GOTHAM_BOLD;          // static!
+    public static String FONT_DIALOG_TITLE     = GOTHAM_BOLD;          // client!
+    public static String FONT_DIALOG_INFOS     = GOTHAM_LIGHT;         // client!
+    public static String FONT_DIALOG_EDITS     = GOTHAM_LIGHT;         // client!
+    public static String FONT_DIALOG_BUTTON    = GOTHAM_BOLD;          // client!
 
-    public static String FONT_GENERIC_BUTTON   = GOTHAM_BOLD;          // static!
-    public static String FONT_GENERIC_EDIT     = GOTHAM_LIGHT;         // static!
+    public static String FONT_GENERIC_BUTTON   = GOTHAM_BOLD;          // client!
+    public static String FONT_GENERIC_EDIT     = GOTHAM_LIGHT;         // client!
 
-    public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // static!
-    public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SLIDER_ALL       = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SCALED_BUTTON    = ROONEY_MEDIUM;        // static!
-    public static String FONT_TABBAR_ENTRY     = ROONEY_MEDIUM;        // static!
-    public static String FONT_CATEGORY_TITLE   = GOTHAM_BOLD;          // static!
-    public static String FONT_SETTINGS_HEADER  = GOTHAM_BOLD;          // static!
-    public static String FONT_SETTINGS_SUBHEAD = GOTHAM_MEDIUM;        // static!
-    public static String FONT_SETTINGS_INFOS   = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SETTINGS_VERSION = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_SETTINGS_LIST    = GOTHAMNARROW_LIGHT;   // static!
-    public static String FONT_DETAILS_HEADER   = GOTHAM_MEDIUM;        // static!
-    public static String FONT_DETAILS_SUBHEAD  = ROONEY_REGULAR;       // static!
-    public static String FONT_DETAILS_TITLE    = ROONEY_REGULAR;       // static!
-    public static String FONT_DETAILS_INFOS    = ROONEY_LIGHT;         // static!
+    public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // client!
+    public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // client!
+    public static String FONT_SLIDER_ALL       = GOTHAMNARROW_LIGHT;   // client!
+    public static String FONT_SCALED_BUTTON    = ROONEY_MEDIUM;        // client!
+    public static String FONT_TABBAR_ENTRY     = ROONEY_MEDIUM;        // client!
+    public static String FONT_CATEGORY_TITLE   = GOTHAM_BOLD;          // client!
+    public static String FONT_SETTINGS_HEADER  = GOTHAM_BOLD;          // client!
+    public static String FONT_SETTINGS_SUBHEAD = GOTHAM_MEDIUM;        // client!
+    public static String FONT_SETTINGS_INFOS   = GOTHAMNARROW_LIGHT;   // client!
+    public static String FONT_SETTINGS_VERSION = GOTHAMNARROW_LIGHT;   // client!
+    public static String FONT_SETTINGS_LIST    = GOTHAMNARROW_LIGHT;   // client!
+    public static String FONT_DETAILS_HEADER   = GOTHAM_MEDIUM;        // client!
+    public static String FONT_DETAILS_SUBHEAD  = ROONEY_REGULAR;       // client!
+    public static String FONT_DETAILS_TITLE    = ROONEY_REGULAR;       // client!
+    public static String FONT_DETAILS_INFOS    = ROONEY_LIGHT;         // client!
     // @formatter:on
 
     //
@@ -232,44 +232,44 @@ public class Defines
     public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
     public static final int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
 
-    public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // static!
+    public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // client!
     public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
     public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 18;
     public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
-    public static       int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12; // static!
+    public static       int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12; // client!
 
     public static final int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
 
     public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 18 : 16;
     public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 12;
 
-    public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // static!
-    public static       int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // static!
+    public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // client!
+    public static       int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // client!
     public static final int FS_BANNER_BUTTON      = Simple.isTablet() ? 16 : 14;
 
-    public static       int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12; // static!
-    public static       int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // static!
+    public static       int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12; // client!
+    public static       int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // client!
     public static final int FS_ASSET_OWNED        = Simple.isTablet() ? 12 : 11;
 
     public static final int FS_COINS_COINS        = Simple.isTablet() ? 56 : 36;
     public static final int FS_COINS_PRICE        = Simple.isTablet() ? 26 : 22;
     public static final int FS_COINS_BUTTONS      = Simple.isTablet() ? 22 : 20;
 
-    public static       int FS_DETAIL_HEADER      = Simple.isTablet() ? 16 : 14; // static!
-    public static       int FS_DETAIL_SUBHEAD     = Simple.isTablet() ? 24 : 22; // static!
-    public static       int FS_DETAIL_TITLE       = Simple.isTablet() ? 16 : 14; // static!
-    public static       int FS_DETAIL_INFOS       = Simple.isTablet() ? 15 : 12; // static!
-    public static       int FS_DETAIL_SPECS       = Simple.isTablet() ? 15 : 12; // static!
+    public static       int FS_DETAIL_HEADER      = Simple.isTablet() ? 16 : 14; // client!
+    public static       int FS_DETAIL_SUBHEAD     = Simple.isTablet() ? 24 : 22; // client!
+    public static       int FS_DETAIL_TITLE       = Simple.isTablet() ? 16 : 14; // client!
+    public static       int FS_DETAIL_INFOS       = Simple.isTablet() ? 15 : 12; // client!
+    public static       int FS_DETAIL_SPECS       = Simple.isTablet() ? 15 : 12; // client!
 
     public static final int FS_BUY_TITLE          = Simple.isTablet() ? 16 : 14;
     public static final int FS_BUY_HEADER         = Simple.isTablet() ? 24 : 22;
     public static final int FS_BUY_PRICE          = Simple.isTablet() ? 48 : 40;
 
     public static final int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
-    public static       int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14; // static!
+    public static       int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14; // client!
     public static final int FS_SETTINGS_BACK      = Simple.isTablet() ? 15 : 12;
-    public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // static!
-    public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // static!
+    public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // client!
+    public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // client!
 
     public static final int FS_TRAINING_TITLE     = Simple.isTablet() ? 46 : 40;
     public static final int FS_TRAINING_INFO      = Simple.isTablet() ? 20 : 18;
@@ -305,11 +305,11 @@ public class Defines
     //
 
     // @formatter:off
-    public static       float ASSET_THUMBNAIL_ASPECT = 1.9f; // static!
-    public static       float ASSET_SETTINGS_ASPECT  = 3.5f; // static!
-    public static       float ASSET_DETAIL_ASPECT    = 3.0f; // static!
-    public static       float ASSET_COURSE_ASPECT    = 3.5f; // static!
-    public static       float ASSET_BANNER_ASPECT    = 3.2f; // static!
+    public static float ASSET_THUMBNAIL_ASPECT = 1.9f; // client!
+    public static float ASSET_SETTINGS_ASPECT  = 3.5f; // client!
+    public static float ASSET_DETAIL_ASPECT    = 3.0f; // client!
+    public static float ASSET_COURSE_ASPECT    = 3.5f; // client!
+    public static float ASSET_BANNER_ASPECT    = 3.2f; // client!
     // @formatter:on
 
     //
@@ -335,7 +335,7 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // static!
+    public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  36 :  24;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;
@@ -374,7 +374,7 @@ public class Defines
             APIURL = "https://lemon-mobile-learning.com/lemon-basic/ws/";
 
             //
-            // Tuneups for Pier Cadin style.
+            // Tuneups for Pierre Cardin style.
             //
 
             // @formatter:off
