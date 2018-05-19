@@ -1,12 +1,12 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
-import android.support.v7.app.NotificationCompat;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.media.RingtoneManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -68,7 +68,7 @@ public class FirebaseMessageService extends FirebaseMessagingService
         Intent loginStart = new Intent(context, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, loginStart, 0);
 
-        NotificationCompat.Builder nb = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder nb = new NotificationCompat.Builder(context, "Dummy");
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
