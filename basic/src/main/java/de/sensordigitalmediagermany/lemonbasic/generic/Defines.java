@@ -11,9 +11,27 @@ public class Defines
     // Debug stuff.
     //
 
-    public static final boolean isDezi = true;
+    public static final boolean isDezi = false;
 
     public static final String DEBUG_VERSION = "1.1 (23) 19.04.2018 12:00";
+
+    //
+    // Client resolution. Checks via reflection, which client module is available.
+    //
+
+    // @formatter:off
+    protected static final boolean isPierreCardin = getInitClientClass("pierrecardin.PierreCardin");
+    protected static final boolean isRainerAlbers = getInitClientClass("raineralbers.RainerAlbers");
+    // @formatter:on
+
+    //
+    // App version resolution.
+    //
+
+    // @formatter:off
+    public static final boolean isBasic   = isPierreCardin;
+    public static final boolean isTrainer = isRainerAlbers;
+    // @formatter:on
 
     //
     // Rest API database access selectors.
@@ -21,20 +39,9 @@ public class Defines
 
     // @formatter:off
     public static String APIURL = "undefined!";
-
     public static String SYSTEM_USER_NAME  = "undefined!";
-    public static String SYSTEM_USER_PARAM = "undefined!";
+    public static String SYSTEM_USER_PARAM = isBasic ? "systemuserName" : isTrainer ? "trainerName" : "undefined!";
     public static String APP_STORE_PUBLIC_KEY = "undefined!";
-
-    // @formatter:on
-
-    //
-    // Client specific defines.
-    //
-
-    // @formatter:off
-    protected static final boolean isPierreCardin = false;
-    protected static final boolean isRainerAlbers = true;
     // @formatter:on
 
     //
@@ -42,9 +49,6 @@ public class Defines
     //
 
     // @formatter:off
-    public static final boolean isBasic              = isPierreCardin;
-    public static final boolean isTrainer            = isRainerAlbers;
-
     public static final boolean isGiveAway           = isPierreCardin;
     public static final boolean isLoginButton        = isRainerAlbers;
     public static final boolean isSimpleLogin        = isPierreCardin;
@@ -82,12 +86,6 @@ public class Defines
     public static final boolean isSoundSettings      = false;
     public static final boolean isAutoRefreshInfo    = false;
     // @formatter:on
-
-    //
-    // Variable string ids.
-    //
-
-    public static int logoff_info = R.string.logoff_info_neutral; // static!
 
     //
     // Fixed values.
@@ -367,23 +365,13 @@ public class Defines
 
     static
     {
-        if (isBasic) SYSTEM_USER_PARAM = "systemuserName";
-        if (isTrainer) SYSTEM_USER_PARAM = "trainerName";
-
-        invokeInitClient("de.sensordigitalmediagermany.lemonbasic.client.raineralbers.RainerAlbers");
-
-        if (isRainerAlbers)
-        {
-            logoff_info = R.string.logoff_info;
-        }
+        invokeInitClientClass();
 
         if (isPierreCardin)
         {
             SYSTEM_USER_NAME = "PIERRECARDIN";
 
             APIURL = "https://lemon-mobile-learning.com/lemon-basic/ws/";
-
-            logoff_info = R.string.logoff_info_pierre_cardin;
 
             //
             // Tuneups for Pier Cadin style.
@@ -462,13 +450,29 @@ public class Defines
         }
     }
 
-    public static void invokeInitClient(String client)
+    private static Method initializeClient;
+
+    private static boolean getInitClientClass(String client)
     {
         try
         {
-            Class defines = Class.forName(client);
-            Method initialize = defines.getMethod("initialize");
-            initialize.invoke(null);
+            Class defines = Class.forName("de.sensordigitalmediagermany.lemonbasic.client." + client);
+            initializeClient = defines.getMethod("initialize");
+
+            return true;
+        }
+        catch (Exception ignore)
+        {
+        }
+
+        return false;
+    }
+
+    public static void invokeInitClientClass()
+    {
+        try
+        {
+            initializeClient.invoke(null);
         }
         catch (Exception ignore)
         {

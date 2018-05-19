@@ -13,7 +13,7 @@ public class LogoffDialog extends DialogView
 
         setTitleText(R.string.logoff_title);
 
-        String infostr = Simple.getTrans(context, Defines.logoff_info)
+        String infostr = Simple.getTrans(context, R.string.logoff_info)
                 + " "
                 + Simple.getTrans(context, R.string.logoff_info2);
 
