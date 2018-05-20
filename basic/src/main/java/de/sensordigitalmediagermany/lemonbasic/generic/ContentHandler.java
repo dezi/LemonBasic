@@ -412,7 +412,7 @@ public class ContentHandler
 
     public static void registerOldPurchases()
     {
-        if (Globals.customerContents != null)
+        if ((Globals.customerContents != null) && (Globals.displayAllContents != null))
         {
             coursesBought.clear();
             contentsBought.clear();

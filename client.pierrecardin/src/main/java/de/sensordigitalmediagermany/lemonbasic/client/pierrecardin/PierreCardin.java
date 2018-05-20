@@ -35,9 +35,9 @@ public class PierreCardin
     {
         Log.d(LOGTAG, "initialize:");
 
-        set("SYSTEM_USER_NAME", "RAINERALBERS");
+        set("SYSTEM_USER_NAME", "PIERRECARDIN");
 
-        set("APIURL", "https://lemon-mobile-learning.com/lemon-trainer/ws/");
+        set("APIURL", "https://lemon-mobile-learning.com/lemon-basic/ws/");
 
         // @formatter:off
 
