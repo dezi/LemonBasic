@@ -136,22 +136,22 @@ public class Defines
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
     public static final int COLOR_TV_FOCUS           = 0xffffcc00;
 
-    public static       int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // client!
-    public static       int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // client!
-    public static       int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // client!
-    public static       int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // client!
-    public static       int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // client!
-    public static       int COLOR_DIALOG_TITLE      = Color.WHITE;             // client!
-    public static       int COLOR_DIALOG_INFOS      = Color.WHITE;             // client!
-    public static       int COLOR_BUTTON_TEXT       = COLOR_SENSOR_BUTTONTEXT; // client!
-    public static       int COLOR_BUTTON_BACK       = COLOR_SENSOR_LTBLUE;     // client!
-    public static       int COLOR_ALERT_BACK        = COLOR_SENSOR_DIALOGS;    // client!
-    public static       int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // client!
-    public static       int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // client!
-    public static       int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // client!
-    public static       int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // client!
-    public static       int COLOR_PROGRESS_DONE     = Color.GREEN;             // client!
-    public static       int COLOR_PROGRESS_NEED     = Color.YELLOW;            // client!
+    public static int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // client!
+    public static int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // client!
+    public static int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // client!
+    public static int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // client!
+    public static int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // client!
+    public static int COLOR_DIALOG_TITLE      = Color.WHITE;             // client!
+    public static int COLOR_DIALOG_INFOS      = Color.WHITE;             // client!
+    public static int COLOR_BUTTON_TEXT       = COLOR_SENSOR_BUTTONTEXT; // client!
+    public static int COLOR_BUTTON_BACK       = COLOR_SENSOR_LTBLUE;     // client!
+    public static int COLOR_ALERT_BACK        = COLOR_SENSOR_DIALOGS;    // client!
+    public static int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // client!
+    public static int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // client!
+    public static int COLOR_SETTINGS_LIST_SEL = COLOR_SENSOR_LTBLUE;     // client!
+    public static int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // client!
+    public static int COLOR_PROGRESS_DONE     = Color.GREEN;             // client!
+    public static int COLOR_PROGRESS_NEED     = Color.YELLOW;            // client!
     // @formatter:on
 
     //
@@ -225,62 +225,62 @@ public class Defines
     //
 
     // @formatter:off
-    public static final int FS_DIALOG_TITLE       = Simple.isTablet() ? 18 : 16;
-    public static final int FS_DIALOG_EDIT        = Simple.isTablet() ? 18 : 16;
-    public static final int FS_DIALOG_BUTTON      = Simple.isTablet() ? 16 : 14;
-    public static final int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
+    public static int FS_DIALOG_TITLE       = Simple.isTablet() ? 18 : 16;
+    public static int FS_DIALOG_EDIT        = Simple.isTablet() ? 18 : 16;
+    public static int FS_DIALOG_BUTTON      = Simple.isTablet() ? 16 : 14;
+    public static int FS_DIALOG_INFO        = Simple.isTablet() ? 16 : 14;
 
-    public static final int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
-    public static final int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
+    public static int FS_GENERIC_BUTTON     = Simple.isTablet() ? 16 : 14;
+    public static int FS_GENERIC_EDIT       = Simple.isTablet() ? 20 : 18;
 
-    public static       int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // client!
-    public static final int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
-    public static final int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 18;
-    public static final int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
-    public static       int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12; // client!
+    public static int FS_SCALED_BUTTON      = Simple.isTablet() ? 18 : 16; // client!
+    public static int FS_NAVI_MENU          = Simple.isTablet() ? 20 : 14;
+    public static int FS_CATEGORY_TITLE     = Simple.isTablet() ? 26 : 18;
+    public static int FS_POPUP_MENU         = Simple.isTablet() ? 18 : 16;
+    public static int FS_DEBUG_VERSION      = Simple.isTablet() ? 13 : 12; // client!
 
-    public static final int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
+    public static int FS_TABBAR_ENTRY       = Simple.isTablet() ? 20 : 18;
 
-    public static final int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 18 : 16;
-    public static final int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 12;
+    public static int FS_SLIDER_CATEGORY    = Simple.isTablet() ? 18 : 16;
+    public static int FS_SLIDER_SHOWMORE    = Simple.isTablet() ? 14 : 12;
 
-    public static       int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // client!
-    public static       int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // client!
-    public static final int FS_BANNER_BUTTON      = Simple.isTablet() ? 16 : 14;
+    public static int FS_BANNER_TITLE       = Simple.isTablet() ? 20 : 18; // client!
+    public static int FS_BANNER_INFO        = Simple.isTablet() ? 20 : 18; // client!
+    public static int FS_BANNER_BUTTON      = Simple.isTablet() ? 16 : 14;
 
-    public static       int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12; // client!
-    public static       int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // client!
-    public static final int FS_ASSET_OWNED        = Simple.isTablet() ? 12 : 11;
+    public static int FS_ASSET_TITLE        = Simple.isTablet() ? 13 : 12; // client!
+    public static int FS_ASSET_INFO         = Simple.isTablet() ? 13 : 12; // client!
+    public static int FS_ASSET_OWNED        = Simple.isTablet() ? 12 : 11;
 
-    public static final int FS_COINS_COINS        = Simple.isTablet() ? 56 : 36;
-    public static final int FS_COINS_PRICE        = Simple.isTablet() ? 26 : 22;
-    public static final int FS_COINS_BUTTONS      = Simple.isTablet() ? 22 : 20;
+    public static int FS_COINS_COINS        = Simple.isTablet() ? 56 : 36;
+    public static int FS_COINS_PRICE        = Simple.isTablet() ? 26 : 22;
+    public static int FS_COINS_BUTTONS      = Simple.isTablet() ? 22 : 20;
 
-    public static       int FS_DETAIL_HEADER      = Simple.isTablet() ? 16 : 14; // client!
-    public static       int FS_DETAIL_SUBHEAD     = Simple.isTablet() ? 24 : 22; // client!
-    public static       int FS_DETAIL_TITLE       = Simple.isTablet() ? 16 : 14; // client!
-    public static       int FS_DETAIL_INFOS       = Simple.isTablet() ? 15 : 12; // client!
-    public static       int FS_DETAIL_SPECS       = Simple.isTablet() ? 15 : 12; // client!
+    public static int FS_DETAIL_HEADER      = Simple.isTablet() ? 16 : 14; // client!
+    public static int FS_DETAIL_SUBHEAD     = Simple.isTablet() ? 24 : 22; // client!
+    public static int FS_DETAIL_TITLE       = Simple.isTablet() ? 16 : 14; // client!
+    public static int FS_DETAIL_INFOS       = Simple.isTablet() ? 15 : 12; // client!
+    public static int FS_DETAIL_SPECS       = Simple.isTablet() ? 15 : 12; // client!
 
-    public static final int FS_BUY_TITLE          = Simple.isTablet() ? 16 : 14;
-    public static final int FS_BUY_HEADER         = Simple.isTablet() ? 24 : 22;
-    public static final int FS_BUY_PRICE          = Simple.isTablet() ? 48 : 40;
+    public static int FS_BUY_TITLE          = Simple.isTablet() ? 16 : 14;
+    public static int FS_BUY_HEADER         = Simple.isTablet() ? 24 : 22;
+    public static int FS_BUY_PRICE          = Simple.isTablet() ? 48 : 40;
 
-    public static final int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
-    public static       int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14; // client!
-    public static final int FS_SETTINGS_BACK      = Simple.isTablet() ? 15 : 12;
-    public static       int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // client!
-    public static       int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // client!
+    public static int FS_SETTINGS_TITLE     = Simple.isTablet() ? 17 : 16;
+    public static int FS_SETTINGS_INFO      = Simple.isTablet() ? 15 : 14; // client!
+    public static int FS_SETTINGS_BACK      = Simple.isTablet() ? 15 : 12;
+    public static int FS_SETTINGS_LIST      = Simple.isTablet() ? 22 : 20; // client!
+    public static int FS_SETTINGS_MORE      = Simple.isTablet() ? 30 : 28; // client!
 
-    public static final int FS_TRAINING_TITLE     = Simple.isTablet() ? 46 : 40;
-    public static final int FS_TRAINING_INFO      = Simple.isTablet() ? 20 : 18;
-    public static final int FS_TRAINING_START     = Simple.isTablet() ? 28 : 24;
+    public static int FS_TRAINING_TITLE     = Simple.isTablet() ? 46 : 40;
+    public static int FS_TRAINING_INFO      = Simple.isTablet() ? 20 : 18;
+    public static int FS_TRAINING_START     = Simple.isTablet() ? 28 : 24;
 
-    public static final int FS_QUESTIONS_TITLE    = Simple.isTablet() ? 18 : 16;
-    public static final int FS_QUESTIONS_QUESTION = Simple.isTablet() ? 36 : 32;
-    public static final int FS_QUESTIONS_ANSWER   = Simple.isTablet() ? 20 : 16;
+    public static int FS_QUESTIONS_TITLE    = Simple.isTablet() ? 18 : 16;
+    public static int FS_QUESTIONS_QUESTION = Simple.isTablet() ? 36 : 32;
+    public static int FS_QUESTIONS_ANSWER   = Simple.isTablet() ? 20 : 16;
 
-    public static final int FS_OVERVIEW_NUMBER    = Simple.isTablet() ? 24 : 22;
+    public static int FS_OVERVIEW_NUMBER    = Simple.isTablet() ? 24 : 22;
 
     // @formatter:on
 
@@ -336,7 +336,7 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
+    public static int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  36 :  24;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;
