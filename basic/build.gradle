@@ -49,8 +49,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
 
     //implementation project(':client.sensordemo');
-    //implementation project(':client.raineralbers');
-    implementation project(':client.pierrecardin');
+    implementation project(':client.raineralbers');
+    //implementation project(':client.pierrecardin');
 }
 
 apply plugin: 'com.google.gms.google-services'
