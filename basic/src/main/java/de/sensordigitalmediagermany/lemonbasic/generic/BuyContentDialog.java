@@ -30,6 +30,7 @@ public class BuyContentDialog extends DialogView
         TextView titleView = new TextView(getContext());
         titleView.setText(R.string.buy_content_title);
         titleView.setAllCaps(true);
+        titleView.setMinEms(16);
         titleView.setTextColor(Color.WHITE);
         titleView.setSingleLine(Simple.isTablet());
         titleView.setGravity(Gravity.CENTER_HORIZONTAL);

@@ -103,8 +103,8 @@ public class Defines
     public static final int ASSETS_NUM_COLUMNS = Simple.isTablet() ? 4 : 2;
     public static final int RESULTS_NUM_COLUMNS = Simple.isTablet() ? 8 : 6;
 
-    public static final int MIN_EMS_DIALOGS = Simple.isTablet() ? 12 :  8;
-    public static final int MAX_EMS_DIALOGS = Simple.isTablet() ? 20 : 12;
+    public static final int MIN_EMS_DIALOGS = Simple.isTablet() ? 16 : 16;
+    public static final int MAX_EMS_DIALOGS = Simple.isTablet() ? 20 : 16;
 
     public static final int CONTENT_TYPE_PDF = 1;
     public static final int CONTENT_TYPE_VIDEO = 2;

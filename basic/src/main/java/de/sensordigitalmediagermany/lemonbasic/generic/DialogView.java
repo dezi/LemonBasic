@@ -230,6 +230,8 @@ public class DialogView extends RelativeLayout
         titleView.setAllCaps(Defines.isInfosAllCaps);
         titleView.setTypeface(titleFont);
         titleView.setTextColor(Defines.COLOR_DIALOG_TITLE);
+        titleView.setMinEms(Defines.MIN_EMS_DIALOGS);
+        titleView.setMaxEms(Defines.MAX_EMS_DIALOGS);
         Simple.setSizeDip(titleView, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(titleView, Defines.FS_DIALOG_TITLE);
 
@@ -238,11 +240,11 @@ public class DialogView extends RelativeLayout
         infoView = new TextView(context);
         infoView.setVisibility(GONE);
         infoView.setMinLines(2);
-        infoView.setMinEms(Defines.MIN_EMS_DIALOGS);
-        infoView.setMaxEms(Defines.MAX_EMS_DIALOGS);
         infoView.setTextColor(Defines.COLOR_DIALOG_INFOS);
         infoView.setLineSpacing(0, Defines.FS_DIALOGS_LSMULT);
         infoView.setTypeface(infosFont);
+        infoView.setMinEms(Defines.MIN_EMS_DIALOGS);
+        infoView.setMaxEms(Defines.MAX_EMS_DIALOGS);
         Simple.setSizeDip(infoView, Simple.WC, Simple.WC);
         Simple.setTextSizeDip(infoView, Defines.FS_DIALOG_INFO);
         Simple.setMarginTopDip(infoView, Defines.PADDING_SMALL);
