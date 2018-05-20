@@ -127,10 +127,6 @@ public class Defines
     public static final int COLOR_SENSOR_TABBAR      = 0xfff5f5f5;
     public static final int COLOR_SENSOR_BUTTONTEXT  = 0xfff5f5f5;
 
-    public static final int COLOR_PCADIN_CONTENT     = 0xffffffff;
-    public static final int COLOR_PCADIN_GRAY        = 0xffb4b4b4;
-    public static final int COLOR_PCADIN_LTGRAY      = 0xfff5f5f5;
-
     public static final int COLOR_BUTTON_TOUCHED     = 0x88888888;
     public static final int COLOR_BACKGROUND_DIM     = 0x77000000;
     public static final int COLOR_QUESTIONS_SEP      = 0x11000000;
@@ -336,7 +332,7 @@ public class Defines
     // @formatter:on
 
     // @formatter:off
-    public static int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
+    public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  36 :  24;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;
@@ -367,91 +363,6 @@ public class Defines
     static
     {
         invokeInitClientClass();
-
-        if (isPierreCardin)
-        {
-            SYSTEM_USER_NAME = "PIERRECARDIN";
-
-            APIURL = "https://lemon-mobile-learning.com/lemon-basic/ws/";
-
-            //
-            // Tuneups for Pierre Cardin style.
-            //
-
-            // @formatter:off
-
-            CORNER_RADIUS_BUTTON  = 0;
-            CORNER_RADIUS_FRAMES  = 0;
-            CORNER_RADIUS_BIGBUT  = 0;
-            CORNER_RADIUS_OVERLAY = 0;
-            CORNER_RADIUS_DIALOG  = 0;
-            CORNER_RADIUS_ASSETS  = 0;
-
-            COLOR_NAVIBAR           = COLOR_PCADIN_GRAY;
-            COLOR_TABBAR            = COLOR_PCADIN_LTGRAY;
-            COLOR_CONTENT           = COLOR_PCADIN_CONTENT;
-            COLOR_FRAMES            = COLOR_PCADIN_LTGRAY;
-            COLOR_DIALOG_BACK       = COLOR_PCADIN_LTGRAY;
-            COLOR_DIALOG_TITLE      = Color.BLACK;
-            COLOR_DIALOG_INFOS      = Color.BLACK;
-            COLOR_BUTTON_TEXT       = COLOR_PCADIN_GRAY;
-            COLOR_BUTTON_BACK       = Color.BLACK;
-            COLOR_ALERT_BACK        = COLOR_PCADIN_LTGRAY;
-            COLOR_SETTINGS_HEADERS  = Color.BLACK;
-            COLOR_SETTINGS_LIST     = Color.WHITE;
-            COLOR_SETTINGS_LIST_SEL = Color.BLACK;
-            COLOR_DETAIL_TITLE      = Color.BLACK;
-            COLOR_PROGRESS_DONE     = Color.BLACK;
-            COLOR_PROGRESS_NEED     = Color.WHITE;
-
-            FONT_DIALOG_TITLE       = FUTURA_BOOK;
-            FONT_DIALOG_INFOS       = SOURCE_SERIF_LIGHT;
-            FONT_DIALOG_EDITS       = FUTURA_LIGHT_REG;
-            FONT_DIALOG_BUTTON      = FUTURA_BOOK;
-            FONT_GENERIC_BUTTON     = FUTURA_BOOK;
-            FONT_GENERIC_EDIT       = FUTURA_LIGHT_REG;
-            FONT_ASSET_TITLE        = FUTURA_LIGHT_REG;
-            FONT_ASSET_SUMMARY      = FUTURA_LIGHT_REG;
-            FONT_SLIDER_ALL         = FUTURA_LIGHT_REG;
-            FONT_SCALED_BUTTON      = FUTURA_LIGHT_REG;
-            FONT_TABBAR_ENTRY       = FUTURA_LIGHT_REG;
-            FONT_CATEGORY_TITLE     = FUTURA_LIGHT_REG;
-            FONT_SETTINGS_HEADER    = FUTURA_BOOK;
-            FONT_SETTINGS_SUBHEAD   = FUTURA_BOOK;
-            FONT_SETTINGS_INFOS     = FUTURA_LIGHT_REG;
-            FONT_SETTINGS_VERSION   = FUTURA_LIGHT_REG;
-            FONT_SETTINGS_LIST      = FUTURA_BOOK;
-            FONT_DETAILS_HEADER     = FUTURA_BOOK;
-            FONT_DETAILS_SUBHEAD    = FUTURA_LIGHT_REG;
-            FONT_DETAILS_TITLE      = SOURCE_SERIF_BOLD;
-            FONT_DETAILS_INFOS      = SOURCE_SERIF_LIGHT;
-
-            FS_BANNER_TITLE         = Simple.isTablet() ? 20 : 16;
-            FS_BANNER_INFO          = Simple.isTablet() ? 26 : 20;
-            FS_SCALED_BUTTON        = Simple.isTablet() ? 14 : 13;
-            FS_ASSET_TITLE          = Simple.isTablet() ? 13 : 11;
-            FS_ASSET_INFO           = Simple.isTablet() ? 18 : 16;
-            FS_DEBUG_VERSION        = Simple.isTablet() ? 10 :  8;
-            FS_SETTINGS_INFO        = Simple.isTablet() ? 15 : 14;
-            FS_SETTINGS_LIST        = Simple.isTablet() ? 16 : 14;
-            FS_SETTINGS_MORE        = Simple.isTablet() ? 24 : 22;
-            FS_DETAIL_HEADER        = Simple.isTablet() ? 16 : 14;
-            FS_DETAIL_SUBHEAD       = Simple.isTablet() ? 30 : 20;
-            FS_DETAIL_TITLE         = Simple.isTablet() ? 15 : 12;
-            FS_DETAIL_INFOS         = Simple.isTablet() ? 13 : 11;
-            FS_DETAIL_SPECS         = Simple.isTablet() ? 15 : 12;
-
-            SETTINGS_IMAGE_SIZE     = Simple.isTablet() ? 60 : 40;
-
-            ASSET_THUMBNAIL_ASPECT  = Simple.isTablet() ? 1.30f : 1.00f;
-            ASSET_COURSE_ASPECT     = Simple.isTablet() ? 5.90f : 3.40f;
-
-            ASSET_DETAIL_ASPECT     = Simple.isWideScreen() ? 4.00f : Simple.isTablet() ? 3.20f : 3.20f;
-            ASSET_SETTINGS_ASPECT   = Simple.isWideScreen() ? 5.00f : Simple.isTablet() ? 3.00f : 3.00f;
-            ASSET_BANNER_ASPECT     = Simple.isWideScreen() ? 4.80f : Simple.isTablet() ? 3.20f : 2.20f;
-
-            // @formatter:on
-        }
     }
 
     private static Method initializeClient;
