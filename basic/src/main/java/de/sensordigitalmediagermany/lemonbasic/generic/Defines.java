@@ -1,12 +1,15 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import java.lang.reflect.Method;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "UnusedAssignment", "unchecked"})
 public class Defines
 {
+    private static final String LOGTAG = Defines.class.getSimpleName();
+
     //
     // Debug stuff.
     //
@@ -191,10 +194,8 @@ public class Defines
     public static String FONT_DIALOG_INFOS     = GOTHAM_LIGHT;         // client!
     public static String FONT_DIALOG_EDITS     = GOTHAM_LIGHT;         // client!
     public static String FONT_DIALOG_BUTTON    = GOTHAM_BOLD;          // client!
-
     public static String FONT_GENERIC_BUTTON   = GOTHAM_BOLD;          // client!
     public static String FONT_GENERIC_EDIT     = GOTHAM_LIGHT;         // client!
-
     public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // client!
     public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // client!
     public static String FONT_SLIDER_ALL       = GOTHAMNARROW_LIGHT;   // client!
@@ -462,11 +463,15 @@ public class Defines
             Class defines = Class.forName("de.sensordigitalmediagermany.lemonbasic.client." + client);
             initializeClient = defines.getMethod("initialize");
 
+            Log.d(LOGTAG, "getInitClientClass: client=" + client + " yes.");
+
             return true;
         }
         catch (Exception ignore)
         {
         }
+
+        Log.d(LOGTAG, "getInitClientClass: client=" + client + " no.");
 
         return false;
     }

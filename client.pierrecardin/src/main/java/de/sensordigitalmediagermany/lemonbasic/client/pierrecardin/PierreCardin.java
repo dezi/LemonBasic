@@ -11,14 +11,14 @@ public class PierreCardin
     private static final String LOGTAG = PierreCardin.class.getSimpleName();
 
     // @formatter:off
-    private static final int COLOR_pierrecardin_LTBLUE      = 0xff657995;
-    private static final int COLOR_pierrecardin_DKBLUE      = 0xff3b4455;
-    private static final int COLOR_pierrecardin_DIALOGS     = 0xcc3b4455;
-    private static final int COLOR_pierrecardin_NAVIBAR     = 0xffedf0f4;
-    private static final int COLOR_pierrecardin_CONTENT     = 0xffb6c4d2;
-    private static final int COLOR_pierrecardin_FRAMES      = 0xffedeef1;
-    private static final int COLOR_pierrecardin_TABBAR      = 0xfff5f5f5;
-    private static final int COLOR_pierrecardin_BUTTONTEXT  = 0xfff5f5f5;
+    private static final int COLOR_PIERRECARDIN_LTBLUE      = 0xff657995;
+    private static final int COLOR_PIERRECARDIN_DKBLUE      = 0xff3b4455;
+    private static final int COLOR_PIERRECARDIN_DIALOGS     = 0xcc3b4455;
+    private static final int COLOR_PIERRECARDIN_NAVIBAR     = 0xffedf0f4;
+    private static final int COLOR_PIERRECARDIN_CONTENT     = 0xffb6c4d2;
+    private static final int COLOR_PIERRECARDIN_FRAMES      = 0xffedeef1;
+    private static final int COLOR_PIERRECARDIN_TABBAR      = 0xfff5f5f5;
+    private static final int COLOR_PIERRECARDIN_BUTTONTEXT  = 0xfff5f5f5;
     // @formatter:on
 
     // @formatter:off
