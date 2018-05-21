@@ -78,7 +78,7 @@ public class Defines
     public static final boolean isLoadedIcon         = isRainerAlbers || isMusterfirma;
     public static final boolean isStatusIcon         = isPierreCardin;
     public static final boolean isKaysNumbers        = isPierreCardin || isRainerAlbers || isMusterfirma;
-    public static final boolean isKaysHorzScroll     = isPierreCardin;
+    public static final boolean isKaysHorzScroll     = isPierreCardin || isMusterfirma;
     public static final boolean isAutoRefresh        = isPierreCardin;
     public static final boolean isDeleteCache        = isPierreCardin;
     public static final boolean isLoadAll            = isPierreCardin;

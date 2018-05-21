@@ -40,105 +40,105 @@ public class PierreCardin
 
         // @formatter:off
 
-        set("SETTINGS_IMAGE_SIZE"      , isTablet() ? 60 : 40);
+        set("SETTINGS_IMAGE_SIZE", isTablet() ? 60 : 40);
 
-        set("COLOR_NAVIBAR"           , COLOR_PCADIN_GRAY);
-        set("COLOR_TABBAR"            , COLOR_PCADIN_LTGRAY);
-        set("COLOR_CONTENT"           , COLOR_PCADIN_CONTENT);
-        set("COLOR_FRAMES"            , COLOR_PCADIN_LTGRAY);
-        set("COLOR_ASSETS"            , Color.WHITE);
-        set("COLOR_DIALOG_BACK"       , COLOR_PCADIN_LTGRAY);
-        set("COLOR_DIALOG_TITLE"      , Color.BLACK);
-        set("COLOR_DIALOG_INFOS"      , Color.BLACK);
-        set("COLOR_BUTTON_TEXT"       , COLOR_PCADIN_GRAY);
-        set("COLOR_BUTTON_BACK"       , Color.BLACK);
-        set("COLOR_ALERT_BACK"        , COLOR_PCADIN_LTGRAY);
-        set("COLOR_SETTINGS_HEADERS"  , Color.BLACK);
-        set("COLOR_SETTINGS_LIST"     , Color.WHITE);
-        set("COLOR_SETTINGS_LIST_SEL" , Color.BLACK);
-        set("COLOR_DETAIL_TITLE"      , Color.BLACK);
-        set("COLOR_PROGRESS_DONE"     , Color.BLACK);
-        set("COLOR_PROGRESS_NEED"     , Color.WHITE);
+        set("COLOR_NAVIBAR", COLOR_PCADIN_GRAY);
+        set("COLOR_TABBAR", COLOR_PCADIN_LTGRAY);
+        set("COLOR_CONTENT", COLOR_PCADIN_CONTENT);
+        set("COLOR_FRAMES", COLOR_PCADIN_LTGRAY);
+        set("COLOR_ASSETS", Color.WHITE);
+        set("COLOR_DIALOG_BACK", COLOR_PCADIN_LTGRAY);
+        set("COLOR_DIALOG_TITLE", Color.BLACK);
+        set("COLOR_DIALOG_INFOS", Color.BLACK);
+        set("COLOR_BUTTON_TEXT", COLOR_PCADIN_GRAY);
+        set("COLOR_BUTTON_BACK", Color.BLACK);
+        set("COLOR_ALERT_BACK", COLOR_PCADIN_LTGRAY);
+        set("COLOR_SETTINGS_HEADERS", Color.BLACK);
+        set("COLOR_SETTINGS_LIST", Color.WHITE);
+        set("COLOR_SETTINGS_LIST_SEL", Color.BLACK);
+        set("COLOR_DETAIL_TITLE", Color.BLACK);
+        set("COLOR_PROGRESS_DONE", Color.BLACK);
+        set("COLOR_PROGRESS_NEED", Color.WHITE);
 
-        set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.00f : isTablet() ? 3.00f : 3.00f);
-        set("ASSET_THUMBNAIL_ASPECT"  , isTablet() ? 1.30f : 1.00f);
-        set("ASSET_DETAIL_ASPECT"     , isWideScreen() ? 4.00f : isTablet() ? 3.20f : 3.20f);
-        set("ASSET_COURSE_ASPECT"     , isTablet() ? 5.90f : 3.40f);
-        set("ASSET_BANNER_ASPECT"     , isWideScreen() ? 4.80f : isTablet() ? 3.20f : 2.20f);
+        set("ASSET_SETTINGS_ASPECT", isWideScreen() ? 5.00f : isTablet() ? 3.00f : 3.00f);
+        set("ASSET_THUMBNAIL_ASPECT", isTablet() ? 1.30f : 1.00f);
+        set("ASSET_DETAIL_ASPECT", isWideScreen() ? 4.00f : isTablet() ? 3.20f : 3.20f);
+        set("ASSET_COURSE_ASPECT", isTablet() ? 5.90f : 3.40f);
+        set("ASSET_BANNER_ASPECT", isWideScreen() ? 4.80f : isTablet() ? 3.20f : 2.20f);
 
-        set("FONT_DIALOG_TITLE"       , FUTURA_BOOK);
-        set("FONT_DIALOG_INFOS"       , SOURCE_SERIF_LIGHT);
-        set("FONT_DIALOG_EDITS"       , FUTURA_LIGHT_REG);
-        set("FONT_DIALOG_BUTTON"      , FUTURA_BOOK);
+        set("FONT_DIALOG_TITLE", FUTURA_BOOK);
+        set("FONT_DIALOG_INFOS", SOURCE_SERIF_LIGHT);
+        set("FONT_DIALOG_EDITS", FUTURA_LIGHT_REG);
+        set("FONT_DIALOG_BUTTON", FUTURA_BOOK);
 
-        set("FONT_GENERIC_BUTTON"     , FUTURA_BOOK);
-        set("FONT_GENERIC_EDIT"       , FUTURA_LIGHT_REG);
-        set("FONT_ASSET_TITLE"        , FUTURA_LIGHT_REG);
-        set("FONT_ASSET_SUMMARY"      , FUTURA_LIGHT_REG);
-        set("FONT_SLIDER_ALL"         , FUTURA_LIGHT_REG);
-        set("FONT_SCALED_BUTTON"      , FUTURA_LIGHT_REG);
-        set("FONT_TABBAR_ENTRY"       , FUTURA_LIGHT_REG);
-        set("FONT_CATEGORY_TITLE"     , FUTURA_LIGHT_REG);
-        set("FONT_SETTINGS_HEADER"    , FUTURA_BOOK);
-        set("FONT_SETTINGS_SUBHEAD"   , FUTURA_BOOK);
-        set("FONT_SETTINGS_INFOS"     , FUTURA_LIGHT_REG);
-        set("FONT_SETTINGS_VERSION"   , FUTURA_LIGHT_REG);
-        set("FONT_SETTINGS_LIST"      , FUTURA_BOOK);
-        set("FONT_DETAILS_HEADER"     , FUTURA_BOOK);
-        set("FONT_DETAILS_SUBHEAD"    , FUTURA_LIGHT_REG);
-        set("FONT_DETAILS_TITLE"      , SOURCE_SERIF_BOLD);
-        set("FONT_DETAILS_INFOS"      , SOURCE_SERIF_LIGHT);
+        set("FONT_GENERIC_BUTTON", FUTURA_BOOK);
+        set("FONT_GENERIC_EDIT", FUTURA_LIGHT_REG);
+        set("FONT_ASSET_TITLE", FUTURA_LIGHT_REG);
+        set("FONT_ASSET_SUMMARY", FUTURA_LIGHT_REG);
+        set("FONT_SLIDER_ALL", FUTURA_LIGHT_REG);
+        set("FONT_SCALED_BUTTON", FUTURA_LIGHT_REG);
+        set("FONT_TABBAR_ENTRY", FUTURA_LIGHT_REG);
+        set("FONT_CATEGORY_TITLE", FUTURA_LIGHT_REG);
+        set("FONT_SETTINGS_HEADER", FUTURA_BOOK);
+        set("FONT_SETTINGS_SUBHEAD", FUTURA_BOOK);
+        set("FONT_SETTINGS_INFOS", FUTURA_LIGHT_REG);
+        set("FONT_SETTINGS_VERSION", FUTURA_LIGHT_REG);
+        set("FONT_SETTINGS_LIST", FUTURA_BOOK);
+        set("FONT_DETAILS_HEADER", FUTURA_BOOK);
+        set("FONT_DETAILS_SUBHEAD", FUTURA_LIGHT_REG);
+        set("FONT_DETAILS_TITLE", SOURCE_SERIF_BOLD);
+        set("FONT_DETAILS_INFOS", SOURCE_SERIF_LIGHT);
 
-        set("FS_DIALOG_TITLE"         , isTablet() ? 20 : 16);
-        set("FS_DIALOG_EDIT"          , isTablet() ? 18 : 16);
-        set("FS_DIALOG_BUTTON"        , isTablet() ? 16 : 14);
-        set("FS_DIALOG_INFO"          , isTablet() ? 16 : 14);
-        set("FS_GENERIC_BUTTON"       , isTablet() ? 16 : 14);
-        set("FS_GENERIC_EDIT"         , isTablet() ? 20 : 18);
-        set("FS_SCALED_BUTTON"        , isTablet() ? 14 : 13);
-        set("FS_NAVI_MENU"            , isTablet() ? 20 : 14);
-        set("FS_CATEGORY_TITLE"       , isTablet() ? 26 : 18);
-        set("FS_POPUP_MENU"           , isTablet() ? 18 : 16);
-        set("FS_DEBUG_VERSION"        , isTablet() ? 10 :  8);
-        set("FS_TABBAR_ENTRY"         , isTablet() ? 20 : 18);
-        set("FS_SLIDER_CATEGORY"      , isTablet() ? 18 : 16);
-        set("FS_SLIDER_SHOWMORE"      , isTablet() ? 14 : 12);
-        set("FS_BANNER_TITLE"         , isTablet() ? 20 : 18);
-        set("FS_BANNER_INFO"          , isTablet() ? 26 : 20);
-        set("FS_BANNER_BUTTON"        , isTablet() ? 16 : 14);
-        set("FS_ASSET_TITLE"          , isTablet() ? 13 : 11);
-        set("FS_ASSET_INFO"           , isTablet() ? 18 : 16);
-        set("FS_ASSET_OWNED"          , isTablet() ? 12 : 11);
-        set("FS_COINS_COINS"          , isTablet() ? 56 : 36);
-        set("FS_COINS_PRICE"          , isTablet() ? 26 : 22);
-        set("FS_COINS_BUTTONS"        , isTablet() ? 22 : 20);
-        set("FS_DETAIL_HEADER"        , isTablet() ? 16 : 14);
-        set("FS_DETAIL_SUBHEAD"       , isTablet() ? 30 : 20);
-        set("FS_DETAIL_TITLE"         , isTablet() ? 15 : 12);
-        set("FS_DETAIL_INFOS"         , isTablet() ? 13 : 11);
-        set("FS_DETAIL_SPECS"         , isTablet() ? 15 : 12);
-        set("FS_BUY_TITLE"            , isTablet() ? 16 : 14);
-        set("FS_BUY_HEADER"           , isTablet() ? 24 : 22);
-        set("FS_BUY_PRICE"            , isTablet() ? 48 : 40);
-        set("FS_SETTINGS_TITLE"       , isTablet() ? 17 : 16);
-        set("FS_SETTINGS_INFO"        , isTablet() ? 15 : 14);
-        set("FS_SETTINGS_BACK"        , isTablet() ? 15 : 12);
-        set("FS_SETTINGS_LIST"        , isTablet() ? 16 : 14);
-        set("FS_SETTINGS_MORE"        , isTablet() ? 24 : 22);
-        set("FS_TRAINING_TITLE"       , isTablet() ? 46 : 40);
-        set("FS_TRAINING_INFO"        , isTablet() ? 20 : 18);
-        set("FS_TRAINING_START"       , isTablet() ? 28 : 24);
-        set("FS_QUESTIONS_TITLE"      , isTablet() ? 18 : 16);
-        set("FS_QUESTIONS_QUESTION"   , isTablet() ? 36 : 32);
-        set("FS_QUESTIONS_ANSWER"     , isTablet() ? 20 : 16);
-        set("FS_OVERVIEW_NUMBER"      , isTablet() ? 24 : 22);
+        set("FS_DIALOG_TITLE", isTablet() ? 20 : 16);
+        set("FS_DIALOG_EDIT", isTablet() ? 18 : 16);
+        set("FS_DIALOG_BUTTON", isTablet() ? 16 : 14);
+        set("FS_DIALOG_INFO", isTablet() ? 16 : 14);
+        set("FS_GENERIC_BUTTON", isTablet() ? 16 : 14);
+        set("FS_GENERIC_EDIT", isTablet() ? 20 : 18);
+        set("FS_SCALED_BUTTON", isTablet() ? 14 : 13);
+        set("FS_NAVI_MENU", isTablet() ? 20 : 14);
+        set("FS_CATEGORY_TITLE", isTablet() ? 26 : 18);
+        set("FS_POPUP_MENU", isTablet() ? 18 : 16);
+        set("FS_DEBUG_VERSION", isTablet() ? 10 : 8);
+        set("FS_TABBAR_ENTRY", isTablet() ? 20 : 18);
+        set("FS_SLIDER_CATEGORY", isTablet() ? 18 : 16);
+        set("FS_SLIDER_SHOWMORE", isTablet() ? 14 : 12);
+        set("FS_BANNER_TITLE", isTablet() ? 20 : 18);
+        set("FS_BANNER_INFO", isTablet() ? 26 : 20);
+        set("FS_BANNER_BUTTON", isTablet() ? 16 : 14);
+        set("FS_ASSET_TITLE", isTablet() ? 13 : 11);
+        set("FS_ASSET_INFO", isTablet() ? 18 : 16);
+        set("FS_ASSET_OWNED", isTablet() ? 12 : 11);
+        set("FS_COINS_COINS", isTablet() ? 56 : 36);
+        set("FS_COINS_PRICE", isTablet() ? 26 : 22);
+        set("FS_COINS_BUTTONS", isTablet() ? 22 : 20);
+        set("FS_DETAIL_HEADER", isTablet() ? 16 : 14);
+        set("FS_DETAIL_SUBHEAD", isTablet() ? 30 : 20);
+        set("FS_DETAIL_TITLE", isTablet() ? 15 : 12);
+        set("FS_DETAIL_INFOS", isTablet() ? 13 : 11);
+        set("FS_DETAIL_SPECS", isTablet() ? 15 : 12);
+        set("FS_BUY_TITLE", isTablet() ? 16 : 14);
+        set("FS_BUY_HEADER", isTablet() ? 24 : 22);
+        set("FS_BUY_PRICE", isTablet() ? 48 : 40);
+        set("FS_SETTINGS_TITLE", isTablet() ? 17 : 16);
+        set("FS_SETTINGS_INFO", isTablet() ? 15 : 14);
+        set("FS_SETTINGS_BACK", isTablet() ? 15 : 12);
+        set("FS_SETTINGS_LIST", isTablet() ? 16 : 14);
+        set("FS_SETTINGS_MORE", isTablet() ? 24 : 22);
+        set("FS_TRAINING_TITLE", isTablet() ? 46 : 40);
+        set("FS_TRAINING_INFO", isTablet() ? 20 : 18);
+        set("FS_TRAINING_START", isTablet() ? 28 : 24);
+        set("FS_QUESTIONS_TITLE", isTablet() ? 18 : 16);
+        set("FS_QUESTIONS_QUESTION", isTablet() ? 36 : 32);
+        set("FS_QUESTIONS_ANSWER", isTablet() ? 20 : 16);
+        set("FS_OVERVIEW_NUMBER", isTablet() ? 24 : 22);
 
-        set("CORNER_RADIUS_BUTTON"    , 0);
-        set("CORNER_RADIUS_FRAMES"    , 0);
-        set("CORNER_RADIUS_BIGBUT"    , 0);
-        set("CORNER_RADIUS_OVERLAY"   , 0);
-        set("CORNER_RADIUS_DIALOG"    , 0);
-        set("CORNER_RADIUS_ASSETS"    , 0);
+        set("CORNER_RADIUS_BUTTON", 0);
+        set("CORNER_RADIUS_FRAMES", 0);
+        set("CORNER_RADIUS_BIGBUT", 0);
+        set("CORNER_RADIUS_OVERLAY", 0);
+        set("CORNER_RADIUS_DIALOG", 0);
+        set("CORNER_RADIUS_ASSETS", 0);
 
         setResId("notifyIconLargeRes", isTablet()
                 ? R.mipmap.lem_t_pierre_cardin
@@ -162,9 +162,9 @@ public class PierreCardin
                 ? R.drawable.lem_t_ipad_pierrecardin_profile
                 : -1);
 
-        setRect("contentScreenButtonProfileRect",isTablet()
-                        ? new Rect(1100, 39, 1500, 99)
-                        : null);
+        setRect("contentScreenButtonProfileRect", isTablet()
+                ? new Rect(1100, 39, 1500, 99)
+                : null);
 
         setResId("contentScreenHeaderRes", isTablet()
                 ? R.drawable.lem_t_ipad_pierrecardin_menuoben
@@ -185,6 +185,14 @@ public class PierreCardin
         setResId("contentScreenButtonBackOffRes", isTablet()
                 ? R.drawable.lem_t_iany_pierrecardin_back_off
                 : R.drawable.lem_t_iany_pierrecardin_back_off);
+
+        setRect("contentScreenBackIconRect", isTablet()
+                ? new Rect(44, 26, 94, 76)
+                : new Rect(30, 24, 70, 64));
+
+        setRect("contentScreenBackButtonRect", isTablet()
+                ? new Rect(24, 6, 114, 96)
+                : new Rect(10, 10, 90, 90));
 
         // @formatter:on
     }

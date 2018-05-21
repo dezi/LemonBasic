@@ -140,7 +140,8 @@ public class AssetsImageManager
             if (myBitmap == null) return null;
 
             int cornerRadius = rounded ? Defines.CORNER_RADIUS_ASSETS : 0;
-            Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, ivwidth, ivheight);
+            Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap,
+                    Simple.dipToPx(cornerRadius), ivwidth, ivheight);
 
             myBitmap.recycle();
 
@@ -186,7 +187,8 @@ public class AssetsImageManager
                 Simple.putFileBytes(cacheFile, rawimage);
 
                 int cornerRadius = rounded ? Defines.CORNER_RADIUS_ASSETS : 0;
-                Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap, cornerRadius, ivwidth, ivheight);
+                Bitmap rcBitmap = Simple.makeRoundedTopCornersBitmap(myBitmap,
+                        Simple.dipToPx(cornerRadius), ivwidth, ivheight);
 
                 myBitmap.recycle();
 

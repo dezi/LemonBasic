@@ -48,8 +48,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
 
-    //implementation project(':client.musterfirma');
-    implementation project(':client.raineralbers');
+    implementation project(':client.musterfirma');
+    //implementation project(':client.raineralbers');
     //implementation project(':client.pierrecardin');
 }
 

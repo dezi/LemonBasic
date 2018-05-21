@@ -21,7 +21,7 @@ public class Musterfirma
     private static final int COLOR_MUFIRM_CONTENT     = 0xffffffff;
     private static final int COLOR_MUFIRM_FRAMES      = 0xffE6E6E6;
     private static final int COLOR_MUFIRM_TABBAR      = 0xfff5f5f5;
-    private static final int COLOR_MUFIRM_BUTTONTEXT  = 0xfff5f5f5;
+    private static final int COLOR_MUFIRM_BUTTONTEXT  = 0xffB4B4B4;
     // @formatter:on
 
     // @formatter:off
@@ -195,6 +195,14 @@ public class Musterfirma
         setResId("contentScreenButtonBackOffRes", isTablet()
                 ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_back_off
                 : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_back_off);
+
+        setRect("contentScreenBackIconRect", isTablet()
+                ? new Rect(30, 22, 90, 82)
+                : new Rect(30, 10, 90, 70));
+
+        setRect("contentScreenBackButtonRect",isTablet()
+                ? new Rect(10, 10, 90, 90)
+                : new Rect(10, 10, 90, 90));
 
         // @formatter:on
     }

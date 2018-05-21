@@ -175,36 +175,22 @@ public class Screens
         return contentScreenButtonBackOffRes;
     }
 
+    public static Rect contentScreenBackIconRect = Simple.isTablet()
+            ? new Rect(30, 22, 90, 82)
+            : new Rect(30, 22, 90, 82);
+
     public static Rect getContentScreenBackIconRect()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? new Rect(44, 26, 94, 76)
-                    : new Rect(30, 24, 70, 64)
-                    ;
-        }
-
-        return Simple.isTablet()
-                ? new Rect(30, 22, 90, 82)
-                : new Rect(30, 22, 90, 82)
-                ;
+        return new Rect(contentScreenBackIconRect);
     }
+
+    public static Rect contentScreenBackButtonRect = Simple.isTablet()
+            ? new Rect(10, 10, 90, 90)
+            : new Rect(10, 10, 90, 90);
 
     public static Rect getContentScreenBackButtonRect()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? new Rect(24, 6, 114, 96)
-                    : new Rect(10, 10, 90, 90)
-                    ;
-        }
-
-        return Simple.isTablet()
-                ? new Rect(10, 10, 90, 90)
-                : new Rect(10, 10, 90, 90)
-                ;
+        return new Rect(contentScreenBackButtonRect);
     }
 
     public static int contentScreenButtonProfileRes = Simple.isTablet()
