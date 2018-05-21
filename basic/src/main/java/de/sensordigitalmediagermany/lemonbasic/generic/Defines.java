@@ -55,7 +55,7 @@ public class Defines
     // @formatter:off
     public static final boolean isGiveAway           = isPierreCardin || isMusterfirma;
     public static final boolean isLoginButton        = isRainerAlbers || isMusterfirma;
-    public static final boolean isSimpleLogin        = isPierreCardin;
+    public static final boolean isSimpleLogin        = isPierreCardin || isMusterfirma;
     public static final boolean isRegistration       = isRainerAlbers || isMusterfirma;
     public static final boolean isUserMenu           = isRainerAlbers || isMusterfirma;
     public static final boolean isTabBar             = isPierreCardin || isMusterfirma;

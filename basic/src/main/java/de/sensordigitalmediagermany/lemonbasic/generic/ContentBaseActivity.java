@@ -199,21 +199,7 @@ public class ContentBaseActivity extends FullScreenActivity
         contentScroll.setFocusable(false);
         contentScroll.setVisibility(View.GONE);
         Simple.setSizeDip(contentScroll, Simple.MP, Simple.MP, 1.0f);
-
-        if (Simple.isTablet())
-        {
-            Simple.setPaddingDip(contentScroll, Defines.PADDING_SMALL);
-        }
-        else
-        {
-            //
-            // Less spacy layout on phones.
-            //
-
-            Simple.setPaddingDip(contentScroll,
-                    Defines.PADDING_SMALL, Defines.PADDING_ZERO,
-                    Defines.PADDING_SMALL, Defines.PADDING_SMALL);
-        }
+        Simple.setPaddingDip(contentScroll, Defines.PADDING_SMALL);
 
         contentFrame.addView(contentScroll);
 

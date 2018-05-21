@@ -14,7 +14,7 @@ public class Musterfirma
     // @formatter:off
     private static final int COLOR_MUFIRM_LTBLUE      = 0xff657995;
     private static final int COLOR_MUFIRM_DKBLUE      = 0xff3b4455;
-    private static final int COLOR_MUFIRM_DIALOGS     = 0xcc3b4455;
+    private static final int COLOR_MUFIRM_DIALOGS     = 0xff0087EB;
     private static final int COLOR_MUFIRM_NAVIBAR     = 0xffedf0f4;
 
     // background
