@@ -216,21 +216,14 @@ public class Screens
         return contentScreenButtonProfileRes;
     }
 
+    public static Rect contentScreenButtonProfileRect = Simple.isTablet()
+            ? new Rect(100, 22, 500, 82)
+            : new Rect(100, 22, 160, 82);
+
     @Nullable
     public static Rect getContentScreenButtonProfileRect()
     {
-        if (Defines.isPierreCardin)
-        {
-            return Simple.isTablet()
-                    ? new Rect(1100, 39, 1500, 99)
-                    : null
-                    ;
-        }
-
-        return Simple.isTablet()
-                ? new Rect(100, 22, 500, 82)
-                : new Rect(100, 22, 160, 82)
-                ;
+        return new Rect(contentScreenButtonProfileRect);
     }
 
     @Nullable

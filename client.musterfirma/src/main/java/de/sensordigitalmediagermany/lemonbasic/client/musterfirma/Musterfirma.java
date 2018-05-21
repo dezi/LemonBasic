@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.client.musterfirma;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 
 import java.lang.reflect.Method;
@@ -18,7 +19,7 @@ public class Musterfirma
 
     // background
     private static final int COLOR_MUFIRM_CONTENT     = 0xffffffff;
-    private static final int COLOR_MUFIRM_FRAMES      = 0xffff0000;
+    private static final int COLOR_MUFIRM_FRAMES      = 0xffE6E6E6;
     private static final int COLOR_MUFIRM_TABBAR      = 0xfff5f5f5;
     private static final int COLOR_MUFIRM_BUTTONTEXT  = 0xfff5f5f5;
     // @formatter:on
@@ -46,6 +47,7 @@ public class Musterfirma
         set("COLOR_TABBAR"            , COLOR_MUFIRM_TABBAR);
         set("COLOR_CONTENT"           , COLOR_MUFIRM_CONTENT);
         set("COLOR_FRAMES"            , COLOR_MUFIRM_FRAMES);
+        set("COLOR_ASSETS"            , COLOR_MUFIRM_FRAMES);
         set("COLOR_DIALOG_BACK"       , COLOR_MUFIRM_DIALOGS);
         set("COLOR_DIALOG_TITLE"      , Color.WHITE);
         set("COLOR_DIALOG_INFOS"      , Color.WHITE);
@@ -144,11 +146,11 @@ public class Musterfirma
 
         setResId("splashScreenRes", isTablet()
                 ? -1
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_ralbers_splashscreen);
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_mufirma_splashscreen);
 
         setResId("mainScreenRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_ralbers_startscreen
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_ralbers_startscreen);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_mufirma_startscreen
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_mufirma_splashscreen);
 
         setResId("closeButtonRes", isTablet()
                 ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_kreuz
@@ -170,9 +172,13 @@ public class Musterfirma
                 ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_ralbers_profile
                 : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_ralbers_profile);
 
+        setRect("contentScreenButtonProfileRect",isTablet()
+                ? new Rect(100, 22, 500, 82)
+                : new Rect(493, 10, 553, 70));
+
         setResId("contentScreenHeaderRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_ralbers_menueoben
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_ralbers_menueoben);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_mufirma_menueoben
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_mufirma_menueoben);
 
         setResId("arrowWhiteLeftOnRes", isTablet()
                 ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_pfeillinks_weiss
@@ -228,6 +234,7 @@ public class Musterfirma
         }
         catch (Exception ignore)
         {
+            ignore.printStackTrace();
             Log.e(LOGTAG,"set: field=" + field + " value=" + value + " failed!");
         }
     }
@@ -243,6 +250,20 @@ public class Musterfirma
         catch (Exception ignore)
         {
             Log.e(LOGTAG,"set: field=" + field + " resId=" + resId + " failed!");
+        }
+    }
+
+    private static void setRect(String field, Rect rect)
+    {
+        try
+        {
+            screens.getField(field).set(null, rect);
+
+            Log.d(LOGTAG,"set: field=" + field + " rect=" + rect + " ok");
+        }
+        catch (Exception ignore)
+        {
+            Log.e(LOGTAG,"set: field=" + field + " rect=" + rect + " failed!");
         }
     }
 

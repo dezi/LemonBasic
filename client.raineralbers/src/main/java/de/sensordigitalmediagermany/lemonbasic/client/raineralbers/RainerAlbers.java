@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.client.raineralbers;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 
 import java.lang.reflect.Method;
@@ -54,6 +55,7 @@ public class RainerAlbers
         set("COLOR_TABBAR"            , COLOR_RALBERS_TABBAR);
         set("COLOR_CONTENT"           , COLOR_RALBERS_CONTENT);
         set("COLOR_FRAMES"            , COLOR_RALBERS_FRAMES);
+        set("COLOR_ASSETS"            , Color.WHITE);
         set("COLOR_DIALOG_BACK"       , COLOR_RALBERS_DIALOGS);
         set("COLOR_DIALOG_TITLE"      , Color.WHITE);
         set("COLOR_DIALOG_INFOS"      , Color.WHITE);
@@ -178,6 +180,10 @@ public class RainerAlbers
                 ? R.drawable.lem_t_ipad_ralbers_profile
                 : R.drawable.lem_t_ipho_ralbers_profile);
 
+        setRect("contentScreenButtonProfileRect",isTablet()
+                        ? new Rect(100, 22, 500, 82)
+                        : new Rect(100, 22, 160, 82));
+
         setResId("contentScreenHeaderRes", isTablet()
                 ? R.drawable.lem_t_ipad_ralbers_menueoben
                 : R.drawable.lem_t_ipho_ralbers_menueoben);
@@ -251,6 +257,20 @@ public class RainerAlbers
         catch (Exception ignore)
         {
             Log.e(LOGTAG,"set: field=" + field + " resId=" + resId + " failed!");
+        }
+    }
+
+    private static void setRect(String field, Rect rect)
+    {
+        try
+        {
+            screens.getField(field).set(null, rect);
+
+            Log.d(LOGTAG,"set: field=" + field + " rect=" + rect + " ok");
+        }
+        catch (Exception ignore)
+        {
+            Log.e(LOGTAG,"set: field=" + field + " rect=" + rect + " failed!");
         }
     }
 

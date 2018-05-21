@@ -170,7 +170,7 @@ public class AssetFrame extends GenericLinear
             radiusdipse[2] = Defines.CORNER_RADIUS_ASSETS;
             radiusdipse[3] = Defines.CORNER_RADIUS_ASSETS;
 
-            Simple.setRoundedCorners(textBox, radiusdipse, Color.WHITE, true);
+            Simple.setRoundedCorners(textBox, radiusdipse, Defines.COLOR_ASSETS, true);
         }
 
         if (Defines.isOverlayAsset)

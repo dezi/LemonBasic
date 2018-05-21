@@ -53,7 +53,7 @@ public class Defines
     //
 
     // @formatter:off
-    public static final boolean isGiveAway           = isPierreCardin;
+    public static final boolean isGiveAway           = isPierreCardin || isMusterfirma;
     public static final boolean isLoginButton        = isRainerAlbers || isMusterfirma;
     public static final boolean isSimpleLogin        = isPierreCardin;
     public static final boolean isRegistration       = isRainerAlbers || isMusterfirma;
@@ -137,6 +137,7 @@ public class Defines
     public static int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // client!
     public static int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // client!
     public static int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // client!
+    public static int COLOR_ASSETS            = Color.WHITE;             // client!
     public static int COLOR_DIALOG_BACK       = COLOR_SENSOR_DIALOGS;    // client!
     public static int COLOR_DIALOG_TITLE      = Color.WHITE;             // client!
     public static int COLOR_DIALOG_INFOS      = Color.WHITE;             // client!

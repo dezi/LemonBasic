@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.client.pierrecardin;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.util.Log;
 
 import java.lang.reflect.Method;
@@ -45,6 +46,7 @@ public class PierreCardin
         set("COLOR_TABBAR"            , COLOR_PCADIN_LTGRAY);
         set("COLOR_CONTENT"           , COLOR_PCADIN_CONTENT);
         set("COLOR_FRAMES"            , COLOR_PCADIN_LTGRAY);
+        set("COLOR_ASSETS"            , Color.WHITE);
         set("COLOR_DIALOG_BACK"       , COLOR_PCADIN_LTGRAY);
         set("COLOR_DIALOG_TITLE"      , Color.BLACK);
         set("COLOR_DIALOG_INFOS"      , Color.BLACK);
@@ -160,6 +162,10 @@ public class PierreCardin
                 ? R.drawable.lem_t_ipad_pierrecardin_profile
                 : -1);
 
+        setRect("contentScreenButtonProfileRect",isTablet()
+                        ? new Rect(1100, 39, 1500, 99)
+                        : null);
+
         setResId("contentScreenHeaderRes", isTablet()
                 ? R.drawable.lem_t_ipad_pierrecardin_menuoben
                 : R.drawable.lem_t_ipho_pierrecardin_menuoben);
@@ -233,6 +239,20 @@ public class PierreCardin
         catch (Exception ignore)
         {
             Log.e(LOGTAG,"set: field=" + field + " resId=" + resId + " failed!");
+        }
+    }
+
+    private static void setRect(String field, Rect rect)
+    {
+        try
+        {
+            screens.getField(field).set(null, rect);
+
+            Log.d(LOGTAG,"set: field=" + field + " rect=" + rect + " ok");
+        }
+        catch (Exception ignore)
+        {
+            Log.e(LOGTAG,"set: field=" + field + " rect=" + rect + " failed!");
         }
     }
 

@@ -157,13 +157,14 @@ public class ContentSlider extends LinearLayout
         };
 
         scrollView.setFocusable(false);
-        Simple.setSizeDip(scrollView, Simple.MP, Simple.pxToDip(imageHeight));
-
+        //Simple.setSizeDip(scrollView, Simple.MP, Simple.pxToDip(imageHeight));
+        Simple.setSizeDip(scrollView, Simple.MP, Simple.WC);
         addView(scrollView);
 
         scrollContent = new LinearLayout(getContext());
         scrollContent.setOrientation(LinearLayout.HORIZONTAL);
-        Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
+        //Simple.setSizeDip(scrollContent, Simple.WC, Simple.MP);
+        Simple.setSizeDip(scrollContent, Simple.WC, Simple.WC);
 
         scrollView.addView(scrollContent);
     }
@@ -185,7 +186,8 @@ public class ContentSlider extends LinearLayout
             if (asset == null) continue;
 
             FrameLayout imageCell = new FrameLayout(getContext());
-            Simple.setSizeDip(imageCell, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
+            //Simple.setSizeDip(imageCell, Simple.pxToDip(imageWidth), Simple.pxToDip(imageHeight));
+            Simple.setSizeDip(imageCell, Simple.pxToDip(imageWidth), Simple.WC);
             if (inx > 0) Simple.setMarginLeftDip(imageCell, Defines.PADDING_LARGE);
 
             scrollContent.addView(imageCell);
