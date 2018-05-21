@@ -16,7 +16,7 @@ public class Defines
 
     public static final boolean isDezi = false;
 
-    public static final String DEBUG_VERSION = "1.1 (23) 19.04.2018 12:00";
+    public static final String DEBUG_VERSION = "1.1 (24) 21.05.2018 09:00";
 
     //
     // Client resolution. Checks via reflection, which client module is available.
