@@ -25,6 +25,7 @@ public class Defines
     // @formatter:off
     protected static final boolean isPierreCardin = getInitClientClass("pierrecardin.PierreCardin");
     protected static final boolean isRainerAlbers = getInitClientClass("raineralbers.RainerAlbers");
+    protected static final boolean isMusterfirma  = getInitClientClass("musterfirma.Musterfirma");
     // @formatter:on
 
     //
@@ -32,7 +33,7 @@ public class Defines
     //
 
     // @formatter:off
-    public static final boolean isBasic   = isPierreCardin;
+    public static final boolean isBasic   = isPierreCardin || isMusterfirma;
     public static final boolean isTrainer = isRainerAlbers;
     // @formatter:on
 
@@ -53,30 +54,30 @@ public class Defines
 
     // @formatter:off
     public static final boolean isGiveAway           = isPierreCardin;
-    public static final boolean isLoginButton        = isRainerAlbers;
+    public static final boolean isLoginButton        = isRainerAlbers || isMusterfirma;
     public static final boolean isSimpleLogin        = isPierreCardin;
-    public static final boolean isRegistration       = isRainerAlbers;
-    public static final boolean isUserMenu           = isRainerAlbers;
-    public static final boolean isTabBar             = isPierreCardin;
-    public static final boolean isTopBanner          = isPierreCardin;
+    public static final boolean isRegistration       = isRainerAlbers || isMusterfirma;
+    public static final boolean isUserMenu           = isRainerAlbers || isMusterfirma;
+    public static final boolean isTabBar             = isPierreCardin || isMusterfirma;
+    public static final boolean isTopBanner          = isPierreCardin || isMusterfirma;
     public static final boolean isCategoryMenu       = isRainerAlbers;
-    public static final boolean isRoundedAsset       = isRainerAlbers;
+    public static final boolean isRoundedAsset       = isRainerAlbers || isMusterfirma;
     public static final boolean isOverlayAsset       = isPierreCardin;
     public static final boolean isSectionDividers    = isPierreCardin;
     public static final boolean isFlatEdits          = isPierreCardin;
-    public static final boolean isDialogTextCenter   = isRainerAlbers;
+    public static final boolean isDialogTextCenter   = isRainerAlbers || isMusterfirma;
     public static final boolean isCompactDetails     = isPierreCardin;
     public static final boolean isCompactSettings    = isPierreCardin;
     public static final boolean isDefaultButtonTrans = isPierreCardin;
     public static final boolean isHintsAllCaps       = isPierreCardin;
     public static final boolean isButtonAllCaps      = isPierreCardin;
-    public static final boolean isHeadersAllCaps     = isPierreCardin || isRainerAlbers;
+    public static final boolean isHeadersAllCaps     = isPierreCardin || isRainerAlbers || isMusterfirma;
     public static final boolean isInfosAllCaps       = isPierreCardin;
     public static final boolean isAskDownload        = isPierreCardin;
-    public static final boolean isCourseIcon         = isRainerAlbers;
-    public static final boolean isLoadedIcon         = isRainerAlbers;
+    public static final boolean isCourseIcon         = isRainerAlbers || isMusterfirma;
+    public static final boolean isLoadedIcon         = isRainerAlbers || isMusterfirma;
     public static final boolean isStatusIcon         = isPierreCardin;
-    public static final boolean isKaysNumbers        = isPierreCardin || isRainerAlbers;
+    public static final boolean isKaysNumbers        = isPierreCardin || isRainerAlbers || isMusterfirma;
     public static final boolean isKaysHorzScroll     = isPierreCardin;
     public static final boolean isAutoRefresh        = isPierreCardin;
     public static final boolean isDeleteCache        = isPierreCardin;

@@ -1,0 +1,6 @@
+<resources>
+
+    <string name="app_name">Musterfirma</string>
+    <string name="logoff_info">Do you really want to log out of the Musterfirma System?</string>
+
+</resources>
