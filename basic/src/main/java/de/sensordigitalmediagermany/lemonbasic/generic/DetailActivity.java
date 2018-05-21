@@ -615,8 +615,8 @@ public class DetailActivity extends ContentBaseActivity
         boolean gratis = (price == 0);
 
         String buyText = gratis
-                ? Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price))
-                : Simple.getTrans(this, R.string.detail_buy_gratis);
+                ? Simple.getTrans(this, R.string.detail_buy_gratis)
+                : Simple.getTrans(this, R.string.detail_buy_price, String.valueOf(price));
 
         if (bought || (gratis && Defines.isGiveAway))
         {
