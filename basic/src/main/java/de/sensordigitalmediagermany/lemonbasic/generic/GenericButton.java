@@ -73,18 +73,35 @@ public class GenericButton extends TextView implements GenericFocus
     {
         isDefaultButton = set;
 
-        if (isDefaultButton)
+        if (Defines.isSolidButton)
         {
-            backgroundColor = Defines.COLOR_BUTTON_BACK;
-            super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.WHITE : Color.BLACK);
+            if (isDefaultButton)
+            {
+                backgroundColor = Defines.COLOR_BUTTON_BACK;
+            }
+            else
+            {
+                backgroundColor = Defines.COLOR_BUTTON_DIALOG;
+            }
+
+            super.setTextColor(Color.WHITE);
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, backgroundColor);
         }
         else
         {
-            backgroundColor = Defines.isDefaultButtonTrans ? Color.TRANSPARENT : Defines.COLOR_BUTTON_BACK;
-            super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.BLACK : Color.WHITE);
-        }
+            if (isDefaultButton)
+            {
+                backgroundColor = Defines.COLOR_BUTTON_BACK;
+                super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.WHITE : Color.BLACK);
+            }
+            else
+            {
+                backgroundColor = Defines.isDefaultButtonTrans ? Color.TRANSPARENT : Defines.COLOR_BUTTON_BACK;
+                super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.BLACK : Color.WHITE);
+            }
 
-        Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_BACK);
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_BACK);
+        }
     }
 
     public void setFullWidth(boolean set)

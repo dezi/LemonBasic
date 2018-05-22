@@ -12,8 +12,9 @@ public class Musterfirma
     private static final String LOGTAG = Musterfirma.class.getSimpleName();
 
     // @formatter:off
-    private static final int COLOR_MUFIRM_LTBLUE      = 0xff657995;
-    private static final int COLOR_MUFIRM_DKBLUE      = 0xff3b4455;
+    private static final int COLOR_MUFIRM_GREEN       = 0xff8CC800;
+    private static final int COLOR_MUFIRM_LTBLUE      = 0xff0094FF;
+    private static final int COLOR_MUFIRM_DKBLUE      = 0xff0078DC;
     private static final int COLOR_MUFIRM_DIALOGS     = 0xff0087EB;
     private static final int COLOR_MUFIRM_NAVIBAR     = 0xffedf0f4;
 
@@ -52,8 +53,11 @@ public class Musterfirma
         set("COLOR_DIALOG_BACK"       , COLOR_MUFIRM_DIALOGS);
         set("COLOR_DIALOG_TITLE"      , Color.WHITE);
         set("COLOR_DIALOG_INFOS"      , Color.WHITE);
-        set("COLOR_BUTTON_TEXT"       , COLOR_MUFIRM_BUTTONTEXT);
-        set("COLOR_BUTTON_BACK"       , COLOR_MUFIRM_LTBLUE);
+
+        set("COLOR_BUTTON_TEXT"       , 0xffB4B4B4);
+        set("COLOR_BUTTON_DIALOG"     , COLOR_MUFIRM_LTBLUE);
+        set("COLOR_BUTTON_BACK"       , COLOR_MUFIRM_GREEN);
+
         set("COLOR_ALERT_BACK"        , COLOR_MUFIRM_DIALOGS);
         set("COLOR_SETTINGS_HEADERS"  , COLOR_MUFIRM_DKBLUE);
         set("COLOR_SETTINGS_LIST"     , COLOR_MUFIRM_NAVIBAR);

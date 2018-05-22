@@ -1,6 +1,7 @@
 package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.content.Context;
+import android.graphics.Color;
 
 public class DialogButton extends GenericButton
 {
@@ -27,5 +28,31 @@ public class DialogButton extends GenericButton
     public String getFontName()
     {
         return Defines.FONT_DIALOG_BUTTON;
+    }
+
+    @Override
+    public void setDefaultButton(boolean set)
+    {
+        if (Defines.isSolidButton)
+        {
+            int backgroundColor;
+
+            if (set)
+            {
+                backgroundColor = Defines.COLOR_BUTTON_BACK;
+                super.setTextColor(Color.WHITE);
+            }
+            else
+            {
+                backgroundColor = Color.WHITE;
+                super.setTextColor(Defines.COLOR_BUTTON_DIALOG);
+            }
+
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_DIALOG);
+        }
+        else
+        {
+            super.setDefaultButton(set);
+        }
     }
 }
