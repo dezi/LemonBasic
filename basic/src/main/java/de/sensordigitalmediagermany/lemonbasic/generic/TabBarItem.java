@@ -47,7 +47,7 @@ public class TabBarItem extends RelativeLayout
         textView.setSingleLine(true);
         textView.setAllCaps(true);
         textView.setTextColor(Defines.COLOR_BUTTON_TEXT);
-        textView.setTypeface(Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_TABBAR_ENTRY));
+        textView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_TABBAR_ENTRY));
         Simple.setSizeDip(textView, Simple.WC, Simple.MP);
         Simple.setTextSizeDip(textView, Defines.FS_TABBAR_ENTRY);
         Simple.setPaddingDip(textView, 0, 0, Defines.PADDING_SMALL, 0);
@@ -66,6 +66,5 @@ public class TabBarItem extends RelativeLayout
         textView.setText(textresid);
 
         iconView.setImageResource(iconresid);
-
     }
 }

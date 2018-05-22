@@ -176,8 +176,8 @@ public class Musterfirma
                 : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_course_symbol);
 
         setResId("contentScreenButtonProfileRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_ralbers_profile
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_ralbers_profile);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_mufiram_profile
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_mufiram_profile);
 
         setRect("contentScreenButtonProfileRect",isTablet()
                 ? new Rect(100, 22, 500, 82)
@@ -196,12 +196,12 @@ public class Musterfirma
                 : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_pfeillinks_dunkel);
 
         setResId("contentScreenButtonBackOnRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_back_on
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_back_on);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_mufiram_back_on
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_mufiram_back_on);
 
         setResId("contentScreenButtonBackOffRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_back_off
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_back_off);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_mufiram_back_off
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_mufiram_back_off);
 
         setRect("contentScreenBackIconRect", isTablet()
                 ? new Rect(30, 22, 90, 82)
