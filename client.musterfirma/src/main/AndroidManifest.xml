@@ -2,7 +2,7 @@
     package="de.sensordigitalmediagermany.lemonbasic.client.musterfirma">
 
     <application
-        android:icon="@mipmap/lem_t_rainer_albers">
+        android:icon="@mipmap/ic_launcher">
     </application>
 
 </manifest>

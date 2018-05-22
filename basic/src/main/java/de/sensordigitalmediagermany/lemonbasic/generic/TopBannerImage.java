@@ -65,6 +65,12 @@ public class TopBannerImage extends FrameLayout
         infoContent = new GenericLinear(context);
         infoContent.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(infoContent, Simple.MP, Simple.WC);
+        Simple.setPaddingDip(infoContent, Defines.CORNER_RADIUS_TOPBANNER);
+        Simple.setRoundedCorners(
+                infoContent,
+                Defines.CORNER_RADIUS_TOPBANNER,
+                Defines.COLOR_TOPBANNER_BG,
+                Defines.COLOR_TOPBANNER_BG);
 
         infoCenter.addView(infoContent);
 

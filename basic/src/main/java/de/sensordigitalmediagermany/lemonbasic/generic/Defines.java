@@ -74,7 +74,7 @@ public class Defines
     public static final boolean isHeadersAllCaps     = isPierreCardin || isRainerAlbers || isMusterfirma;
     public static final boolean isInfosAllCaps       = isPierreCardin;
     public static final boolean isAskDownload        = isPierreCardin;
-    public static final boolean isCourseIcon         = isRainerAlbers || isMusterfirma;
+    public static final boolean isCourseIcon         = isRainerAlbers;
     public static final boolean isLoadedIcon         = isRainerAlbers || isMusterfirma;
     public static final boolean isStatusIcon         = isPierreCardin;
     public static final boolean isKaysNumbers        = isPierreCardin || isRainerAlbers || isMusterfirma;
@@ -150,6 +150,7 @@ public class Defines
     public static int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // client!
     public static int COLOR_PROGRESS_DONE     = Color.GREEN;             // client!
     public static int COLOR_PROGRESS_NEED     = Color.YELLOW;            // client!
+    public static int COLOR_TOPBANNER_BG      = Color.TRANSPARENT  ;     // client!
     // @formatter:on
 
     //
@@ -157,12 +158,13 @@ public class Defines
     //
 
     // @formatter:off
-    public static int CORNER_RADIUS_BUTTON  =  3; // client!
-    public static int CORNER_RADIUS_FRAMES  =  8; // client!
-    public static int CORNER_RADIUS_BIGBUT  =  8; // client!
-    public static int CORNER_RADIUS_OVERLAY = 10; // client!
-    public static int CORNER_RADIUS_DIALOG  = 16; // client!
-    public static int CORNER_RADIUS_ASSETS  = 16; // client!
+    public static int CORNER_RADIUS_BUTTON    =  3; // client!
+    public static int CORNER_RADIUS_FRAMES    =  8; // client!
+    public static int CORNER_RADIUS_BIGBUT    =  8; // client!
+    public static int CORNER_RADIUS_OVERLAY   = 10; // client!
+    public static int CORNER_RADIUS_DIALOG    = 16; // client!
+    public static int CORNER_RADIUS_ASSETS    = 16; // client!
+    public static int CORNER_RADIUS_TOPBANNER =  0; // client!
     // @formatter:on
 
     //

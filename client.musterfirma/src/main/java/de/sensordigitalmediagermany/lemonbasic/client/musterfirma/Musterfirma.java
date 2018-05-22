@@ -18,10 +18,11 @@ public class Musterfirma
     private static final int COLOR_MUFIRM_NAVIBAR     = 0xffedf0f4;
 
     // background
-    private static final int COLOR_MUFIRM_CONTENT     = 0xffffffff;
-    private static final int COLOR_MUFIRM_FRAMES      = 0xffE6E6E6;
-    private static final int COLOR_MUFIRM_TABBAR      = 0xfff5f5f5;
-    private static final int COLOR_MUFIRM_BUTTONTEXT  = 0xffB4B4B4;
+    private static final int COLOR_MUFIRM_CONTENT      = 0xffffffff;
+    private static final int COLOR_MUFIRM_FRAMES       = 0xffE6E6E6;
+    private static final int COLOR_MUFIRM_TABBAR       = 0xfff5f5f5;
+    private static final int COLOR_MUFIRM_BUTTONTEXT   = 0xffB4B4B4;
+    private static final int COLOR_MUFIRM_TOPBANNER_BG = 0xff0094ff;
     // @formatter:on
 
     // @formatter:off
@@ -60,6 +61,7 @@ public class Musterfirma
         set("COLOR_DETAIL_TITLE"      , COLOR_MUFIRM_LTBLUE);
         set("COLOR_PROGRESS_DONE"     , Color.GREEN);
         set("COLOR_PROGRESS_NEED"     , Color.YELLOW);
+        set("COLOR_TOPBANNER_BG"      , COLOR_MUFIRM_TOPBANNER_BG);
 
         set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.00f : isTablet() ? 3.5f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT"  , 1.9f);
@@ -139,10 +141,11 @@ public class Musterfirma
         set("CORNER_RADIUS_OVERLAY"   , 10);
         set("CORNER_RADIUS_DIALOG"    , 16);
         set("CORNER_RADIUS_ASSETS"    , 16);
+        set("CORNER_RADIUS_TOPBANNER" , 20);
 
         setResId("notifyIconLargeRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.mipmap.lem_t_rainer_albers
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.mipmap.lem_t_rainer_albers);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.mipmap.ic_launcher
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.mipmap.ic_launcher);
 
         setResId("splashScreenRes", isTablet()
                 ? -1

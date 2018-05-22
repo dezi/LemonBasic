@@ -12,8 +12,8 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
-        //applicationId 'de.sensordigitalmediagermany.lemonbasic.sensordemo'
-        applicationId 'de.sensordigitalmediagermany.lemontrainer.raineralbers'
+        applicationId 'de.sensordigitalmediagermany.lemonbasic.musterfirma'
+        //applicationId 'de.sensordigitalmediagermany.lemontrainer.raineralbers'
         //applicationId 'de.sensordigitalmediagermany.lemonbasic.pierrecardin'
         minSdkVersion 17
         targetSdkVersion 27
@@ -48,8 +48,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
 
-    //implementation project(':client.musterfirma');
-    implementation project(':client.raineralbers');
+    implementation project(':client.musterfirma');
+    //implementation project(':client.raineralbers');
     //implementation project(':client.pierrecardin');
 }
 
