@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "132159919199",
+    "firebase_url": "https://lemon-basic-musterfirma.firebaseio.com",
+    "project_id": "lemon-basic-musterfirma",
+    "storage_bucket": "lemon-basic-musterfirma.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:132159919199:android:990e7c031fd86bfd",
+        "android_client_info": {
+          "package_name": "de.sensordigitalmediagermany.lemonbasic.musterfirma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "132159919199-eoedfrp1l4c2o5rqf00cvpcl4nrome9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_ozH5C58-1dAX5Tiwyfp4-ZZwZkd_144"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
