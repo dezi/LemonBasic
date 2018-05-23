@@ -310,8 +310,8 @@ public class Defines
     public static final float FS_DIALOGS_LSMULT     = Simple.isTablet() ? 1.20f : 1.10f;
     public static final float FS_CONFIRMED_LSMULT   = Simple.isTablet() ? 1.50f : 1.30f;
 
-    public static final float LETTERSPACE_GENERIC_BUTTON = 0.12f;
-    public static final float LETTERSPACE_GENERIC_HEADER = 0.12f;
+    public static final float LETTERSPACE_GENERIC_BUTTON = 0.06f;
+    public static final float LETTERSPACE_GENERIC_HEADER = 0.06f;
 
     public static final float FS_NAVIGATION_LSSPACE = 0.08f;
     // @formatter:on
@@ -354,6 +354,7 @@ public class Defines
     // @formatter:off
     public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
     public static       int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56; // client!
+    public static final int RATE_ICON_SIZE      = Simple.isTablet() ?  32 :  24;
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  36 :  24;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;

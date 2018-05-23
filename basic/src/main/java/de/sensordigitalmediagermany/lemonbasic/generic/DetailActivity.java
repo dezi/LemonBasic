@@ -361,9 +361,9 @@ public class DetailActivity extends ContentBaseActivity
         else
         {
             Simple.setMarginTopDip(miscAreaVert, Defines.PADDING_NORMAL);
-            Simple.setSizeDip(specsArea, Simple.MP, Simple.MP, 1.0f);
+            Simple.setSizeDip(specsArea, Simple.MP, Simple.WC, 1.0f);
 
-            Simple.setSizeDip(miscAreaHorz, Simple.MP, Simple.MP);
+            Simple.setSizeDip(miscAreaHorz, Simple.MP, Simple.WC, 1.0f);
             miscAreaHorz.addView(specsArea);
         }
 
@@ -411,41 +411,7 @@ public class DetailActivity extends ContentBaseActivity
 
         specsArea.addView(createSeparator());
 
-        if (Defines.isCompactDetails)
-        {
-            boolean isCached = ContentHandler.isCachedContent(Globals.displayContent);
-
-            LinearLayout statusBox = new LinearLayout(this);
-            statusBox.setOrientation(LinearLayout.HORIZONTAL);
-            Simple.setSizeDip(statusBox, Simple.MP, Simple.WC);
-
-            specsArea.addView(statusBox);
-
-            statusIcon = new ImageView(this);
-            statusIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            Simple.setSizeDip(statusIcon, Defines.LOADED_ICON_SIZE, Defines.LOADED_ICON_SIZE);
-            Simple.setPaddingDip(statusIcon, Defines.PADDING_TINY);
-            Simple.setMarginRightDip(statusIcon, Defines.PADDING_SMALL);
-
-            statusIcon.setImageResource(isCached
-                    ? R.drawable.lem_t_iany_generic_content_online
-                    : R.drawable.lem_t_iany_generic_content_offline
-            );
-
-            statusBox.addView(statusIcon);
-
-            statusView = new TableLikeLayout(this, headerTF, infosTF, verticalTags);
-
-            statusView.setLeftText(R.string.detail_specs_status);
-
-            statusView.setRightText(isCached
-                    ? R.string.detail_specs_status_online
-                    : R.string.detail_specs_status_offline
-            );
-
-            statusBox.addView(statusView);
-        }
-        else
+        if (! Defines.isCompactDetails)
         {
             TableLikeLayout sizeView = new TableLikeLayout(this, headerTF, infosTF, verticalTags);
             sizeView.setLeftText(R.string.detail_specs_size);
@@ -472,13 +438,60 @@ public class DetailActivity extends ContentBaseActivity
             }
         }
 
+        if (Defines.isCompactDetails || Defines.isBasicDetails)
+        {
+            boolean isCached = ContentHandler.isCachedContent(Globals.displayContent);
+
+            LinearLayout statusBox = new LinearLayout(this);
+            statusBox.setOrientation(LinearLayout.HORIZONTAL);
+            Simple.setSizeDip(statusBox, Simple.MP, Simple.WC);
+
+            specsArea.addView(statusBox);
+
+            statusIcon = new ImageView(this);
+            statusIcon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            Simple.setSizeDip(statusIcon, Defines.LOADED_ICON_SIZE, Defines.LOADED_ICON_SIZE);
+            Simple.setPaddingDip(statusIcon, Defines.PADDING_TINY);
+            Simple.setMarginRightDip(statusIcon, Defines.PADDING_SMALL);
+
+            if (Defines.isBasicDetails)
+            {
+                statusIcon.setImageResource(isCached
+                        ? R.drawable.lem_t_iany_basic_content_online
+                        : R.drawable.lem_t_iany_basic_content_offline
+                );
+            }
+            else
+            {
+                statusIcon.setImageResource(isCached
+                        ? R.drawable.lem_t_iany_generic_content_online
+                        : R.drawable.lem_t_iany_generic_content_offline
+                );
+            }
+
+            statusBox.addView(statusIcon);
+
+            statusView = new TableLikeLayout(this, headerTF, infosTF, verticalTags);
+
+            statusView.setLeftText(R.string.detail_specs_status);
+
+            statusView.setRightText(isCached
+                    ? R.string.detail_specs_status_online
+                    : R.string.detail_specs_status_offline
+            );
+
+            statusBox.addView(statusView);
+        }
+
         //endregion Technical specs area.
 
         //region Feedback area.
 
+        LinearLayout feedArea = null;
+
         if (Defines.isDetailFeedback)
         {
-            LinearLayout feedArea = new LinearLayout(this);
+            feedArea = new LinearLayout(this);
             feedArea.setOrientation(LinearLayout.VERTICAL);
             Simple.setRoundedCorners(feedArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
 
@@ -492,8 +505,6 @@ public class DetailActivity extends ContentBaseActivity
             }
 
             Simple.setSizeDip(feedArea, Simple.MP, Simple.MP, 0.7f);
-
-            miscAreaVert.addView(feedArea);
 
             TextView feedTitle = new TextView(this);
             feedTitle.setText("Feedback");
@@ -526,7 +537,7 @@ public class DetailActivity extends ContentBaseActivity
                 ImageView rateStar = new ImageView(this);
                 rateStar.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 rateStar.setImageResource(R.drawable.lem_t_iany_generic_ratestar_on);
-                Simple.setSizeDip(rateStar, 32, 32);
+                Simple.setSizeDip(rateStar, Defines.RATE_ICON_SIZE, Defines.RATE_ICON_SIZE);
 
                 rateFrame.addView(rateStar);
             }
@@ -552,15 +563,20 @@ public class DetailActivity extends ContentBaseActivity
         {
             Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.WC);
 
+            if (feedArea != null) miscAreaVert.addView(feedArea);
+
             miscAreaVert.addView(buyloadAreaVert);
         }
         else
         {
             buyloadAreaVert.setGravity(Gravity.BOTTOM);
-            Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.MP, 0.5f);
+            Simple.setSizeDip(buyloadAreaVert, Simple.MP, Simple.WC, 1.0f);
             Simple.setMarginLeftDip(buyloadAreaVert, Defines.PADDING_LARGE);
+            Simple.setMarginBottomDip(infoAreaVert, Defines.PADDING_SMALL);
 
             miscAreaHorz.addView(buyloadAreaVert);
+
+            if (feedArea != null) buyloadAreaVert.addView(feedArea);
         }
 
         //region Suitable for area.
@@ -683,12 +699,8 @@ public class DetailActivity extends ContentBaseActivity
     {
         RelativeLayout separ = new RelativeLayout(this);
 
-        if (Simple.isTablet())
+        if (Simple.isTablet() || Defines.isBasicDetails)
         {
-            //
-            // Separator only visible in tablet version.
-            //
-
             separ.setBackgroundColor(Defines.COLOR_SEPA_LINE);
             Simple.setSizeDip(separ, Simple.MP, 1);
         }

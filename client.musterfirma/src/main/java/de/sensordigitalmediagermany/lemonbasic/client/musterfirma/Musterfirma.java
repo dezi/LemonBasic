@@ -78,7 +78,7 @@ public class Musterfirma
 
         set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.00f : isTablet() ? 3.5f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT"  , 1.9f);
-        set("ASSET_DETAIL_ASPECT"     , 3.2f);
+        set("ASSET_DETAIL_ASPECT"     , isTablet() ? 3.2f : 2.0f);
         set("ASSET_COURSE_ASPECT"     , 3.5f);
         set("ASSET_BANNER_ASPECT"     , isTablet() ? 3.6f : 2.0f);
 
@@ -109,7 +109,7 @@ public class Musterfirma
         set("FS_DIALOG_EDIT"          , isTablet() ? 18 : 16);
         set("FS_DIALOG_BUTTON"        , isTablet() ? 16 : 14);
         set("FS_DIALOG_INFO"          , isTablet() ? 16 : 14);
-        set("FS_GENERIC_BUTTON"       , isTablet() ? 16 : 14);
+        set("FS_GENERIC_BUTTON"       , isTablet() ? 16 : 13);
         set("FS_GENERIC_EDIT"         , isTablet() ? 20 : 18);
         set("FS_SCALED_BUTTON"        , isTablet() ? 16 : 14);
         set("FS_NAVI_MENU"            , isTablet() ? 20 : 14);
