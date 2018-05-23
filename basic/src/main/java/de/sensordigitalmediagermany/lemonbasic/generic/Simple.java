@@ -940,7 +940,12 @@ public class Simple
         Canvas canvas = new Canvas(output);
         canvas.drawARGB(0, 0, 0, 0);
 
-        Rect srcrect = new Rect(0, 0, width, height);
+        int leftoff = (bmwidth - width) / 2;
+        int topoff = (bmheight - height) / 2;
+
+        //Log.d(LOGTAG, "makeRoundedTopCornersBitmap: bmwidth=" + bmwidth + " bmheight=" + bmheight + " width=" + width + " height=" + height + " ivwidth=" + ivwidth + " ivheight=" + ivheight + " leftoff=" + leftoff + " topoff=" + topoff);
+
+        Rect srcrect = new Rect(leftoff, topoff, leftoff + width, topoff + height);
         Rect dstrect = new Rect(0, 0, ivwidth, ivheight);
         RectF rectF = new RectF(dstrect);
 
