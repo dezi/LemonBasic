@@ -16,7 +16,7 @@ public class Defines
 
     public static final boolean isDezi = false;
 
-    public static final String DEBUG_VERSION = "1.1 (24) 21.05.2018 09:00";
+    public static final String DEBUG_VERSION = "1.1 (24)";
 
     //
     // Client resolution. Checks via reflection, which client module is available.
@@ -66,7 +66,7 @@ public class Defines
     public static final boolean isRoundedAsset       = isRainerAlbers || isMusterfirma;
     public static final boolean isOverlayAsset       = isPierreCardin;
     public static final boolean isSectionDividers    = isPierreCardin || isMusterfirma;
-    public static final boolean isFlatEdits          = isPierreCardin;
+    public static final boolean isFlatEdits          = isPierreCardin || isMusterfirma;
     public static final boolean isDialogTextCenter   = isRainerAlbers || isMusterfirma;
     public static final boolean isCompactDetails     = isPierreCardin;
     public static final boolean isCompactSettings    = isPierreCardin;

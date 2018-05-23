@@ -15,6 +15,8 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.SocketImpl;
+
 @SuppressWarnings("unused")
 public class SettingsActivity extends ContentBaseActivity
 {
@@ -52,7 +54,7 @@ public class SettingsActivity extends ContentBaseActivity
         Typeface versionTF = Typeface.createFromAsset(getAssets(), Defines.FONT_SETTINGS_VERSION);
 
         String screendim = Simple.getDeviceWidth(this) + ":" + Simple.getDeviceHeight(this);
-        String version = Defines.DEBUG_VERSION + " " + "(" + screendim + ")";
+        String version = Defines.DEBUG_VERSION;
 
         int topHeight = Defines.FS_SETTINGS_TITLE * (Simple.isWideScreen() ? 2 : 3);
 
@@ -146,9 +148,16 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Simple.isTablet())
         {
-            leftTopArea.setOrientation(LinearLayout.VERTICAL);
+            if (Defines.isBasicLayout)
+            {
+                leftTopArea.setOrientation(LinearLayout.HORIZONTAL);
+            }
+            else
+            {
+                leftTopArea.setOrientation(LinearLayout.VERTICAL);
+            }
 
-            Simple.setMarginTopDip(leftTopArea, Simple.isWideScreen() ? Defines.PADDING_ZERO :Defines.PADDING_SMALL);
+            Simple.setMarginTopDip(leftTopArea, Simple.isWideScreen() ? Defines.PADDING_ZERO : Defines.PADDING_SMALL);
             Simple.setSizeDip(leftTopArea, Simple.MP, topHeight);
         }
         else
@@ -168,15 +177,14 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Defines.isTabBar)
         {
-            String versiontxt = Simple.getTrans(this, R.string.settings_version) + " " + version;
-
             SettingsInfoText systemVersion = new SettingsInfoText(this);
-            systemVersion.setText(versiontxt);
+            systemVersion.setText(version);
             systemVersion.setTextSizeDip(Defines.FS_DEBUG_VERSION);
             systemVersion.setMarginTopDip(Defines.PADDING_ZERO);
             systemVersion.setGravity(Gravity.CENTER_VERTICAL + Gravity.END);
             systemVersion.setFullWidth(! Simple.isTablet());
             systemVersion.setFullHeight(true);
+            systemVersion.setBackgroundColor(Color.TRANSPARENT);
 
             leftTopArea.addView(systemVersion);
         }
@@ -299,7 +307,7 @@ public class SettingsActivity extends ContentBaseActivity
             copyRight.setText(copy);
             copyRight.setTextColor(Color.DKGRAY);
             copyRight.setTypeface(versionTF);
-            Simple.setTextSizeDip(copyRight, Defines.FS_DEBUG_VERSION);
+            Simple.setTextSizeDip(copyRight, Defines.FS_SETTINGS_INFO);
             Simple.setSizeDip(copyRight, Simple.MP, Simple.WC);
 
             logoffArea.addView(copyRight);
@@ -405,7 +413,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         rightTopArea.addView(contentTitle);
 
-        if (Defines.isTabBar)
+        if (Defines.isTabBar && ! Defines.isBasicLayout)
         {
             diskFree = new SettingsInfoText(this);
             diskFree.setTextSizeDip(Defines.FS_DEBUG_VERSION);

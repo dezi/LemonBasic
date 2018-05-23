@@ -115,7 +115,7 @@ public class Musterfirma
         set("FS_NAVI_MENU"            , isTablet() ? 20 : 14);
         set("FS_CATEGORY_TITLE"       , isTablet() ? 26 : 18);
         set("FS_POPUP_MENU"           , isTablet() ? 18 : 16);
-        set("FS_DEBUG_VERSION"        , isTablet() ? 13 : 12);
+        set("FS_DEBUG_VERSION"        , isTablet() ? 12 : 10);
         set("FS_TABBAR_ENTRY"         , isTablet() ? 20 : 18);
         set("FS_SLIDER_CATEGORY"      , isTablet() ? 18 : 16);
         set("FS_SLIDER_SHOWMORE"      , isTablet() ? 14 : 12);

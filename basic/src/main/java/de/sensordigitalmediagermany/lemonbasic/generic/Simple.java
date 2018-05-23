@@ -118,7 +118,7 @@ public class Simple
         int width = getDeviceWidth(context);
         int height = getDeviceHeight(context);
 
-        iswide = (width / (float) height) > (4 / 3f);
+        iswide = istv && (width / (float) height) > (4 / 3f);
     }
 
     public static boolean isWideScreen()
