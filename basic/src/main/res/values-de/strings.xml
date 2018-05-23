@@ -99,7 +99,7 @@
     <string name="settings_logoff">Abmelden</string>
     <string name="settings_contents">Inhalte verwalten</string>
     <string name="settings_your_contents">Ihre geladenen Lerninhalte</string>
-    <string name="settings_used_storage">Benutzter Speicher:</string>
+    <string name="settings_used_storage">Benutzter Speicher</string>
     <string name="settings_used_storage_mb">%1$s MB</string>
     <string name="settings_free_storage">Freier Speicher: %1$s</string>
 

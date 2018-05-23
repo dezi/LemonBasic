@@ -85,7 +85,7 @@ public class Defines
     public static final boolean isKaysHorzScroll     = isPierreCardin || isMusterfirma;
     public static final boolean isAutoRefresh        = isPierreCardin;
     public static final boolean isDeleteCache        = isPierreCardin;
-    public static final boolean isLoadAll            = isPierreCardin;
+    public static final boolean isLoadAll            = isPierreCardin || isMusterfirma;
     public static final boolean isPDFExternal        = isPierreCardin;
     public static final boolean isFAQMenu            = isPierreCardin;
     public static final boolean isImpressumMenu      = isPierreCardin;

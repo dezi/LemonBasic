@@ -26,6 +26,7 @@ public class SettingsActivity extends ContentBaseActivity
     protected LinearLayout leftArea;
     protected LinearLayout rightArea;
     protected LinearLayout loadAllArea;
+    protected GenericLinear contentWorkFrame;
     protected SettingsInfoHeader contentSizeMB;
     protected SettingsInfoText diskFree;
 
@@ -425,19 +426,25 @@ public class SettingsActivity extends ContentBaseActivity
             rightTopArea.addView(diskFree);
         }
 
+        contentWorkFrame = new GenericLinear(this);
+        contentWorkFrame.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(contentWorkFrame, Simple.MP, Simple.WC);
+
         GenericLinear contentSizeFrame = new GenericLinear(this);
-        contentSizeFrame.setOrientation(LinearLayout.HORIZONTAL);
-        contentSizeFrame.setBackgroundColor(0x88880000);
+        contentSizeFrame.setOrientation(Defines.isBasicLayout ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
+
+        contentWorkFrame.addView(contentSizeFrame);
 
         SettingsInfoHeader contentSizeText = new SettingsInfoHeader(this);
         contentSizeText.setText(R.string.settings_used_storage);
         contentSizeText.setMarginTopDip(Defines.PADDING_ZERO);
+        Simple.setSizeDip(contentSizeText, Simple.WC, Simple.WC);
 
         contentSizeFrame.addView(contentSizeText);
 
         contentSizeMB = new SettingsInfoHeader(this);
         contentSizeMB.setMarginTopDip(Defines.PADDING_ZERO);
-        contentSizeMB.setMarginLeftDip(Defines.PADDING_TINY);
+        contentSizeMB.setMarginLeftDip(Defines.isBasicLayout ? Defines.PADDING_ZERO : Defines.PADDING_TINY);
         contentSizeMB.setFullWidth(false);
 
         contentSizeFrame.addView(contentSizeMB);
@@ -457,7 +464,7 @@ public class SettingsActivity extends ContentBaseActivity
 
             Simple.setSizeDip(contentSizeFrame, Simple.MP, Simple.WC);
 
-            rightArea.addView(contentSizeFrame);
+            rightArea.addView(contentWorkFrame);
         }
         else
         {
@@ -508,7 +515,10 @@ public class SettingsActivity extends ContentBaseActivity
         loadAllArea = new LinearLayout(this);
         loadAllArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(loadAllArea, Simple.MP, Simple.WC);
-        rightArea.addView(loadAllArea);
+
+        Simple.setSizeDip(contentSizeFrame, Simple.WC, Simple.WC);
+        Simple.setMarginLeftDip(loadAllArea, Defines.PADDING_NORMAL);
+        contentWorkFrame.addView(loadAllArea);
 
         if (Defines.isLoadAll)
         {
@@ -784,7 +794,7 @@ public class SettingsActivity extends ContentBaseActivity
                         {
                             detailView.setWidth(rightArea.getWidth());
 
-                            rightArea.removeView(loadAllArea);
+                            rightArea.removeView(contentWorkFrame);
                             rightArea.removeView(assetGrid);
                             rightArea.addView(detailView);
                         }
@@ -885,7 +895,7 @@ public class SettingsActivity extends ContentBaseActivity
         {
             if (Simple.isTablet())
             {
-                if (loadAllArea.getParent() == null) rightArea.addView(loadAllArea);
+                if (contentWorkFrame.getParent() == null) rightArea.addView(contentWorkFrame);
                 if (assetGrid.getParent() == null) rightArea.addView(assetGrid);
             }
             else
