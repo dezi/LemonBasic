@@ -94,7 +94,7 @@ public class AssetFrame extends GenericLinear
 
         courseBar.addView(iconView);
 
-        if (Defines.isOverlayAsset)
+        if (Defines.isOverlayAsset || Defines.isTypeIconTopLeft)
         {
             courseBar.setGravity(Gravity.START + Gravity.TOP);
             iconView.setScaleType(ImageView.ScaleType.FIT_START);

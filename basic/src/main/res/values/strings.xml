@@ -54,6 +54,10 @@
 
     <string name="tabbar_home">Home</string>
     <string name="tabbar_profile">Profile</string>
+    <string name="tabbar_certs">Certificates</string>
+    <string name="tabbar_chat">Chat</string>
+    <string name="tabbar_learn">Learn</string>
+    <string name="tabbar_down">Download</string>
 
     <string name="register_title">Please register:</string>
     <string name="register_hint_email">Email address</string>

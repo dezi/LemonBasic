@@ -199,7 +199,17 @@ public class ContentBaseActivity extends FullScreenActivity
         contentScroll.setFocusable(false);
         contentScroll.setVisibility(View.GONE);
         Simple.setSizeDip(contentScroll, Simple.MP, Simple.MP, 1.0f);
-        Simple.setPaddingDip(contentScroll, Defines.PADDING_SMALL);
+
+        if (Defines.isTopBannerFull)
+        {
+            Simple.setPaddingDip(contentScroll, Defines.PADDING_ZERO);
+        }
+        else
+        {
+            Simple.setPaddingDip(contentScroll,
+                    Defines.PADDING_SMALL, Defines.PADDING_ZERO,
+                    Defines.PADDING_SMALL ,Defines.PADDING_SMALL);
+        }
 
         contentFrame.addView(contentScroll);
 

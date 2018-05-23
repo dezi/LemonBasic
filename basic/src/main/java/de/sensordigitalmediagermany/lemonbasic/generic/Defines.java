@@ -57,9 +57,11 @@ public class Defines
     public static final boolean isLoginButton        = isRainerAlbers || isMusterfirma;
     public static final boolean isSimpleLogin        = isPierreCardin || isMusterfirma;
     public static final boolean isRegistration       = isRainerAlbers || isMusterfirma;
-    public static final boolean isUserMenu           = isRainerAlbers || isMusterfirma;
+    public static final boolean isUserMenu           = isRainerAlbers;
     public static final boolean isTabBar             = isPierreCardin || isMusterfirma;
     public static final boolean isTopBanner          = isPierreCardin || isMusterfirma;
+    public static final boolean isTopBannerFull      = isMusterfirma;
+    public static final boolean isTopBannerButton    = isPierreCardin;
     public static final boolean isCategoryMenu       = isRainerAlbers;
     public static final boolean isRoundedAsset       = isRainerAlbers || isMusterfirma;
     public static final boolean isOverlayAsset       = isPierreCardin;
@@ -73,8 +75,10 @@ public class Defines
     public static final boolean isButtonAllCaps      = isPierreCardin;
     public static final boolean isHeadersAllCaps     = isPierreCardin || isRainerAlbers || isMusterfirma;
     public static final boolean isInfosAllCaps       = isPierreCardin;
+    public static final boolean isSliderAllCaps      = isMusterfirma;
+    public static final boolean isUserAllCaps        = isMusterfirma;
     public static final boolean isAskDownload        = isPierreCardin;
-    public static final boolean isCourseIcon         = isRainerAlbers;
+    public static final boolean isCourseIcon         = isRainerAlbers || isMusterfirma;
     public static final boolean isLoadedIcon         = isRainerAlbers || isMusterfirma;
     public static final boolean isStatusIcon         = isPierreCardin;
     public static final boolean isKaysNumbers        = isPierreCardin || isRainerAlbers || isMusterfirma;
@@ -90,6 +94,7 @@ public class Defines
     public static final boolean isSoundSettings      = false;
     public static final boolean isAutoRefreshInfo    = false;
     public static final boolean isSolidButton        = isMusterfirma;
+    public static final boolean isTypeIconTopLeft    = isMusterfirma;
     // @formatter:on
 
     //
@@ -136,6 +141,8 @@ public class Defines
 
     public static int COLOR_NAVIBAR           = COLOR_SENSOR_NAVIBAR;    // client!
     public static int COLOR_TABBAR            = COLOR_SENSOR_TABBAR;     // client!
+    public static int COLOR_TABBAR_ACT_TEXT   = COLOR_SENSOR_TABBAR;     // client!
+    public static int COLOR_TABBAR_ACT_ICON   = COLOR_SENSOR_TABBAR;     // client!
     public static int COLOR_CONTENT           = COLOR_SENSOR_CONTENT;    // client!
     public static int COLOR_FRAMES            = COLOR_SENSOR_FRAMES;     // client!
     public static int COLOR_ASSETS            = Color.WHITE;             // client!
@@ -152,7 +159,9 @@ public class Defines
     public static int COLOR_DETAIL_TITLE      = COLOR_SENSOR_LTBLUE;     // client!
     public static int COLOR_PROGRESS_DONE     = Color.GREEN;             // client!
     public static int COLOR_PROGRESS_NEED     = Color.YELLOW;            // client!
-    public static int COLOR_TOPBANNER_BG      = Color.TRANSPARENT  ;     // client!
+    public static int COLOR_TOPBANNER_BG      = Color.TRANSPARENT;       // client!
+    public static int COLOR_CATEGORY_HEAD     = Color.BLACK;             // client!
+    public static int COLOR_SCALED_TEXT       = Color.WHITE;             // client!
     // @formatter:on
 
     //
@@ -200,6 +209,7 @@ public class Defines
     public static String FONT_GENERIC_EDIT     = GOTHAM_LIGHT;         // client!
     public static String FONT_ASSET_TITLE      = GOTHAM_BOLD;          // client!
     public static String FONT_ASSET_SUMMARY    = GOTHAMNARROW_LIGHT;   // client!
+    public static String FONT_SLIDER_CAT       = GOTHAMNARROW_LIGHT;   // client!
     public static String FONT_SLIDER_ALL       = GOTHAMNARROW_LIGHT;   // client!
     public static String FONT_SCALED_BUTTON    = ROONEY_MEDIUM;        // client!
     public static String FONT_TABBAR_ENTRY     = ROONEY_MEDIUM;        // client!
@@ -339,6 +349,7 @@ public class Defines
 
     // @formatter:off
     public static       int SETTINGS_IMAGE_SIZE = Simple.isTablet() ? 100 :  90; // client!
+    public static       int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56; // client!
     public static final int READ_ICON_SIZE      = Simple.isTablet() ?  24 :  20;
     public static final int STATUS_ICON_SIZE    = Simple.isTablet() ?  36 :  24;
     public static final int CLOSE_ICON_SIZE     = Simple.isTablet() ?  20 :  18;
@@ -347,7 +358,6 @@ public class Defines
     public static final int BANNER_ARROW_WIDTH  = Simple.isTablet() ?  25 :  16;
     public static final int LOADED_ICON_SIZE    = Simple.isTablet() ?  40 :  30;
     public static final int CLOUD_ICON_SIZE     = Simple.isTablet() ?  50 :  40;
-    public static final int COURSE_ICON_SIZE    = Simple.isTablet() ?  64 :  56;
     public static final int NAVIGATION_HEIGHT   = Simple.isTablet() ?  40 :  40;
     public static final int TYPE_ICON_SIZE      = Simple.isTablet() ? 128 :  48;
     public static final int CONFIRMED_ICON_SIZE = Simple.isTablet() ? 128 : 100;

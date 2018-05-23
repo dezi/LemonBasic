@@ -2,7 +2,10 @@ package de.sensordigitalmediagermany.lemonbasic.generic;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -66,5 +69,11 @@ public class TabBarItem extends RelativeLayout
         textView.setText(textresid);
 
         iconView.setImageResource(iconresid);
+    }
+
+    public void tintContent(int iconColor, int textColor)
+    {
+        textView.setTextColor(textColor);
+        iconView.setColorFilter(iconColor);
     }
 }

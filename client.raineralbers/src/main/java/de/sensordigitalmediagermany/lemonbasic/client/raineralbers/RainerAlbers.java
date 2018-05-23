@@ -51,8 +51,13 @@ public class RainerAlbers
 
         // @formatter:off
 
+        set("SETTINGS_IMAGE_SIZE", isTablet() ? 100 : 90);
+        set("COURSE_ICON_SIZE",    isTablet() ?  64 : 56);
+
         set("COLOR_NAVIBAR", COLOR_RALBERS_NAVIBAR);
         set("COLOR_TABBAR", COLOR_RALBERS_TABBAR);
+        set("COLOR_TABBAR_ACT_TEXT", COLOR_RALBERS_TABBAR);
+        set("COLOR_TABBAR_ACT_ICON", COLOR_RALBERS_TABBAR);
         set("COLOR_CONTENT", COLOR_RALBERS_CONTENT);
         set("COLOR_FRAMES", COLOR_RALBERS_FRAMES);
         set("COLOR_ASSETS", Color.WHITE);
@@ -60,6 +65,7 @@ public class RainerAlbers
         set("COLOR_DIALOG_TITLE", Color.WHITE);
         set("COLOR_DIALOG_INFOS", Color.WHITE);
         set("COLOR_BUTTON_TEXT", COLOR_RALBERS_BUTTONTEXT);
+        set("COLOR_SCALED_TEXT", COLOR_RALBERS_BUTTONTEXT);
         set("COLOR_BUTTON_BACK", COLOR_RALBERS_LTBLUE);
         set("COLOR_ALERT_BACK", COLOR_RALBERS_DIALOGS);
         set("COLOR_SETTINGS_HEADERS", COLOR_RALBERS_DKBLUE);
@@ -68,6 +74,7 @@ public class RainerAlbers
         set("COLOR_DETAIL_TITLE", COLOR_RALBERS_LTBLUE);
         set("COLOR_PROGRESS_DONE", Color.GREEN);
         set("COLOR_PROGRESS_NEED", Color.YELLOW);
+        set("COLOR_CATEGORY_HEAD", COLOR_RALBERS_BUTTONTEXT);
 
         set("ASSET_SETTINGS_ASPECT", isWideScreen() ? 5.00f : isTablet() ? 3.5f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT", 1.9f);
@@ -83,6 +90,7 @@ public class RainerAlbers
         set("FONT_GENERIC_EDIT", GOTHAM_LIGHT);
         set("FONT_ASSET_TITLE", GOTHAM_BOLD);
         set("FONT_ASSET_SUMMARY", GOTHAMNARROW_LIGHT);
+        set("FONT_SLIDER_CAT", GOTHAMNARROW_LIGHT);
         set("FONT_SLIDER_ALL", GOTHAMNARROW_LIGHT);
         set("FONT_SCALED_BUTTON", ROONEY_MEDIUM);
         set("FONT_TABBAR_ENTRY", ROONEY_MEDIUM);

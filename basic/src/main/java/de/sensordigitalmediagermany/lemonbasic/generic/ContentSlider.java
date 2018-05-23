@@ -47,7 +47,8 @@ public class ContentSlider extends LinearLayout
     {
         super(context);
 
-        Typeface textFont = Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_SLIDER_ALL);
+        Typeface catFont = Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_SLIDER_CAT);
+        Typeface allFont = Typeface.createFromAsset(getContext().getAssets(),Defines.FONT_SLIDER_ALL);
 
         int screenWidth = rootview.getLayoutParams().width;
         sliderWidth = screenWidth - (Simple.dipToPx(Defines.PADDING_SMALL) * 4);
@@ -56,8 +57,17 @@ public class ContentSlider extends LinearLayout
 
         Simple.setSizeDip(this, Simple.pxToDip(sliderWidth), Simple.WC);
         Simple.setMarginBottomDip(this, Defines.PADDING_LARGE);
-        Simple.setMarginLeftDip(this, Defines.PADDING_SMALL);
-        Simple.setMarginRightDip(this, Defines.PADDING_SMALL);
+
+        if (Defines.isTopBannerFull)
+        {
+            Simple.setMarginLeftDip(this, Defines.PADDING_SMALL * 2);
+            Simple.setMarginRightDip(this, Defines.PADDING_SMALL * 2);
+        }
+        else
+        {
+            Simple.setMarginLeftDip(this, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(this, Defines.PADDING_SMALL);
+        }
 
         LinearLayout buttonLayout = new LinearLayout(context);
         buttonLayout.setOrientation(HORIZONTAL);
@@ -79,9 +89,9 @@ public class ContentSlider extends LinearLayout
 
         leftButton = new TextView(context);
         leftButton.setSingleLine(true);
-        leftButton.setAllCaps(Defines.isInfosAllCaps);
-        leftButton.setTypeface(textFont);
-        leftButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
+        leftButton.setAllCaps(Defines.isInfosAllCaps || Defines.isSliderAllCaps);
+        leftButton.setTypeface(catFont);
+        leftButton.setTextColor(Defines.COLOR_CATEGORY_HEAD);
         Simple.setTextSizeDip(leftButton, Defines.FS_SLIDER_CATEGORY);
         Simple.setPaddingDip(leftButton, Defines.PADDING_TINY);
 
@@ -105,7 +115,7 @@ public class ContentSlider extends LinearLayout
         rightButton.setText(R.string.slider_more_button);
         rightButton.setFullWidth(false);
         rightButton.setSingleLine(true);
-        rightButton.setAllCaps(Defines.isInfosAllCaps);
+        rightButton.setAllCaps(Defines.isInfosAllCaps|| Defines.isSliderAllCaps);
         rightButton.setTextColor(Defines.COLOR_BUTTON_TEXT);
         Simple.setPaddingDip(rightButton, Defines.PADDING_TINY);
 

@@ -41,9 +41,12 @@ public class PierreCardin
         // @formatter:off
 
         set("SETTINGS_IMAGE_SIZE", isTablet() ? 60 : 40);
+        set("COURSE_ICON_SIZE",    isTablet() ? 64 : 56);
 
         set("COLOR_NAVIBAR", COLOR_PCADIN_GRAY);
         set("COLOR_TABBAR", COLOR_PCADIN_LTGRAY);
+        set("COLOR_TABBAR_ACT_TEXT", COLOR_PCADIN_LTGRAY);
+        set("COLOR_TABBAR_ACT_ICON", COLOR_PCADIN_LTGRAY);
         set("COLOR_CONTENT", COLOR_PCADIN_CONTENT);
         set("COLOR_FRAMES", COLOR_PCADIN_LTGRAY);
         set("COLOR_ASSETS", Color.WHITE);
@@ -51,6 +54,7 @@ public class PierreCardin
         set("COLOR_DIALOG_TITLE", Color.BLACK);
         set("COLOR_DIALOG_INFOS", Color.BLACK);
         set("COLOR_BUTTON_TEXT", COLOR_PCADIN_GRAY);
+        set("COLOR_SCALED_TEXT", COLOR_PCADIN_GRAY);
         set("COLOR_BUTTON_BACK", Color.BLACK);
         set("COLOR_ALERT_BACK", COLOR_PCADIN_LTGRAY);
         set("COLOR_SETTINGS_HEADERS", Color.BLACK);
@@ -59,6 +63,7 @@ public class PierreCardin
         set("COLOR_DETAIL_TITLE", Color.BLACK);
         set("COLOR_PROGRESS_DONE", Color.BLACK);
         set("COLOR_PROGRESS_NEED", Color.WHITE);
+        set("COLOR_CATEGORY_HEAD", COLOR_PCADIN_GRAY);
 
         set("ASSET_SETTINGS_ASPECT", isWideScreen() ? 5.00f : isTablet() ? 3.00f : 3.00f);
         set("ASSET_THUMBNAIL_ASPECT", isTablet() ? 1.30f : 1.00f);
@@ -75,6 +80,7 @@ public class PierreCardin
         set("FONT_GENERIC_EDIT", FUTURA_LIGHT_REG);
         set("FONT_ASSET_TITLE", FUTURA_LIGHT_REG);
         set("FONT_ASSET_SUMMARY", FUTURA_LIGHT_REG);
+        set("FONT_SLIDER_CAT", FUTURA_LIGHT_REG);
         set("FONT_SLIDER_ALL", FUTURA_LIGHT_REG);
         set("FONT_SCALED_BUTTON", FUTURA_LIGHT_REG);
         set("FONT_TABBAR_ENTRY", FUTURA_LIGHT_REG);

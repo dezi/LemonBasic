@@ -12,25 +12,28 @@ public class Musterfirma
     private static final String LOGTAG = Musterfirma.class.getSimpleName();
 
     // @formatter:off
-    private static final int COLOR_MUFIRM_GREEN       = 0xff8CC800;
-    private static final int COLOR_MUFIRM_LTBLUE      = 0xff0094FF;
-    private static final int COLOR_MUFIRM_DKBLUE      = 0xff0078DC;
-    private static final int COLOR_MUFIRM_DIALOGS     = 0xff0087EB;
-    private static final int COLOR_MUFIRM_NAVIBAR     = 0xffedf0f4;
+    private static final int COLOR_MUFIRM_RED         = 0xffe20000;
+    private static final int COLOR_MUFIRM_GREEN       = 0xff8cc800;
+    private static final int COLOR_MUFIRM_YELLOW      = 0xffffc700;
+    private static final int COLOR_MUFIRM_NAVIBAR     = 0xffff00ff;
 
     // background
-    private static final int COLOR_MUFIRM_CONTENT      = 0xffffffff;
-    private static final int COLOR_MUFIRM_FRAMES       = 0xffE6E6E6;
-    private static final int COLOR_MUFIRM_TABBAR       = 0xfff5f5f5;
-    private static final int COLOR_MUFIRM_BUTTONTEXT   = 0xffB4B4B4;
-    private static final int COLOR_MUFIRM_TOPBANNER_BG = 0xff0094ff;
+    private static final int COLOR_MUFIRM_BACKGROUND   = 0xffffffff;
+    private static final int COLOR_MUFIRM_GREYCOLOR1   = 0xfff5f5f5;
+    private static final int COLOR_MUFIRM_GREYCOLOR2   = 0xffE6E6E6;
+    private static final int COLOR_MUFIRM_GREYCOLOR3   = 0xffb4b4b4;
+    private static final int COLOR_MUFIRM_GREYCOLOR4   = 0xff6e6e6e;
+
+    private static final int COLOR_MUFIRM_BLUECOLOR1   = 0xff0078dc;
+    private static final int COLOR_MUFIRM_BLUECOLOR2   = 0xff0094ff;
+    private static final int COLOR_MUFIRM_BLUECOLOR3   = 0xff0087eb;
     // @formatter:on
 
     // @formatter:off
-    private static final String GOTHAM_BOLD          = "fonts/Gotham-Bold.otf";
-    private static final String GOTHAM_LIGHT         = "fonts/Gotham-Light.otf";
-    private static final String GOTHAM_MEDIUM        = "fonts/Gotham-Medium.otf";
-    private static final String GOTHAMNARROW_LIGHT   = "fonts/GothamNarrow-Light.otf";
+    private static final String OPENSANS_BOLD        = "fonts/OpenSans-Bold.ttf";
+    private static final String OPENSANS_LIGHT       = "fonts/OpenSans-Light.ttf";
+    private static final String OPENSANS_MEDIUM      = "fonts/OpenSans-Regular.ttf";
+    private static final String OPENSANSNARROW_LIGHT = "fonts/OpenSans-Light.ttf";
     private static final String ROONEY_LIGHT         = "fonts/Rooney-Light.otf";
     private static final String ROONEY_MEDIUM        = "fonts/Rooney-Medium.otf";
     private static final String ROONEY_REGULAR       = "fonts/Rooney-Regular.otf";
@@ -40,57 +43,65 @@ public class Musterfirma
     {
         Log.d(LOGTAG, "initialize:");
 
-        set("SYSTEM_USER_NAME", "PIERRECARDIN");
+        set("SYSTEM_USER_NAME", "MUSTERFIRMA");
         set("APIURL", "https://lemon-mobile-learning.com/lemon-basic/ws/");
 
         // @formatter:off
 
+        set("SETTINGS_IMAGE_SIZE", isTablet() ? 100 : 90);
+        set("COURSE_ICON_SIZE",    isTablet() ?  80 : 64);
+
         set("COLOR_NAVIBAR"           , COLOR_MUFIRM_NAVIBAR);
-        set("COLOR_TABBAR"            , COLOR_MUFIRM_TABBAR);
-        set("COLOR_CONTENT"           , COLOR_MUFIRM_CONTENT);
-        set("COLOR_FRAMES"            , COLOR_MUFIRM_FRAMES);
-        set("COLOR_ASSETS"            , COLOR_MUFIRM_FRAMES);
-        set("COLOR_DIALOG_BACK"       , COLOR_MUFIRM_DIALOGS);
+        set("COLOR_TABBAR"            , COLOR_MUFIRM_GREYCOLOR1);
+        set("COLOR_TABBAR_ACT_TEXT"   , COLOR_MUFIRM_BLUECOLOR2);
+        set("COLOR_TABBAR_ACT_ICON"   , COLOR_MUFIRM_BLUECOLOR2);
+        set("COLOR_CONTENT"           , COLOR_MUFIRM_BACKGROUND);
+        set("COLOR_FRAMES"            , COLOR_MUFIRM_GREYCOLOR2);
+        set("COLOR_ASSETS"            , COLOR_MUFIRM_GREYCOLOR2);
+        set("COLOR_DIALOG_BACK"       , COLOR_MUFIRM_BLUECOLOR3);
         set("COLOR_DIALOG_TITLE"      , Color.WHITE);
         set("COLOR_DIALOG_INFOS"      , Color.WHITE);
 
-        set("COLOR_BUTTON_TEXT"       , 0xffB4B4B4);
-        set("COLOR_BUTTON_DIALOG"     , COLOR_MUFIRM_LTBLUE);
+        set("COLOR_SCALED_TEXT"       , Color.WHITE);
+        set("COLOR_BUTTON_TEXT"       , COLOR_MUFIRM_GREYCOLOR3);
+        set("COLOR_BUTTON_DIALOG"     , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_BUTTON_BACK"       , COLOR_MUFIRM_GREEN);
 
-        set("COLOR_ALERT_BACK"        , COLOR_MUFIRM_DIALOGS);
-        set("COLOR_SETTINGS_HEADERS"  , COLOR_MUFIRM_DKBLUE);
+        set("COLOR_ALERT_BACK"        , COLOR_MUFIRM_BLUECOLOR3);
+        set("COLOR_SETTINGS_HEADERS"  , COLOR_MUFIRM_BLUECOLOR1);
         set("COLOR_SETTINGS_LIST"     , COLOR_MUFIRM_NAVIBAR);
-        set("COLOR_SETTINGS_LIST_SEL" , COLOR_MUFIRM_LTBLUE);
-        set("COLOR_DETAIL_TITLE"      , COLOR_MUFIRM_LTBLUE);
-        set("COLOR_PROGRESS_DONE"     , Color.GREEN);
+        set("COLOR_SETTINGS_LIST_SEL" , COLOR_MUFIRM_BLUECOLOR2);
+        set("COLOR_DETAIL_TITLE"      , COLOR_MUFIRM_BLUECOLOR2);
+        set("COLOR_PROGRESS_DONE"     , COLOR_MUFIRM_GREEN);
         set("COLOR_PROGRESS_NEED"     , Color.YELLOW);
-        set("COLOR_TOPBANNER_BG"      , COLOR_MUFIRM_TOPBANNER_BG);
+        set("COLOR_TOPBANNER_BG"      , COLOR_MUFIRM_BLUECOLOR2);
+        set("COLOR_CATEGORY_HEAD"     , Color.BLACK);
 
         set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.00f : isTablet() ? 3.5f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT"  , 1.9f);
         set("ASSET_DETAIL_ASPECT"     , 3.0f);
         set("ASSET_COURSE_ASPECT"     , 3.5f);
-        set("ASSET_BANNER_ASPECT"     , 3.2f);
+        set("ASSET_BANNER_ASPECT"     , 3.6f);
 
-        set("FONT_DIALOG_TITLE"       , GOTHAM_BOLD);
-        set("FONT_DIALOG_INFOS"       , GOTHAM_LIGHT);
-        set("FONT_DIALOG_EDITS"       , GOTHAM_LIGHT);
-        set("FONT_DIALOG_BUTTON"      , GOTHAM_BOLD);
-        set("FONT_GENERIC_BUTTON"     , GOTHAM_BOLD);
-        set("FONT_GENERIC_EDIT"       , GOTHAM_LIGHT);
-        set("FONT_ASSET_TITLE"        , GOTHAM_BOLD);
-        set("FONT_ASSET_SUMMARY"      , GOTHAMNARROW_LIGHT);
-        set("FONT_SLIDER_ALL"         , GOTHAMNARROW_LIGHT);
+        set("FONT_DIALOG_TITLE"       , OPENSANS_BOLD);
+        set("FONT_DIALOG_INFOS"       , OPENSANS_LIGHT);
+        set("FONT_DIALOG_EDITS"       , OPENSANS_LIGHT);
+        set("FONT_DIALOG_BUTTON"      , OPENSANS_BOLD);
+        set("FONT_GENERIC_BUTTON"     , OPENSANS_BOLD);
+        set("FONT_GENERIC_EDIT"       , OPENSANS_LIGHT);
+        set("FONT_ASSET_TITLE"        , OPENSANS_BOLD);
+        set("FONT_ASSET_SUMMARY"      , OPENSANSNARROW_LIGHT);
+        set("FONT_SLIDER_CAT"         , OPENSANS_BOLD);
+        set("FONT_SLIDER_ALL"         , OPENSANS_MEDIUM);
         set("FONT_SCALED_BUTTON"      , ROONEY_MEDIUM);
         set("FONT_TABBAR_ENTRY"       , ROONEY_MEDIUM);
-        set("FONT_CATEGORY_TITLE"     , GOTHAM_BOLD);
-        set("FONT_SETTINGS_HEADER"    , GOTHAM_BOLD);
-        set("FONT_SETTINGS_SUBHEAD"   , GOTHAM_MEDIUM);
-        set("FONT_SETTINGS_INFOS"     , GOTHAMNARROW_LIGHT);
-        set("FONT_SETTINGS_VERSION"   , GOTHAMNARROW_LIGHT);
-        set("FONT_SETTINGS_LIST"      , GOTHAMNARROW_LIGHT);
-        set("FONT_DETAILS_HEADER"     , GOTHAM_MEDIUM);
+        set("FONT_CATEGORY_TITLE"     , OPENSANS_BOLD);
+        set("FONT_SETTINGS_HEADER"    , OPENSANS_BOLD);
+        set("FONT_SETTINGS_SUBHEAD"   , OPENSANS_MEDIUM);
+        set("FONT_SETTINGS_INFOS"     , OPENSANSNARROW_LIGHT);
+        set("FONT_SETTINGS_VERSION"   , OPENSANSNARROW_LIGHT);
+        set("FONT_SETTINGS_LIST"      , OPENSANSNARROW_LIGHT);
+        set("FONT_DETAILS_HEADER"     , OPENSANS_MEDIUM);
         set("FONT_DETAILS_SUBHEAD"    , ROONEY_REGULAR);
         set("FONT_DETAILS_TITLE"      , ROONEY_REGULAR);
         set("FONT_DETAILS_INFOS"      , ROONEY_LIGHT);
@@ -101,7 +112,7 @@ public class Musterfirma
         set("FS_DIALOG_INFO"          , isTablet() ? 16 : 14);
         set("FS_GENERIC_BUTTON"       , isTablet() ? 16 : 14);
         set("FS_GENERIC_EDIT"         , isTablet() ? 20 : 18);
-        set("FS_SCALED_BUTTON"        , isTablet() ? 18 : 16);
+        set("FS_SCALED_BUTTON"        , isTablet() ? 16 : 14);
         set("FS_NAVI_MENU"            , isTablet() ? 20 : 14);
         set("FS_CATEGORY_TITLE"       , isTablet() ? 26 : 18);
         set("FS_POPUP_MENU"           , isTablet() ? 18 : 16);
@@ -176,11 +187,11 @@ public class Musterfirma
                 : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_iany_ralbers_course_symbol);
 
         setResId("contentScreenButtonProfileRes", isTablet()
-                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_mufiram_profile
-                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_mufiram_profile);
+                ? de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipad_mufirma_profile
+                : de.sensordigitalmediagermany.lemonbasic.client.musterfirma.R.drawable.lem_t_ipho_mufirma_profile);
 
         setRect("contentScreenButtonProfileRect",isTablet()
-                ? new Rect(100, 22, 500, 82)
+                ? new Rect(1555, 22, 1900, 82)
                 : new Rect(493, 10, 553, 70));
 
         setResId("contentScreenHeaderRes", isTablet()

@@ -20,10 +20,10 @@ public class ScaledButton extends GenericLinear
         super(context);
 
         buttonText = new TextView(getContext());
-        buttonText.setTextColor(Defines.COLOR_BUTTON_TEXT);
+        buttonText.setTextColor(Defines.COLOR_SCALED_TEXT);
         buttonText.setGravity(Gravity.CENTER_VERTICAL);
         buttonText.setSingleLine(true);
-        buttonText.setAllCaps(Defines.isButtonAllCaps);
+        buttonText.setAllCaps(Defines.isButtonAllCaps || Defines.isUserAllCaps);
         buttonText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), Defines.FONT_SCALED_BUTTON));
 
         Simple.setSizeDip(buttonText, Simple.MP, Simple.MP);

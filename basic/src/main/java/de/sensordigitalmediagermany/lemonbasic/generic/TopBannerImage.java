@@ -89,7 +89,7 @@ public class TopBannerImage extends FrameLayout
         infoContent.addView(infoTitle);
 
         infoSummary = new TextView(context);
-        infoSummary.setAllCaps(true);
+        infoSummary.setAllCaps(Defines.isInfosAllCaps);
         infoSummary.setMinLines(1);
         infoSummary.setMaxLines(3);
         infoSummary.setEllipsize(TextUtils.TruncateAt.END);
@@ -101,16 +101,19 @@ public class TopBannerImage extends FrameLayout
 
         infoContent.addView(infoSummary);
 
-        moreButton = new GenericButton(context);
-        moreButton.setText(R.string.banner_more_button);
-        moreButton.setDefaultButton(true);
+        if (Defines.isTopBannerButton)
+        {
+            moreButton = new GenericButton(context);
+            moreButton.setText(R.string.banner_more_button);
+            moreButton.setDefaultButton(true);
 
-        Simple.setSizeDip(moreButton, Simple.WC, Simple.WC);
-        Simple.setTextSizeDip(moreButton, Defines.FS_BANNER_BUTTON);
-        Simple.setPaddingDip(moreButton, Defines.PADDING_NORMAL, Defines.PADDING_TINY, Defines.PADDING_NORMAL, Defines.PADDING_TINY);
-        Simple.setMarginTopDip(moreButton, Defines.PADDING_SMALL);
+            Simple.setSizeDip(moreButton, Simple.WC, Simple.WC);
+            Simple.setTextSizeDip(moreButton, Defines.FS_BANNER_BUTTON);
+            Simple.setPaddingDip(moreButton, Defines.PADDING_NORMAL, Defines.PADDING_TINY, Defines.PADDING_NORMAL, Defines.PADDING_TINY);
+            Simple.setMarginTopDip(moreButton, Defines.PADDING_SMALL);
 
-        infoContent.addView(moreButton);
+            infoContent.addView(moreButton);
+        }
     }
 
     public void setAsset(final JSONObject asset)

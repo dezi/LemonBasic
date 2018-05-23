@@ -45,13 +45,25 @@ public class TopBanners extends FrameLayout
 
         int screenWidth = Simple.getDeviceWidth(context);
 
-        bannerWidth = screenWidth - (Simple.dipToPx(Defines.PADDING_SMALL) * 4);
+        if (Defines.isTopBannerFull)
+        {
+            bannerWidth = screenWidth;
+        }
+        else
+        {
+            bannerWidth = screenWidth - (Simple.dipToPx(Defines.PADDING_SMALL) * 4);
+        }
+
         bannerHeight = Math.round(bannerWidth / Defines.ASSET_BANNER_ASPECT);
 
         Simple.setSizeDip(this, Simple.pxToDip(bannerWidth), Simple.pxToDip(bannerHeight));
-        Simple.setMarginLeftDip(this, Defines.PADDING_SMALL);
-        Simple.setMarginRightDip(this, Defines.PADDING_SMALL);
         Simple.setMarginBottomDip(this, Defines.PADDING_LARGE);
+
+        if (! Defines.isTopBannerFull)
+        {
+            Simple.setMarginLeftDip(this, Defines.PADDING_SMALL);
+            Simple.setMarginRightDip(this, Defines.PADDING_SMALL);
+        }
 
         //
         // Add scroll views.
