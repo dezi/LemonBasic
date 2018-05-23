@@ -75,6 +75,7 @@ public class RainerAlbers
         set("COLOR_PROGRESS_DONE", Color.GREEN);
         set("COLOR_PROGRESS_NEED", Color.YELLOW);
         set("COLOR_CATEGORY_HEAD", COLOR_RALBERS_BUTTONTEXT);
+        set("COLOR_SEPA_LINE", Color.LTGRAY);
 
         set("ASSET_SETTINGS_ASPECT", isWideScreen() ? 5.00f : isTablet() ? 3.5f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT", 1.9f);

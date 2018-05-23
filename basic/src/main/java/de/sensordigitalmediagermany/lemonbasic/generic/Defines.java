@@ -96,6 +96,7 @@ public class Defines
     public static final boolean isSolidButton        = isMusterfirma;
     public static final boolean isTypeIconTopLeft    = isMusterfirma;
     public static final boolean isBasicDetails       = isMusterfirma;
+    public static final boolean isDetailFeedback     = isMusterfirma;
     // @formatter:on
 
     //
@@ -164,6 +165,7 @@ public class Defines
     public static int COLOR_TOPBANNER_BG      = Color.TRANSPARENT;       // client!
     public static int COLOR_CATEGORY_HEAD     = Color.BLACK;             // client!
     public static int COLOR_SCALED_TEXT       = Color.WHITE;             // client!
+    public static int COLOR_SEPA_LINE         = Color.BLACK;             // client!
     // @formatter:on
 
     //

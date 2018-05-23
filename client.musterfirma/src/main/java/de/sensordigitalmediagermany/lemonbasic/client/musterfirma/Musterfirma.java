@@ -54,7 +54,7 @@ public class Musterfirma
         set("COLOR_TABBAR_ACT_TEXT"   , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_TABBAR_ACT_ICON"   , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_CONTENT"           , COLOR_MUFIRM_BACKGROUND);
-        set("COLOR_FRAMES"            , COLOR_MUFIRM_GREYCOLOR2);
+        set("COLOR_FRAMES"            , COLOR_MUFIRM_GREYCOLOR1);
         set("COLOR_ASSETS"            , COLOR_MUFIRM_GREYCOLOR2);
         set("COLOR_DIALOG_BACK"       , COLOR_MUFIRM_BLUECOLOR3);
         set("COLOR_DIALOG_TITLE"      , Color.WHITE);
@@ -74,10 +74,11 @@ public class Musterfirma
         set("COLOR_PROGRESS_NEED"     , Color.YELLOW);
         set("COLOR_TOPBANNER_BG"      , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_CATEGORY_HEAD"     , Color.BLACK);
+        set("COLOR_SEPA_LINE"         , COLOR_MUFIRM_BLUECOLOR2);
 
         set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.00f : isTablet() ? 3.5f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT"  , 1.9f);
-        set("ASSET_DETAIL_ASPECT"     , 3.0f);
+        set("ASSET_DETAIL_ASPECT"     , 3.2f);
         set("ASSET_COURSE_ASPECT"     , 3.5f);
         set("ASSET_BANNER_ASPECT"     , isTablet() ? 3.6f : 2.0f);
 

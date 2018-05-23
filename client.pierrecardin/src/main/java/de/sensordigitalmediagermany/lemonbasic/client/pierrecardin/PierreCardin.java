@@ -64,6 +64,7 @@ public class PierreCardin
         set("COLOR_PROGRESS_DONE", Color.BLACK);
         set("COLOR_PROGRESS_NEED", Color.WHITE);
         set("COLOR_CATEGORY_HEAD", COLOR_PCADIN_GRAY);
+        set("COLOR_SEPA_LINE", Color.WHITE);
 
         set("ASSET_SETTINGS_ASPECT", isWideScreen() ? 5.00f : isTablet() ? 3.00f : 3.00f);
         set("ASSET_THUMBNAIL_ASPECT", isTablet() ? 1.30f : 1.00f);

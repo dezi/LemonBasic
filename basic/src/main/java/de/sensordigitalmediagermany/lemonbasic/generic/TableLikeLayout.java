@@ -72,6 +72,11 @@ public class TableLikeLayout extends LinearLayout
         if (leftText != null) leftText.setText(textresid);
     }
 
+    public void setLeftText(String text)
+    {
+        if (leftText != null) leftText.setText(text);
+    }
+
     public void setRightText(int textresid)
     {
         rightText.setText(textresid);
