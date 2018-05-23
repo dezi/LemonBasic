@@ -97,7 +97,7 @@ public class DetailActivity extends ContentBaseActivity
 
         //region Image and type area.
 
-        int imageWidth = Math.round(topFrame.getLayoutParams().width * (Simple.isWideScreen() ? 0.7f : 1.0f));
+        int imageWidth = Math.round(topFrame.getLayoutParams().width);
         int imageHeight = Math.round(imageWidth / Defines.ASSET_DETAIL_ASPECT);
 
         Simple.setSizeDip(imageFrame, Simple.MP, Simple.pxToDip(imageHeight));

@@ -427,6 +427,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         GenericLinear contentSizeFrame = new GenericLinear(this);
         contentSizeFrame.setOrientation(LinearLayout.HORIZONTAL);
+        contentSizeFrame.setBackgroundColor(0x88880000);
 
         SettingsInfoHeader contentSizeText = new SettingsInfoHeader(this);
         contentSizeText.setText(R.string.settings_used_storage);
@@ -590,7 +591,17 @@ public class SettingsActivity extends ContentBaseActivity
 
         assetGrid.setNumColumns(1);
         assetGrid.setHorizontalSpacing(0);
-        if (Defines.isCompactSettings) assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
+
+        if (Defines.isCompactSettings)
+        {
+            assetGrid.setBackgroundColor(Defines.COLOR_FRAMES);
+        }
+
+        if (Defines.isBasicLayout)
+        {
+            assetGrid.setBackgroundColor(Color.TRANSPARENT);
+        }
+
         Simple.setPaddingDip(assetGrid, 0);
 
         rightArea.addView(assetGrid);

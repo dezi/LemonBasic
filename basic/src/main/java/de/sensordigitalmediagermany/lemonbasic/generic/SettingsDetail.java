@@ -62,14 +62,7 @@ public class SettingsDetail extends LinearLayout
         }
         else
         {
-            if (Defines.isBasicLayout)
-            {
-                setBackgroundColor(Color.TRANSPARENT);
-            }
-            else
-            {
-                setBackgroundColor(Defines.COLOR_CONTENT);
-            }
+            setBackgroundColor(Defines.COLOR_CONTENT);
 
             Simple.setPaddingDip(this,
                     Defines.PADDING_LARGE, Defines.PADDING_SMALL,
