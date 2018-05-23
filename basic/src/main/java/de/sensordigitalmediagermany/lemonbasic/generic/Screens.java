@@ -209,12 +209,16 @@ public class Screens
     @Nullable
     public static Rect getContentScreenButtonProfileRect()
     {
-        return new Rect(contentScreenButtonProfileRect);
+        return (contentScreenButtonProfileRect == null)
+                ? null : new Rect(contentScreenButtonProfileRect);
     }
+
+    public static Rect contentScreenNavigationRect = null;
 
     @Nullable
     public static Rect getContentScreenNavigationRect()
     {
-        return null;
+        return (contentScreenNavigationRect == null)
+                ? null : new Rect(contentScreenNavigationRect);
     }
 }

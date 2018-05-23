@@ -33,10 +33,8 @@ public class Musterfirma
     private static final String OPENSANS_BOLD        = "fonts/OpenSans-Bold.ttf";
     private static final String OPENSANS_LIGHT       = "fonts/OpenSans-Light.ttf";
     private static final String OPENSANS_MEDIUM      = "fonts/OpenSans-Regular.ttf";
+    private static final String OPENSANS_REGULAR     = "fonts/OpenSans-Regular.ttf";
     private static final String OPENSANSNARROW_LIGHT = "fonts/OpenSans-Light.ttf";
-    private static final String ROONEY_LIGHT         = "fonts/Rooney-Light.otf";
-    private static final String ROONEY_MEDIUM        = "fonts/Rooney-Medium.otf";
-    private static final String ROONEY_REGULAR       = "fonts/Rooney-Regular.otf";
     // @formatter:on
 
     public static void initialize()
@@ -51,7 +49,7 @@ public class Musterfirma
         set("SETTINGS_IMAGE_SIZE", isTablet() ? 100 : 90);
         set("COURSE_ICON_SIZE",    isTablet() ?  80 : 64);
 
-        set("COLOR_NAVIBAR"           , COLOR_MUFIRM_NAVIBAR);
+        set("COLOR_NAVIBAR"           , COLOR_MUFIRM_GREYCOLOR2);
         set("COLOR_TABBAR"            , COLOR_MUFIRM_GREYCOLOR1);
         set("COLOR_TABBAR_ACT_TEXT"   , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_TABBAR_ACT_ICON"   , COLOR_MUFIRM_BLUECOLOR2);
@@ -81,7 +79,7 @@ public class Musterfirma
         set("ASSET_THUMBNAIL_ASPECT"  , 1.9f);
         set("ASSET_DETAIL_ASPECT"     , 3.0f);
         set("ASSET_COURSE_ASPECT"     , 3.5f);
-        set("ASSET_BANNER_ASPECT"     , 3.6f);
+        set("ASSET_BANNER_ASPECT"     , isTablet() ? 3.6f : 2.0f);
 
         set("FONT_DIALOG_TITLE"       , OPENSANS_BOLD);
         set("FONT_DIALOG_INFOS"       , OPENSANS_LIGHT);
@@ -93,8 +91,8 @@ public class Musterfirma
         set("FONT_ASSET_SUMMARY"      , OPENSANSNARROW_LIGHT);
         set("FONT_SLIDER_CAT"         , OPENSANS_BOLD);
         set("FONT_SLIDER_ALL"         , OPENSANS_MEDIUM);
-        set("FONT_SCALED_BUTTON"      , ROONEY_MEDIUM);
-        set("FONT_TABBAR_ENTRY"       , ROONEY_MEDIUM);
+        set("FONT_SCALED_BUTTON"      , OPENSANS_MEDIUM);
+        set("FONT_TABBAR_ENTRY"       , OPENSANS_MEDIUM);
         set("FONT_CATEGORY_TITLE"     , OPENSANS_BOLD);
         set("FONT_SETTINGS_HEADER"    , OPENSANS_BOLD);
         set("FONT_SETTINGS_SUBHEAD"   , OPENSANS_MEDIUM);
@@ -102,9 +100,9 @@ public class Musterfirma
         set("FONT_SETTINGS_VERSION"   , OPENSANSNARROW_LIGHT);
         set("FONT_SETTINGS_LIST"      , OPENSANSNARROW_LIGHT);
         set("FONT_DETAILS_HEADER"     , OPENSANS_MEDIUM);
-        set("FONT_DETAILS_SUBHEAD"    , ROONEY_REGULAR);
-        set("FONT_DETAILS_TITLE"      , ROONEY_REGULAR);
-        set("FONT_DETAILS_INFOS"      , ROONEY_LIGHT);
+        set("FONT_DETAILS_SUBHEAD"    , OPENSANS_REGULAR);
+        set("FONT_DETAILS_TITLE"      , OPENSANS_REGULAR);
+        set("FONT_DETAILS_INFOS"      , OPENSANS_LIGHT);
 
         set("FS_DIALOG_TITLE"         , isTablet() ? 18 : 16);
         set("FS_DIALOG_EDIT"          , isTablet() ? 18 : 16);
@@ -221,6 +219,10 @@ public class Musterfirma
         setRect("contentScreenBackButtonRect",isTablet()
                 ? new Rect(10, 10, 90, 90)
                 : new Rect(10, 10, 90, 90));
+
+        setRect("contentScreenNavigationRect",isTablet()
+                ? new Rect(100, 10, 300, 90)
+                : null);
 
         // @formatter:on
     }
