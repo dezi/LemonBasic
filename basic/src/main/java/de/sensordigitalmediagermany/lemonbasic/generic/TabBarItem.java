@@ -46,6 +46,7 @@ public class TabBarItem extends RelativeLayout
         itemBox.addView(iconView);
 
         textView = new TextView(context);
+        textView.setVisibility(Simple.isTablet() ? VISIBLE : GONE);
         textView.setGravity(Gravity.CENTER_VERTICAL);
         textView.setSingleLine(true);
         textView.setAllCaps(true);
