@@ -7,8 +7,6 @@ import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.security.SignedObject;
-
 public class TableLikeLayout extends LinearLayout
 {
     protected TextView leftText;
@@ -30,7 +28,7 @@ public class TableLikeLayout extends LinearLayout
 
         setOrientation(vertical ? VERTICAL : HORIZONTAL);
 
-        if (Defines.isBasicDetails || ((vertical || ! Defines.isCompactSettings) && ! Simple.isPhone()))
+        if (Defines.isBasicLayout || ((vertical || ! Defines.isCompactSettings) && ! Simple.isPhone()))
         {
             leftText = new TextView(getContext());
             leftText.setMinWidth(Simple.dipToPx((int) Math.round(Defines.FS_DETAIL_SPECS * 3.85)));

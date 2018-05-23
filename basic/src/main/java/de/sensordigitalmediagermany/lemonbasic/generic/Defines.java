@@ -65,7 +65,7 @@ public class Defines
     public static final boolean isCategoryMenu       = isRainerAlbers;
     public static final boolean isRoundedAsset       = isRainerAlbers || isMusterfirma;
     public static final boolean isOverlayAsset       = isPierreCardin;
-    public static final boolean isSectionDividers    = isPierreCardin;
+    public static final boolean isSectionDividers    = isPierreCardin || isMusterfirma;
     public static final boolean isFlatEdits          = isPierreCardin;
     public static final boolean isDialogTextCenter   = isRainerAlbers || isMusterfirma;
     public static final boolean isCompactDetails     = isPierreCardin;
@@ -95,7 +95,7 @@ public class Defines
     public static final boolean isAutoRefreshInfo    = false;
     public static final boolean isSolidButton        = isMusterfirma;
     public static final boolean isTypeIconTopLeft    = isMusterfirma;
-    public static final boolean isBasicDetails       = isMusterfirma;
+    public static final boolean isBasicLayout = isMusterfirma;
     public static final boolean isDetailFeedback     = isMusterfirma;
     // @formatter:on
 

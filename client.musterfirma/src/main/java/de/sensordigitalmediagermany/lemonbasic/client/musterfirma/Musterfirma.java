@@ -67,7 +67,7 @@ public class Musterfirma
 
         set("COLOR_ALERT_BACK"        , COLOR_MUFIRM_BLUECOLOR3);
         set("COLOR_SETTINGS_HEADERS"  , COLOR_MUFIRM_BLUECOLOR1);
-        set("COLOR_SETTINGS_LIST"     , COLOR_MUFIRM_NAVIBAR);
+        set("COLOR_SETTINGS_LIST"     , Color.TRANSPARENT);
         set("COLOR_SETTINGS_LIST_SEL" , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_DETAIL_TITLE"      , COLOR_MUFIRM_BLUECOLOR2);
         set("COLOR_PROGRESS_DONE"     , COLOR_MUFIRM_GREEN);
@@ -151,7 +151,7 @@ public class Musterfirma
 
         set("CORNER_RADIUS_BUTTON"    ,  3);
         set("CORNER_RADIUS_FRAMES"    ,  8);
-        set("CORNER_RADIUS_BIGBUT"    ,  8);
+        set("CORNER_RADIUS_BIGBUT"    , 10);
         set("CORNER_RADIUS_OVERLAY"   , 10);
         set("CORNER_RADIUS_DIALOG"    , 16);
         set("CORNER_RADIUS_ASSETS"    , 16);
@@ -219,7 +219,7 @@ public class Musterfirma
 
         setRect("contentScreenBackButtonRect",isTablet()
                 ? new Rect(10, 10, 90, 90)
-                : new Rect(10, 10, 90, 90));
+                : new Rect(10, 10, 90, 70));
 
         setRect("contentScreenNavigationRect",isTablet()
                 ? new Rect(100, 10, 700, 90)

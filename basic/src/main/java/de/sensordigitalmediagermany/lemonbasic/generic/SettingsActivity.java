@@ -185,48 +185,59 @@ public class SettingsActivity extends ContentBaseActivity
 
         //region Left personal data.
 
-        if (Defines.isSectionDividers) leftArea.addView(createSeparator(this));
+        GenericLinear personalFrame = new GenericLinear(this);
+        personalFrame.setOrientation(LinearLayout.VERTICAL);
+        Simple.setSizeDip(personalFrame, Simple.MP, Simple.WC);
+
+        if (Defines.isBasicLayout)
+        {
+            Simple.setRoundedCorners(leftArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
+        }
+
+        leftArea.addView(personalFrame);
+
+        if (Defines.isSectionDividers) personalFrame.addView(createSeparator(this));
 
         SettingsInfoHeader nameSection = new SettingsInfoHeader(this);
         nameSection.setText(R.string.settings_name);
 
-        leftArea.addView(nameSection);
+        personalFrame.addView(nameSection);
 
         String userName = Globals.firstName + " " + Globals.lastName;
 
         SettingsInfoText nameEdit = new SettingsInfoText(this);
         nameEdit.setText(userName);
 
-        leftArea.addView(nameEdit);
+        personalFrame.addView(nameEdit);
 
         if ((Globals.company != null) && ! Globals.company.isEmpty())
         {
-            if (Defines.isSectionDividers) leftArea.addView(createSeparator(this));
+            if (Defines.isSectionDividers) personalFrame.addView(createSeparator(this));
 
             SettingsInfoHeader companySection = new SettingsInfoHeader(this);
             companySection.setText(R.string.settings_company);
 
-            leftArea.addView(companySection);
+            personalFrame.addView(companySection);
 
             SettingsInfoText companyEdit = new SettingsInfoText(this);
             companyEdit.setText(Globals.company);
 
-            leftArea.addView(companyEdit);
+            personalFrame.addView(companyEdit);
         }
 
-        if (Defines.isSectionDividers) leftArea.addView(createSeparator(this));
+        if (Defines.isSectionDividers) personalFrame.addView(createSeparator(this));
 
         SettingsInfoHeader emailSection = new SettingsInfoHeader(this);
         emailSection.setText(R.string.settings_email);
 
-        leftArea.addView(emailSection);
+        personalFrame.addView(emailSection);
 
         SettingsInfoText emailEdit = new SettingsInfoText(this);
         emailEdit.setText(Globals.emailAddress);
 
-        leftArea.addView(emailEdit);
+        personalFrame.addView(emailEdit);
 
-        if (Defines.isSectionDividers) leftArea.addView(createSeparator(this));
+        if (Defines.isSectionDividers) personalFrame.addView(createSeparator(this));
 
         //endregion Left personal data.
 
@@ -234,7 +245,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Defines.isSoundSettings)
         {
-            leftArea.addView(new SettingsSound(this));
+            personalFrame.addView(new SettingsSound(this));
         }
 
         //endregion Left sound section.
@@ -247,7 +258,7 @@ public class SettingsActivity extends ContentBaseActivity
             cacheButton.setText(R.string.settings_clearcache);
             cacheButton.setMarginTopDip(Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
 
-            leftArea.addView(cacheButton);
+            personalFrame.addView(cacheButton);
         }
 
         //endregion Left clear cache button.
@@ -278,6 +289,25 @@ public class SettingsActivity extends ContentBaseActivity
 
         leftArea.addView(logoffArea);
 
+        if (Defines.isBasicLayout)
+        {
+            String text1 = "2018 | Lemon is a product of Sensor Digitalmedia Germany GmbH.";
+            String text2 = "www.lemon-mobile.learning.com";
+            String copy = text1 + " " + text2;
+
+            TextView copyRight = new TextView(this);
+            copyRight.setText(copy);
+            copyRight.setTextColor(Color.DKGRAY);
+            copyRight.setTypeface(versionTF);
+            Simple.setTextSizeDip(copyRight, Defines.FS_DEBUG_VERSION);
+            Simple.setSizeDip(copyRight, Simple.MP, Simple.WC);
+
+            logoffArea.addView(copyRight);
+
+            Simple.setMarginTopDip(logoffArea, Defines.PADDING_SMALL);
+            Simple.setMarginBottomDip(copyRight, Defines.PADDING_NORMAL);
+        }
+
         logoffButton = new GenericButton(this);
         logoffButton.setText(R.string.settings_logoff);
 
@@ -294,7 +324,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         passwordButton = new GenericButton(this);
         passwordButton.setText(R.string.settings_change_password);
-        passwordButton.setDefaultButton(true);
+        passwordButton.setDefaultButton(! Defines.isBasicLayout);
 
         if (Simple.isTablet())
         {
@@ -334,6 +364,11 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setMarginDip(rightArea, Defines.PADDING_NORMAL);
 
             Simple.setSizeDip(rightArea, Simple.MP, Simple.WC);
+        }
+
+        if (Defines.isBasicLayout)
+        {
+            Simple.setRoundedCorners(rightArea, Defines.CORNER_RADIUS_FRAMES, Defines.COLOR_FRAMES, true);
         }
 
         bodyHorz.addView(rightArea);
@@ -592,7 +627,7 @@ public class SettingsActivity extends ContentBaseActivity
     public static FrameLayout createSeparator(Context context, boolean details)
     {
         FrameLayout divider = new FrameLayout(context);
-        divider.setBackgroundColor(Color.BLACK);
+        divider.setBackgroundColor(Defines.COLOR_SEPA_LINE);
         Simple.setSizeNODip(divider, Simple.MP, 1);
 
         if (Simple.isWideScreen() || details)
@@ -601,15 +636,17 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setMarginBottomDip(divider, Defines.PADDING_TINY);
         }
         else
-        if (Simple.isTablet())
         {
-            Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
-        }
-        else
-        {
-            Simple.setMarginTopDip(divider, Defines.PADDING_TINY);
-            Simple.setMarginBottomDip(divider, Defines.PADDING_ZERO);
+            if (Simple.isTablet())
+            {
+                Simple.setMarginTopDip(divider, Defines.PADDING_NORMAL);
+                Simple.setMarginBottomDip(divider, Defines.PADDING_SMALL);
+            }
+            else
+            {
+                Simple.setMarginTopDip(divider, Defines.PADDING_TINY);
+                Simple.setMarginBottomDip(divider, Defines.PADDING_ZERO);
+            }
         }
 
         return divider;
@@ -722,7 +759,7 @@ public class SettingsActivity extends ContentBaseActivity
                 {
                     SettingsDetail detailView = new SettingsDetail(SettingsActivity.this, content);
 
-                    if (Defines.isCompactSettings)
+                    if (Defines.isCompactSettings || Defines.isBasicLayout)
                     {
                         if (Simple.isTablet())
                         {
@@ -825,7 +862,7 @@ public class SettingsActivity extends ContentBaseActivity
 
     public void reAttachRightArea()
     {
-        if (Defines.isCompactSettings)
+        if (Defines.isCompactSettings || Defines.isBasicLayout)
         {
             if (Simple.isTablet())
             {

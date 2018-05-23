@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.util.Log;
@@ -130,7 +129,7 @@ public class CourseActivity extends ContentBaseActivity
         infoArea.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(infoArea, Simple.WC, Simple.WC, 1.0f);
 
-        if (Defines.isBasicDetails)
+        if (Defines.isBasicLayout)
         {
             Simple.setPaddingDip(infoArea, Defines.PADDING_NORMAL);
             Simple.setRoundedCorners(infoArea, Defines.CORNER_RADIUS_OVERLAY, Color.WHITE, true);
@@ -138,7 +137,7 @@ public class CourseActivity extends ContentBaseActivity
 
         infoAndButtonArea.addView(infoArea);
 
-        if ((courseHeader != null) && (! courseHeader.isEmpty()) && ! Defines.isBasicDetails)
+        if ((courseHeader != null) && (! courseHeader.isEmpty()) && ! Defines.isBasicLayout)
         {
             TextView chView = new TextView(this);
             chView.setText(courseHeader);
@@ -188,7 +187,7 @@ public class CourseActivity extends ContentBaseActivity
 
             Simple.setSizeDip(cdView, Simple.WC, Simple.MP, 1.0f);
 
-            if (! Defines.isBasicDetails)
+            if (! Defines.isBasicLayout)
             {
                 Simple.setPaddingDip(naviFrame,
                         Defines.PADDING_XLARGE, Defines.PADDING_NORMAL,
@@ -214,11 +213,11 @@ public class CourseActivity extends ContentBaseActivity
         buyButtonCenter = new LinearLayout(this);
         buyButtonCenter.setOrientation(LinearLayout.VERTICAL);
         buyButtonCenter.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
-        buyButtonCenter.setVisibility(Defines.isBasicDetails ? View.VISIBLE : View.GONE);
+        buyButtonCenter.setVisibility(Defines.isBasicLayout ? View.VISIBLE : View.GONE);
 
         if (Simple.isTablet())
         {
-            cdView.setMinLines(Defines.isBasicDetails ? 6 : 3);
+            cdView.setMinLines(Defines.isBasicLayout ? 6 : 3);
             infoAndButtonArea.setOrientation(LinearLayout.HORIZONTAL);
             Simple.setSizeDip(buyButtonCenter, Simple.WC, Simple.MP);
         }
@@ -244,24 +243,24 @@ public class CourseActivity extends ContentBaseActivity
             buyButton.setFullWidth(true);
         }
 
-        if (Defines.isBasicDetails)
+        if (Defines.isBasicLayout)
         {
             buyButton.setDefaultButton(true);
         }
 
         buyButtonCenter.addView(buyButton);
 
-        if (Defines.isBasicDetails)
+        if (Defines.isBasicLayout)
         {
             excerciseButton = new GenericButton(this);
             excerciseButton.setText("Excercise");
-            excerciseButton.setMarginTopDip(Defines.PADDING_TINY);
+            excerciseButton.setMarginTopDip(Defines.PADDING_SMALL);
 
             buyButtonCenter.addView(excerciseButton);
 
             certifyButton = new GenericButton(this);
             certifyButton.setText("Certify");
-            certifyButton.setMarginTopDip(Defines.PADDING_TINY);
+            certifyButton.setMarginTopDip(Defines.PADDING_SMALL);
             certifyButton.setDisabledButton(true);
 
             buyButtonCenter.addView(certifyButton);
@@ -309,7 +308,7 @@ public class CourseActivity extends ContentBaseActivity
                 : Simple.getTrans(this, R.string.course_buy_gratis);
 
         buyButton.setVisibility(View.GONE);
-        buyButtonCenter.setVisibility(Defines.isBasicDetails ? View.VISIBLE : View.GONE);
+        buyButtonCenter.setVisibility(Defines.isBasicLayout ? View.VISIBLE : View.GONE);
 
         if (Defines.isGiveAway)
         {

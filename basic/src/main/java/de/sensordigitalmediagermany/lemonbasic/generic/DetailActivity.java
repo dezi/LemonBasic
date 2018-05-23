@@ -53,7 +53,7 @@ public class DetailActivity extends ContentBaseActivity
         }
         else
         {
-            if (Defines.isBasicDetails)
+            if (Defines.isBasicLayout)
             {
                 Simple.setPaddingDip(naviFrame,
                         Defines.PADDING_NORMAL, Defines.PADDING_SMALL,
@@ -76,7 +76,7 @@ public class DetailActivity extends ContentBaseActivity
         Typeface titleTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_TITLE);
         Typeface infosTF = Typeface.createFromAsset(getAssets(), Defines.FONT_DETAILS_INFOS);
 
-        boolean verticalTags = Defines.isCompactDetails || Defines.isBasicDetails;
+        boolean verticalTags = Defines.isCompactDetails || Defines.isBasicLayout;
 
         //
         // Derive data from JSON.
@@ -179,7 +179,7 @@ public class DetailActivity extends ContentBaseActivity
             Simple.setSizeDip(infoAreaVert, Simple.MP, Simple.WC);
         }
 
-        if ((! Defines.isCompactDetails) && (! Defines.isBasicDetails))
+        if ((! Defines.isCompactDetails) && (! Defines.isBasicLayout))
         {
             Simple.setMarginTopDip(infoAreaVert, Defines.PADDING_XLARGE);
         }
@@ -234,7 +234,7 @@ public class DetailActivity extends ContentBaseActivity
             }
         }
 
-        if (Defines.isCompactDetails || Defines.isBasicDetails)
+        if (Defines.isCompactDetails || Defines.isBasicLayout)
         {
             naviFrame.removeView(ctView);
             naviFrame.removeView(ciView);
@@ -323,7 +323,7 @@ public class DetailActivity extends ContentBaseActivity
             Simple.setPaddingDip(specsArea, Defines.PADDING_NORMAL);
         }
 
-        if (Defines.isBasicDetails)
+        if (Defines.isBasicLayout)
         {
             TextView specsTitle = new TextView(this);
             specsTitle.setText("Specifications");
@@ -438,7 +438,7 @@ public class DetailActivity extends ContentBaseActivity
             }
         }
 
-        if (Defines.isCompactDetails || Defines.isBasicDetails)
+        if (Defines.isCompactDetails || Defines.isBasicLayout)
         {
             boolean isCached = ContentHandler.isCachedContent(Globals.displayContent);
 
@@ -454,7 +454,7 @@ public class DetailActivity extends ContentBaseActivity
             Simple.setPaddingDip(statusIcon, Defines.PADDING_TINY);
             Simple.setMarginRightDip(statusIcon, Defines.PADDING_SMALL);
 
-            if (Defines.isBasicDetails)
+            if (Defines.isBasicLayout)
             {
                 statusIcon.setImageResource(isCached
                         ? R.drawable.lem_t_iany_basic_content_online
@@ -699,7 +699,7 @@ public class DetailActivity extends ContentBaseActivity
     {
         RelativeLayout separ = new RelativeLayout(this);
 
-        if (Simple.isTablet() || Defines.isBasicDetails)
+        if (Simple.isTablet() || Defines.isBasicLayout)
         {
             separ.setBackgroundColor(Defines.COLOR_SEPA_LINE);
             Simple.setSizeDip(separ, Simple.MP, 1);
