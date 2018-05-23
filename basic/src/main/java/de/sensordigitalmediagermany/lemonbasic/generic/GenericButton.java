@@ -18,6 +18,7 @@ public class GenericButton extends TextView implements GenericFocus
     private int backgroundColor = Color.TRANSPARENT;
 
     private boolean isDefaultButton;
+    private boolean isDisabledButton;
 
     public GenericButton(Context context)
     {
@@ -92,6 +93,41 @@ public class GenericButton extends TextView implements GenericFocus
             if (isDefaultButton)
             {
                 backgroundColor = Defines.COLOR_BUTTON_BACK;
+                super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.WHITE : Color.BLACK);
+            }
+            else
+            {
+                backgroundColor = Defines.isDefaultButtonTrans ? Color.TRANSPARENT : Defines.COLOR_BUTTON_BACK;
+                super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.BLACK : Color.WHITE);
+            }
+
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, Defines.COLOR_BUTTON_BACK);
+        }
+    }
+
+    public void setDisabledButton(boolean set)
+    {
+        isDisabledButton = set;
+
+        if (Defines.isSolidButton)
+        {
+            if (isDisabledButton)
+            {
+                backgroundColor = Defines.COLOR_BUTTON_DISABLED;
+            }
+            else
+            {
+                backgroundColor = Defines.COLOR_BUTTON_DIALOG;
+            }
+
+            super.setTextColor(Color.WHITE);
+            Simple.setRoundedCorners(this, Defines.CORNER_RADIUS_BUTTON, backgroundColor, backgroundColor);
+        }
+        else
+        {
+            if (isDisabledButton)
+            {
+                backgroundColor = Defines.COLOR_BUTTON_DISABLED;
                 super.setTextColor((Defines.COLOR_BUTTON_BACK == Color.BLACK) ? Color.WHITE : Color.BLACK);
             }
             else

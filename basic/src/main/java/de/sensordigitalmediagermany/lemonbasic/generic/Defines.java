@@ -95,6 +95,7 @@ public class Defines
     public static final boolean isAutoRefreshInfo    = false;
     public static final boolean isSolidButton        = isMusterfirma;
     public static final boolean isTypeIconTopLeft    = isMusterfirma;
+    public static final boolean isBasicDetails       = isMusterfirma;
     // @formatter:on
 
     //
@@ -152,6 +153,7 @@ public class Defines
     public static int COLOR_BUTTON_TEXT       = COLOR_SENSOR_BUTTONTEXT; // client!
     public static int COLOR_BUTTON_DIALOG     = COLOR_SENSOR_BUTTONTEXT; // client!
     public static int COLOR_BUTTON_BACK       = COLOR_SENSOR_LTBLUE;     // client!
+    public static int COLOR_BUTTON_DISABLED   = Color.LTGRAY;            // client!
     public static int COLOR_ALERT_BACK        = COLOR_SENSOR_DIALOGS;    // client!
     public static int COLOR_SETTINGS_HEADERS  = COLOR_SENSOR_DKBLUE;     // client!
     public static int COLOR_SETTINGS_LIST     = COLOR_SENSOR_NAVIBAR;    // client!

@@ -35,13 +35,10 @@ public class DialogButton extends GenericButton
     {
         if (Defines.isSolidButton)
         {
-            int backgroundColor;
-
             if (set)
             {
                 super.setTextColor(Color.WHITE);
-                Simple.setRoundedCorners(
-                        this,
+                Simple.setRoundedCorners(this,
                         Defines.CORNER_RADIUS_BUTTON,
                         Defines.COLOR_BUTTON_BACK,
                         Defines.COLOR_BUTTON_BACK);
@@ -49,8 +46,7 @@ public class DialogButton extends GenericButton
             else
             {
                 super.setTextColor(Defines.COLOR_BUTTON_DIALOG);
-                Simple.setRoundedCorners(
-                        this,
+                Simple.setRoundedCorners(this,
                         Defines.CORNER_RADIUS_BUTTON,
                         Color.WHITE,
                         Defines.COLOR_BUTTON_DIALOG);

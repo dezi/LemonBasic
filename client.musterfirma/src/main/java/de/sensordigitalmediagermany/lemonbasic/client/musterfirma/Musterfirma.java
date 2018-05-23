@@ -221,7 +221,7 @@ public class Musterfirma
                 : new Rect(10, 10, 90, 90));
 
         setRect("contentScreenNavigationRect",isTablet()
-                ? new Rect(100, 10, 300, 90)
+                ? new Rect(100, 10, 700, 90)
                 : null);
 
         // @formatter:on

@@ -281,10 +281,12 @@ public class ContentBaseActivity extends FullScreenActivity
                 navipath = category;
             }
 
-            if ((title != null) && ! title.equals(navipath))
+            if ((title != null) && (! title.trim().isEmpty()) && ! title.equals(navipath))
             {
                 navipath += " | " + title;
             }
+
+            if (navipath.equals("Home")) navipath = "";
 
             navigationButton.setButtonText(Defines.PADDING_TINY, navipath);
         }
