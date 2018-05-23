@@ -13,7 +13,7 @@ public class AppStorePacket
 
     static
     {
-        APP_STORE_SKUS.add("coins0");
+        //APP_STORE_SKUS.add("coins0");
         APP_STORE_SKUS.add("coins1");
         APP_STORE_SKUS.add("coins2");
         APP_STORE_SKUS.add("coins3");
