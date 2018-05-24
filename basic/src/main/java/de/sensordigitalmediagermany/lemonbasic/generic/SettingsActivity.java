@@ -15,8 +15,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.net.SocketImpl;
-
 @SuppressWarnings("unused")
 public class SettingsActivity extends ContentBaseActivity
 {
@@ -317,9 +315,9 @@ public class SettingsActivity extends ContentBaseActivity
 
         passwordButton = new GenericButton(this);
         passwordButton.setText(R.string.settings_change_password);
+        passwordButton.setFullWidth(true);
         passwordButton.setDefaultButton(! Defines.isBasicLayout);
 
-        passwordButton.setFullWidth(true);
         Simple.setMarginTopDip(passwordButton, Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
 
         logoffArea.addView(passwordButton);
