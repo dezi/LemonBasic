@@ -292,7 +292,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         if (Defines.isBasicLayout)
         {
-            String text1 = "2018 | Lemon is a product of Sensor Digitalmedia Germany GmbH.";
+            String text1 = "Ⓒ 2018 | Lemon is a product of Sensor Digitalmedia Germany GmbH.";
             String text2 = "www.lemon-mobile.learning.com";
             String copy = text1 + " " + text2;
 
