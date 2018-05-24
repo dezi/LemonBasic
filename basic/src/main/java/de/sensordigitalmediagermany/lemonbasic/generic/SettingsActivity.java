@@ -57,7 +57,7 @@ public class SettingsActivity extends ContentBaseActivity
         String screendim = Simple.getDeviceWidth(this) + ":" + Simple.getDeviceHeight(this);
         String version = Defines.DEBUG_VERSION;
 
-        int topHeight = Defines.FS_SETTINGS_TITLE * (Simple.isWideScreen() ? 2 : 3);
+        int topHeight = Defines.FS_SETTINGS_TITLE * (Simple.isWideScreen() ? 2 : 2);
 
         //
         // Remove asset grid and tab bar for re-arrangement.
@@ -427,13 +427,19 @@ public class SettingsActivity extends ContentBaseActivity
         }
 
         contentWorkFrame = new GenericLinear(this);
-        contentWorkFrame.setOrientation(LinearLayout.HORIZONTAL);
+        contentWorkFrame.setOrientation(LinearLayout.VERTICAL);
         Simple.setSizeDip(contentWorkFrame, Simple.MP, Simple.WC);
+
+        GenericLinear contentBoxFrame = new GenericLinear(this);
+        contentBoxFrame.setOrientation(LinearLayout.HORIZONTAL);
+        Simple.setSizeDip(contentBoxFrame, Simple.MP, Simple.WC);
+
+        contentWorkFrame.addView(contentBoxFrame);
 
         GenericLinear contentSizeFrame = new GenericLinear(this);
         contentSizeFrame.setOrientation(Defines.isBasicLayout ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
 
-        contentWorkFrame.addView(contentSizeFrame);
+        contentBoxFrame.addView(contentSizeFrame);
 
         SettingsInfoHeader contentSizeText = new SettingsInfoHeader(this);
         contentSizeText.setText(R.string.settings_used_storage);
@@ -507,18 +513,13 @@ public class SettingsActivity extends ContentBaseActivity
             rightTopArea.addView(contentSizeFrame);
         }
 
-        if (Defines.isSectionDividers)
-        {
-            rightArea.addView(createSeparator(this));
-        }
-
         loadAllArea = new LinearLayout(this);
         loadAllArea.setOrientation(LinearLayout.HORIZONTAL);
         Simple.setSizeDip(loadAllArea, Simple.MP, Simple.WC);
 
         Simple.setSizeDip(contentSizeFrame, Simple.WC, Simple.WC);
         Simple.setMarginLeftDip(loadAllArea, Defines.PADDING_NORMAL);
-        contentWorkFrame.addView(loadAllArea);
+        contentBoxFrame.addView(loadAllArea);
 
         if (Defines.isLoadAll)
         {
@@ -548,6 +549,11 @@ public class SettingsActivity extends ContentBaseActivity
                 loadAllButton.setText(R.string.settings_content_loadall_phones);
                 deleteAllButton.setText(R.string.settings_content_deletall_phones);
             }
+        }
+
+        if (Defines.isSectionDividers)
+        {
+            contentWorkFrame.addView(createSeparator(this));
         }
 
         //endregion Right top area.

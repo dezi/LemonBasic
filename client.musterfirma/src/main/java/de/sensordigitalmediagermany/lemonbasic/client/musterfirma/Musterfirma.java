@@ -76,7 +76,7 @@ public class Musterfirma
         set("COLOR_CATEGORY_HEAD"     , Color.BLACK);
         set("COLOR_SEPA_LINE"         , COLOR_MUFIRM_BLUECOLOR2);
 
-        set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.0f : isTablet() ? 3.5f : 2.0f);
+        set("ASSET_SETTINGS_ASPECT"   , isWideScreen() ? 5.0f : isTablet() ? 4.3f : 2.0f);
         set("ASSET_THUMBNAIL_ASPECT"  , 1.9f);
         set("ASSET_DETAIL_ASPECT"     , isWideScreen() ? 3.8f : isTablet() ? 3.2f : 2.0f);
         set("ASSET_COURSE_ASPECT"     , 3.5f);
