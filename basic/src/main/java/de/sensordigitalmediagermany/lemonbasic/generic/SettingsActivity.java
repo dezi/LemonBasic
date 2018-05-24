@@ -286,15 +286,7 @@ public class SettingsActivity extends ContentBaseActivity
             Simple.setSizeDip(logoffArea, Simple.MP, Simple.MP, 1.0f);
         }
 
-        if (Simple.isTablet())
-        {
-            logoffArea.setOrientation(LinearLayout.VERTICAL);
-        }
-        else
-        {
-            logoffArea.setGravity(Gravity.BOTTOM);
-            logoffArea.setOrientation(LinearLayout.HORIZONTAL);
-        }
+        logoffArea.setOrientation(LinearLayout.VERTICAL);
 
         leftArea.addView(logoffArea);
 
@@ -319,15 +311,7 @@ public class SettingsActivity extends ContentBaseActivity
 
         logoffButton = new GenericButton(this);
         logoffButton.setText(R.string.settings_logoff);
-
-        if (Simple.isTablet())
-        {
-            logoffButton.setFullWidth(true);
-        }
-        else
-        {
-            logoffButton.setWeight(0.5f);
-        }
+        logoffButton.setFullWidth(true);
 
         logoffArea.addView(logoffButton);
 
@@ -335,17 +319,8 @@ public class SettingsActivity extends ContentBaseActivity
         passwordButton.setText(R.string.settings_change_password);
         passwordButton.setDefaultButton(! Defines.isBasicLayout);
 
-        if (Simple.isTablet())
-        {
-            passwordButton.setFullWidth(true);
-
-            Simple.setMarginTopDip(passwordButton, Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
-        }
-        else
-        {
-            passwordButton.setWeight(0.5f);
-            passwordButton.setMarginLeftDip(Defines.PADDING_NORMAL);
-        }
+        passwordButton.setFullWidth(true);
+        Simple.setMarginTopDip(passwordButton, Simple.isWideScreen() ? Defines.PADDING_SMALL : Defines.PADDING_LARGE);
 
         logoffArea.addView(passwordButton);
 
